@@ -1,0 +1,40 @@
+[
+  {
+    "numPassedTests": 0,
+    "failedTests": 3,
+    "numTotalTests": 3,
+    "timestamp": 1792073224317,
+    "success": false,
+    "testId": 0
+  },
+  {
+    "numPassedTests": 0,
+    "failedTests": 3,
+    "numTotalTests": 3,
+    "timestamp": 1792073306881,
+    "success": false,
+    "testId": 0
+  },
+  {
+    "numPassedTests": 0,
+    "failedTests": 3,
+    "numTotalTests": 3,
+    "timestamp": 1792073629494,
+    "success": false,
+    "testId": 0
+  },
+  {
+    "numPassedTests": 3,
+    "failedTests": 0,
+    "numTotalTests": 3,
+    "timestamp": 1792073760843,
+    "success": true,
+    "testId": 0
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "HU-01/Feat: implementar estructura inicial del login",
+    "commitTimestamp": 1792073920950,
+    "testId": 0
+  }
+]

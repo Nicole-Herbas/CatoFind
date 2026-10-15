@@ -1,0 +1,96 @@
+
+@use "../../../../shared/styles/variables" as v;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.login {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+}
+
+.login__presentacion {
+  background: linear-gradient(
+    160deg,
+    v.$azul-oscuro,
+    v.$azul-principal
+  );
+
+  color: v.$blanco;
+  padding: 48px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.login__marca {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.login__marca span {
+  color: v.$amarillo;
+}
+
+.login__mensaje {
+  max-width: 500px;
+  margin-bottom: 100px;
+}
+
+.login__mensaje h1 {
+  font-size: clamp(36px, 4vw, 52px);
+  line-height: 1.15;
+  margin: 20px 0;
+}
+
+.login__mensaje h1 span {
+  display: block;
+  color: v.$amarillo;
+}
+
+.login__mensaje p {
+  line-height: 1.6;
+  color: #d1dff5;
+}
+
+.login__linea {
+  width: 64px;
+  height: 5px;
+  background: v.$amarillo;
+  border-radius: 8px;
+}
+
+.login__acceso {
+  background: v.$fondo-claro;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 48px;
+}
+
+.login__acceso-contenido {
+  width: 100%;
+  max-width: 384px;
+}
+
+.login__acceso-contenido h2 {
+  color: v.$texto-principal;
+  font-size: 26px;
+  margin-bottom: 8px;
+}
+
+.login__acceso-contenido p {
+  color: v.$texto-secundario;
+}
