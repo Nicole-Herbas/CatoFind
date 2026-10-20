@@ -99,4 +99,21 @@ function renderFiltros() {
 document.addEventListener('DOMContentLoaded', () => {
   renderFiltros();
   renderTarjetas(service.obtenerTodos());
+
+  // ── Filtros de categoría ──
+  document.getElementById('filtros-lista').addEventListener('click', (e) => {
+    const btn = e.target.closest('.filtro-btn');
+    if (!btn) return;
+
+    categoriaActual = btn.dataset.categoria;
+
+    // Actualizar estados visuales
+    document.querySelectorAll('.filtro-btn').forEach((b) => {
+      const isActive = b.dataset.categoria === categoriaActual;
+      b.classList.toggle('filtro-btn--active', isActive);
+      b.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    });
+
+    renderTarjetas(service.filtrarPorCategoria(categoriaActual));
+  });
 });

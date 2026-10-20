@@ -36,9 +36,15 @@
     "testId": 5
   },
   {
-    "commitId": "HEAD",
+    "commitId": "20acd933c7f44abb01bbe2df9b3b331d3e04834d",
     "commitName": "feat: render objects from ObjetoService in DOM",
     "commitTimestamp": 1792504822039,
     "testId": 6
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: connect filter chips to object list",
+    "commitTimestamp": 1792504901554,
+    "testId": 7
   }
 ]
