@@ -1,0 +1,21 @@
+[
+  {
+    "sha": "HEAD",
+    "author": "pochis",
+    "commit": {
+      "date": "2026-10-20T13:44:50.000Z",
+      "message": "chore: agregar imagenes y logo de CatoFind",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 0,
+      "additions": 0,
+      "deletions": 0,
+      "date": "2026-10-20"
+    },
+    "coverage": 0,
+    "test_count": 0,
+    "failed_tests": 0,
+    "conclusion": "neutral"
+  }
+]
