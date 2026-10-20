@@ -24,9 +24,15 @@
     "testId": 3
   },
   {
-    "commitId": "HEAD",
+    "commitId": "bad6dffecba9fdd0b584e085c46460a8ff8be7aa",
     "commitName": "feat: add inicio page HTML structure",
     "commitTimestamp": 1792504475541,
     "testId": 4
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: add inicio CSS styles",
+    "commitTimestamp": 1792504771521,
+    "testId": 5
   }
 ]
