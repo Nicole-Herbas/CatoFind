@@ -83,4 +83,9 @@ export class ObjetoService {
   obtenerTodos() {
     return this.objetos;
   }
+
+  filtrarPorCategoria(categoria) {
+    if (categoria === 'Todos') return this.objetos;
+    return this.objetos.filter((o) => o.categoria === categoria);
+  }
 }

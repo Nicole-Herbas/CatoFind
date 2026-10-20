@@ -6,9 +6,15 @@
     "testId": 0
   },
   {
-    "commitId": "HEAD",
+    "commitId": "75b708697713f75a70423909915e60d120011c06",
     "commitName": "feat: add ObjetoService with static list",
     "commitTimestamp": 1792504104434,
     "testId": 1
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: add filtrarPorCategoria method",
+    "commitTimestamp": 1792504325624,
+    "testId": 2
   }
 ]
