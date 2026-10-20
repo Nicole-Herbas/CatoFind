@@ -64,9 +64,23 @@
     "testId": 0
   },
   {
-    "commitId": "HEAD",
+    "commitId": "625f75544fe133e94904dbc91d790a42b2a522c0",
     "commitName": "feat: Agregar validacion para el campo de descripcion de objeto en formulario de recuperacion",
     "commitTimestamp": 1792505794749,
     "testId": 0
+  },
+  {
+    "numPassedTests": 4,
+    "failedTests": 0,
+    "numTotalTests": 4,
+    "timestamp": 1792530285158,
+    "success": true,
+    "testId": 1
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: Agregar validacion de campos llenos para formulario de recuperacion",
+    "commitTimestamp": 1792530451171,
+    "testId": 1
   }
 ]

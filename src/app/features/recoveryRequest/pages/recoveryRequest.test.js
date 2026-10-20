@@ -26,4 +26,23 @@ describe('Validar campos del formulario', ()=>{
 
         expect(Validador.validarAreaTexto(documento)).toBe(true);
     });
+
+    it('si por lo menos un campo no esta llenado, devuelve un mensaje de error', ()=>{
+
+        Object.keys(valoresValidos).forEach((campoVacio) => {
+            const campos = {
+                locations: { ...valoresValidos.locations },
+                dateLost: { ...valoresValidos.dateLost },
+                extraDescriptionObject: { ...valoresValidos.extraDescriptionObject }
+            };
+            campos[campoVacio].value = '';
+            const documento = {
+                getElementById: (id) => campos[id]
+            };
+
+            expect(Validador.validarCampos(documento)).toBe(false);
+        });
+
+        expect(Validador.Message('Campos_Vacios')).toBe('Todos los campos deben de estar llenados');
+    });
 });

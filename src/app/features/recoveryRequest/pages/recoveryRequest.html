@@ -11,7 +11,8 @@
         <h2>Pregutas de verificación</h2>
         <form class="recoveryForm" novalidate>
             <label>¿Dónde crees que perdiste el objeto?</label>
-            <select id="locations">
+            <select id="locations" required aria-describedby="extraDescriptionError">
+                <option value="">Selecciona un lugar</option>
                 <option value="biblioteca">Biblioteca</option>
                 <option value="cafeteria">Cafetería</option>
                 <option value="bloqueA">Bloque A</option>
@@ -24,7 +25,7 @@
             </select>
 
             <label>¿Cuándo aproximadamente lo perdiste?</label>
-            <input type="date" value>
+            <input id="dateLost" type="date" required aria-describedby="extraDescriptionError">
 
             <label>Describe una característica que no aparece en la publicación.</label>
             <textarea id="extraDescriptionObject" placeholder="Ej. En la manga de la chompa esta costurado" required aria-describedby="extraDescriptionError"></textarea>

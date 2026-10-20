@@ -25,12 +25,22 @@ export default class Validador{
         return true;
     }
 
+    static validarCampos(documento = globalThis.document){
+        const fechaPerdida = documento?.getElementById('dateLost');
+
+        return this.validarLugar(documento)
+            && Boolean(fechaPerdida && String(fechaPerdida.value).trim())
+            && this.validarAreaTexto(documento);
+    }
+
     static Message(error) {
         switch(error){
             case 'Lugar_invalido':
                 return 'El lugar seleccionado es inexistente';
             case 'Area_Vacia':
                 return 'Es obligatorio describir caracteristicas del objeto';
+            case 'Campos_Vacios':
+                return 'Todos los campos deben de estar llenados';
         }
     }
 

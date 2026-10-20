@@ -1,16 +1,35 @@
 [
   {
-    "sha": "HEAD",
+    "sha": "625f75544fe133e94904dbc91d790a42b2a522c0",
     "author": "Chris",
     "commit": {
       "date": "2026-10-20T14:16:33.000Z",
       "message": "feat: Agregar validacion para el campo de descripcion de objeto en formulario de recuperacion",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/625f75544fe133e94904dbc91d790a42b2a522c0"
     },
     "stats": {
       "total": 104,
       "additions": 93,
       "deletions": 11,
+      "date": "2026-10-20"
+    },
+    "coverage": 0,
+    "test_count": 0,
+    "failed_tests": 0,
+    "conclusion": "neutral"
+  },
+  {
+    "sha": "HEAD",
+    "author": "Chris",
+    "commit": {
+      "date": "2026-10-20T21:07:29.000Z",
+      "message": "feat: Agregar validacion de campos llenos para formulario de recuperacion",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 57,
+      "additions": 44,
+      "deletions": 13,
       "date": "2026-10-20"
     },
     "coverage": 0,

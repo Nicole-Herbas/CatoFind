@@ -11,14 +11,8 @@ if (!formulario || !campoDescripcion || !mensajeError) {
 formulario.addEventListener('submit', (evento) => {
     evento.preventDefault();
 
-    if(!Validador.validarLugar()){
-        mostrarMensaje('Lugar_invalido');
-        return;
-    }
-
-    if(!Validador.validarAreaTexto()){
-        campoDescripcion.setAttribute('aria-invalid', 'true');
-        mostrarMensaje('Area_Vacia');
+    if(!Validador.validarCampos()){
+        mostrarMensaje('Campos_Vacios');
         return;
     }
 
@@ -26,10 +20,11 @@ formulario.addEventListener('submit', (evento) => {
 });
 
 campoDescripcion.addEventListener('input', () => {
-  if (Validador.validarAreaTexto()) {
-    limpiarMensaje();
-  }
+  limpiarSiFormularioValido();
 });
+
+document.getElementById('locations').addEventListener('change', limpiarSiFormularioValido);
+document.getElementById('dateLost').addEventListener('input', limpiarSiFormularioValido);
 
 function mostrarMensaje(tipoError) {
   mensajeError.textContent = Validador.Message(tipoError);
@@ -40,4 +35,10 @@ function limpiarMensaje() {
   mensajeError.textContent = '';
   mensajeError.hidden = true;
   campoDescripcion.removeAttribute('aria-invalid');
+}
+
+function limpiarSiFormularioValido() {
+  if (Validador.validarCampos()) {
+    limpiarMensaje();
+  }
 }
