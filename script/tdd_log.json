@@ -1,8 +1,14 @@
 [
   {
-    "commitId": "HEAD",
+    "commitId": "0c2f25ae6336bd9d23d7daee0b1609065f9d45e5",
     "commitName": "feat: add Objeto model with basic properties",
     "commitTimestamp": 1792503940281,
     "testId": 0
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: add ObjetoService with static list",
+    "commitTimestamp": 1792504104434,
+    "testId": 1
   }
 ]

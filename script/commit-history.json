@@ -1,11 +1,11 @@
 [
   {
-    "sha": "HEAD",
+    "sha": "0c2f25ae6336bd9d23d7daee0b1609065f9d45e5",
     "author": "Nicole",
     "commit": {
       "date": "2026-10-20T13:45:39.000Z",
       "message": "feat: add Objeto model with basic properties",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/0c2f25ae6336bd9d23d7daee0b1609065f9d45e5"
     },
     "stats": {
       "total": 34,
@@ -15,6 +15,25 @@
     },
     "coverage": 100,
     "test_count": 1,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "Nicole",
+    "commit": {
+      "date": "2026-10-20T13:48:23.000Z",
+      "message": "feat: add ObjetoService with static list",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 106,
+      "additions": 106,
+      "deletions": 0,
+      "date": "2026-10-20"
+    },
+    "coverage": 100,
+    "test_count": 3,
     "failed_tests": 0,
     "conclusion": "success"
   }
