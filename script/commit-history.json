@@ -133,16 +133,35 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "5f9cb7ede26b0795e67470c9903f25deb2d5ed45",
     "author": "Nicole",
     "commit": {
       "date": "2026-10-20T14:01:40.000Z",
       "message": "feat: connect filter chips to object list",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/5f9cb7ede26b0795e67470c9903f25deb2d5ed45"
     },
     "stats": {
       "total": 17,
       "additions": 17,
+      "deletions": 0,
+      "date": "2026-10-20"
+    },
+    "coverage": 100,
+    "test_count": 9,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "Nicole",
+    "commit": {
+      "date": "2026-10-20T14:02:44.000Z",
+      "message": "feat: connect search input to object list",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 27,
+      "additions": 27,
       "deletions": 0,
       "date": "2026-10-20"
     },

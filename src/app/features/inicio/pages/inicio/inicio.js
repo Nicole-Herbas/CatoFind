@@ -116,4 +116,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     renderTarjetas(service.filtrarPorCategoria(categoriaActual));
   });
+
+  // ── Buscador ──
+  const formBuscar = document.getElementById('form-buscar');
+  const inputBuscar = document.getElementById('input-buscar');
+
+  function buscar() {
+    const query = inputBuscar.value.trim();
+    // Primero aplica filtro de categoría, luego busca dentro del resultado
+    const base = service.filtrarPorCategoria(categoriaActual);
+    if (!query) {
+      renderTarjetas(base);
+      return;
+    }
+    const resultado = base.filter((o) =>
+      o.titulo.toLowerCase().includes(query.toLowerCase())
+    );
+    renderTarjetas(resultado);
+  }
+
+  // Búsqueda en tiempo real al escribir
+  inputBuscar.addEventListener('input', buscar);
+
+  // También al enviar el formulario (Enter o click en "Buscar")
+  formBuscar.addEventListener('submit', (e) => {
+    e.preventDefault();
+    buscar();
+  });
 });
