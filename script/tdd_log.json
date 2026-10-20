@@ -18,9 +18,15 @@
     "testId": 2
   },
   {
-    "commitId": "HEAD",
+    "commitId": "e468121290e7db2a2a535bc62051d33dfbf22abc",
     "commitName": "feat: add buscarPorTitulo method",
     "commitTimestamp": 1792504390398,
     "testId": 3
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: add inicio page HTML structure",
+    "commitTimestamp": 1792504475541,
+    "testId": 4
   }
 ]

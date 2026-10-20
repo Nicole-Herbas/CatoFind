@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="CatoFind — Encuentra los objetos perdidos dentro de la comunidad universitaria UCB." />
+  <title>CatoFind — Inicio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./inicio.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════ NAVBAR ═══════════════════════ -->
+  <nav class="navbar" role="navigation" aria-label="Navegación principal">
+    <div class="navbar__brand">
+      <div class="navbar__logo">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <circle cx="16" cy="16" r="16" fill="#1a2e7a"/>
+          <path d="M10 16a6 6 0 1 1 12 0A6 6 0 0 1 10 16z" fill="none" stroke="#f5c518" stroke-width="2.5"/>
+          <path d="M20 20l4 4" stroke="#f5c518" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="navbar__brand-text">
+        <span class="navbar__brand-name">CATO FIND</span>
+        <span class="navbar__brand-sub">UCB Cochabamba</span>
+      </div>
+    </div>
+
+    <ul class="navbar__links" role="list">
+      <li><a href="#" class="navbar__link navbar__link--active" aria-current="page" id="nav-inicio">Inicio</a></li>
+      <li><a href="#" class="navbar__link" id="nav-buscar">Buscar</a></li>
+      <li><a href="#" class="navbar__link" id="nav-reportar">Reportar</a></li>
+      <li><a href="#" class="navbar__link" id="nav-mis-reportes">Mis reportes</a></li>
+    </ul>
+
+    <div class="navbar__actions">
+      <button class="navbar__notif" aria-label="Notificaciones" id="btn-notificaciones">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        </svg>
+        <span class="navbar__notif-badge">2</span>
+      </button>
+      <div class="navbar__avatar" aria-label="Perfil de usuario">
+        <span>NH</span>
+      </div>
+      <span class="navbar__username">Nicole Herbas</span>
+      <button class="navbar__logout" aria-label="Cerrar sesión" id="btn-logout">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════ BANNER ═══════════════════════ -->
+  <section class="banner" aria-label="Buscador principal">
+    <div class="banner__content">
+      <span class="banner__badge">No todo está perdido.</span>
+      <h1 class="banner__title">Encuentra lo que perdiste</h1>
+      <p class="banner__subtitle">Explora los objetos encontrados dentro de la comunidad universitaria.</p>
+
+      <form class="banner__search" role="search" id="form-buscar" aria-label="Buscar objetos">
+        <label for="input-buscar" class="sr-only">¿Qué estás buscando?</label>
+        <div class="banner__search-inner">
+          <svg class="banner__search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.35-4.35"/>
+          </svg>
+          <input
+            type="search"
+            id="input-buscar"
+            class="banner__search-input"
+            placeholder="¿Qué estás buscando?"
+            autocomplete="off"
+            aria-label="Término de búsqueda"
+          />
+        </div>
+        <button type="submit" class="banner__search-btn" id="btn-buscar">Buscar</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ FILTROS ═══════════════════════ -->
+  <section class="filtros" aria-label="Filtrar por categoría">
+    <div class="filtros__container">
+      <ul class="filtros__list" role="list" id="filtros-lista" aria-label="Categorías">
+        <!-- Generados por inicio.js -->
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ OBJETOS ═══════════════════════ -->
+  <main class="objetos" id="main-content">
+    <div class="objetos__header">
+      <h2 class="objetos__titulo">Objetos encontrados recientemente</h2>
+      <a href="#" class="objetos__ver-todo" id="link-ver-todo">
+        Ver todo
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="objetos__grid" id="objetos-grid" aria-live="polite" aria-label="Lista de objetos encontrados">
+      <!-- Tarjetas generadas por inicio.js -->
+    </div>
+
+    <p class="objetos__empty" id="objetos-empty" hidden>
+      No se encontraron objetos con ese criterio.
+    </p>
+  </main>
+
+  <!-- ═══════════════════════ FAB ═══════════════════════ -->
+  <button class="fab" id="btn-reportar-fab" aria-label="Reportar un objeto encontrado">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+      <line x1="12" y1="5" x2="12" y2="19"/>
+      <line x1="5" y1="12" x2="19" y2="12"/>
+    </svg>
+    Reportar objeto
+  </button>
+
+  <script type="module" src="./inicio.js"></script>
+</body>
+</html>

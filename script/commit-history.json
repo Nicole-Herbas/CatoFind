@@ -57,17 +57,36 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "e468121290e7db2a2a535bc62051d33dfbf22abc",
     "author": "Nicole",
     "commit": {
       "date": "2026-10-20T13:53:09.000Z",
       "message": "feat: add buscarPorTitulo method",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/e468121290e7db2a2a535bc62051d33dfbf22abc"
     },
     "stats": {
       "total": 26,
       "additions": 26,
       "deletions": 0,
+      "date": "2026-10-20"
+    },
+    "coverage": 100,
+    "test_count": 9,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "Nicole",
+    "commit": {
+      "date": "2026-10-20T13:54:34.000Z",
+      "message": "feat: add inicio page HTML structure",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 146,
+      "additions": 141,
+      "deletions": 5,
       "date": "2026-10-20"
     },
     "coverage": 100,
