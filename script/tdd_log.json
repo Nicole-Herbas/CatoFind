@@ -30,5 +30,43 @@
     "timestamp": 1792503430326,
     "success": true,
     "testId": 0
+  },
+  {
+    "numPassedTests": 1,
+    "failedTests": 1,
+    "numTotalTests": 2,
+    "timestamp": 1792504323333,
+    "success": false,
+    "testId": 0
+  },
+  {
+    "numPassedTests": 1,
+    "failedTests": 1,
+    "numTotalTests": 2,
+    "timestamp": 1792505027984,
+    "success": false,
+    "testId": 0
+  },
+  {
+    "numPassedTests": 3,
+    "failedTests": 0,
+    "numTotalTests": 3,
+    "timestamp": 1792505628609,
+    "success": true,
+    "testId": 0
+  },
+  {
+    "numPassedTests": 3,
+    "failedTests": 0,
+    "numTotalTests": 3,
+    "timestamp": 1792505763684,
+    "success": true,
+    "testId": 0
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: Agregar validacion para el campo de descripcion de objeto en formulario de recuperacion",
+    "commitTimestamp": 1792505794749,
+    "testId": 0
   }
 ]
