@@ -95,16 +95,35 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "1dc92a519463f3ff75ecb0567e775e7dda061571",
     "author": "Nicole",
     "commit": {
       "date": "2026-10-20T13:59:30.000Z",
       "message": "feat: add inicio CSS styles",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/1dc92a519463f3ff75ecb0567e775e7dda061571"
     },
     "stats": {
       "total": 512,
       "additions": 512,
+      "deletions": 0,
+      "date": "2026-10-20"
+    },
+    "coverage": 100,
+    "test_count": 9,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "Nicole",
+    "commit": {
+      "date": "2026-10-20T14:00:21.000Z",
+      "message": "feat: render objects from ObjetoService in DOM",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 102,
+      "additions": 102,
       "deletions": 0,
       "date": "2026-10-20"
     },

@@ -30,9 +30,15 @@
     "testId": 4
   },
   {
-    "commitId": "HEAD",
+    "commitId": "1dc92a519463f3ff75ecb0567e775e7dda061571",
     "commitName": "feat: add inicio CSS styles",
     "commitTimestamp": 1792504771521,
     "testId": 5
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: render objects from ObjetoService in DOM",
+    "commitTimestamp": 1792504822039,
+    "testId": 6
   }
 ]
