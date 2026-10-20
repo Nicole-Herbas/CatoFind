@@ -88,4 +88,11 @@ export class ObjetoService {
     if (categoria === 'Todos') return this.objetos;
     return this.objetos.filter((o) => o.categoria === categoria);
   }
+
+  buscarPorTitulo(query) {
+    if (!query) return this.objetos;
+    return this.objetos.filter((o) =>
+      o.titulo.toLowerCase().includes(query.toLowerCase())
+    );
+  }
 }

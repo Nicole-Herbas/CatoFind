@@ -12,9 +12,15 @@
     "testId": 1
   },
   {
-    "commitId": "HEAD",
+    "commitId": "32ed4405e46616413729a4ee2d771dfdb2d866eb",
     "commitName": "feat: add filtrarPorCategoria method",
     "commitTimestamp": 1792504325624,
     "testId": 2
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: add buscarPorTitulo method",
+    "commitTimestamp": 1792504390398,
+    "testId": 3
   }
 ]

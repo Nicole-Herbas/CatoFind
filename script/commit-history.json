@@ -38,12 +38,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "32ed4405e46616413729a4ee2d771dfdb2d866eb",
     "author": "Nicole",
     "commit": {
       "date": "2026-10-20T13:52:04.000Z",
       "message": "feat: add filtrarPorCategoria method",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/32ed4405e46616413729a4ee2d771dfdb2d866eb"
     },
     "stats": {
       "total": 24,
@@ -53,6 +53,25 @@
     },
     "coverage": 100,
     "test_count": 6,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "Nicole",
+    "commit": {
+      "date": "2026-10-20T13:53:09.000Z",
+      "message": "feat: add buscarPorTitulo method",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 26,
+      "additions": 26,
+      "deletions": 0,
+      "date": "2026-10-20"
+    },
+    "coverage": 100,
+    "test_count": 9,
     "failed_tests": 0,
     "conclusion": "success"
   }

@@ -36,4 +36,23 @@ describe('ObjetoService', () => {
     const resultado = service.filtrarPorCategoria('CategoriaInexistente');
     expect(resultado.length).toBe(0);
   });
+
+  it('debe buscar objetos por título (case insensitive)', () => {
+    const service = new ObjetoService();
+    const resultado = service.buscarPorTitulo('mochila');
+    expect(resultado.length).toBeGreaterThan(0);
+    expect(resultado[0].titulo.toLowerCase()).toContain('mochila');
+  });
+
+  it('debe retornar todos los objetos si la búsqueda está vacía', () => {
+    const service = new ObjetoService();
+    const resultado = service.buscarPorTitulo('');
+    expect(resultado.length).toBe(service.obtenerTodos().length);
+  });
+
+  it('debe retornar lista vacía si no hay coincidencias', () => {
+    const service = new ObjetoService();
+    const resultado = service.buscarPorTitulo('xyzabcnoexiste');
+    expect(resultado.length).toBe(0);
+  });
 });
