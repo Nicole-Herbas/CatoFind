@@ -1,11 +1,11 @@
 [
   {
-    "sha": "HEAD",
+    "sha": "913877eabab3b82d033e08d389b032f26497f381",
     "author": "pochis",
     "commit": {
       "date": "2026-10-20T13:44:50.000Z",
       "message": "chore: agregar imagenes y logo de CatoFind",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/913877eabab3b82d033e08d389b032f26497f381"
     },
     "stats": {
       "total": 0,
@@ -17,5 +17,24 @@
     "test_count": 0,
     "failed_tests": 0,
     "conclusion": "neutral"
+  },
+  {
+    "sha": "HEAD",
+    "author": "pochis",
+    "commit": {
+      "date": "2026-10-20T14:00:00.000Z",
+      "message": "HU-01/feat: crear estructura de dos paneles del login",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 38,
+      "additions": 38,
+      "deletions": 0,
+      "date": "2026-10-20"
+    },
+    "coverage": 0,
+    "test_count": 1,
+    "failed_tests": 0,
+    "conclusion": "success"
   }
 ]

@@ -1,8 +1,30 @@
 [
   {
-    "commitId": "HEAD",
+    "commitId": "913877eabab3b82d033e08d389b032f26497f381",
     "commitName": "chore: agregar imagenes y logo de CatoFind",
     "commitTimestamp": 1792503891812,
     "testId": 0
+  },
+  {
+    "numPassedTests": 0,
+    "failedTests": 1,
+    "numTotalTests": 1,
+    "timestamp": 1792504360093,
+    "success": false,
+    "testId": 1
+  },
+  {
+    "numPassedTests": 1,
+    "failedTests": 0,
+    "numTotalTests": 1,
+    "timestamp": 1792504703458,
+    "success": true,
+    "testId": 1
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "HU-01/feat: crear estructura de dos paneles del login",
+    "commitTimestamp": 1792504801564,
+    "testId": 1
   }
 ]
