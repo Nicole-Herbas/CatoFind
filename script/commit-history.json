@@ -361,12 +361,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "acde554a9dc663e941b7b9eb1f82a06db2ef8d01",
     "author": "pochis",
     "commit": {
       "date": "2026-10-21T17:05:00.000Z",
       "message": "Fix: Arreglar enlace de recuperar contrasenia",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/acde554a9dc663e941b7b9eb1f82a06db2ef8d01"
     },
     "stats": {
       "total": 125,
@@ -376,6 +376,25 @@
     },
     "coverage": 95.16,
     "test_count": 55,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "pochis",
+    "commit": {
+      "date": "2026-10-21T17:07:58.000Z",
+      "message": "fix: mostrar recuperacion como notificacion flotante",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 71,
+      "additions": 67,
+      "deletions": 4,
+      "date": "2026-10-21"
+    },
+    "coverage": 95.16,
+    "test_count": 57,
     "failed_tests": 0,
     "conclusion": "success"
   }

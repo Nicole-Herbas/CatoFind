@@ -95,5 +95,5 @@ export function cerrarSesion(almacenamientoSesion) {
 }
 
 export function mensajeRecuperacion() {
-  return 'Se envió un enlace de recuperación a tu correo.';
+  return 'Te enviaríamos un enlace de recuperación a tu correo ';
 }

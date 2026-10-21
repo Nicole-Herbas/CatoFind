@@ -458,8 +458,27 @@ describe('Recuperacion de contrasena', () => {
 
   it('debe devolver el mensaje de confirmacion', () => {
     expect(mensajeRecuperacion()).toBe(
-      'Se envió un enlace de recuperación a tu correo.'
+      'Te enviaríamos un enlace de recuperación a tu correo ' 
     );
+  });
+
+});
+describe('Notificacion flotante de recuperacion', () => {
+
+  it('debe tener un contenedor para la notificacion', () => {
+    expect(html).toContain('id="mensaje-recuperacion"');
+    expect(html).toContain('class="login__toast"');
+    expect(html).toContain('role="status"');
+    expect(html).toContain('hidden');
+  });
+
+  it('debe mostrar la notificacion arriba y centrada', () => {
+    const estilos = css.split('.login__toast {')[1]?.split('}')[0] || '';
+
+    expect(estilos).toContain('position: fixed;');
+    expect(estilos).toContain('top: 38px;');
+    expect(estilos).toContain('left: 50%;');
+    expect(estilos).toContain('transform: translateX(-50%);');
   });
 
 });

@@ -21,8 +21,17 @@ formulario.addEventListener('submit', (evento) => {
 });
 
 const recuperar = document.getElementById('recuperar-contrasena');
+const notificacion = document.getElementById('mensaje-recuperacion');
+
+let temporizadorNotificacion;
 
 recuperar.addEventListener('click', () => {
-  mensaje.textContent = mensajeRecuperacion();
-  mensaje.style.color = '#16803d';
+  notificacion.textContent = mensajeRecuperacion();
+  notificacion.hidden = false;
+
+  clearTimeout(temporizadorNotificacion);
+
+  temporizadorNotificacion = setTimeout(() => {
+    notificacion.hidden = true;
+  }, 4000);
 });

@@ -212,3 +212,30 @@ body {
 .login__enlaces button:hover {
   text-decoration: underline;
 }
+
+/* Notificacion flotante de recuperacion */
+
+.login__toast {
+  position: fixed;
+  top: 38px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: min(355px, calc(100% - 32px));
+  padding: 18px 16px;
+
+  background: #ffffff;
+  color: #242424;
+  border-radius: 8px;
+
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  z-index: 1000;
+}
+
+.login__toast[hidden] {
+  display: none;
+}

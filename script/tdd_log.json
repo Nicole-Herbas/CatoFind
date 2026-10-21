@@ -570,9 +570,47 @@
     "testId": 19
   },
   {
-    "commitId": "HEAD",
+    "commitId": "acde554a9dc663e941b7b9eb1f82a06db2ef8d01",
     "commitName": "Fix: Arreglar enlace de recuperar contrasenia",
     "commitTimestamp": 1792602301049,
     "testId": 19
+  },
+  {
+    "numPassedTests": 55,
+    "failedTests": 2,
+    "numTotalTests": 57,
+    "timestamp": 1792602315358,
+    "success": false,
+    "testId": 20
+  },
+  {
+    "numPassedTests": 56,
+    "failedTests": 1,
+    "numTotalTests": 57,
+    "timestamp": 1792602390657,
+    "success": false,
+    "testId": 20
+  },
+  {
+    "numPassedTests": 56,
+    "failedTests": 1,
+    "numTotalTests": 57,
+    "timestamp": 1792602429588,
+    "success": false,
+    "testId": 20
+  },
+  {
+    "numPassedTests": 57,
+    "failedTests": 0,
+    "numTotalTests": 57,
+    "timestamp": 1792602438969,
+    "success": true,
+    "testId": 20
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "fix: mostrar recuperacion como notificacion flotante",
+    "commitTimestamp": 1792602479634,
+    "testId": 20
   }
 ]
