@@ -81,3 +81,32 @@ describe('Vista Buscar - al buscar y filtrar (HU-09)', () => {
     expect(mensajeEnPantalla()).toBe('No se encontró ningún objeto');
   });
 });
+
+describe('Vista Buscar - detalle del objeto (HU-08)', () => {
+  function clicEnPrimeraTarjeta() {
+    document.querySelector('#resultados .tarjeta').click();
+  }
+
+  it('debe mostrar el detalle al hacer clic en una tarjeta', () => {
+    clicEnPrimeraTarjeta();
+    const detalle = document.querySelector('#detalle');
+
+    expect(detalle.hidden).toBe(false);
+    expect(detalle.querySelector('.detalle__titulo').textContent).toBe('Mochila negra');
+    expect(detalle.textContent).toContain('Biblioteca');
+  });
+
+  it('debe tener el botón para solicitar el objeto', () => {
+    clicEnPrimeraTarjeta();
+
+    expect(document.querySelector('#detalle .detalle__solicitar').textContent)
+      .toBe('Solicitar objeto');
+  });
+
+  it('debe ocultar el detalle al cerrarlo', () => {
+    clicEnPrimeraTarjeta();
+    document.querySelector('#detalle .detalle__cerrar').click();
+
+    expect(document.querySelector('#detalle').hidden).toBe(true);
+  });
+});

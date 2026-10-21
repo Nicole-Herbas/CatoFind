@@ -304,9 +304,31 @@
     "testId": 12
   },
   {
-    "commitId": "HEAD",
+    "commitId": "44dfa2c538dd8c3bb9ad9e48980e0fc501d49281",
     "commitName": "feat: mostrar tarjetas y conectar buscador con filtros",
     "commitTimestamp": 1792608128585,
     "testId": 12
+  },
+  {
+    "numPassedTests": 32,
+    "failedTests": 3,
+    "numTotalTests": 35,
+    "timestamp": 1792608251955,
+    "success": false,
+    "testId": 13
+  },
+  {
+    "numPassedTests": 35,
+    "failedTests": 0,
+    "numTotalTests": 35,
+    "timestamp": 1792608351606,
+    "success": true,
+    "testId": 13
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: mostrar detalle del objeto al hacer clic",
+    "commitTimestamp": 1792608361842,
+    "testId": 13
   }
 ]

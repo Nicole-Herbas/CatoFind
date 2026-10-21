@@ -228,12 +228,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "44dfa2c538dd8c3bb9ad9e48980e0fc501d49281",
     "author": "Nico Meneses",
     "commit": {
       "date": "2026-10-21T18:42:07.000Z",
       "message": "feat: mostrar tarjetas y conectar buscador con filtros",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/44dfa2c538dd8c3bb9ad9e48980e0fc501d49281"
     },
     "stats": {
       "total": 162,
@@ -243,6 +243,25 @@
     },
     "coverage": 95.79,
     "test_count": 32,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "Nico Meneses",
+    "commit": {
+      "date": "2026-10-21T18:46:00.000Z",
+      "message": "feat: mostrar detalle del objeto al hacer clic",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 59,
+      "additions": 59,
+      "deletions": 0,
+      "date": "2026-10-21"
+    },
+    "coverage": 95.5,
+    "test_count": 35,
     "failed_tests": 0,
     "conclusion": "success"
   }
