@@ -129,3 +129,27 @@ describe('BuscadorService - filtro por fecha (HU-07)', () => {
     expect(titulos).toEqual(['Mochila negra', 'Chompa azul', 'Paraguas']);
   });
 });
+
+describe('BuscadorService - búsqueda combinada (HU-07/09)', () => {
+  const hoy = new Date('2026-10-21T12:00:00');
+  const service = new BuscadorService([
+    crearObjeto(1, 'Celular Samsung', 'Publicado', { categoria: 'Electrónica', lugar: 'Biblioteca' }),
+    crearObjeto(2, 'Celular Xiaomi', 'Publicado', { categoria: 'Electrónica', lugar: 'Cafetería' }),
+    crearObjeto(3, 'Funda de celular', 'Publicado', { categoria: 'Accesorios', lugar: 'Biblioteca' }),
+    crearObjeto(4, 'Celular Motorola', 'En revisión', { categoria: 'Electrónica', lugar: 'Biblioteca' }),
+  ]);
+
+  it('debe aplicar texto, categoría y lugar al mismo tiempo', () => {
+    const titulos = service
+      .buscar({ texto: 'celular', categoria: 'Electrónica', lugar: 'Biblioteca' }, hoy)
+      .map((o) => o.titulo);
+
+    expect(titulos).toEqual(['Celular Samsung']);
+  });
+
+  it('debe devolver todos los publicados si no hay criterios', () => {
+    const titulos = service.buscar({}, hoy).map((o) => o.titulo);
+
+    expect(titulos).toEqual(['Celular Samsung', 'Celular Xiaomi', 'Funda de celular']);
+  });
+});

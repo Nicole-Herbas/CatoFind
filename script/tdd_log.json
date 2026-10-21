@@ -156,9 +156,31 @@
     "testId": 6
   },
   {
-    "commitId": "HEAD",
+    "commitId": "65e92ce012c57c92f9f4efd0215e969c5b80cc60",
     "commitName": "feat: filtrar objetos publicados por fecha",
     "commitTimestamp": 1792598834124,
     "testId": 6
+  },
+  {
+    "numPassedTests": 12,
+    "failedTests": 2,
+    "numTotalTests": 14,
+    "timestamp": 1792599071359,
+    "success": false,
+    "testId": 7
+  },
+  {
+    "numPassedTests": 14,
+    "failedTests": 0,
+    "numTotalTests": 14,
+    "timestamp": 1792599083228,
+    "success": true,
+    "testId": 7
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: combinar busqueda por titulo con filtros",
+    "commitTimestamp": 1792599090419,
+    "testId": 7
   }
 ]

@@ -48,4 +48,25 @@ export class BuscadorService {
       return diasPasados <= dias;
     });
   }
+
+  buscar(criterios = {}, hoy = new Date()) {
+    const {
+      texto = '',
+      categoria = 'Todos',
+      lugar = 'Todas',
+      fecha = 'cualquiera',
+    } = criterios;
+
+    const ids = (lista) => new Set(lista.map((objeto) => objeto.id));
+    const porCategoria = ids(this.filtrarPorCategoria(categoria));
+    const porLugar = ids(this.filtrarPorLugar(lugar));
+    const porFecha = ids(this.filtrarPorFecha(fecha, hoy));
+
+    return this.buscarPorTitulo(texto).filter(
+      (objeto) =>
+        porCategoria.has(objeto.id) &&
+        porLugar.has(objeto.id) &&
+        porFecha.has(objeto.id)
+    );
+  }
 }
