@@ -16,9 +16,39 @@
     "testId": 0
   },
   {
-    "commitId": "HEAD",
+    "commitId": "4ffa45dd49a41baeaf76c61b2b2587adcb5971c3",
     "commitName": "feat: crear modelo Objeto compartido",
     "commitTimestamp": 1792596459197,
     "testId": 0
+  },
+  {
+    "numPassedTests": 1,
+    "failedTests": 0,
+    "numTotalTests": 1,
+    "timestamp": 1792596731392,
+    "success": false,
+    "testId": 1
+  },
+  {
+    "numPassedTests": 1,
+    "failedTests": 0,
+    "numTotalTests": 1,
+    "timestamp": 1792596785463,
+    "success": false,
+    "testId": 1
+  },
+  {
+    "numPassedTests": 2,
+    "failedTests": 0,
+    "numTotalTests": 2,
+    "timestamp": 1792596996948,
+    "success": true,
+    "testId": 1
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: listar solo objetos publicados en el buscador",
+    "commitTimestamp": 1792597014200,
+    "testId": 1
   }
 ]

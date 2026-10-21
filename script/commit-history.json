@@ -1,11 +1,11 @@
 [
   {
-    "sha": "HEAD",
+    "sha": "4ffa45dd49a41baeaf76c61b2b2587adcb5971c3",
     "author": "Nico Meneses",
     "commit": {
       "date": "2026-10-21T15:27:38.000Z",
       "message": "feat: crear modelo Objeto compartido",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/4ffa45dd49a41baeaf76c61b2b2587adcb5971c3"
     },
     "stats": {
       "total": 34,
@@ -15,6 +15,25 @@
     },
     "coverage": 100,
     "test_count": 1,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "Nico Meneses",
+    "commit": {
+      "date": "2026-10-21T15:36:53.000Z",
+      "message": "feat: listar solo objetos publicados en el buscador",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 36,
+      "additions": 36,
+      "deletions": 0,
+      "date": "2026-10-21"
+    },
+    "coverage": 100,
+    "test_count": 2,
     "failed_tests": 0,
     "conclusion": "success"
   }
