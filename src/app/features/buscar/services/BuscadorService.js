@@ -6,6 +6,9 @@ function normalizar(texto) {
     .replace(/[\u0300-\u036f]/g, '');
 }
 
+const DIAS_POR_RANGO = { semana: 7, mes: 30 };
+const MS_POR_DIA = 24 * 60 * 60 * 1000;
+
 export class BuscadorService {
   constructor(objetos = []) {
     this.objetos = objetos;
@@ -32,5 +35,17 @@ export class BuscadorService {
     const publicados = this.obtenerPublicados();
     if (lugar === 'Todas') return publicados;
     return publicados.filter((objeto) => objeto.lugar === lugar);
+  }
+
+  filtrarPorFecha(rango, hoy = new Date()) {
+    const publicados = this.obtenerPublicados();
+    const dias = DIAS_POR_RANGO[rango];
+    if (!dias) return publicados;
+
+    return publicados.filter((objeto) => {
+      const fecha = new Date(objeto.fecha + 'T00:00:00');
+      const diasPasados = (hoy - fecha) / MS_POR_DIA;
+      return diasPasados <= dias;
+    });
   }
 }

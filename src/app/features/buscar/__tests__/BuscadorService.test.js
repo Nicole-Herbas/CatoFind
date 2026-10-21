@@ -102,3 +102,30 @@ describe('BuscadorService - filtro por lugar (HU-07)', () => {
     expect(titulos).toEqual(['Mochila negra', 'Chompa azul']);
   });
 });
+
+describe('BuscadorService - filtro por fecha (HU-07)', () => {
+  const hoy = new Date('2026-10-21T12:00:00');
+  const service = new BuscadorService([
+    crearObjeto(1, 'Mochila negra', 'Publicado', { fecha: '2026-10-19' }),
+    crearObjeto(2, 'Chompa azul', 'Publicado', { fecha: '2026-10-05' }),
+    crearObjeto(3, 'Paraguas', 'Publicado', { fecha: '2026-08-01' }),
+  ]);
+
+  it('debe devolver los de la última semana', () => {
+    const titulos = service.filtrarPorFecha('semana', hoy).map((o) => o.titulo);
+
+    expect(titulos).toEqual(['Mochila negra']);
+  });
+
+  it('debe devolver los del último mes', () => {
+    const titulos = service.filtrarPorFecha('mes', hoy).map((o) => o.titulo);
+
+    expect(titulos).toEqual(['Mochila negra', 'Chompa azul']);
+  });
+
+  it('debe devolver todos con "cualquiera"', () => {
+    const titulos = service.filtrarPorFecha('cualquiera', hoy).map((o) => o.titulo);
+
+    expect(titulos).toEqual(['Mochila negra', 'Chompa azul', 'Paraguas']);
+  });
+});
