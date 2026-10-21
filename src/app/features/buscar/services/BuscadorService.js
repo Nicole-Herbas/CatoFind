@@ -1,3 +1,11 @@
+function normalizar(texto) {
+  return texto
+    .trim()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+}
+
 export class BuscadorService {
   constructor(objetos = []) {
     this.objetos = objetos;
@@ -8,9 +16,9 @@ export class BuscadorService {
   }
 
   buscarPorTitulo(texto) {
-    const buscado = texto.trim().toLowerCase();
+    const buscado = normalizar(texto);
     return this.obtenerPublicados().filter((objeto) =>
-      objeto.titulo.toLowerCase().includes(buscado)
+      normalizar(objeto.titulo).includes(buscado)
     );
   }
 }

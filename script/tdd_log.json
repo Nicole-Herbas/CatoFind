@@ -68,9 +68,31 @@
     "testId": 2
   },
   {
-    "commitId": "HEAD",
+    "commitId": "c6c8d3bb3f33fcf12937c48d37829f426b2830d0",
     "commitName": "feat: buscar objetos por titulo ignorando mayusculas y espacios",
     "commitTimestamp": 1792597859729,
     "testId": 2
+  },
+  {
+    "numPassedTests": 4,
+    "failedTests": 1,
+    "numTotalTests": 5,
+    "timestamp": 1792597992328,
+    "success": false,
+    "testId": 3
+  },
+  {
+    "numPassedTests": 5,
+    "failedTests": 0,
+    "numTotalTests": 5,
+    "timestamp": 1792598007780,
+    "success": true,
+    "testId": 3
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: buscar objetos sin importar tildes",
+    "commitTimestamp": 1792598017725,
+    "testId": 3
   }
 ]

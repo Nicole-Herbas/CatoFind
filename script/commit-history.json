@@ -38,12 +38,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "c6c8d3bb3f33fcf12937c48d37829f426b2830d0",
     "author": "Nico Meneses",
     "commit": {
       "date": "2026-10-21T15:50:58.000Z",
       "message": "feat: buscar objetos por titulo ignorando mayusculas y espacios",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/c6c8d3bb3f33fcf12937c48d37829f426b2830d0"
     },
     "stats": {
       "total": 31,
@@ -53,6 +53,25 @@
     },
     "coverage": 100,
     "test_count": 4,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "Nico Meneses",
+    "commit": {
+      "date": "2026-10-21T15:53:36.000Z",
+      "message": "feat: buscar objetos sin importar tildes",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 23,
+      "additions": 21,
+      "deletions": 2,
+      "date": "2026-10-21"
+    },
+    "coverage": 100,
+    "test_count": 5,
     "failed_tests": 0,
     "conclusion": "success"
   }

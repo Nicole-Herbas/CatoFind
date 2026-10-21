@@ -48,4 +48,15 @@ describe('BuscadorService - búsqueda por nombre (HU-09)', () => {
 
     expect(titulos).toEqual(['Celular Samsung']);
   });
+
+    it('debe encontrar objetos aunque no se escriban las tildes', () => {
+    const service = new BuscadorService([
+      crearObjeto(1, 'Cámara Canon', 'Publicado'),
+    ]);
+
+    const titulos = service.buscarPorTitulo('camara').map((o) => o.titulo);
+
+    expect(titulos).toEqual(['Cámara Canon']);
+  });
+  
 });
