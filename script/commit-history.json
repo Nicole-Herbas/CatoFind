@@ -228,12 +228,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "53ed61fc383364beae013671e695ddc949970278",
     "author": "pochis",
     "commit": {
       "date": "2026-10-21T05:03:21.000Z",
       "message": "feat: Agregar principios de registro",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/53ed61fc383364beae013671e695ddc949970278"
     },
     "stats": {
       "total": 105,
@@ -243,6 +243,25 @@
     },
     "coverage": 18.18,
     "test_count": 26,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "pochis",
+    "commit": {
+      "date": "2026-10-21T05:07:26.000Z",
+      "message": "feat: crear formulario de registro y corregir rutas",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 32,
+      "additions": 32,
+      "deletions": 0,
+      "date": "2026-10-21"
+    },
+    "coverage": 18.18,
+    "test_count": 27,
     "failed_tests": 0,
     "conclusion": "success"
   }

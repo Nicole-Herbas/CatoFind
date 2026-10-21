@@ -182,3 +182,19 @@ describe('Estilos de los enlaces', () => {
   });
 
 });
+
+describe('Rutas del login', () => {
+
+  it('debe encontrar las paginas de destino', () => {
+    expect(() => readFileSync(
+      'src/app/features/auth/pages/registro/registro.html',
+      'utf8'
+    )).not.toThrow();
+
+    expect(() => readFileSync(
+      'src/app/features/auth/pages/recuperar-password/recuperar-password.html',
+      'utf8'
+    )).not.toThrow();
+  });
+
+});

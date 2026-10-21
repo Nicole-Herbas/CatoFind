@@ -336,9 +336,47 @@
     "testId": 12
   },
   {
-    "commitId": "HEAD",
+    "commitId": "53ed61fc383364beae013671e695ddc949970278",
     "commitName": "feat: Agregar principios de registro",
     "commitTimestamp": 1792559002826,
     "testId": 12
+  },
+  {
+    "numPassedTests": 27,
+    "failedTests": 0,
+    "numTotalTests": 27,
+    "timestamp": 1792559026693,
+    "success": true,
+    "testId": 13
+  },
+  {
+    "numPassedTests": 27,
+    "failedTests": 0,
+    "numTotalTests": 27,
+    "timestamp": 1792559031686,
+    "success": true,
+    "testId": 13
+  },
+  {
+    "numPassedTests": 26,
+    "failedTests": 1,
+    "numTotalTests": 27,
+    "timestamp": 1792559059516,
+    "success": false,
+    "testId": 13
+  },
+  {
+    "numPassedTests": 27,
+    "failedTests": 0,
+    "numTotalTests": 27,
+    "timestamp": 1792559064808,
+    "success": true,
+    "testId": 13
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: crear formulario de registro y corregir rutas",
+    "commitTimestamp": 1792559247607,
+    "testId": 13
   }
 ]
