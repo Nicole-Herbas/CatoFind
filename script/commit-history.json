@@ -741,12 +741,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "740d369d13d652ce672cb79f26619b4a624f3556",
     "author": "pochis",
     "commit": {
       "date": "2026-10-21T22:17:20.000Z",
       "message": "feat: preparar cuenta administrativa de demostracion",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/740d369d13d652ce672cb79f26619b4a624f3556"
     },
     "stats": {
       "total": 98,
@@ -775,6 +775,25 @@
     },
     "coverage": 96.24,
     "test_count": 109,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "pochis",
+    "commit": {
+      "date": "2026-10-21T23:01:50.000Z",
+      "message": "Feat: Agregar disenio facil para comprobar si el login funciona",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 238,
+      "additions": 238,
+      "deletions": 0,
+      "date": "2026-10-21"
+    },
+    "coverage": 95.02,
+    "test_count": 113,
     "failed_tests": 0,
     "conclusion": "success"
   }

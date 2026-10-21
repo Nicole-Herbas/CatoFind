@@ -1066,7 +1066,7 @@
     "testId": 18
   },
   {
-    "commitId": "HEAD",
+    "commitId": "740d369d13d652ce672cb79f26619b4a624f3556",
     "commitName": "feat: preparar cuenta administrativa de demostracion",
     "commitTimestamp": 1792621041369,
     "testId": 18
@@ -1092,5 +1092,35 @@
     "commitName": "feat: validar permisos de acceso administrativo",
     "commitTimestamp": 1792621822203,
     "testId": 19
+  },
+  {
+    "numPassedTests": 109,
+    "failedTests": 0,
+    "numTotalTests": 109,
+    "timestamp": 1792623127873,
+    "success": false,
+    "testId": 20
+  },
+  {
+    "numPassedTests": 109,
+    "failedTests": 0,
+    "numTotalTests": 109,
+    "timestamp": 1792623151374,
+    "success": false,
+    "testId": 20
+  },
+  {
+    "numPassedTests": 113,
+    "failedTests": 0,
+    "numTotalTests": 113,
+    "timestamp": 1792623196776,
+    "success": true,
+    "testId": 20
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "Feat: Agregar disenio facil para comprobar si el login funciona",
+    "commitTimestamp": 1792623711170,
+    "testId": 20
   }
 ]
