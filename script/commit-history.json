@@ -38,17 +38,36 @@
     "conclusion": "neutral"
   },
   {
-    "sha": "HEAD",
+    "sha": "7ae3ac77b367554c5b356e030d8dc7cc0f1237ec",
     "author": "Chris",
     "commit": {
       "date": "2026-10-21T20:14:48.000Z",
       "message": "fix: Arreglar merge conflict de pull request",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/7ae3ac77b367554c5b356e030d8dc7cc0f1237ec"
     },
     "stats": {
       "total": 10,
       "additions": 9,
       "deletions": 1,
+      "date": "2026-10-21"
+    },
+    "coverage": 0,
+    "test_count": 0,
+    "failed_tests": 0,
+    "conclusion": "neutral"
+  },
+  {
+    "sha": "HEAD",
+    "author": "Chris",
+    "commit": {
+      "date": "2026-10-21T20:24:32.000Z",
+      "message": "fix: merge conflicts fix 2",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 4,
+      "additions": 2,
+      "deletions": 2,
       "date": "2026-10-21"
     },
     "coverage": 0,

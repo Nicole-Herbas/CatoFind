@@ -100,9 +100,15 @@
     "testId": 2
   },
   {
-    "commitId": "HEAD",
+    "commitId": "7ae3ac77b367554c5b356e030d8dc7cc0f1237ec",
     "commitName": "fix: Arreglar merge conflict de pull request",
     "commitTimestamp": 1792613691400,
     "testId": 2
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "fix: merge conflicts fix 2",
+    "commitTimestamp": 1792614275114,
+    "testId": 3
   }
 ]
