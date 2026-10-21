@@ -7,7 +7,8 @@ import {
   cerrarSesion,
   mensajeRecuperacion,
   crearAdministradorDemo,
-  verificarAccesoAdministrador
+  verificarAccesoAdministrador,
+  obtenerRutaPostLogin
 } from './login.js';
 
 import { UsuarioService } from '../../services/UsuarioService.js';
@@ -727,6 +728,51 @@ describe('Permisos administrativos HU-02', () => {
     const resultado = verificarAccesoAdministrador(sesion);
 
     expect(resultado.permitido).toBe(false);
+  });
+
+});
+
+
+describe('Redireccion despues del login HU-02', () => {
+
+  it('debe enviar al administrador al panel', () => {
+    const resultado = {
+      ok: true,
+      usuario: {
+        correo: 'bienestar@ucb.edu.bo',
+        rol: 'ADMIN'
+      }
+    };
+
+    expect(obtenerRutaPostLogin(resultado))
+      .toBe('/panel.html');
+  });
+
+  it('no debe enviar estudiantes al panel administrativo', () => {
+    const resultado = {
+      ok: true,
+      usuario: {
+        correo: 'estudiante@ucb.edu.bo',
+        rol: 'ESTUDIANTE'
+      }
+    };
+
+    expect(obtenerRutaPostLogin(resultado))
+      .toBeNull();
+  });
+
+  it('no debe redirigir con credenciales incorrectas', () => {
+    const resultado = {
+      ok: false,
+      mensaje: 'Correo o contraseña incorrectos.'
+    };
+
+    expect(obtenerRutaPostLogin(resultado))
+      .toBeNull();
+  });
+
+  it('no debe redirigir si el resultado es invalido', () => {
+    expect(obtenerRutaPostLogin(null)).toBeNull();
   });
 
 });

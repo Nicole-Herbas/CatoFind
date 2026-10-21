@@ -760,12 +760,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "74fda8c2936929e6250192430b45440fb53e5e8c",
     "author": "pochis",
     "commit": {
       "date": "2026-10-21T22:30:21.000Z",
       "message": "feat: validar permisos de acceso administrativo",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/74fda8c2936929e6250192430b45440fb53e5e8c"
     },
     "stats": {
       "total": 104,
@@ -794,6 +794,25 @@
     },
     "coverage": 95.02,
     "test_count": 113,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "pochis",
+    "commit": {
+      "date": "2026-10-21T23:31:10.000Z",
+      "message": "feat: redirigir administradores al panel de bienestar",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 70,
+      "additions": 68,
+      "deletions": 2,
+      "date": "2026-10-21"
+    },
+    "coverage": 95.15,
+    "test_count": 117,
     "failed_tests": 0,
     "conclusion": "success"
   }

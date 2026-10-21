@@ -2,7 +2,8 @@
 import {
   iniciarSesion,
   mensajeRecuperacion,
-  crearAdministradorDemo
+  crearAdministradorDemo,
+  obtenerRutaPostLogin
 } from './login.js';
 
 
@@ -24,6 +25,12 @@ formulario.addEventListener('submit', (evento) => {
 
   mensaje.textContent = resultado.mensaje;
   mensaje.style.color = resultado.ok ? '#16803d' : '#c62828';
+
+  const destino = obtenerRutaPostLogin(resultado);
+
+if (destino) {
+  window.location.assign(destino);
+}
 });
 
 const recuperar = document.getElementById('recuperar-contrasena');

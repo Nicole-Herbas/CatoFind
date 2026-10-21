@@ -1088,7 +1088,7 @@
     "testId": 19
   },
   {
-    "commitId": "HEAD",
+    "commitId": "74fda8c2936929e6250192430b45440fb53e5e8c",
     "commitName": "feat: validar permisos de acceso administrativo",
     "commitTimestamp": 1792621822203,
     "testId": 19
@@ -1122,5 +1122,35 @@
     "commitName": "Feat: Agregar disenio facil para comprobar si el login funciona",
     "commitTimestamp": 1792623711170,
     "testId": 20
+  },
+  {
+    "numPassedTests": 113,
+    "failedTests": 4,
+    "numTotalTests": 117,
+    "timestamp": 1792623944879,
+    "success": false,
+    "testId": 21
+  },
+  {
+    "numPassedTests": 117,
+    "failedTests": 0,
+    "numTotalTests": 117,
+    "timestamp": 1792623969909,
+    "success": true,
+    "testId": 21
+  },
+  {
+    "numPassedTests": 117,
+    "failedTests": 0,
+    "numTotalTests": 117,
+    "timestamp": 1792624021183,
+    "success": true,
+    "testId": 21
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: redirigir administradores al panel de bienestar",
+    "commitTimestamp": 1792625471263,
+    "testId": 21
   }
 ]

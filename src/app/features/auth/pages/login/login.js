@@ -142,3 +142,16 @@ export function verificarAccesoAdministrador(almacenamientoSesion) {
     mensaje: ''
   };
 }
+
+export function obtenerRutaPostLogin(resultado) {
+
+  if (!resultado?.ok) {
+    return null;
+  }
+
+  if (resultado.usuario?.rol === 'ADMIN') {
+    return '/panel.html';
+  }
+
+  return null;
+}
