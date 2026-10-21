@@ -962,7 +962,7 @@
     "testId": 14
   },
   {
-    "commitId": "HEAD",
+    "commitId": "0c638ce0ae305342ee008fe8eb2afd5f192facb0",
     "commitName": "style: agregar estilos de la pagina buscar",
     "commitTimestamp": 1792608490523,
     "testId": 14
@@ -976,9 +976,181 @@
     "testId": 15
   },
   {
-    "commitId": "HEAD",
+    "commitId": "9a095196cc5a2c8b358f190d6861d4938956ac97",
     "commitName": "chore: integrar main en HU-07/buscar",
     "commitTimestamp": 1792608827337,
     "testId": 15
+  },
+  {
+    "numPassedTests": 93,
+    "failedTests": 2,
+    "numTotalTests": 95,
+    "timestamp": 1792619826074,
+    "success": false,
+    "testId": 16
+  },
+  {
+    "numPassedTests": 95,
+    "failedTests": 0,
+    "numTotalTests": 95,
+    "timestamp": 1792619893033,
+    "success": true,
+    "testId": 16
+  },
+  {
+    "commitId": "2245700fbe21908d7b02a69f33a793db6e813395",
+    "commitName": "feat: agregar roles de usuario",
+    "commitTimestamp": 1792619906597,
+    "testId": 16
+  },
+  {
+    "numPassedTests": 97,
+    "failedTests": 3,
+    "numTotalTests": 100,
+    "timestamp": 1792620070823,
+    "success": false,
+    "testId": 17
+  },
+  {
+    "numPassedTests": 100,
+    "failedTests": 0,
+    "numTotalTests": 100,
+    "timestamp": 1792620150678,
+    "success": true,
+    "testId": 17
+  },
+  {
+    "commitId": "96d53883026af721bfc1cec3deaccb480163b13a",
+    "commitName": "feat: autenticar administradores y conservar roles en sesion",
+    "commitTimestamp": 1792620170340,
+    "testId": 17
+  },
+  {
+    "numPassedTests": 105,
+    "failedTests": 0,
+    "numTotalTests": 105,
+    "timestamp": 1792620634918,
+    "success": true,
+    "testId": 18
+  },
+  {
+    "numPassedTests": 100,
+    "failedTests": 0,
+    "numTotalTests": 100,
+    "timestamp": 1792620715607,
+    "success": true,
+    "testId": 18
+  },
+  {
+    "numPassedTests": 100,
+    "failedTests": 4,
+    "numTotalTests": 104,
+    "timestamp": 1792620729657,
+    "success": false,
+    "testId": 18
+  },
+  {
+    "numPassedTests": 100,
+    "failedTests": 4,
+    "numTotalTests": 104,
+    "timestamp": 1792620775642,
+    "success": false,
+    "testId": 18
+  },
+  {
+    "numPassedTests": 104,
+    "failedTests": 0,
+    "numTotalTests": 104,
+    "timestamp": 1792621017216,
+    "success": true,
+    "testId": 18
+  },
+  {
+    "commitId": "740d369d13d652ce672cb79f26619b4a624f3556",
+    "commitName": "feat: preparar cuenta administrativa de demostracion",
+    "commitTimestamp": 1792621041369,
+    "testId": 18
+  },
+  {
+    "numPassedTests": 104,
+    "failedTests": 5,
+    "numTotalTests": 109,
+    "timestamp": 1792621648266,
+    "success": false,
+    "testId": 19
+  },
+  {
+    "numPassedTests": 109,
+    "failedTests": 0,
+    "numTotalTests": 109,
+    "timestamp": 1792621805015,
+    "success": true,
+    "testId": 19
+  },
+  {
+    "commitId": "74fda8c2936929e6250192430b45440fb53e5e8c",
+    "commitName": "feat: validar permisos de acceso administrativo",
+    "commitTimestamp": 1792621822203,
+    "testId": 19
+  },
+  {
+    "numPassedTests": 109,
+    "failedTests": 0,
+    "numTotalTests": 109,
+    "timestamp": 1792623127873,
+    "success": false,
+    "testId": 20
+  },
+  {
+    "numPassedTests": 109,
+    "failedTests": 0,
+    "numTotalTests": 109,
+    "timestamp": 1792623151374,
+    "success": false,
+    "testId": 20
+  },
+  {
+    "numPassedTests": 113,
+    "failedTests": 0,
+    "numTotalTests": 113,
+    "timestamp": 1792623196776,
+    "success": true,
+    "testId": 20
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "Feat: Agregar disenio facil para comprobar si el login funciona",
+    "commitTimestamp": 1792623711170,
+    "testId": 20
+  },
+  {
+    "numPassedTests": 113,
+    "failedTests": 4,
+    "numTotalTests": 117,
+    "timestamp": 1792623944879,
+    "success": false,
+    "testId": 21
+  },
+  {
+    "numPassedTests": 117,
+    "failedTests": 0,
+    "numTotalTests": 117,
+    "timestamp": 1792623969909,
+    "success": true,
+    "testId": 21
+  },
+  {
+    "numPassedTests": 117,
+    "failedTests": 0,
+    "numTotalTests": 117,
+    "timestamp": 1792624021183,
+    "success": true,
+    "testId": 21
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: redirigir administradores al panel de bienestar",
+    "commitTimestamp": 1792625471263,
+    "testId": 21
   }
 ]

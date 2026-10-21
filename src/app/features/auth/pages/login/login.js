@@ -40,12 +40,12 @@ export function iniciarSesion(correo, contrasena, almacenamiento, almacenamiento
       mensaje: 'Correo o contraseña incorrectos.'
     };
   }
-
-    const usuarioSesion = {
-    nombre: usuario.nombre,
-    apellido: usuario.apellido,
-    correo: usuario.correo
-  };
+  const usuarioSesion = {
+  nombre: usuario.nombre,
+  apellido: usuario.apellido,
+  correo: usuario.correo,
+  rol: usuario.rol === 'ADMIN' ? 'ADMIN' : 'ESTUDIANTE'
+};
 
   if (almacenamientoSesion) {
     almacenamientoSesion.setItem(
@@ -81,10 +81,11 @@ export function obtenerSesion(almacenamientoSesion) {
     }
 
     return {
-      nombre: usuario.nombre,
-      apellido: usuario.apellido,
-      correo: usuario.correo
-    };
+  nombre: usuario.nombre,
+  apellido: usuario.apellido,
+  correo: usuario.correo,
+  rol: usuario.rol === 'ADMIN' ? 'ADMIN' : 'ESTUDIANTE'
+};
   } catch {
     return null;
   }
@@ -96,4 +97,61 @@ export function cerrarSesion(almacenamientoSesion) {
 
 export function mensajeRecuperacion() {
   return 'Te enviaríamos un enlace de recuperación a tu correo ';
+}
+export function crearAdministradorDemo(almacenamiento) {
+  const servicio = new UsuarioService(almacenamiento);
+
+  const correo = 'bienestar@ucb.edu.bo';
+
+  if (servicio.existeCorreo(correo)) {
+    return false;
+  }
+
+  servicio.guardarUsuario({
+    nombre: 'Administrador',
+    apellido: 'Bienestar',
+    correo: correo,
+    contrasena: 'Admin12345',
+    rol: 'ADMIN'
+  });
+
+  return true;
+}
+
+
+export function verificarAccesoAdministrador(almacenamientoSesion) {
+
+  const usuario = obtenerSesion(almacenamientoSesion);
+
+  if (!usuario) {
+    return {
+      permitido: false,
+      mensaje: 'Debes iniciar sesión para acceder al panel administrativo.'
+    };
+  }
+
+  if (usuario.rol !== 'ADMIN') {
+    return {
+      permitido: false,
+      mensaje: 'No tienes permisos para acceder al panel administrativo.'
+    };
+  }
+
+  return {
+    permitido: true,
+    mensaje: ''
+  };
+}
+
+export function obtenerRutaPostLogin(resultado) {
+
+  if (!resultado?.ok) {
+    return null;
+  }
+
+  if (resultado.usuario?.rol === 'ADMIN') {
+    return '/panel.html';
+  }
+
+  return null;
 }
