@@ -1,0 +1,22 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.login {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+}
+
+.login__presentacion {
+  background: linear-gradient(160deg, #092b61, #0b4a91);
+}
+
+.login__acceso {
+  background: #f5f7fa;
+}

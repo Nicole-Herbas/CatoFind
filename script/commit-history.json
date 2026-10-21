@@ -19,12 +19,12 @@
     "conclusion": "neutral"
   },
   {
-    "sha": "HEAD",
+    "sha": "c4856fea3884732501714e6f5b34afed25951bc2",
     "author": "pochis",
     "commit": {
       "date": "2026-10-20T14:00:00.000Z",
       "message": "HU-01/feat: crear estructura de dos paneles del login",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/c4856fea3884732501714e6f5b34afed25951bc2"
     },
     "stats": {
       "total": 38,
@@ -34,6 +34,25 @@
     },
     "coverage": 0,
     "test_count": 1,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "pochis",
+    "commit": {
+      "date": "2026-10-21T03:02:57.000Z",
+      "message": "feat: agregar distribucion y colores del login",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 42,
+      "additions": 42,
+      "deletions": 0,
+      "date": "2026-10-21"
+    },
+    "coverage": 0,
+    "test_count": 2,
     "failed_tests": 0,
     "conclusion": "success"
   }
