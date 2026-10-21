@@ -164,3 +164,21 @@ describe('Enlaces del login', () => {
   });
 
 });
+
+describe('Estilos de los enlaces', () => {
+
+  it('debe distribuir los enlaces horizontalmente', () => {
+    const estilos = css.split('.login__enlaces {')[1]?.split('}')[0] || '';
+
+    expect(estilos).toContain('display: flex;');
+    expect(estilos).toContain('justify-content: space-between;');
+  });
+
+  it('debe dar estilos a los enlaces', () => {
+    const estilos = css.split('.login__enlaces a {')[1]?.split('}')[0] || '';
+
+    expect(estilos).toContain('color: #24518f;');
+    expect(estilos).toContain('text-decoration: none;');
+  });
+
+});

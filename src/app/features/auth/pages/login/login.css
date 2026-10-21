@@ -154,7 +154,6 @@ body {
   transform: rotate(4deg);
 }
 
-/* Logo institucional UCB */
 
 .login__logo-ucb {
   display: flex;
@@ -180,4 +179,23 @@ body {
 
 .login__logo-texto strong {
   font-size: 13px;
+}
+
+
+
+.login__enlaces {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.login__enlaces a {
+  color: #24518f;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.login__enlaces a:hover {
+  text-decoration: underline;
 }

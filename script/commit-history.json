@@ -190,12 +190,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "8d74d1ccd9e1678c824dcc4eb733613a8d0d14d4",
     "author": "pochis",
     "commit": {
       "date": "2026-10-21T04:45:59.000Z",
       "message": "feat: agregar enlaces de registro y recuperacion",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/8d74d1ccd9e1678c824dcc4eb733613a8d0d14d4"
     },
     "stats": {
       "total": 23,
@@ -205,6 +205,25 @@
     },
     "coverage": 18.18,
     "test_count": 20,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "pochis",
+    "commit": {
+      "date": "2026-10-21T05:00:51.000Z",
+      "message": "style: agregar estilos de enlaces del login",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 38,
+      "additions": 37,
+      "deletions": 1,
+      "date": "2026-10-21"
+    },
+    "coverage": 18.18,
+    "test_count": 22,
     "failed_tests": 0,
     "conclusion": "success"
   }

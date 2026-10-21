@@ -284,9 +284,39 @@
     "testId": 10
   },
   {
-    "commitId": "HEAD",
+    "commitId": "8d74d1ccd9e1678c824dcc4eb733613a8d0d14d4",
     "commitName": "feat: agregar enlaces de registro y recuperacion",
     "commitTimestamp": 1792557960848,
     "testId": 10
+  },
+  {
+    "numPassedTests": 0,
+    "failedTests": 0,
+    "numTotalTests": 0,
+    "timestamp": 1792557974352,
+    "success": false,
+    "testId": 11
+  },
+  {
+    "numPassedTests": 20,
+    "failedTests": 2,
+    "numTotalTests": 22,
+    "timestamp": 1792558007832,
+    "success": false,
+    "testId": 11
+  },
+  {
+    "numPassedTests": 22,
+    "failedTests": 0,
+    "numTotalTests": 22,
+    "timestamp": 1792558022877,
+    "success": true,
+    "testId": 11
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "style: agregar estilos de enlaces del login",
+    "commitTimestamp": 1792558851913,
+    "testId": 11
   }
 ]
