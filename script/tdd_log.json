@@ -962,7 +962,7 @@
     "testId": 14
   },
   {
-    "commitId": "HEAD",
+    "commitId": "0c638ce0ae305342ee008fe8eb2afd5f192facb0",
     "commitName": "style: agregar estilos de la pagina buscar",
     "commitTimestamp": 1792608490523,
     "testId": 14
@@ -980,5 +980,27 @@
     "commitName": "chore: integrar main en HU-07/buscar",
     "commitTimestamp": 1792608827337,
     "testId": 15
+  },
+  {
+    "numPassedTests": 93,
+    "failedTests": 2,
+    "numTotalTests": 95,
+    "timestamp": 1792619826074,
+    "success": false,
+    "testId": 16
+  },
+  {
+    "numPassedTests": 95,
+    "failedTests": 0,
+    "numTotalTests": 95,
+    "timestamp": 1792619893033,
+    "success": true,
+    "testId": 16
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: agregar roles de usuario",
+    "commitTimestamp": 1792619906597,
+    "testId": 16
   }
 ]

@@ -665,12 +665,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "0c638ce0ae305342ee008fe8eb2afd5f192facb0",
     "author": "Nico Meneses",
     "commit": {
       "date": "2026-10-21T18:48:09.000Z",
       "message": "style: agregar estilos de la pagina buscar",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/0c638ce0ae305342ee008fe8eb2afd5f192facb0"
     },
     "stats": {
       "total": 160,
@@ -699,6 +699,25 @@
     },
     "coverage": 95.38,
     "test_count": 93,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "pochis",
+    "commit": {
+      "date": "2026-10-21T21:58:25.000Z",
+      "message": "feat: agregar roles de usuario",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 24,
+      "additions": 23,
+      "deletions": 1,
+      "date": "2026-10-21"
+    },
+    "coverage": 95.4,
+    "test_count": 95,
     "failed_tests": 0,
     "conclusion": "success"
   }
