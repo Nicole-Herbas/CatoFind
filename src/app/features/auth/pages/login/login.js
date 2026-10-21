@@ -117,3 +117,28 @@ export function crearAdministradorDemo(almacenamiento) {
 
   return true;
 }
+
+
+export function verificarAccesoAdministrador(almacenamientoSesion) {
+
+  const usuario = obtenerSesion(almacenamientoSesion);
+
+  if (!usuario) {
+    return {
+      permitido: false,
+      mensaje: 'Debes iniciar sesión para acceder al panel administrativo.'
+    };
+  }
+
+  if (usuario.rol !== 'ADMIN') {
+    return {
+      permitido: false,
+      mensaje: 'No tienes permisos para acceder al panel administrativo.'
+    };
+  }
+
+  return {
+    permitido: true,
+    mensaje: ''
+  };
+}

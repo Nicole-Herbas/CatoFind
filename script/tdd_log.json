@@ -1020,7 +1020,7 @@
     "testId": 17
   },
   {
-    "commitId": "HEAD",
+    "commitId": "96d53883026af721bfc1cec3deaccb480163b13a",
     "commitName": "feat: autenticar administradores y conservar roles en sesion",
     "commitTimestamp": 1792620170340,
     "testId": 17
@@ -1070,5 +1070,27 @@
     "commitName": "feat: preparar cuenta administrativa de demostracion",
     "commitTimestamp": 1792621041369,
     "testId": 18
+  },
+  {
+    "numPassedTests": 104,
+    "failedTests": 5,
+    "numTotalTests": 109,
+    "timestamp": 1792621648266,
+    "success": false,
+    "testId": 19
+  },
+  {
+    "numPassedTests": 109,
+    "failedTests": 0,
+    "numTotalTests": 109,
+    "timestamp": 1792621805015,
+    "success": true,
+    "testId": 19
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: validar permisos de acceso administrativo",
+    "commitTimestamp": 1792621822203,
+    "testId": 19
   }
 ]

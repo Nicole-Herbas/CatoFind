@@ -6,7 +6,8 @@ import {
   obtenerSesion,
   cerrarSesion,
   mensajeRecuperacion,
-  crearAdministradorDemo
+  crearAdministradorDemo,
+  verificarAccesoAdministrador
 } from './login.js';
 
 import { UsuarioService } from '../../services/UsuarioService.js';
@@ -654,6 +655,78 @@ describe('Cuenta administrativa de demostracion HU-02', () => {
 
     expect(usuarios).toHaveLength(1);
     expect(usuarios[0].rol).toBe('ESTUDIANTE');
+  });
+
+});
+
+
+describe('Permisos administrativos HU-02', () => {
+
+  function crearSesion(datos) {
+    return {
+      getItem: clave =>
+        clave === 'catofind_sesion' ? datos : null
+    };
+  }
+
+  it('debe permitir el acceso a un administrador', () => {
+    const sesion = crearSesion(JSON.stringify({
+      nombre: 'Administrador',
+      apellido: 'Bienestar',
+      correo: 'bienestar@ucb.edu.bo',
+      rol: 'ADMIN'
+    }));
+
+    const resultado = verificarAccesoAdministrador(sesion);
+
+    expect(resultado.permitido).toBe(true);
+  });
+
+  it('debe rechazar el acceso a un estudiante', () => {
+    const sesion = crearSesion(JSON.stringify({
+      nombre: 'Jose',
+      apellido: 'Prueba',
+      correo: 'estudiante@ucb.edu.bo',
+      rol: 'ESTUDIANTE'
+    }));
+
+    const resultado = verificarAccesoAdministrador(sesion);
+
+    expect(resultado.permitido).toBe(false);
+    expect(resultado.mensaje).toBe(
+      'No tienes permisos para acceder al panel administrativo.'
+    );
+  });
+
+  it('debe rechazar el acceso sin iniciar sesion', () => {
+    const sesion = crearSesion(null);
+
+    const resultado = verificarAccesoAdministrador(sesion);
+
+    expect(resultado.permitido).toBe(false);
+    expect(resultado.mensaje).toBe(
+      'Debes iniciar sesión para acceder al panel administrativo.'
+    );
+  });
+
+  it('debe rechazar una sesion invalida', () => {
+    const sesion = crearSesion('{datos invalidos');
+
+    const resultado = verificarAccesoAdministrador(sesion);
+
+    expect(resultado.permitido).toBe(false);
+  });
+
+  it('debe rechazar cuentas antiguas sin rol', () => {
+    const sesion = crearSesion(JSON.stringify({
+      nombre: 'Alumno',
+      apellido: 'Prueba',
+      correo: 'alumno@ucb.edu.bo'
+    }));
+
+    const resultado = verificarAccesoAdministrador(sesion);
+
+    expect(resultado.permitido).toBe(false);
   });
 
 });

@@ -722,12 +722,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "96d53883026af721bfc1cec3deaccb480163b13a",
     "author": "pochis",
     "commit": {
       "date": "2026-10-21T22:02:49.000Z",
       "message": "feat: autenticar administradores y conservar roles en sesion",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/96d53883026af721bfc1cec3deaccb480163b13a"
     },
     "stats": {
       "total": 129,
@@ -756,6 +756,25 @@
     },
     "coverage": 95.56,
     "test_count": 104,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "pochis",
+    "commit": {
+      "date": "2026-10-21T22:30:21.000Z",
+      "message": "feat: validar permisos de acceso administrativo",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 104,
+      "additions": 101,
+      "deletions": 3,
+      "date": "2026-10-21"
+    },
+    "coverage": 96.24,
+    "test_count": 109,
     "failed_tests": 0,
     "conclusion": "success"
   }
