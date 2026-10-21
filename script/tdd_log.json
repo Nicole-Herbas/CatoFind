@@ -178,9 +178,31 @@
     "testId": 7
   },
   {
-    "commitId": "HEAD",
+    "commitId": "6271b97272449d3df15c3e2eb70a6a6768910393",
     "commitName": "feat: combinar busqueda por titulo con filtros",
     "commitTimestamp": 1792599090419,
     "testId": 7
+  },
+  {
+    "numPassedTests": 14,
+    "failedTests": 3,
+    "numTotalTests": 17,
+    "timestamp": 1792599114037,
+    "success": false,
+    "testId": 8
+  },
+  {
+    "numPassedTests": 17,
+    "failedTests": 0,
+    "numTotalTests": 17,
+    "timestamp": 1792599123394,
+    "success": true,
+    "testId": 8
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: mostrar mensaje segun cantidad de resultados",
+    "commitTimestamp": 1792599133743,
+    "testId": 8
   }
 ]

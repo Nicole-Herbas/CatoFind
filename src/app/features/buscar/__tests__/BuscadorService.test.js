@@ -153,3 +153,19 @@ describe('BuscadorService - búsqueda combinada (HU-07/09)', () => {
     expect(titulos).toEqual(['Celular Samsung', 'Celular Xiaomi', 'Funda de celular']);
   });
 });
+
+describe('BuscadorService - mensaje de resultados (HU-09)', () => {
+  const service = new BuscadorService();
+
+  it('debe avisar cuando no hay resultados', () => {
+    expect(service.mensajeResultados([])).toBe('No se encontró ningún objeto');
+  });
+
+  it('debe usar singular con un resultado', () => {
+    expect(service.mensajeResultados([{}])).toBe('1 resultado encontrado');
+  });
+
+  it('debe usar plural con varios resultados', () => {
+    expect(service.mensajeResultados([{}, {}, {}])).toBe('3 resultados encontrados');
+  });
+});

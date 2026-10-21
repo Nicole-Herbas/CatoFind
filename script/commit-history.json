@@ -133,12 +133,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "6271b97272449d3df15c3e2eb70a6a6768910393",
     "author": "Nico Meneses",
     "commit": {
       "date": "2026-10-21T16:11:29.000Z",
       "message": "feat: combinar busqueda por titulo con filtros",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/6271b97272449d3df15c3e2eb70a6a6768910393"
     },
     "stats": {
       "total": 45,
@@ -148,6 +148,25 @@
     },
     "coverage": 100,
     "test_count": 14,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "Nico Meneses",
+    "commit": {
+      "date": "2026-10-21T16:12:12.000Z",
+      "message": "feat: mostrar mensaje segun cantidad de resultados",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 23,
+      "additions": 23,
+      "deletions": 0,
+      "date": "2026-10-21"
+    },
+    "coverage": 100,
+    "test_count": 17,
     "failed_tests": 0,
     "conclusion": "success"
   }

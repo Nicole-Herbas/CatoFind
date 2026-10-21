@@ -69,4 +69,11 @@ export class BuscadorService {
         porFecha.has(objeto.id)
     );
   }
+
+  mensajeResultados(resultados) {
+    const cantidad = resultados.length;
+    if (cantidad === 0) return 'No se encontró ningún objeto';
+    if (cantidad === 1) return '1 resultado encontrado';
+    return `${cantidad} resultados encontrados`;
+  }
 }
