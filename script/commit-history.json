@@ -95,12 +95,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "a466be46ebe323b71098a3dbbb55827216364b7f",
     "author": "pochis",
     "commit": {
       "date": "2026-10-21T03:29:57.000Z",
       "message": "feat: agregar presentacion",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/a466be46ebe323b71098a3dbbb55827216364b7f"
     },
     "stats": {
       "total": 67,
@@ -110,6 +110,25 @@
     },
     "coverage": 18.18,
     "test_count": 9,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "pochis",
+    "commit": {
+      "date": "2026-10-21T03:43:12.000Z",
+      "message": "feat: agregar fotografias a la presentacion",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 50,
+      "additions": 50,
+      "deletions": 0,
+      "date": "2026-10-21"
+    },
+    "coverage": 18.18,
+    "test_count": 11,
     "failed_tests": 0,
     "conclusion": "success"
   }

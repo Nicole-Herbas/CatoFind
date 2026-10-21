@@ -76,3 +76,17 @@ describe('Presentacion de CatoFind', () => {
   });
 
 });
+
+describe('Fotografias de CatoFind', () => {
+
+  it('debe mostrar las tres imagenes', () => {
+    expect(html).toContain('mochila.jpg');
+    expect(html).toContain('perro.jpg');
+    expect(html).toContain('audifonos.jpg');
+  });
+
+  it('debe tener el contenedor de imagenes', () => {
+    expect(html).toContain('class="login__imagenes"');
+  });
+
+});

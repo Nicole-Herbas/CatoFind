@@ -132,3 +132,24 @@ body {
   color: #cbdcf1;
 }
 
+
+.login__imagenes {
+  display: flex;
+  gap: 16px;
+  margin-top: 36px;
+}
+
+.login__imagenes img {
+  width: 144px;
+  height: 190px;
+  object-fit: cover;
+  border-radius: 24px;
+}
+
+.login__imagenes img:first-child {
+  transform: rotate(-4deg);
+}
+
+.login__imagenes img:last-child {
+  transform: rotate(4deg);
+}

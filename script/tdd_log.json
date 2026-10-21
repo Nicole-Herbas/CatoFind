@@ -142,9 +142,39 @@
     "testId": 4
   },
   {
-    "commitId": "HEAD",
+    "commitId": "a466be46ebe323b71098a3dbbb55827216364b7f",
     "commitName": "feat: agregar presentacion",
     "commitTimestamp": 1792553398377,
     "testId": 5
+  },
+  {
+    "numPassedTests": 9,
+    "failedTests": 0,
+    "numTotalTests": 9,
+    "timestamp": 1792553443332,
+    "success": true,
+    "testId": 6
+  },
+  {
+    "numPassedTests": 9,
+    "failedTests": 2,
+    "numTotalTests": 11,
+    "timestamp": 1792553535568,
+    "success": false,
+    "testId": 6
+  },
+  {
+    "numPassedTests": 11,
+    "failedTests": 0,
+    "numTotalTests": 11,
+    "timestamp": 1792553982200,
+    "success": true,
+    "testId": 6
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: agregar fotografias a la presentacion",
+    "commitTimestamp": 1792554193219,
+    "testId": 6
   }
 ]
