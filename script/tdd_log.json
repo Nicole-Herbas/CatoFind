@@ -194,9 +194,55 @@
     "testId": 7
   },
   {
-    "commitId": "HEAD",
+    "commitId": "c08ea963fec4c368e869cff9293427f031a390fa",
     "commitName": "feat: agregar logo institucional al login",
     "commitTimestamp": 1792555287586,
     "testId": 7
+  },
+  {
+    "numPassedTests": 0,
+    "failedTests": 0,
+    "numTotalTests": 0,
+    "timestamp": 1792555301551,
+    "success": false,
+    "testId": 8
+  },
+  {
+    "numPassedTests": 0,
+    "failedTests": 0,
+    "numTotalTests": 0,
+    "timestamp": 1792555315428,
+    "success": false,
+    "testId": 8
+  },
+  {
+    "numPassedTests": 15,
+    "failedTests": 0,
+    "numTotalTests": 15,
+    "timestamp": 1792555379254,
+    "success": true,
+    "testId": 8
+  },
+  {
+    "numPassedTests": 12,
+    "failedTests": 3,
+    "numTotalTests": 15,
+    "timestamp": 1792555390982,
+    "success": false,
+    "testId": 8
+  },
+  {
+    "numPassedTests": 15,
+    "failedTests": 0,
+    "numTotalTests": 15,
+    "timestamp": 1792555400596,
+    "success": true,
+    "testId": 8
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "style: agregar estilos del logo institucional",
+    "commitTimestamp": 1792555412768,
+    "testId": 8
   }
 ]
