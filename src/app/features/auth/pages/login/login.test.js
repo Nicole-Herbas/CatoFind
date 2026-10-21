@@ -90,3 +90,14 @@ describe('Fotografias de CatoFind', () => {
   });
 
 });
+describe('Logo institucional del login', () => {
+
+  it('debe mostrar el logo de la UCB', () => {
+    expect(html).toContain('class="login__logo-ucb"');
+    expect(html).toContain('Escudo Universidad Católica Boliviana');
+    expect(html).toContain('UNIVERSIDAD');
+    expect(html).toContain('CATÓLICA');
+    expect(html).toContain('BOLIVIANA');
+  });
+
+});

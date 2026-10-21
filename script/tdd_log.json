@@ -172,9 +172,31 @@
     "testId": 6
   },
   {
-    "commitId": "HEAD",
+    "commitId": "8932413601c2b6abb1aece8164d6054a66958293",
     "commitName": "feat: agregar fotografias a la presentacion",
     "commitTimestamp": 1792554193219,
     "testId": 6
+  },
+  {
+    "numPassedTests": 11,
+    "failedTests": 1,
+    "numTotalTests": 12,
+    "timestamp": 1792554397184,
+    "success": false,
+    "testId": 7
+  },
+  {
+    "numPassedTests": 12,
+    "failedTests": 0,
+    "numTotalTests": 12,
+    "timestamp": 1792555257978,
+    "success": true,
+    "testId": 7
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: agregar logo institucional al login",
+    "commitTimestamp": 1792555287586,
+    "testId": 7
   }
 ]
