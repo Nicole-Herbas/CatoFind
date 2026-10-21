@@ -21,4 +21,8 @@ describe('Página Buscar - estructura', () => {
     expect(pagina.querySelector('#mensaje-resultados')).not.toBeNull();
     expect(pagina.querySelector('#resultados')).not.toBeNull();
   });
+
+  it('debe enlazar su hoja de estilos', () => {
+    expect(pagina.querySelector('link[href="./buscar.css"]')).not.toBeNull();
+  });
 });

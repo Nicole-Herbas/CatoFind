@@ -326,9 +326,31 @@
     "testId": 13
   },
   {
-    "commitId": "HEAD",
+    "commitId": "e52aa98f2dd1fd8e16fb3350c9b6e6c91755657b",
     "commitName": "feat: mostrar detalle del objeto al hacer clic",
     "commitTimestamp": 1792608361842,
     "testId": 13
+  },
+  {
+    "numPassedTests": 35,
+    "failedTests": 1,
+    "numTotalTests": 36,
+    "timestamp": 1792608396623,
+    "success": false,
+    "testId": 14
+  },
+  {
+    "numPassedTests": 36,
+    "failedTests": 0,
+    "numTotalTests": 36,
+    "timestamp": 1792608439872,
+    "success": true,
+    "testId": 14
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "style: agregar estilos de la pagina buscar",
+    "commitTimestamp": 1792608490523,
+    "testId": 14
   }
 ]
