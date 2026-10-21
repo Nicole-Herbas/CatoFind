@@ -29,6 +29,12 @@ describe('Validar campos del formulario', ()=>{
 
     it('si por lo menos un campo no esta llenado, devuelve un mensaje de error', ()=>{
 
+        const valoresValidos = {
+            locations: { value: 'biblioteca' },
+            dateLost: { value: '2026-10-20' },
+            extraDescriptionObject: { value: 'Tiene una costura en la manga' }
+        };
+
         Object.keys(valoresValidos).forEach((campoVacio) => {
             const campos = {
                 locations: { ...valoresValidos.locations },
