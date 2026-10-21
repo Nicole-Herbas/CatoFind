@@ -1,0 +1,616 @@
+[
+  {
+    "commitId": "913877eabab3b82d033e08d389b032f26497f381",
+    "commitName": "chore: agregar imagenes y logo de CatoFind",
+    "commitTimestamp": 1792503891812,
+    "testId": 0
+  },
+  {
+    "numPassedTests": 0,
+    "failedTests": 1,
+    "numTotalTests": 1,
+    "timestamp": 1792504360093,
+    "success": false,
+    "testId": 1
+  },
+  {
+    "numPassedTests": 1,
+    "failedTests": 0,
+    "numTotalTests": 1,
+    "timestamp": 1792504703458,
+    "success": true,
+    "testId": 1
+  },
+  {
+    "commitId": "c4856fea3884732501714e6f5b34afed25951bc2",
+    "commitName": "HU-01/feat: crear estructura de dos paneles del login",
+    "commitTimestamp": 1792504801564,
+    "testId": 1
+  },
+  {
+    "numPassedTests": 1,
+    "failedTests": 0,
+    "numTotalTests": 1,
+    "timestamp": 1792551141449,
+    "success": true,
+    "testId": 2
+  },
+  {
+    "numPassedTests": 1,
+    "failedTests": 0,
+    "numTotalTests": 1,
+    "timestamp": 1792551160046,
+    "success": true,
+    "testId": 2
+  },
+  {
+    "numPassedTests": 1,
+    "failedTests": 1,
+    "numTotalTests": 2,
+    "timestamp": 1792551348625,
+    "success": false,
+    "testId": 2
+  },
+  {
+    "numPassedTests": 2,
+    "failedTests": 0,
+    "numTotalTests": 2,
+    "timestamp": 1792551659501,
+    "success": true,
+    "testId": 2
+  },
+  {
+    "commitId": "4f913ce5c9e05376879a5bff782d666757d0d66d",
+    "commitName": "feat: agregar distribucion y colores del login",
+    "commitTimestamp": 1792551778646,
+    "testId": 2
+  },
+  {
+    "numPassedTests": 2,
+    "failedTests": 4,
+    "numTotalTests": 6,
+    "timestamp": 1792552015529,
+    "success": false,
+    "testId": 3
+  },
+  {
+    "numPassedTests": 5,
+    "failedTests": 1,
+    "numTotalTests": 6,
+    "timestamp": 1792552079301,
+    "success": false,
+    "testId": 3
+  },
+  {
+    "numPassedTests": 5,
+    "failedTests": 1,
+    "numTotalTests": 6,
+    "timestamp": 1792552097518,
+    "success": false,
+    "testId": 3
+  },
+  {
+    "numPassedTests": 5,
+    "failedTests": 1,
+    "numTotalTests": 6,
+    "timestamp": 1792552117020,
+    "success": false,
+    "testId": 3
+  },
+  {
+    "numPassedTests": 6,
+    "failedTests": 0,
+    "numTotalTests": 6,
+    "timestamp": 1792552190169,
+    "success": true,
+    "testId": 3
+  },
+  {
+    "commitId": "07388b842c673753b2d7dda1b22059c271aea820",
+    "commitName": "feat: agregar formulario y validacion de correo UCB",
+    "commitTimestamp": 1792552323653,
+    "testId": 3
+  },
+  {
+    "numPassedTests": 9,
+    "failedTests": 0,
+    "numTotalTests": 9,
+    "timestamp": 1792552631599,
+    "success": true,
+    "testId": 4
+  },
+  {
+    "numPassedTests": 6,
+    "failedTests": 3,
+    "numTotalTests": 9,
+    "timestamp": 1792552645464,
+    "success": false,
+    "testId": 4
+  },
+  {
+    "numPassedTests": 9,
+    "failedTests": 0,
+    "numTotalTests": 9,
+    "timestamp": 1792552653844,
+    "success": true,
+    "testId": 4
+  },
+  {
+    "commitId": "a41d86857cba26ba54bfb8f16feac0b582d8543c",
+    "commitName": "feat: agregar logo de CatoFind",
+    "commitTimestamp": 1792552691658,
+    "testId": 4
+  },
+  {
+    "commitId": "a466be46ebe323b71098a3dbbb55827216364b7f",
+    "commitName": "feat: agregar presentacion",
+    "commitTimestamp": 1792553398377,
+    "testId": 5
+  },
+  {
+    "numPassedTests": 9,
+    "failedTests": 0,
+    "numTotalTests": 9,
+    "timestamp": 1792553443332,
+    "success": true,
+    "testId": 6
+  },
+  {
+    "numPassedTests": 9,
+    "failedTests": 2,
+    "numTotalTests": 11,
+    "timestamp": 1792553535568,
+    "success": false,
+    "testId": 6
+  },
+  {
+    "numPassedTests": 11,
+    "failedTests": 0,
+    "numTotalTests": 11,
+    "timestamp": 1792553982200,
+    "success": true,
+    "testId": 6
+  },
+  {
+    "commitId": "8932413601c2b6abb1aece8164d6054a66958293",
+    "commitName": "feat: agregar fotografias a la presentacion",
+    "commitTimestamp": 1792554193219,
+    "testId": 6
+  },
+  {
+    "numPassedTests": 11,
+    "failedTests": 1,
+    "numTotalTests": 12,
+    "timestamp": 1792554397184,
+    "success": false,
+    "testId": 7
+  },
+  {
+    "numPassedTests": 12,
+    "failedTests": 0,
+    "numTotalTests": 12,
+    "timestamp": 1792555257978,
+    "success": true,
+    "testId": 7
+  },
+  {
+    "commitId": "c08ea963fec4c368e869cff9293427f031a390fa",
+    "commitName": "feat: agregar logo institucional al login",
+    "commitTimestamp": 1792555287586,
+    "testId": 7
+  },
+  {
+    "numPassedTests": 0,
+    "failedTests": 0,
+    "numTotalTests": 0,
+    "timestamp": 1792555301551,
+    "success": false,
+    "testId": 8
+  },
+  {
+    "numPassedTests": 0,
+    "failedTests": 0,
+    "numTotalTests": 0,
+    "timestamp": 1792555315428,
+    "success": false,
+    "testId": 8
+  },
+  {
+    "numPassedTests": 15,
+    "failedTests": 0,
+    "numTotalTests": 15,
+    "timestamp": 1792555379254,
+    "success": true,
+    "testId": 8
+  },
+  {
+    "numPassedTests": 12,
+    "failedTests": 3,
+    "numTotalTests": 15,
+    "timestamp": 1792555390982,
+    "success": false,
+    "testId": 8
+  },
+  {
+    "numPassedTests": 15,
+    "failedTests": 0,
+    "numTotalTests": 15,
+    "timestamp": 1792555400596,
+    "success": true,
+    "testId": 8
+  },
+  {
+    "commitId": "177f23d2a76a06fc890e9e0c78d99c9bfcb5f98a",
+    "commitName": "style: agregar estilos del logo institucional",
+    "commitTimestamp": 1792555412768,
+    "testId": 8
+  },
+  {
+    "numPassedTests": 15,
+    "failedTests": 3,
+    "numTotalTests": 18,
+    "timestamp": 1792556583831,
+    "success": false,
+    "testId": 9
+  },
+  {
+    "numPassedTests": 18,
+    "failedTests": 0,
+    "numTotalTests": 18,
+    "timestamp": 1792556715443,
+    "success": true,
+    "testId": 9
+  },
+  {
+    "commitId": "dd5f4a0e9386c1d74d0ad4ff57a0ed0449cfaf3b",
+    "commitName": "feat: agregar opciones de cuenta y pruebas del login",
+    "commitTimestamp": 1792556738951,
+    "testId": 9
+  },
+  {
+    "numPassedTests": 18,
+    "failedTests": 2,
+    "numTotalTests": 20,
+    "timestamp": 1792557928105,
+    "success": false,
+    "testId": 10
+  },
+  {
+    "numPassedTests": 20,
+    "failedTests": 0,
+    "numTotalTests": 20,
+    "timestamp": 1792557946559,
+    "success": true,
+    "testId": 10
+  },
+  {
+    "commitId": "8d74d1ccd9e1678c824dcc4eb733613a8d0d14d4",
+    "commitName": "feat: agregar enlaces de registro y recuperacion",
+    "commitTimestamp": 1792557960848,
+    "testId": 10
+  },
+  {
+    "numPassedTests": 0,
+    "failedTests": 0,
+    "numTotalTests": 0,
+    "timestamp": 1792557974352,
+    "success": false,
+    "testId": 11
+  },
+  {
+    "numPassedTests": 20,
+    "failedTests": 2,
+    "numTotalTests": 22,
+    "timestamp": 1792558007832,
+    "success": false,
+    "testId": 11
+  },
+  {
+    "numPassedTests": 22,
+    "failedTests": 0,
+    "numTotalTests": 22,
+    "timestamp": 1792558022877,
+    "success": true,
+    "testId": 11
+  },
+  {
+    "commitId": "89e07ed3805eb03ddfb4f179e95fa0ab8b3cfe77",
+    "commitName": "style: agregar estilos de enlaces del login",
+    "commitTimestamp": 1792558851913,
+    "testId": 11
+  },
+  {
+    "numPassedTests": 22,
+    "failedTests": 0,
+    "numTotalTests": 22,
+    "timestamp": 1792558902238,
+    "success": false,
+    "testId": 12
+  },
+  {
+    "numPassedTests": 26,
+    "failedTests": 0,
+    "numTotalTests": 26,
+    "timestamp": 1792558922849,
+    "success": true,
+    "testId": 12
+  },
+  {
+    "commitId": "53ed61fc383364beae013671e695ddc949970278",
+    "commitName": "feat: Agregar principios de registro",
+    "commitTimestamp": 1792559002826,
+    "testId": 12
+  },
+  {
+    "numPassedTests": 27,
+    "failedTests": 0,
+    "numTotalTests": 27,
+    "timestamp": 1792559026693,
+    "success": true,
+    "testId": 13
+  },
+  {
+    "numPassedTests": 27,
+    "failedTests": 0,
+    "numTotalTests": 27,
+    "timestamp": 1792559031686,
+    "success": true,
+    "testId": 13
+  },
+  {
+    "numPassedTests": 26,
+    "failedTests": 1,
+    "numTotalTests": 27,
+    "timestamp": 1792559059516,
+    "success": false,
+    "testId": 13
+  },
+  {
+    "numPassedTests": 27,
+    "failedTests": 0,
+    "numTotalTests": 27,
+    "timestamp": 1792559064808,
+    "success": true,
+    "testId": 13
+  },
+  {
+    "commitId": "98bcb54b9750464677d76c60b0d7b09b2a95d9ca",
+    "commitName": "feat: crear formulario de registro y corregir rutas",
+    "commitTimestamp": 1792559247607,
+    "testId": 13
+  },
+  {
+    "numPassedTests": 23,
+    "failedTests": 0,
+    "numTotalTests": 23,
+    "timestamp": 1792559372561,
+    "success": false,
+    "testId": 14
+  },
+  {
+    "numPassedTests": 23,
+    "failedTests": 0,
+    "numTotalTests": 23,
+    "timestamp": 1792559382535,
+    "success": false,
+    "testId": 14
+  },
+  {
+    "numPassedTests": 22,
+    "failedTests": 1,
+    "numTotalTests": 23,
+    "timestamp": 1792559529153,
+    "success": false,
+    "testId": 14
+  },
+  {
+    "numPassedTests": 31,
+    "failedTests": 1,
+    "numTotalTests": 32,
+    "timestamp": 1792559541565,
+    "success": false,
+    "testId": 14
+  },
+  {
+    "numPassedTests": 32,
+    "failedTests": 0,
+    "numTotalTests": 32,
+    "timestamp": 1792559714803,
+    "success": true,
+    "testId": 14
+  },
+  {
+    "commitId": "6b39eecfa8afdd3a93c13e2f777791fbb3a5db94",
+    "commitName": "fix: corregir ruta en prueba del login",
+    "commitTimestamp": 1792559728654,
+    "testId": 14
+  },
+  {
+    "numPassedTests": 23,
+    "failedTests": 0,
+    "numTotalTests": 23,
+    "timestamp": 1792599484043,
+    "success": false,
+    "testId": 15
+  },
+  {
+    "numPassedTests": 23,
+    "failedTests": 0,
+    "numTotalTests": 23,
+    "timestamp": 1792599570626,
+    "success": false,
+    "testId": 15
+  },
+  {
+    "numPassedTests": 39,
+    "failedTests": 0,
+    "numTotalTests": 39,
+    "timestamp": 1792599601635,
+    "success": true,
+    "testId": 15
+  },
+  {
+    "commitId": "4e6b431dcea6a0d619b2f31d0d13a423995859c1",
+    "commitName": "Feat: Se aniadio la logica de negocio principal para el login",
+    "commitTimestamp": 1792599636325,
+    "testId": 15
+  },
+  {
+    "numPassedTests": 39,
+    "failedTests": 1,
+    "numTotalTests": 40,
+    "timestamp": 1792599687066,
+    "success": false,
+    "testId": 16
+  },
+  {
+    "numPassedTests": 39,
+    "failedTests": 1,
+    "numTotalTests": 40,
+    "timestamp": 1792599712441,
+    "success": false,
+    "testId": 16
+  },
+  {
+    "numPassedTests": 40,
+    "failedTests": 0,
+    "numTotalTests": 40,
+    "timestamp": 1792599741781,
+    "success": true,
+    "testId": 16
+  },
+  {
+    "commitId": "77490ad547f456c7c7a074538fe3cd9ddf1168cc",
+    "commitName": "feat: implementar registro de estudiantes con MVP",
+    "commitTimestamp": 1792599850217,
+    "testId": 16
+  },
+  {
+    "numPassedTests": 40,
+    "failedTests": 0,
+    "numTotalTests": 40,
+    "timestamp": 1792599857395,
+    "success": true,
+    "testId": 17
+  },
+  {
+    "numPassedTests": 40,
+    "failedTests": 8,
+    "numTotalTests": 48,
+    "timestamp": 1792600030362,
+    "success": false,
+    "testId": 17
+  },
+  {
+    "numPassedTests": 47,
+    "failedTests": 1,
+    "numTotalTests": 48,
+    "timestamp": 1792600114760,
+    "success": false,
+    "testId": 17
+  },
+  {
+    "numPassedTests": 48,
+    "failedTests": 0,
+    "numTotalTests": 48,
+    "timestamp": 1792600174330,
+    "success": true,
+    "testId": 17
+  },
+  {
+    "commitId": "11340dbcbc3be30f1c4b29bcc81b1398ce7b3c0b",
+    "commitName": "feat: implementar autenticacion de estudiantes con MVP",
+    "commitTimestamp": 1792600245947,
+    "testId": 17
+  },
+  {
+    "numPassedTests": 48,
+    "failedTests": 5,
+    "numTotalTests": 53,
+    "timestamp": 1792600461993,
+    "success": false,
+    "testId": 18
+  },
+  {
+    "numPassedTests": 53,
+    "failedTests": 0,
+    "numTotalTests": 53,
+    "timestamp": 1792600583208,
+    "success": true,
+    "testId": 18
+  },
+  {
+    "commitId": "e1c6fb3a054ef7a2cdc9f3c015664805df3143b7",
+    "commitName": "feat: gestionar sesion de estudiantes",
+    "commitTimestamp": 1792601226835,
+    "testId": 18
+  },
+  {
+    "numPassedTests": 54,
+    "failedTests": 0,
+    "numTotalTests": 54,
+    "timestamp": 1792601579916,
+    "success": true,
+    "testId": 19
+  },
+  {
+    "numPassedTests": 53,
+    "failedTests": 2,
+    "numTotalTests": 55,
+    "timestamp": 1792602065406,
+    "success": false,
+    "testId": 19
+  },
+  {
+    "numPassedTests": 55,
+    "failedTests": 0,
+    "numTotalTests": 55,
+    "timestamp": 1792602166840,
+    "success": true,
+    "testId": 19
+  },
+  {
+    "commitId": "acde554a9dc663e941b7b9eb1f82a06db2ef8d01",
+    "commitName": "Fix: Arreglar enlace de recuperar contrasenia",
+    "commitTimestamp": 1792602301049,
+    "testId": 19
+  },
+  {
+    "numPassedTests": 55,
+    "failedTests": 2,
+    "numTotalTests": 57,
+    "timestamp": 1792602315358,
+    "success": false,
+    "testId": 20
+  },
+  {
+    "numPassedTests": 56,
+    "failedTests": 1,
+    "numTotalTests": 57,
+    "timestamp": 1792602390657,
+    "success": false,
+    "testId": 20
+  },
+  {
+    "numPassedTests": 56,
+    "failedTests": 1,
+    "numTotalTests": 57,
+    "timestamp": 1792602429588,
+    "success": false,
+    "testId": 20
+  },
+  {
+    "numPassedTests": 57,
+    "failedTests": 0,
+    "numTotalTests": 57,
+    "timestamp": 1792602438969,
+    "success": true,
+    "testId": 20
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "fix: mostrar recuperacion como notificacion flotante",
+    "commitTimestamp": 1792602479634,
+    "testId": 20
+  }
+]
