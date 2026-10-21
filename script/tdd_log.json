@@ -1118,7 +1118,7 @@
     "testId": 20
   },
   {
-    "commitId": "HEAD",
+    "commitId": "855ce942e3f5e0de51db7f5f237d596bf024fd7c",
     "commitName": "Feat: Agregar disenio facil para comprobar si el login funciona",
     "commitTimestamp": 1792623711170,
     "testId": 20
@@ -1152,5 +1152,35 @@
     "commitName": "feat: redirigir administradores al panel de bienestar",
     "commitTimestamp": 1792625471263,
     "testId": 21
+  },
+  {
+    "numPassedTests": 117,
+    "failedTests": 7,
+    "numTotalTests": 124,
+    "timestamp": 1792626969900,
+    "success": false,
+    "testId": 22
+  },
+  {
+    "numPassedTests": 119,
+    "failedTests": 5,
+    "numTotalTests": 124,
+    "timestamp": 1792626991652,
+    "success": false,
+    "testId": 22
+  },
+  {
+    "numPassedTests": 124,
+    "failedTests": 0,
+    "numTotalTests": 124,
+    "timestamp": 1792627001473,
+    "success": true,
+    "testId": 22
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: validar informacion de objetos encontrados",
+    "commitTimestamp": 1792627016570,
+    "testId": 22
   }
 ]

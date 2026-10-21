@@ -779,12 +779,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "855ce942e3f5e0de51db7f5f237d596bf024fd7c",
     "author": "pochis",
     "commit": {
       "date": "2026-10-21T23:01:50.000Z",
       "message": "Feat: Agregar disenio facil para comprobar si el login funciona",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/855ce942e3f5e0de51db7f5f237d596bf024fd7c"
     },
     "stats": {
       "total": 238,
@@ -813,6 +813,25 @@
     },
     "coverage": 95.15,
     "test_count": 117,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "pochis",
+    "commit": {
+      "date": "2026-10-21T23:56:55.000Z",
+      "message": "feat: validar informacion de objetos encontrados",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 156,
+      "additions": 156,
+      "deletions": 0,
+      "date": "2026-10-21"
+    },
+    "coverage": 95.67,
+    "test_count": 124,
     "failed_tests": 0,
     "conclusion": "success"
   }
