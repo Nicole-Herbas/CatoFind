@@ -145,3 +145,22 @@ describe('Opciones de cuenta', () => {
   });
 
 });
+
+
+describe('Enlaces del login', () => {
+
+  it('debe tener un enlace para registrarse', () => {
+    expect(html).toContain(
+      'href="../registro/registro.html"'
+    );
+    expect(html).toContain('Registrarse</a>');
+  });
+
+  it('debe tener un enlace para recuperar contraseña', () => {
+    expect(html).toContain(
+      'href="../recuperar-password/recuperar-password.html"'
+    );
+    expect(html).toContain('Recuperar contraseña</a>');
+  });
+
+});

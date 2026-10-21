@@ -262,9 +262,31 @@
     "testId": 9
   },
   {
-    "commitId": "HEAD",
+    "commitId": "dd5f4a0e9386c1d74d0ad4ff57a0ed0449cfaf3b",
     "commitName": "feat: agregar opciones de cuenta y pruebas del login",
     "commitTimestamp": 1792556738951,
     "testId": 9
+  },
+  {
+    "numPassedTests": 18,
+    "failedTests": 2,
+    "numTotalTests": 20,
+    "timestamp": 1792557928105,
+    "success": false,
+    "testId": 10
+  },
+  {
+    "numPassedTests": 20,
+    "failedTests": 0,
+    "numTotalTests": 20,
+    "timestamp": 1792557946559,
+    "success": true,
+    "testId": 10
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: agregar enlaces de registro y recuperacion",
+    "commitTimestamp": 1792557960848,
+    "testId": 10
   }
 ]
