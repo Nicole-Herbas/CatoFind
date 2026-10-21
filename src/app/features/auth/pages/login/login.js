@@ -6,7 +6,7 @@ export function esCorreoInstitucional(correo) {
 }
 
 
-export function iniciarSesion(correo, contrasena, almacenamiento) {
+export function iniciarSesion(correo, contrasena, almacenamiento, almacenamientoSesion = null) {
 
   const correoNormalizado = String(correo ?? '').trim().toLowerCase();
   const clave = String(contrasena ?? '');
@@ -41,13 +41,55 @@ export function iniciarSesion(correo, contrasena, almacenamiento) {
     };
   }
 
+    const usuarioSesion = {
+    nombre: usuario.nombre,
+    apellido: usuario.apellido,
+    correo: usuario.correo
+  };
+
+  if (almacenamientoSesion) {
+    almacenamientoSesion.setItem(
+      'catofind_sesion',
+      JSON.stringify(usuarioSesion)
+    );
+  }
+
   return {
     ok: true,
     mensaje: 'Inicio de sesión correcto.',
-    usuario: {
+    usuario: usuarioSesion
+  };
+}
+
+
+export function obtenerSesion(almacenamientoSesion) {
+  try {
+    const datos = almacenamientoSesion.getItem('catofind_sesion');
+
+    if (!datos) {
+      return null;
+    }
+
+    const usuario = JSON.parse(datos);
+
+    if (
+      !usuario ||
+      typeof usuario.correo !== 'string' ||
+      !esCorreoInstitucional(usuario.correo)
+    ) {
+      return null;
+    }
+
+    return {
       nombre: usuario.nombre,
       apellido: usuario.apellido,
       correo: usuario.correo
-    }
-  };
+    };
+  } catch {
+    return null;
+  }
+}
+
+export function cerrarSesion(almacenamientoSesion) {
+  almacenamientoSesion.removeItem('catofind_sesion');
 }

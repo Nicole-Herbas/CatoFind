@@ -9,10 +9,11 @@ const mensaje = document.getElementById('mensaje-error');
 formulario.addEventListener('submit', (evento) => {
   evento.preventDefault();
 
-  const resultado = iniciarSesion(
+    const resultado = iniciarSesion(
     correo.value,
     contrasena.value,
-    localStorage
+    localStorage,
+    sessionStorage
   );
 
   mensaje.textContent = resultado.mensaje;

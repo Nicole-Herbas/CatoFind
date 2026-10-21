@@ -518,9 +518,31 @@
     "testId": 17
   },
   {
-    "commitId": "HEAD",
+    "commitId": "11340dbcbc3be30f1c4b29bcc81b1398ce7b3c0b",
     "commitName": "feat: implementar autenticacion de estudiantes con MVP",
     "commitTimestamp": 1792600245947,
     "testId": 17
+  },
+  {
+    "numPassedTests": 48,
+    "failedTests": 5,
+    "numTotalTests": 53,
+    "timestamp": 1792600461993,
+    "success": false,
+    "testId": 18
+  },
+  {
+    "numPassedTests": 53,
+    "failedTests": 0,
+    "numTotalTests": 53,
+    "timestamp": 1792600583208,
+    "success": true,
+    "testId": 18
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: gestionar sesion de estudiantes",
+    "commitTimestamp": 1792601226835,
+    "testId": 18
   }
 ]

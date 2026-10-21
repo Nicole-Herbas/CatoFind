@@ -1,6 +1,11 @@
 
 import { readFileSync } from 'node:fs';
-import { esCorreoInstitucional, iniciarSesion } from './login.js';
+import {
+  esCorreoInstitucional,
+  iniciarSesion,
+  obtenerSesion,
+  cerrarSesion
+} from './login.js';
 import { UsuarioService } from '../../services/UsuarioService.js';
 
 const html = readFileSync(
@@ -303,6 +308,99 @@ describe('Conexion MVP del login', () => {
   it('debe cargar el presentador desde el HTML', () => {
     expect(html).toContain('src="./loginPresenter.js"');
     expect(html).not.toContain('src="./login.js"');
+  });
+
+});
+
+
+describe('Sesion del estudiante', () => {
+
+  let cuentas;
+  let sesion;
+
+  beforeEach(() => {
+    const datosCuentas = {};
+    const datosSesion = {};
+
+    cuentas = {
+      getItem: clave => datosCuentas[clave] ?? null,
+      setItem: (clave, valor) => {
+        datosCuentas[clave] = valor;
+      }
+    };
+
+    sesion = {
+      getItem: clave => datosSesion[clave] ?? null,
+      setItem: (clave, valor) => {
+        datosSesion[clave] = valor;
+      },
+      removeItem: clave => {
+        delete datosSesion[clave];
+      }
+    };
+
+    const servicio = new UsuarioService(cuentas);
+
+    servicio.guardarUsuario({
+      nombre: 'Jose',
+      apellido: 'Prueba',
+      correo: 'estudiante@ucb.edu.bo',
+      contrasena: 'Demo12345'
+    });
+  });
+
+  it('debe guardar la sesion cuando el login es correcto', () => {
+    const resultado = iniciarSesion(
+      'estudiante@ucb.edu.bo',
+      'Demo12345',
+      cuentas,
+      sesion
+    );
+
+    expect(resultado.ok).toBe(true);
+    expect(obtenerSesion(sesion).correo).toBe('estudiante@ucb.edu.bo');
+  });
+
+  it('no debe guardar contrasenas en la sesion', () => {
+    iniciarSesion(
+      'estudiante@ucb.edu.bo',
+      'Demo12345',
+      cuentas,
+      sesion
+    );
+
+    expect(obtenerSesion(sesion)).not.toHaveProperty('contrasena');
+  });
+
+  it('no debe crear sesion con credenciales incorrectas', () => {
+    iniciarSesion(
+      'estudiante@ucb.edu.bo',
+      'Incorrecta',
+      cuentas,
+      sesion
+    );
+
+    expect(obtenerSesion(sesion)).toBeNull();
+  });
+
+  it('debe retornar null si no existe una sesion', () => {
+    expect(obtenerSesion(sesion)).toBeNull();
+  });
+
+  it('debe permitir cerrar la sesion sin borrar las cuentas', () => {
+    iniciarSesion(
+      'estudiante@ucb.edu.bo',
+      'Demo12345',
+      cuentas,
+      sesion
+    );
+
+    cerrarSesion(sesion);
+
+    expect(obtenerSesion(sesion)).toBeNull();
+
+    const servicio = new UsuarioService(cuentas);
+    expect(servicio.obtenerUsuarios()).toHaveLength(1);
   });
 
 });
