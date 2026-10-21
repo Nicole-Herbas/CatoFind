@@ -684,12 +684,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "9a095196cc5a2c8b358f190d6861d4938956ac97",
     "author": "Nico Meneses",
     "commit": {
       "date": "2026-10-21T18:53:46.000Z",
       "message": "chore: integrar main en HU-07/buscar",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/9a095196cc5a2c8b358f190d6861d4938956ac97"
     },
     "stats": {
       "total": 1537,
@@ -718,6 +718,25 @@
     },
     "coverage": 95.4,
     "test_count": 95,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "pochis",
+    "commit": {
+      "date": "2026-10-21T22:02:49.000Z",
+      "message": "feat: autenticar administradores y conservar roles en sesion",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 129,
+      "additions": 118,
+      "deletions": 11,
+      "date": "2026-10-21"
+    },
+    "coverage": 95.4,
+    "test_count": 100,
     "failed_tests": 0,
     "conclusion": "success"
   }

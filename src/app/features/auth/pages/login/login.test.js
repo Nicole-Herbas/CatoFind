@@ -482,3 +482,109 @@ describe('Notificacion flotante de recuperacion', () => {
   });
 
 });
+
+
+describe('Autenticacion de administradores HU-02', () => {
+
+  let almacenamiento;
+  let sesion;
+
+  beforeEach(() => {
+    const usuarios = {};
+    const sesiones = {};
+
+    almacenamiento = {
+      getItem: clave => usuarios[clave] ?? null,
+      setItem: (clave, valor) => {
+        usuarios[clave] = valor;
+      }
+    };
+
+    sesion = {
+      getItem: clave => sesiones[clave] ?? null,
+      setItem: (clave, valor) => {
+        sesiones[clave] = valor;
+      },
+      removeItem: clave => {
+        delete sesiones[clave];
+      }
+    };
+
+    const servicio = new UsuarioService(almacenamiento);
+
+    servicio.guardarUsuario({
+      nombre: 'Admin',
+      apellido: 'Bienestar',
+      correo: 'bienestar@ucb.edu.bo',
+      contrasena: 'Admin12345',
+      rol: 'ADMIN'
+    });
+
+    servicio.guardarUsuario({
+      nombre: 'Jose',
+      apellido: 'Prueba',
+      correo: 'estudiante@ucb.edu.bo',
+      contrasena: 'Demo12345'
+    });
+  });
+
+  it('debe identificar al administrador al iniciar sesion', () => {
+    const resultado = iniciarSesion(
+      'bienestar@ucb.edu.bo',
+      'Admin12345',
+      almacenamiento,
+      sesion
+    );
+
+    expect(resultado.ok).toBe(true);
+    expect(resultado.usuario.rol).toBe('ADMIN');
+  });
+
+  it('debe guardar el rol ADMIN en la sesion', () => {
+    iniciarSesion(
+      'bienestar@ucb.edu.bo',
+      'Admin12345',
+      almacenamiento,
+      sesion
+    );
+
+    expect(obtenerSesion(sesion).rol).toBe('ADMIN');
+  });
+
+  it('debe identificar cuentas antiguas como ESTUDIANTE', () => {
+    const resultado = iniciarSesion(
+      'estudiante@ucb.edu.bo',
+      'Demo12345',
+      almacenamiento,
+      sesion
+    );
+
+    expect(resultado.ok).toBe(true);
+    expect(resultado.usuario.rol).toBe('ESTUDIANTE');
+    expect(obtenerSesion(sesion).rol).toBe('ESTUDIANTE');
+  });
+
+  it('debe rechazar una contrasena administrativa incorrecta', () => {
+    const resultado = iniciarSesion(
+      'bienestar@ucb.edu.bo',
+      'Incorrecta',
+      almacenamiento,
+      sesion
+    );
+
+    expect(resultado.ok).toBe(false);
+    expect(obtenerSesion(sesion)).toBeNull();
+  });
+
+  it('no debe guardar la contrasena del administrador en sesion', () => {
+    iniciarSesion(
+      'bienestar@ucb.edu.bo',
+      'Admin12345',
+      almacenamiento,
+      sesion
+    );
+
+    expect(obtenerSesion(sesion)).not.toHaveProperty('contrasena');
+  });
+
+});

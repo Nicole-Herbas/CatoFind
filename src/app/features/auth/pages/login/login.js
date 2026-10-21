@@ -40,12 +40,12 @@ export function iniciarSesion(correo, contrasena, almacenamiento, almacenamiento
       mensaje: 'Correo o contraseña incorrectos.'
     };
   }
-
-    const usuarioSesion = {
-    nombre: usuario.nombre,
-    apellido: usuario.apellido,
-    correo: usuario.correo
-  };
+  const usuarioSesion = {
+  nombre: usuario.nombre,
+  apellido: usuario.apellido,
+  correo: usuario.correo,
+  rol: usuario.rol === 'ADMIN' ? 'ADMIN' : 'ESTUDIANTE'
+};
 
   if (almacenamientoSesion) {
     almacenamientoSesion.setItem(
@@ -81,10 +81,11 @@ export function obtenerSesion(almacenamientoSesion) {
     }
 
     return {
-      nombre: usuario.nombre,
-      apellido: usuario.apellido,
-      correo: usuario.correo
-    };
+  nombre: usuario.nombre,
+  apellido: usuario.apellido,
+  correo: usuario.correo,
+  rol: usuario.rol === 'ADMIN' ? 'ADMIN' : 'ESTUDIANTE'
+};
   } catch {
     return null;
   }

@@ -976,7 +976,7 @@
     "testId": 15
   },
   {
-    "commitId": "HEAD",
+    "commitId": "9a095196cc5a2c8b358f190d6861d4938956ac97",
     "commitName": "chore: integrar main en HU-07/buscar",
     "commitTimestamp": 1792608827337,
     "testId": 15
@@ -1002,5 +1002,27 @@
     "commitName": "feat: agregar roles de usuario",
     "commitTimestamp": 1792619906597,
     "testId": 16
+  },
+  {
+    "numPassedTests": 97,
+    "failedTests": 3,
+    "numTotalTests": 100,
+    "timestamp": 1792620070823,
+    "success": false,
+    "testId": 17
+  },
+  {
+    "numPassedTests": 100,
+    "failedTests": 0,
+    "numTotalTests": 100,
+    "timestamp": 1792620150678,
+    "success": true,
+    "testId": 17
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: autenticar administradores y conservar roles en sesion",
+    "commitTimestamp": 1792620170340,
+    "testId": 17
   }
 ]
