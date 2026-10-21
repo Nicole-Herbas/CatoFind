@@ -78,9 +78,39 @@
     "testId": 1
   },
   {
-    "commitId": "HEAD",
+    "commitId": "071b4f3c105f6e92774c02876861d2069875b10f",
     "commitName": "feat: Agregar validacion de campos llenos para formulario de recuperacion",
     "commitTimestamp": 1792530451171,
     "testId": 1
+  },
+  {
+    "numPassedTests": 3,
+    "failedTests": 1,
+    "numTotalTests": 4,
+    "timestamp": 1792594784033,
+    "success": false,
+    "testId": 2
+  },
+  {
+    "numPassedTests": 4,
+    "failedTests": 0,
+    "numTotalTests": 4,
+    "timestamp": 1792598098193,
+    "success": false,
+    "testId": 2
+  },
+  {
+    "numPassedTests": 5,
+    "failedTests": 0,
+    "numTotalTests": 5,
+    "timestamp": 1792606540926,
+    "success": true,
+    "testId": 2
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: Agregar boton para aprobar una solicitud de recuperacion",
+    "commitTimestamp": 1792606774129,
+    "testId": 2
   }
 ]
