@@ -57,12 +57,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "65ac4ad549578241dbedb254e5cd7ffe8d993a3d",
     "author": "Nico Meneses",
     "commit": {
       "date": "2026-10-21T15:53:36.000Z",
       "message": "feat: buscar objetos sin importar tildes",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/65ac4ad549578241dbedb254e5cd7ffe8d993a3d"
     },
     "stats": {
       "total": 23,
@@ -72,6 +72,25 @@
     },
     "coverage": 100,
     "test_count": 5,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "Nico Meneses",
+    "commit": {
+      "date": "2026-10-21T16:03:26.000Z",
+      "message": "feat: filtrar objetos publicados por categoria",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 30,
+      "additions": 29,
+      "deletions": 1,
+      "date": "2026-10-21"
+    },
+    "coverage": 100,
+    "test_count": 7,
     "failed_tests": 0,
     "conclusion": "success"
   }

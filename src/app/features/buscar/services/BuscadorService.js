@@ -21,4 +21,10 @@ export class BuscadorService {
       normalizar(objeto.titulo).includes(buscado)
     );
   }
+
+  filtrarPorCategoria(categoria) {
+    const publicados = this.obtenerPublicados();
+    if (categoria === 'Todos') return publicados;
+    return publicados.filter((objeto) => objeto.categoria === categoria);
+  }
 }

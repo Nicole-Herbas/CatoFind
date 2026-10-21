@@ -1,7 +1,7 @@
 import { Objeto } from '../../../core/models/Objeto.js';
 import { BuscadorService } from '../services/BuscadorService.js';
 
-function crearObjeto(id, titulo, estado) {
+function crearObjeto(id, titulo, estado, extra = {}) {
   return new Objeto({
     id,
     titulo,
@@ -10,6 +10,7 @@ function crearObjeto(id, titulo, estado) {
     fecha: '2026-10-08',
     imagen: '',
     estado,
+    ...extra,
   });
 }
 
@@ -58,5 +59,26 @@ describe('BuscadorService - búsqueda por nombre (HU-09)', () => {
 
     expect(titulos).toEqual(['Cámara Canon']);
   });
+
   
+});
+
+describe('BuscadorService - filtro por categoría (HU-07)', () => {
+  const service = new BuscadorService([
+    crearObjeto(1, 'Celular Samsung', 'Publicado', { categoria: 'Electrónica' }),
+    crearObjeto(2, 'Chompa azul', 'Publicado', { categoria: 'Ropa' }),
+    crearObjeto(3, 'Laptop HP', 'En revisión', { categoria: 'Electrónica' }),
+  ]);
+
+  it('debe devolver solo los publicados de esa categoría', () => {
+    const titulos = service.filtrarPorCategoria('Electrónica').map((o) => o.titulo);
+
+    expect(titulos).toEqual(['Celular Samsung']);
+  });
+
+  it('debe devolver todos los publicados con la categoría "Todos"', () => {
+    const titulos = service.filtrarPorCategoria('Todos').map((o) => o.titulo);
+
+    expect(titulos).toEqual(['Celular Samsung', 'Chompa azul']);
+  });
 });

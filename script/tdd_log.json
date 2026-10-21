@@ -90,9 +90,31 @@
     "testId": 3
   },
   {
-    "commitId": "HEAD",
+    "commitId": "65ac4ad549578241dbedb254e5cd7ffe8d993a3d",
     "commitName": "feat: buscar objetos sin importar tildes",
     "commitTimestamp": 1792598017725,
     "testId": 3
+  },
+  {
+    "numPassedTests": 5,
+    "failedTests": 2,
+    "numTotalTests": 7,
+    "timestamp": 1792598584101,
+    "success": false,
+    "testId": 4
+  },
+  {
+    "numPassedTests": 7,
+    "failedTests": 0,
+    "numTotalTests": 7,
+    "timestamp": 1792598600409,
+    "success": true,
+    "testId": 4
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: filtrar objetos publicados por categoria",
+    "commitTimestamp": 1792598607830,
+    "testId": 4
   }
 ]
