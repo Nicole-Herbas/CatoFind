@@ -106,9 +106,39 @@
     "testId": 3
   },
   {
-    "commitId": "HEAD",
+    "commitId": "07388b842c673753b2d7dda1b22059c271aea820",
     "commitName": "feat: agregar formulario y validacion de correo UCB",
     "commitTimestamp": 1792552323653,
     "testId": 3
+  },
+  {
+    "numPassedTests": 9,
+    "failedTests": 0,
+    "numTotalTests": 9,
+    "timestamp": 1792552631599,
+    "success": true,
+    "testId": 4
+  },
+  {
+    "numPassedTests": 6,
+    "failedTests": 3,
+    "numTotalTests": 9,
+    "timestamp": 1792552645464,
+    "success": false,
+    "testId": 4
+  },
+  {
+    "numPassedTests": 9,
+    "failedTests": 0,
+    "numTotalTests": 9,
+    "timestamp": 1792552653844,
+    "success": true,
+    "testId": 4
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: agregar logo de CatoFind",
+    "commitTimestamp": 1792552691658,
+    "testId": 4
   }
 ]

@@ -54,3 +54,25 @@ describe('Validacion del correo institucional', () => {
   });
 
 });
+
+describe('Presentacion de CatoFind', () => {
+
+  it('debe mostrar el logo de CatoFind', () => {
+    expect(html).toContain('class="login__marca"');
+    expect(html).toContain('ucb.png');
+    expect(html).toContain('CATO');
+    expect(html).toContain('FIND');
+  });
+
+  it('debe mostrar el lema principal', () => {
+    expect(html).toContain('No todo está');
+    expect(html).toContain('perdido.');
+  });
+
+  it('debe mostrar la descripcion', () => {
+    expect(html).toContain(
+      'Busca, reporta y recupera objetos'
+    );
+  });
+
+});

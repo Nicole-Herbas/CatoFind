@@ -57,12 +57,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "07388b842c673753b2d7dda1b22059c271aea820",
     "author": "pochis",
     "commit": {
       "date": "2026-10-21T03:12:02.000Z",
       "message": "feat: agregar formulario y validacion de correo UCB",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/07388b842c673753b2d7dda1b22059c271aea820"
     },
     "stats": {
       "total": 122,
@@ -72,6 +72,25 @@
     },
     "coverage": 18.18,
     "test_count": 6,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "pochis",
+    "commit": {
+      "date": "2026-10-21T03:18:10.000Z",
+      "message": "feat: agregar logo de CatoFind",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 55,
+      "additions": 53,
+      "deletions": 2,
+      "date": "2026-10-21"
+    },
+    "coverage": 18.18,
+    "test_count": 9,
     "failed_tests": 0,
     "conclusion": "success"
   }
