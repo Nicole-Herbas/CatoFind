@@ -82,3 +82,23 @@ describe('BuscadorService - filtro por categoría (HU-07)', () => {
     expect(titulos).toEqual(['Celular Samsung', 'Chompa azul']);
   });
 });
+
+describe('BuscadorService - filtro por lugar (HU-07)', () => {
+  const service = new BuscadorService([
+    crearObjeto(1, 'Mochila negra', 'Publicado', { lugar: 'Biblioteca' }),
+    crearObjeto(2, 'Chompa azul', 'Publicado', { lugar: 'Cafetería' }),
+    crearObjeto(3, 'Cuaderno verde', 'En revisión', { lugar: 'Biblioteca' }),
+  ]);
+
+  it('debe devolver solo los publicados de ese lugar', () => {
+    const titulos = service.filtrarPorLugar('Biblioteca').map((o) => o.titulo);
+
+    expect(titulos).toEqual(['Mochila negra']);
+  });
+
+  it('debe devolver todos los publicados con el lugar "Todas"', () => {
+    const titulos = service.filtrarPorLugar('Todas').map((o) => o.titulo);
+
+    expect(titulos).toEqual(['Mochila negra', 'Chompa azul']);
+  });
+});

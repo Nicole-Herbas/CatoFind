@@ -27,4 +27,10 @@ export class BuscadorService {
     if (categoria === 'Todos') return publicados;
     return publicados.filter((objeto) => objeto.categoria === categoria);
   }
+
+  filtrarPorLugar(lugar) {
+    const publicados = this.obtenerPublicados();
+    if (lugar === 'Todas') return publicados;
+    return publicados.filter((objeto) => objeto.lugar === lugar);
+  }
 }

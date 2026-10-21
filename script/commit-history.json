@@ -76,12 +76,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "d5076ba36ed481d823d0a00e0129b6783a6abd2b",
     "author": "Nico Meneses",
     "commit": {
       "date": "2026-10-21T16:03:26.000Z",
       "message": "feat: filtrar objetos publicados por categoria",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/d5076ba36ed481d823d0a00e0129b6783a6abd2b"
     },
     "stats": {
       "total": 30,
@@ -91,6 +91,25 @@
     },
     "coverage": 100,
     "test_count": 7,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "Nico Meneses",
+    "commit": {
+      "date": "2026-10-21T16:06:05.000Z",
+      "message": "feat: filtrar objetos publicados por lugar",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 26,
+      "additions": 26,
+      "deletions": 0,
+      "date": "2026-10-21"
+    },
+    "coverage": 100,
+    "test_count": 9,
     "failed_tests": 0,
     "conclusion": "success"
   }
