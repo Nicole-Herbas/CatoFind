@@ -6,4 +6,8 @@ export default class Approval {
     static approveMessage(){
         return 'La solicitud ha sido aprobada con éxito';
     }
+
+    static denyMessage(){
+        return 'La solicitud ha sido rechazada con éxito';
+    }
 }

@@ -108,9 +108,31 @@
     "testId": 2
   },
   {
-    "commitId": "HEAD",
+    "commitId": "5c7a3d06f26a40984e04b2c267305a3121c86af0",
     "commitName": "feat: Agregar boton para aprobar una solicitud de recuperacion",
     "commitTimestamp": 1792606774129,
     "testId": 2
+  },
+  {
+    "numPassedTests": 5,
+    "failedTests": 1,
+    "numTotalTests": 6,
+    "timestamp": 1792607522700,
+    "success": false,
+    "testId": 3
+  },
+  {
+    "numPassedTests": 6,
+    "failedTests": 0,
+    "numTotalTests": 6,
+    "timestamp": 1792607655569,
+    "success": true,
+    "testId": 3
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: Agregar boton de rechazar solicitud de recuperacion",
+    "commitTimestamp": 1792607695910,
+    "testId": 3
   }
 ]

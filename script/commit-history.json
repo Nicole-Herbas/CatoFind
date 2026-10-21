@@ -38,17 +38,36 @@
     "conclusion": "neutral"
   },
   {
-    "sha": "HEAD",
+    "sha": "5c7a3d06f26a40984e04b2c267305a3121c86af0",
     "author": "Chris",
     "commit": {
       "date": "2026-10-21T18:19:31.000Z",
       "message": "feat: Agregar boton para aprobar una solicitud de recuperacion",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/5c7a3d06f26a40984e04b2c267305a3121c86af0"
     },
     "stats": {
       "total": 70,
       "additions": 70,
       "deletions": 0,
+      "date": "2026-10-21"
+    },
+    "coverage": 0,
+    "test_count": 0,
+    "failed_tests": 0,
+    "conclusion": "neutral"
+  },
+  {
+    "sha": "HEAD",
+    "author": "Chris",
+    "commit": {
+      "date": "2026-10-21T18:34:54.000Z",
+      "message": "feat: Agregar boton de rechazar solicitud de recuperacion",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 18,
+      "additions": 16,
+      "deletions": 2,
       "date": "2026-10-21"
     },
     "coverage": 0,
