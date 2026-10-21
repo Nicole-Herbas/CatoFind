@@ -342,12 +342,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "e1c6fb3a054ef7a2cdc9f3c015664805df3143b7",
     "author": "pochis",
     "commit": {
       "date": "2026-10-21T16:47:06.000Z",
       "message": "feat: gestionar sesion de estudiantes",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/e1c6fb3a054ef7a2cdc9f3c015664805df3143b7"
     },
     "stats": {
       "total": 155,
@@ -357,6 +357,25 @@
     },
     "coverage": 95.08,
     "test_count": 53,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "pochis",
+    "commit": {
+      "date": "2026-10-21T17:05:00.000Z",
+      "message": "Fix: Arreglar enlace de recuperar contrasenia",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 125,
+      "additions": 96,
+      "deletions": 29,
+      "date": "2026-10-21"
+    },
+    "coverage": 95.16,
+    "test_count": 55,
     "failed_tests": 0,
     "conclusion": "success"
   }

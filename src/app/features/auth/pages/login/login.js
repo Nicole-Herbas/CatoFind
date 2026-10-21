@@ -93,3 +93,7 @@ export function obtenerSesion(almacenamientoSesion) {
 export function cerrarSesion(almacenamientoSesion) {
   almacenamientoSesion.removeItem('catofind_sesion');
 }
+
+export function mensajeRecuperacion() {
+  return 'Se envió un enlace de recuperación a tu correo.';
+}

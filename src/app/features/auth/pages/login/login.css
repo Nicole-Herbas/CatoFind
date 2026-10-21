@@ -199,3 +199,16 @@ body {
 .login__enlaces a:hover {
   text-decoration: underline;
 }
+.login__enlaces button {
+  border: none;
+  padding: 0;
+  background: transparent;
+  color: #24518f;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.login__enlaces button:hover {
+  text-decoration: underline;
+}

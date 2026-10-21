@@ -540,9 +540,39 @@
     "testId": 18
   },
   {
-    "commitId": "HEAD",
+    "commitId": "e1c6fb3a054ef7a2cdc9f3c015664805df3143b7",
     "commitName": "feat: gestionar sesion de estudiantes",
     "commitTimestamp": 1792601226835,
     "testId": 18
+  },
+  {
+    "numPassedTests": 54,
+    "failedTests": 0,
+    "numTotalTests": 54,
+    "timestamp": 1792601579916,
+    "success": true,
+    "testId": 19
+  },
+  {
+    "numPassedTests": 53,
+    "failedTests": 2,
+    "numTotalTests": 55,
+    "timestamp": 1792602065406,
+    "success": false,
+    "testId": 19
+  },
+  {
+    "numPassedTests": 55,
+    "failedTests": 0,
+    "numTotalTests": 55,
+    "timestamp": 1792602166840,
+    "success": true,
+    "testId": 19
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "Fix: Arreglar enlace de recuperar contrasenia",
+    "commitTimestamp": 1792602301049,
+    "testId": 19
   }
 ]

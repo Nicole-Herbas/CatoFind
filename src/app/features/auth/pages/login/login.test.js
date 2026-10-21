@@ -4,9 +4,12 @@ import {
   esCorreoInstitucional,
   iniciarSesion,
   obtenerSesion,
-  cerrarSesion
+  cerrarSesion,
+  mensajeRecuperacion
 } from './login.js';
+
 import { UsuarioService } from '../../services/UsuarioService.js';
+import { registrarEstudiante } from '../registro/registro.js';
 
 const html = readFileSync(
   'src/app/features/auth/pages/login/login.html',
@@ -162,12 +165,15 @@ describe('Enlaces del login', () => {
     expect(html).toContain('Registrarse</a>');
   });
 
-  it('debe tener un enlace para recuperar contraseña', () => {
-    expect(html).toContain(
-      'href="../recuperar-password/recuperar-password.html"'
-    );
-    expect(html).toContain('Recuperar contraseña</a>');
-  });
+  it('debe tener un boton de recuperacion sin navegar', () => {
+  expect(html).toContain(
+    '<button type="button" id="recuperar-contrasena">'
+  );
+
+  expect(html).not.toContain(
+    'href="../recuperar-password/recuperar-password.html"'
+  );
+});
 
 });
 
@@ -197,10 +203,7 @@ describe('Rutas del login', () => {
       'utf8'
     )).not.toThrow();
 
-    expect(() => readFileSync(
-      'src/app/features/auth/pages/recuperar-password/recuperar-password.html',
-      'utf8'
-    )).not.toThrow();
+   
   });
 
 });
@@ -401,6 +404,62 @@ describe('Sesion del estudiante', () => {
 
     const servicio = new UsuarioService(cuentas);
     expect(servicio.obtenerUsuarios()).toHaveLength(1);
+  });
+
+});
+describe('Integracion registro y login', () => {
+
+  it('debe iniciar sesion con una cuenta recien registrada', () => {
+    const datos = {};
+    const datosSesion = {};
+
+    const almacenamiento = {
+      getItem: clave => datos[clave] ?? null,
+      setItem: (clave, valor) => {
+        datos[clave] = valor;
+      }
+    };
+
+    const sesion = {
+      getItem: clave => datosSesion[clave] ?? null,
+      setItem: (clave, valor) => {
+        datosSesion[clave] = valor;
+      },
+      removeItem: clave => {
+        delete datosSesion[clave];
+      }
+    };
+
+    const registro = registrarEstudiante({
+      nombre: 'Estudiante',
+      apellido: 'Prueba',
+      correo: 'prueba@ucb.edu.bo',
+      contrasena: 'Demo12345',
+      confirmarContrasena: 'Demo12345'
+    }, almacenamiento);
+
+    expect(registro.ok).toBe(true);
+
+    const login = iniciarSesion(
+      'prueba@ucb.edu.bo',
+      'Demo12345',
+      almacenamiento,
+      sesion
+    );
+
+    expect(login.ok).toBe(true);
+    expect(obtenerSesion(sesion).correo).toBe('prueba@ucb.edu.bo');
+    expect(obtenerSesion(sesion)).not.toHaveProperty('contrasena');
+  });
+
+});
+
+describe('Recuperacion de contrasena', () => {
+
+  it('debe devolver el mensaje de confirmacion', () => {
+    expect(mensajeRecuperacion()).toBe(
+      'Se envió un enlace de recuperación a tu correo.'
+    );
   });
 
 });
