@@ -1,6 +1,12 @@
 
-import { iniciarSesion, mensajeRecuperacion } from './login.js';
+import {
+  iniciarSesion,
+  mensajeRecuperacion,
+  crearAdministradorDemo
+} from './login.js';
 
+
+crearAdministradorDemo(localStorage);
 const formulario = document.getElementById('login-form');
 const correo = document.getElementById('correo');
 const contrasena = document.getElementById('contrasena');

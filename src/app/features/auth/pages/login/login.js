@@ -98,3 +98,22 @@ export function cerrarSesion(almacenamientoSesion) {
 export function mensajeRecuperacion() {
   return 'Te enviaríamos un enlace de recuperación a tu correo ';
 }
+export function crearAdministradorDemo(almacenamiento) {
+  const servicio = new UsuarioService(almacenamiento);
+
+  const correo = 'bienestar@ucb.edu.bo';
+
+  if (servicio.existeCorreo(correo)) {
+    return false;
+  }
+
+  servicio.guardarUsuario({
+    nombre: 'Administrador',
+    apellido: 'Bienestar',
+    correo: correo,
+    contrasena: 'Admin12345',
+    rol: 'ADMIN'
+  });
+
+  return true;
+}

@@ -703,12 +703,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "2245700fbe21908d7b02a69f33a793db6e813395",
     "author": "pochis",
     "commit": {
       "date": "2026-10-21T21:58:25.000Z",
       "message": "feat: agregar roles de usuario",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/2245700fbe21908d7b02a69f33a793db6e813395"
     },
     "stats": {
       "total": 24,
@@ -737,6 +737,25 @@
     },
     "coverage": 95.4,
     "test_count": 100,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "pochis",
+    "commit": {
+      "date": "2026-10-21T22:17:20.000Z",
+      "message": "feat: preparar cuenta administrativa de demostracion",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 98,
+      "additions": 96,
+      "deletions": 2,
+      "date": "2026-10-21"
+    },
+    "coverage": 95.56,
+    "test_count": 104,
     "failed_tests": 0,
     "conclusion": "success"
   }

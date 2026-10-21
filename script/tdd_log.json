@@ -998,7 +998,7 @@
     "testId": 16
   },
   {
-    "commitId": "HEAD",
+    "commitId": "2245700fbe21908d7b02a69f33a793db6e813395",
     "commitName": "feat: agregar roles de usuario",
     "commitTimestamp": 1792619906597,
     "testId": 16
@@ -1024,5 +1024,51 @@
     "commitName": "feat: autenticar administradores y conservar roles en sesion",
     "commitTimestamp": 1792620170340,
     "testId": 17
+  },
+  {
+    "numPassedTests": 105,
+    "failedTests": 0,
+    "numTotalTests": 105,
+    "timestamp": 1792620634918,
+    "success": true,
+    "testId": 18
+  },
+  {
+    "numPassedTests": 100,
+    "failedTests": 0,
+    "numTotalTests": 100,
+    "timestamp": 1792620715607,
+    "success": true,
+    "testId": 18
+  },
+  {
+    "numPassedTests": 100,
+    "failedTests": 4,
+    "numTotalTests": 104,
+    "timestamp": 1792620729657,
+    "success": false,
+    "testId": 18
+  },
+  {
+    "numPassedTests": 100,
+    "failedTests": 4,
+    "numTotalTests": 104,
+    "timestamp": 1792620775642,
+    "success": false,
+    "testId": 18
+  },
+  {
+    "numPassedTests": 104,
+    "failedTests": 0,
+    "numTotalTests": 104,
+    "timestamp": 1792621017216,
+    "success": true,
+    "testId": 18
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: preparar cuenta administrativa de demostracion",
+    "commitTimestamp": 1792621041369,
+    "testId": 18
   }
 ]

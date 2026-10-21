@@ -5,7 +5,8 @@ import {
   iniciarSesion,
   obtenerSesion,
   cerrarSesion,
-  mensajeRecuperacion
+  mensajeRecuperacion,
+  crearAdministradorDemo
 } from './login.js';
 
 import { UsuarioService } from '../../services/UsuarioService.js';
@@ -585,6 +586,74 @@ describe('Autenticacion de administradores HU-02', () => {
     );
 
     expect(obtenerSesion(sesion)).not.toHaveProperty('contrasena');
+  });
+
+});
+describe('Cuenta administrativa de demostracion HU-02', () => {
+
+  let almacenamiento;
+
+  beforeEach(() => {
+    const datos = {};
+
+    almacenamiento = {
+      getItem: clave => datos[clave] ?? null,
+      setItem: (clave, valor) => {
+        datos[clave] = valor;
+      }
+    };
+  });
+
+  it('debe crear una cuenta ADMIN de Bienestar', () => {
+    crearAdministradorDemo(almacenamiento);
+
+    const servicio = new UsuarioService(almacenamiento);
+    const usuarios = servicio.obtenerUsuarios();
+
+    expect(usuarios).toHaveLength(1);
+    expect(usuarios[0].correo).toBe('bienestar@ucb.edu.bo');
+    expect(usuarios[0].rol).toBe('ADMIN');
+  });
+
+  it('debe permitir iniciar sesion con la cuenta demo', () => {
+    crearAdministradorDemo(almacenamiento);
+
+    const resultado = iniciarSesion(
+      'bienestar@ucb.edu.bo',
+      'Admin12345',
+      almacenamiento
+    );
+
+    expect(resultado.ok).toBe(true);
+    expect(resultado.usuario.rol).toBe('ADMIN');
+  });
+
+  it('no debe duplicar la cuenta al iniciar dos veces', () => {
+    crearAdministradorDemo(almacenamiento);
+    crearAdministradorDemo(almacenamiento);
+
+    const servicio = new UsuarioService(almacenamiento);
+
+    expect(servicio.obtenerUsuarios()).toHaveLength(1);
+  });
+
+  it('no debe convertir una cuenta existente en ADMIN', () => {
+    const servicio = new UsuarioService(almacenamiento);
+
+    servicio.guardarUsuario({
+      nombre: 'Alumno',
+      apellido: 'Prueba',
+      correo: 'bienestar@ucb.edu.bo',
+      contrasena: 'OtraClave',
+      rol: 'ESTUDIANTE'
+    });
+
+    crearAdministradorDemo(almacenamiento);
+
+    const usuarios = servicio.obtenerUsuarios();
+
+    expect(usuarios).toHaveLength(1);
+    expect(usuarios[0].rol).toBe('ESTUDIANTE');
   });
 
 });
