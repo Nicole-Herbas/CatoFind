@@ -169,3 +169,21 @@ describe('BuscadorService - mensaje de resultados (HU-09)', () => {
     expect(service.mensajeResultados([{}, {}, {}])).toBe('3 resultados encontrados');
   });
 });
+describe('BuscadorService - detalle del objeto (HU-08)', () => {
+  const service = new BuscadorService([
+    crearObjeto(1, 'Mochila negra', 'Publicado'),
+    crearObjeto(2, 'Calculadora', 'En revisión'),
+  ]);
+
+  it('debe devolver el objeto publicado con ese id', () => {
+    expect(service.obtenerDetalle(1).titulo).toBe('Mochila negra');
+  });
+
+  it('debe devolver null si el objeto no está publicado', () => {
+    expect(service.obtenerDetalle(2)).toBeNull();
+  });
+
+  it('debe devolver null si el id no existe', () => {
+    expect(service.obtenerDetalle(99)).toBeNull();
+  });
+});

@@ -200,9 +200,31 @@
     "testId": 8
   },
   {
-    "commitId": "HEAD",
+    "commitId": "23d00c35d0ab4a9a05eb817786cb13f3c0a57c3b",
     "commitName": "feat: mostrar mensaje segun cantidad de resultados",
     "commitTimestamp": 1792599133743,
     "testId": 8
+  },
+  {
+    "numPassedTests": 17,
+    "failedTests": 3,
+    "numTotalTests": 20,
+    "timestamp": 1792599773842,
+    "success": false,
+    "testId": 9
+  },
+  {
+    "numPassedTests": 20,
+    "failedTests": 0,
+    "numTotalTests": 20,
+    "timestamp": 1792600356901,
+    "success": true,
+    "testId": 9
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: obtener detalle de un objeto publicado",
+    "commitTimestamp": 1792600369626,
+    "testId": 9
   }
 ]

@@ -76,4 +76,9 @@ export class BuscadorService {
     if (cantidad === 1) return '1 resultado encontrado';
     return `${cantidad} resultados encontrados`;
   }
+
+  obtenerDetalle(id) {
+    const objeto = this.obtenerPublicados().find((o) => o.id === id);
+    return objeto ?? null;
+  }
 }
