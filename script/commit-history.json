@@ -285,6 +285,177 @@
     "conclusion": "success"
   },
   {
+    "sha": "4ffa45dd49a41baeaf76c61b2b2587adcb5971c3",
+    "author": "Nico Meneses",
+    "commit": {
+      "date": "2026-10-21T15:27:38.000Z",
+      "message": "feat: crear modelo Objeto compartido",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/4ffa45dd49a41baeaf76c61b2b2587adcb5971c3"
+    },
+    "stats": {
+      "total": 34,
+      "additions": 34,
+      "deletions": 0,
+      "date": "2026-10-21"
+    },
+    "coverage": 100,
+    "test_count": 1,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "5278c795deee8ccc894777dc8815ea9a91ea9645",
+    "author": "Nico Meneses",
+    "commit": {
+      "date": "2026-10-21T15:36:53.000Z",
+      "message": "feat: listar solo objetos publicados en el buscador",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/5278c795deee8ccc894777dc8815ea9a91ea9645"
+    },
+    "stats": {
+      "total": 36,
+      "additions": 36,
+      "deletions": 0,
+      "date": "2026-10-21"
+    },
+    "coverage": 100,
+    "test_count": 2,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "c6c8d3bb3f33fcf12937c48d37829f426b2830d0",
+    "author": "Nico Meneses",
+    "commit": {
+      "date": "2026-10-21T15:50:58.000Z",
+      "message": "feat: buscar objetos por titulo ignorando mayusculas y espacios",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/c6c8d3bb3f33fcf12937c48d37829f426b2830d0"
+    },
+    "stats": {
+      "total": 31,
+      "additions": 31,
+      "deletions": 0,
+      "date": "2026-10-21"
+    },
+    "coverage": 100,
+    "test_count": 4,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "65ac4ad549578241dbedb254e5cd7ffe8d993a3d",
+    "author": "Nico Meneses",
+    "commit": {
+      "date": "2026-10-21T15:53:36.000Z",
+      "message": "feat: buscar objetos sin importar tildes",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/65ac4ad549578241dbedb254e5cd7ffe8d993a3d"
+    },
+    "stats": {
+      "total": 23,
+      "additions": 21,
+      "deletions": 2,
+      "date": "2026-10-21"
+    },
+    "coverage": 100,
+    "test_count": 5,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "d5076ba36ed481d823d0a00e0129b6783a6abd2b",
+    "author": "Nico Meneses",
+    "commit": {
+      "date": "2026-10-21T16:03:26.000Z",
+      "message": "feat: filtrar objetos publicados por categoria",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/d5076ba36ed481d823d0a00e0129b6783a6abd2b"
+    },
+    "stats": {
+      "total": 30,
+      "additions": 29,
+      "deletions": 1,
+      "date": "2026-10-21"
+    },
+    "coverage": 100,
+    "test_count": 7,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "ad92b12aa39f02cfa727493f1fd866aa27e9aba7",
+    "author": "Nico Meneses",
+    "commit": {
+      "date": "2026-10-21T16:06:05.000Z",
+      "message": "feat: filtrar objetos publicados por lugar",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/ad92b12aa39f02cfa727493f1fd866aa27e9aba7"
+    },
+    "stats": {
+      "total": 26,
+      "additions": 26,
+      "deletions": 0,
+      "date": "2026-10-21"
+    },
+    "coverage": 100,
+    "test_count": 9,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "65e92ce012c57c92f9f4efd0215e969c5b80cc60",
+    "author": "Nico Meneses",
+    "commit": {
+      "date": "2026-10-21T16:07:13.000Z",
+      "message": "feat: filtrar objetos publicados por fecha",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/65e92ce012c57c92f9f4efd0215e969c5b80cc60"
+    },
+    "stats": {
+      "total": 42,
+      "additions": 42,
+      "deletions": 0,
+      "date": "2026-10-21"
+    },
+    "coverage": 100,
+    "test_count": 12,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "6271b97272449d3df15c3e2eb70a6a6768910393",
+    "author": "Nico Meneses",
+    "commit": {
+      "date": "2026-10-21T16:11:29.000Z",
+      "message": "feat: combinar busqueda por titulo con filtros",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/6271b97272449d3df15c3e2eb70a6a6768910393"
+    },
+    "stats": {
+      "total": 45,
+      "additions": 45,
+      "deletions": 0,
+      "date": "2026-10-21"
+    },
+    "coverage": 100,
+    "test_count": 14,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "23d00c35d0ab4a9a05eb817786cb13f3c0a57c3b",
+    "author": "Nico Meneses",
+    "commit": {
+      "date": "2026-10-21T16:12:12.000Z",
+      "message": "feat: mostrar mensaje segun cantidad de resultados",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/23d00c35d0ab4a9a05eb817786cb13f3c0a57c3b"
+    },
+    "stats": {
+      "total": 23,
+      "additions": 23,
+      "deletions": 0,
+      "date": "2026-10-21"
+    },
+    "coverage": 100,
+    "test_count": 17,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
     "sha": "4e6b431dcea6a0d619b2f31d0d13a423995859c1",
     "author": "pochis",
     "commit": {
@@ -342,6 +513,63 @@
     "conclusion": "success"
   },
   {
+    "sha": "cf2eb8e8049655c1fd2e1758913c41e4ae11d109",
+    "author": "Nico Meneses",
+    "commit": {
+      "date": "2026-10-21T16:32:48.000Z",
+      "message": "feat: obtener detalle de un objeto publicado",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/cf2eb8e8049655c1fd2e1758913c41e4ae11d109"
+    },
+    "stats": {
+      "total": 23,
+      "additions": 23,
+      "deletions": 0,
+      "date": "2026-10-21"
+    },
+    "coverage": 100,
+    "test_count": 20,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "1db6ddff5ff2fe541d75f1d85a42781523107d63",
+    "author": "Nico Meneses",
+    "commit": {
+      "date": "2026-10-21T16:34:12.000Z",
+      "message": "feat: agregar datos iniciales, categorias y lugares",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/1db6ddff5ff2fe541d75f1d85a42781523107d63"
+    },
+    "stats": {
+      "total": 48,
+      "additions": 48,
+      "deletions": 0,
+      "date": "2026-10-21"
+    },
+    "coverage": 100,
+    "test_count": 23,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "2e6129036c61dfb23f1c9a424140838b06e2f21d",
+    "author": "Nico Meneses",
+    "commit": {
+      "date": "2026-10-21T16:44:09.000Z",
+      "message": "feat: crear estructura de la pagina buscar",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/2e6129036c61dfb23f1c9a424140838b06e2f21d"
+    },
+    "stats": {
+      "total": 1638,
+      "additions": 1543,
+      "deletions": 95,
+      "date": "2026-10-21"
+    },
+    "coverage": 100,
+    "test_count": 26,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
     "sha": "e1c6fb3a054ef7a2cdc9f3c015664805df3143b7",
     "author": "pochis",
     "commit": {
@@ -380,12 +608,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "9bc536c00c59ea4172e3ee7bc19ba855786ed263",
     "author": "pochis",
     "commit": {
       "date": "2026-10-21T17:07:58.000Z",
       "message": "fix: mostrar recuperacion como notificacion flotante",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/9bc536c00c59ea4172e3ee7bc19ba855786ed263"
     },
     "stats": {
       "total": 71,
@@ -395,6 +623,82 @@
     },
     "coverage": 95.16,
     "test_count": 57,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "44dfa2c538dd8c3bb9ad9e48980e0fc501d49281",
+    "author": "Nico Meneses",
+    "commit": {
+      "date": "2026-10-21T18:42:07.000Z",
+      "message": "feat: mostrar tarjetas y conectar buscador con filtros",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/44dfa2c538dd8c3bb9ad9e48980e0fc501d49281"
+    },
+    "stats": {
+      "total": 162,
+      "additions": 161,
+      "deletions": 1,
+      "date": "2026-10-21"
+    },
+    "coverage": 95.79,
+    "test_count": 32,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "e52aa98f2dd1fd8e16fb3350c9b6e6c91755657b",
+    "author": "Nico Meneses",
+    "commit": {
+      "date": "2026-10-21T18:46:00.000Z",
+      "message": "feat: mostrar detalle del objeto al hacer clic",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/e52aa98f2dd1fd8e16fb3350c9b6e6c91755657b"
+    },
+    "stats": {
+      "total": 59,
+      "additions": 59,
+      "deletions": 0,
+      "date": "2026-10-21"
+    },
+    "coverage": 95.5,
+    "test_count": 35,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "Nico Meneses",
+    "commit": {
+      "date": "2026-10-21T18:48:09.000Z",
+      "message": "style: agregar estilos de la pagina buscar",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 160,
+      "additions": 160,
+      "deletions": 0,
+      "date": "2026-10-21"
+    },
+    "coverage": 95.5,
+    "test_count": 36,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "Nico Meneses",
+    "commit": {
+      "date": "2026-10-21T18:53:46.000Z",
+      "message": "chore: integrar main en HU-07/buscar",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 1537,
+      "additions": 1537,
+      "deletions": 0,
+      "date": "2026-10-21"
+    },
+    "coverage": 95.38,
+    "test_count": 93,
     "failed_tests": 0,
     "conclusion": "success"
   }

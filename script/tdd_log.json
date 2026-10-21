@@ -608,9 +608,377 @@
     "testId": 20
   },
   {
-    "commitId": "HEAD",
+    "commitId": "9bc536c00c59ea4172e3ee7bc19ba855786ed263",
     "commitName": "fix: mostrar recuperacion como notificacion flotante",
     "commitTimestamp": 1792602479634,
     "testId": 20
+  },
+  {
+    "numPassedTests": 0,
+    "failedTests": 0,
+    "numTotalTests": 0,
+    "timestamp": 1792596418803,
+    "success": false,
+    "testId": 0
+  },
+  {
+    "numPassedTests": 1,
+    "failedTests": 0,
+    "numTotalTests": 1,
+    "timestamp": 1792596448615,
+    "success": true,
+    "testId": 0
+  },
+  {
+    "commitId": "4ffa45dd49a41baeaf76c61b2b2587adcb5971c3",
+    "commitName": "feat: crear modelo Objeto compartido",
+    "commitTimestamp": 1792596459197,
+    "testId": 0
+  },
+  {
+    "numPassedTests": 1,
+    "failedTests": 0,
+    "numTotalTests": 1,
+    "timestamp": 1792596731392,
+    "success": false,
+    "testId": 1
+  },
+  {
+    "numPassedTests": 1,
+    "failedTests": 0,
+    "numTotalTests": 1,
+    "timestamp": 1792596785463,
+    "success": false,
+    "testId": 1
+  },
+  {
+    "numPassedTests": 2,
+    "failedTests": 0,
+    "numTotalTests": 2,
+    "timestamp": 1792596996948,
+    "success": true,
+    "testId": 1
+  },
+  {
+    "commitId": "5278c795deee8ccc894777dc8815ea9a91ea9645",
+    "commitName": "feat: listar solo objetos publicados en el buscador",
+    "commitTimestamp": 1792597014200,
+    "testId": 1
+  },
+  {
+    "numPassedTests": 2,
+    "failedTests": 2,
+    "numTotalTests": 4,
+    "timestamp": 1792597699634,
+    "success": false,
+    "testId": 2
+  },
+  {
+    "numPassedTests": 4,
+    "failedTests": 0,
+    "numTotalTests": 4,
+    "timestamp": 1792597829213,
+    "success": true,
+    "testId": 2
+  },
+  {
+    "commitId": "c6c8d3bb3f33fcf12937c48d37829f426b2830d0",
+    "commitName": "feat: buscar objetos por titulo ignorando mayusculas y espacios",
+    "commitTimestamp": 1792597859729,
+    "testId": 2
+  },
+  {
+    "numPassedTests": 4,
+    "failedTests": 1,
+    "numTotalTests": 5,
+    "timestamp": 1792597992328,
+    "success": false,
+    "testId": 3
+  },
+  {
+    "numPassedTests": 5,
+    "failedTests": 0,
+    "numTotalTests": 5,
+    "timestamp": 1792598007780,
+    "success": true,
+    "testId": 3
+  },
+  {
+    "commitId": "65ac4ad549578241dbedb254e5cd7ffe8d993a3d",
+    "commitName": "feat: buscar objetos sin importar tildes",
+    "commitTimestamp": 1792598017725,
+    "testId": 3
+  },
+  {
+    "numPassedTests": 5,
+    "failedTests": 2,
+    "numTotalTests": 7,
+    "timestamp": 1792598584101,
+    "success": false,
+    "testId": 4
+  },
+  {
+    "numPassedTests": 7,
+    "failedTests": 0,
+    "numTotalTests": 7,
+    "timestamp": 1792598600409,
+    "success": true,
+    "testId": 4
+  },
+  {
+    "commitId": "d5076ba36ed481d823d0a00e0129b6783a6abd2b",
+    "commitName": "feat: filtrar objetos publicados por categoria",
+    "commitTimestamp": 1792598607830,
+    "testId": 4
+  },
+  {
+    "numPassedTests": 7,
+    "failedTests": 2,
+    "numTotalTests": 9,
+    "timestamp": 1792598747999,
+    "success": false,
+    "testId": 5
+  },
+  {
+    "numPassedTests": 9,
+    "failedTests": 0,
+    "numTotalTests": 9,
+    "timestamp": 1792598757284,
+    "success": true,
+    "testId": 5
+  },
+  {
+    "commitId": "ad92b12aa39f02cfa727493f1fd866aa27e9aba7",
+    "commitName": "feat: filtrar objetos publicados por lugar",
+    "commitTimestamp": 1792598766805,
+    "testId": 5
+  },
+  {
+    "numPassedTests": 9,
+    "failedTests": 3,
+    "numTotalTests": 12,
+    "timestamp": 1792598804877,
+    "success": false,
+    "testId": 6
+  },
+  {
+    "numPassedTests": 12,
+    "failedTests": 0,
+    "numTotalTests": 12,
+    "timestamp": 1792598826386,
+    "success": true,
+    "testId": 6
+  },
+  {
+    "commitId": "65e92ce012c57c92f9f4efd0215e969c5b80cc60",
+    "commitName": "feat: filtrar objetos publicados por fecha",
+    "commitTimestamp": 1792598834124,
+    "testId": 6
+  },
+  {
+    "numPassedTests": 12,
+    "failedTests": 2,
+    "numTotalTests": 14,
+    "timestamp": 1792599071359,
+    "success": false,
+    "testId": 7
+  },
+  {
+    "numPassedTests": 14,
+    "failedTests": 0,
+    "numTotalTests": 14,
+    "timestamp": 1792599083228,
+    "success": true,
+    "testId": 7
+  },
+  {
+    "commitId": "6271b97272449d3df15c3e2eb70a6a6768910393",
+    "commitName": "feat: combinar busqueda por titulo con filtros",
+    "commitTimestamp": 1792599090419,
+    "testId": 7
+  },
+  {
+    "numPassedTests": 14,
+    "failedTests": 3,
+    "numTotalTests": 17,
+    "timestamp": 1792599114037,
+    "success": false,
+    "testId": 8
+  },
+  {
+    "numPassedTests": 17,
+    "failedTests": 0,
+    "numTotalTests": 17,
+    "timestamp": 1792599123394,
+    "success": true,
+    "testId": 8
+  },
+  {
+    "commitId": "23d00c35d0ab4a9a05eb817786cb13f3c0a57c3b",
+    "commitName": "feat: mostrar mensaje segun cantidad de resultados",
+    "commitTimestamp": 1792599133743,
+    "testId": 8
+  },
+  {
+    "numPassedTests": 17,
+    "failedTests": 3,
+    "numTotalTests": 20,
+    "timestamp": 1792599773842,
+    "success": false,
+    "testId": 9
+  },
+  {
+    "numPassedTests": 20,
+    "failedTests": 0,
+    "numTotalTests": 20,
+    "timestamp": 1792600356901,
+    "success": true,
+    "testId": 9
+  },
+  {
+    "commitId": "cf2eb8e8049655c1fd2e1758913c41e4ae11d109",
+    "commitName": "feat: obtener detalle de un objeto publicado",
+    "commitTimestamp": 1792600369626,
+    "testId": 9
+  },
+  {
+    "numPassedTests": 21,
+    "failedTests": 2,
+    "numTotalTests": 23,
+    "timestamp": 1792600433149,
+    "success": false,
+    "testId": 10
+  },
+  {
+    "numPassedTests": 23,
+    "failedTests": 0,
+    "numTotalTests": 23,
+    "timestamp": 1792600444139,
+    "success": true,
+    "testId": 10
+  },
+  {
+    "commitId": "1db6ddff5ff2fe541d75f1d85a42781523107d63",
+    "commitName": "feat: agregar datos iniciales, categorias y lugares",
+    "commitTimestamp": 1792600453092,
+    "testId": 10
+  },
+  {
+    "numPassedTests": 23,
+    "failedTests": 0,
+    "numTotalTests": 23,
+    "timestamp": 1792600852039,
+    "success": true,
+    "testId": 11
+  },
+  {
+    "numPassedTests": 23,
+    "failedTests": 3,
+    "numTotalTests": 26,
+    "timestamp": 1792601026673,
+    "success": false,
+    "testId": 11
+  },
+  {
+    "numPassedTests": 26,
+    "failedTests": 0,
+    "numTotalTests": 26,
+    "timestamp": 1792601038895,
+    "success": true,
+    "testId": 11
+  },
+  {
+    "commitId": "2e6129036c61dfb23f1c9a424140838b06e2f21d",
+    "commitName": "feat: crear estructura de la pagina buscar",
+    "commitTimestamp": 1792601050849,
+    "testId": 11
+  },
+  {
+    "numPassedTests": 26,
+    "failedTests": 6,
+    "numTotalTests": 32,
+    "timestamp": 1792608041564,
+    "success": false,
+    "testId": 12
+  },
+  {
+    "numPassedTests": 32,
+    "failedTests": 0,
+    "numTotalTests": 32,
+    "timestamp": 1792608050916,
+    "success": true,
+    "testId": 12
+  },
+  {
+    "numPassedTests": 32,
+    "failedTests": 0,
+    "numTotalTests": 32,
+    "timestamp": 1792608094601,
+    "success": true,
+    "testId": 12
+  },
+  {
+    "commitId": "44dfa2c538dd8c3bb9ad9e48980e0fc501d49281",
+    "commitName": "feat: mostrar tarjetas y conectar buscador con filtros",
+    "commitTimestamp": 1792608128585,
+    "testId": 12
+  },
+  {
+    "numPassedTests": 32,
+    "failedTests": 3,
+    "numTotalTests": 35,
+    "timestamp": 1792608251955,
+    "success": false,
+    "testId": 13
+  },
+  {
+    "numPassedTests": 35,
+    "failedTests": 0,
+    "numTotalTests": 35,
+    "timestamp": 1792608351606,
+    "success": true,
+    "testId": 13
+  },
+  {
+    "commitId": "e52aa98f2dd1fd8e16fb3350c9b6e6c91755657b",
+    "commitName": "feat: mostrar detalle del objeto al hacer clic",
+    "commitTimestamp": 1792608361842,
+    "testId": 13
+  },
+  {
+    "numPassedTests": 35,
+    "failedTests": 1,
+    "numTotalTests": 36,
+    "timestamp": 1792608396623,
+    "success": false,
+    "testId": 14
+  },
+  {
+    "numPassedTests": 36,
+    "failedTests": 0,
+    "numTotalTests": 36,
+    "timestamp": 1792608439872,
+    "success": true,
+    "testId": 14
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "style: agregar estilos de la pagina buscar",
+    "commitTimestamp": 1792608490523,
+    "testId": 14
+  },
+  {
+    "numPassedTests": 93,
+    "failedTests": 0,
+    "numTotalTests": 93,
+    "timestamp": 1792608818468,
+    "success": true,
+    "testId": 15
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "chore: integrar main en HU-07/buscar",
+    "commitTimestamp": 1792608827337,
+    "testId": 15
   }
 ]
