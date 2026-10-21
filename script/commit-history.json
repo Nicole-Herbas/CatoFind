@@ -209,12 +209,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "2e6129036c61dfb23f1c9a424140838b06e2f21d",
     "author": "Nico Meneses",
     "commit": {
       "date": "2026-10-21T16:44:09.000Z",
       "message": "feat: crear estructura de la pagina buscar",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/2e6129036c61dfb23f1c9a424140838b06e2f21d"
     },
     "stats": {
       "total": 1638,
@@ -224,6 +224,25 @@
     },
     "coverage": 100,
     "test_count": 26,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "Nico Meneses",
+    "commit": {
+      "date": "2026-10-21T18:42:07.000Z",
+      "message": "feat: mostrar tarjetas y conectar buscador con filtros",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 162,
+      "additions": 161,
+      "deletions": 1,
+      "date": "2026-10-21"
+    },
+    "coverage": 95.79,
+    "test_count": 32,
     "failed_tests": 0,
     "conclusion": "success"
   }

@@ -274,9 +274,39 @@
     "testId": 11
   },
   {
-    "commitId": "HEAD",
+    "commitId": "2e6129036c61dfb23f1c9a424140838b06e2f21d",
     "commitName": "feat: crear estructura de la pagina buscar",
     "commitTimestamp": 1792601050849,
     "testId": 11
+  },
+  {
+    "numPassedTests": 26,
+    "failedTests": 6,
+    "numTotalTests": 32,
+    "timestamp": 1792608041564,
+    "success": false,
+    "testId": 12
+  },
+  {
+    "numPassedTests": 32,
+    "failedTests": 0,
+    "numTotalTests": 32,
+    "timestamp": 1792608050916,
+    "success": true,
+    "testId": 12
+  },
+  {
+    "numPassedTests": 32,
+    "failedTests": 0,
+    "numTotalTests": 32,
+    "timestamp": 1792608094601,
+    "success": true,
+    "testId": 12
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: mostrar tarjetas y conectar buscador con filtros",
+    "commitTimestamp": 1792608128585,
+    "testId": 12
   }
 ]
