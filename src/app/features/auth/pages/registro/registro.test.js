@@ -16,6 +16,9 @@ describe('Formulario de registro', () => {
     expect(html).toContain('FIND');
     expect(html).toContain('Crear cuenta');
   });
+  it('debe cargar el presentador del registro', () => {
+  expect(html).toContain('src="./registroPresenter.js"');
+});
 
   it('debe tener los cinco campos del registro', () => {
     expect(html).toContain('id="nombre"');

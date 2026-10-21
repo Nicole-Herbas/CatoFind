@@ -450,9 +450,39 @@
     "testId": 15
   },
   {
-    "commitId": "HEAD",
+    "commitId": "4e6b431dcea6a0d619b2f31d0d13a423995859c1",
     "commitName": "Feat: Se aniadio la logica de negocio principal para el login",
     "commitTimestamp": 1792599636325,
     "testId": 15
+  },
+  {
+    "numPassedTests": 39,
+    "failedTests": 1,
+    "numTotalTests": 40,
+    "timestamp": 1792599687066,
+    "success": false,
+    "testId": 16
+  },
+  {
+    "numPassedTests": 39,
+    "failedTests": 1,
+    "numTotalTests": 40,
+    "timestamp": 1792599712441,
+    "success": false,
+    "testId": 16
+  },
+  {
+    "numPassedTests": 40,
+    "failedTests": 0,
+    "numTotalTests": 40,
+    "timestamp": 1792599741781,
+    "success": true,
+    "testId": 16
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: implementar registro de estudiantes con MVP",
+    "commitTimestamp": 1792599850217,
+    "testId": 16
   }
 ]

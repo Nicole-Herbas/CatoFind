@@ -285,12 +285,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "4e6b431dcea6a0d619b2f31d0d13a423995859c1",
     "author": "pochis",
     "commit": {
       "date": "2026-10-21T16:20:35.000Z",
       "message": "Feat: Se aniadio la logica de negocio principal para el login",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/4e6b431dcea6a0d619b2f31d0d13a423995859c1"
     },
     "stats": {
       "total": 202,
@@ -300,6 +300,25 @@
     },
     "coverage": 77.78,
     "test_count": 39,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "pochis",
+    "commit": {
+      "date": "2026-10-21T16:24:09.000Z",
+      "message": "feat: implementar registro de estudiantes con MVP",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 32,
+      "additions": 31,
+      "deletions": 1,
+      "date": "2026-10-21"
+    },
+    "coverage": 77.78,
+    "test_count": 40,
     "failed_tests": 0,
     "conclusion": "success"
   }
