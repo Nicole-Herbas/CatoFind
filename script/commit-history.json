@@ -19,12 +19,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "5278c795deee8ccc894777dc8815ea9a91ea9645",
     "author": "Nico Meneses",
     "commit": {
       "date": "2026-10-21T15:36:53.000Z",
       "message": "feat: listar solo objetos publicados en el buscador",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/5278c795deee8ccc894777dc8815ea9a91ea9645"
     },
     "stats": {
       "total": 36,
@@ -34,6 +34,25 @@
     },
     "coverage": 100,
     "test_count": 2,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "Nico Meneses",
+    "commit": {
+      "date": "2026-10-21T15:50:58.000Z",
+      "message": "feat: buscar objetos por titulo ignorando mayusculas y espacios",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 31,
+      "additions": 31,
+      "deletions": 0,
+      "date": "2026-10-21"
+    },
+    "coverage": 100,
+    "test_count": 4,
     "failed_tests": 0,
     "conclusion": "success"
   }

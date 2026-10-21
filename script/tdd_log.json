@@ -46,9 +46,31 @@
     "testId": 1
   },
   {
-    "commitId": "HEAD",
+    "commitId": "5278c795deee8ccc894777dc8815ea9a91ea9645",
     "commitName": "feat: listar solo objetos publicados en el buscador",
     "commitTimestamp": 1792597014200,
     "testId": 1
+  },
+  {
+    "numPassedTests": 2,
+    "failedTests": 2,
+    "numTotalTests": 4,
+    "timestamp": 1792597699634,
+    "success": false,
+    "testId": 2
+  },
+  {
+    "numPassedTests": 4,
+    "failedTests": 0,
+    "numTotalTests": 4,
+    "timestamp": 1792597829213,
+    "success": true,
+    "testId": 2
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: buscar objetos por titulo ignorando mayusculas y espacios",
+    "commitTimestamp": 1792597859729,
+    "testId": 2
   }
 ]
