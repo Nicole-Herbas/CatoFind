@@ -136,9 +136,15 @@
     "testId": 4
   },
   {
-    "commitId": "HEAD",
+    "commitId": "a41d86857cba26ba54bfb8f16feac0b582d8543c",
     "commitName": "feat: agregar logo de CatoFind",
     "commitTimestamp": 1792552691658,
     "testId": 4
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: agregar presentacion",
+    "commitTimestamp": 1792553398377,
+    "testId": 5
   }
 ]

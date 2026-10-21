@@ -76,16 +76,35 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "a41d86857cba26ba54bfb8f16feac0b582d8543c",
     "author": "pochis",
     "commit": {
       "date": "2026-10-21T03:18:10.000Z",
       "message": "feat: agregar logo de CatoFind",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/a41d86857cba26ba54bfb8f16feac0b582d8543c"
     },
     "stats": {
       "total": 55,
       "additions": 53,
+      "deletions": 2,
+      "date": "2026-10-21"
+    },
+    "coverage": 18.18,
+    "test_count": 9,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "pochis",
+    "commit": {
+      "date": "2026-10-21T03:29:57.000Z",
+      "message": "feat: agregar presentacion",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 67,
+      "additions": 65,
       "deletions": 2,
       "date": "2026-10-21"
     },
