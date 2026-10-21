@@ -1,0 +1,241 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.login {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+}
+
+.login__presentacion {
+  background: linear-gradient(160deg, #092b61, #0b4a91);
+  color: white;
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.login__acceso {
+  background: #f5f7fa;
+}
+
+.login__acceso {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login__contenido {
+  width: 100%;
+  max-width: 384px;
+}
+
+.login__contenido h2 {
+  color: #17263e;
+  font-size: 26px;
+  margin-bottom: 8px;
+}
+
+.login__contenido p {
+  color: #758197;
+}
+
+#login-form {
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+#login-form input {
+  padding: 15px;
+  border: 1px solid #d9e2f0;
+  border-radius: 24px;
+  background: #e8effc;
+}
+
+#login-form button {
+  padding: 15px;
+  border: none;
+  border-radius: 24px;
+  background: #0b3979;
+  color: white;
+  cursor: pointer;
+}
+
+#mensaje-error {
+  color: #c62828;
+  font-size: 13px;
+  margin: 0;
+}
+
+
+.login__marca {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.login__marca img {
+  width: 28px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.login__marca strong {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.login__marca span {
+  color: #ffc400;
+}
+
+.login__marca small {
+  display: block;
+  color: #ffc400;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.login__mensaje {
+  max-width: 500px;
+}
+
+.login__linea {
+  width: 64px;
+  height: 5px;
+  background: #ffc400;
+  border-radius: 5px;
+}
+
+.login__mensaje h1 {
+  font-size: 50px;
+  line-height: 1.2;
+  margin: 20px 0;
+}
+
+.login__mensaje h1 span {
+  display: block;
+  color: #ffc400;
+}
+
+.login__mensaje p {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #cbdcf1;
+}
+
+
+.login__imagenes {
+  display: flex;
+  gap: 16px;
+  margin-top: 36px;
+}
+
+.login__imagenes img {
+  width: 144px;
+  height: 190px;
+  object-fit: cover;
+  border-radius: 24px;
+}
+
+.login__imagenes img:first-child {
+  transform: rotate(-4deg);
+}
+
+.login__imagenes img:last-child {
+  transform: rotate(4deg);
+}
+
+
+.login__logo-ucb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.login__logo-ucb img {
+  width: 40px;
+  height: 56px;
+  object-fit: contain;
+}
+
+.login__logo-texto {
+  display: flex;
+  flex-direction: column;
+  color: #315785;
+  font-size: 10px;
+  line-height: 1.1;
+  letter-spacing: 1px;
+}
+
+.login__logo-texto strong {
+  font-size: 13px;
+}
+
+
+
+.login__enlaces {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.login__enlaces a {
+  color: #24518f;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.login__enlaces a:hover {
+  text-decoration: underline;
+}
+.login__enlaces button {
+  border: none;
+  padding: 0;
+  background: transparent;
+  color: #24518f;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.login__enlaces button:hover {
+  text-decoration: underline;
+}
+
+/* Notificacion flotante de recuperacion */
+
+.login__toast {
+  position: fixed;
+  top: 38px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: min(355px, calc(100% - 32px));
+  padding: 18px 16px;
+
+  background: #ffffff;
+  color: #242424;
+  border-radius: 8px;
+
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  z-index: 1000;
+}
+
+.login__toast[hidden] {
+  display: none;
+}

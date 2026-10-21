@@ -1,0 +1,484 @@
+
+import { readFileSync } from 'node:fs';
+import {
+  esCorreoInstitucional,
+  iniciarSesion,
+  obtenerSesion,
+  cerrarSesion,
+  mensajeRecuperacion
+} from './login.js';
+
+import { UsuarioService } from '../../services/UsuarioService.js';
+import { registrarEstudiante } from '../registro/registro.js';
+
+const html = readFileSync(
+  'src/app/features/auth/pages/login/login.html',
+  'utf8'
+);
+
+describe('Estructura del login', () => {
+
+  it('debe tener dos paneles principales', () => {
+    expect(html).toContain('class="login__presentacion"');
+    expect(html).toContain('class="login__acceso"');
+  });
+
+});
+
+
+describe('Estilos del login', () => {
+
+  it('debe tener dos columnas y los colores principales', () => {
+    const css = readFileSync(
+      'src/app/features/auth/pages/login/login.css',
+      'utf8'
+    );
+
+    expect(html).toContain('href="./login.css"');
+    expect(css).toContain('display: grid;');
+    expect(css).toContain('grid-template-columns: 1fr 1fr;');
+    expect(css).toContain('min-height: 100vh;');
+    expect(css).toContain('linear-gradient(');
+    expect(css).toContain('background: #f5f7fa;');
+  });
+
+});
+
+describe('Validacion del correo institucional', () => {
+
+  it('debe aceptar un correo UCB', () => {
+    expect(esCorreoInstitucional('estudiante@ucb.edu.bo')).toBe(true);
+  });
+
+  it('debe rechazar un correo Gmail', () => {
+    expect(esCorreoInstitucional('estudiante@gmail.com')).toBe(false);
+  });
+
+  it('debe rechazar un correo sin usuario', () => {
+    expect(esCorreoInstitucional('@ucb.edu.bo')).toBe(false);
+  });
+
+  it('debe rechazar un dominio parecido', () => {
+    expect(esCorreoInstitucional('estudiante@falsoucb.edu.bo')).toBe(false);
+  });
+
+});
+
+describe('Presentacion de CatoFind', () => {
+
+  it('debe mostrar el logo de CatoFind', () => {
+    expect(html).toContain('class="login__marca"');
+    expect(html).toContain('ucb.png');
+    expect(html).toContain('CATO');
+    expect(html).toContain('FIND');
+  });
+
+  it('debe mostrar el lema principal', () => {
+    expect(html).toContain('No todo está');
+    expect(html).toContain('perdido.');
+  });
+
+  it('debe mostrar la descripcion', () => {
+    expect(html).toContain(
+      'Busca, reporta y recupera objetos'
+    );
+  });
+
+});
+
+describe('Fotografias de CatoFind', () => {
+
+  it('debe mostrar las tres imagenes', () => {
+    expect(html).toContain('mochila.jpg');
+    expect(html).toContain('perro.jpg');
+    expect(html).toContain('audifonos.jpg');
+  });
+
+  it('debe tener el contenedor de imagenes', () => {
+    expect(html).toContain('class="login__imagenes"');
+  });
+
+});
+describe('Logo institucional del login', () => {
+
+  it('debe mostrar el logo de la UCB', () => {
+    expect(html).toContain('class="login__logo-ucb"');
+    expect(html).toContain('Escudo Universidad Católica Boliviana');
+    expect(html).toContain('UNIVERSIDAD');
+    expect(html).toContain('CATÓLICA');
+    expect(html).toContain('BOLIVIANA');
+  });
+
+});
+
+
+
+const css = readFileSync(
+  'src/app/features/auth/pages/login/login.css',
+  'utf8'
+);
+
+describe('Estilos del logo institucional', () => {
+
+  it('debe organizar el logo horizontalmente', () => {
+    expect(css).toContain('.login__logo-ucb {');
+    expect(css).toContain('gap: 8px;');
+  });
+
+  it('debe establecer el tamaño del escudo', () => {
+    expect(css).toContain('.login__logo-ucb img {');
+    expect(css).toContain('width: 40px;');
+    expect(css).toContain('height: 56px;');
+  });
+
+  it('debe tener estilos para el texto', () => {
+    expect(css).toContain('.login__logo-texto {');
+    expect(css).toContain('.login__logo-texto strong {');
+  });
+
+});
+
+
+describe('Opciones de cuenta', () => {
+
+  it('debe mostrar la opcion de registrarse', () => {
+    expect(html).toContain('Registrarse');
+  });
+
+  it('debe mostrar la opcion de recuperar contraseña', () => {
+    expect(html).toContain('Recuperar contraseña');
+  });
+
+  it('debe tener el contenedor de opciones', () => {
+    expect(html).toContain('class="login__enlaces"');
+  });
+
+});
+
+
+describe('Enlaces del login', () => {
+
+  it('debe tener un enlace para registrarse', () => {
+    expect(html).toContain(
+      'href="../registro/registro.html"'
+    );
+    expect(html).toContain('Registrarse</a>');
+  });
+
+  it('debe tener un boton de recuperacion sin navegar', () => {
+  expect(html).toContain(
+    '<button type="button" id="recuperar-contrasena">'
+  );
+
+  expect(html).not.toContain(
+    'href="../recuperar-password/recuperar-password.html"'
+  );
+});
+
+});
+
+describe('Estilos de los enlaces', () => {
+
+  it('debe distribuir los enlaces horizontalmente', () => {
+    const estilos = css.split('.login__enlaces {')[1]?.split('}')[0] || '';
+
+    expect(estilos).toContain('display: flex;');
+    expect(estilos).toContain('justify-content: space-between;');
+  });
+
+  it('debe dar estilos a los enlaces', () => {
+    const estilos = css.split('.login__enlaces a {')[1]?.split('}')[0] || '';
+
+    expect(estilos).toContain('color: #24518f;');
+    expect(estilos).toContain('text-decoration: none;');
+  });
+
+});
+
+describe('Rutas del login', () => {
+
+  it('debe encontrar las paginas de destino', () => {
+    expect(() => readFileSync(
+      'src/app/features/auth/pages/registro/registro.html',
+      'utf8'
+    )).not.toThrow();
+
+   
+  });
+
+});
+
+describe('Autenticacion de estudiantes', () => {
+
+  let almacenamiento;
+
+  beforeEach(() => {
+    const memoria = {};
+
+    almacenamiento = {
+      getItem: clave => memoria[clave] ?? null,
+      setItem: (clave, valor) => {
+        memoria[clave] = valor;
+      }
+    };
+
+    const servicio = new UsuarioService(almacenamiento);
+
+    servicio.guardarUsuario({
+      nombre: 'Jose',
+      apellido: 'Prueba',
+      correo: 'estudiante@ucb.edu.bo',
+      contrasena: 'Demo12345'
+    });
+  });
+
+  it('debe iniciar sesion con credenciales correctas', () => {
+    const resultado = iniciarSesion(
+      'estudiante@ucb.edu.bo',
+      'Demo12345',
+      almacenamiento
+    );
+
+    expect(resultado.ok).toBe(true);
+    expect(resultado.usuario.correo).toBe('estudiante@ucb.edu.bo');
+  });
+
+  it('debe rechazar una contrasena incorrecta', () => {
+    const resultado = iniciarSesion(
+      'estudiante@ucb.edu.bo',
+      'Incorrecta',
+      almacenamiento
+    );
+
+    expect(resultado.ok).toBe(false);
+    expect(resultado.mensaje).toBe('Correo o contraseña incorrectos.');
+  });
+
+  it('debe rechazar un correo no registrado', () => {
+    const resultado = iniciarSesion(
+      'otro@ucb.edu.bo',
+      'Demo12345',
+      almacenamiento
+    );
+
+    expect(resultado.ok).toBe(false);
+  });
+
+  it('debe rechazar correos externos a la UCB', () => {
+    const resultado = iniciarSesion(
+      'estudiante@gmail.com',
+      'Demo12345',
+      almacenamiento
+    );
+
+    expect(resultado.ok).toBe(false);
+  });
+
+  it('debe rechazar campos vacios', () => {
+    const resultado = iniciarSesion(
+      '',
+      '',
+      almacenamiento
+    );
+
+    expect(resultado.ok).toBe(false);
+  });
+
+  it('debe aceptar correos con mayusculas', () => {
+    const resultado = iniciarSesion(
+      'ESTUDIANTE@UCB.EDU.BO',
+      'Demo12345',
+      almacenamiento
+    );
+
+    expect(resultado.ok).toBe(true);
+  });
+
+  it('no debe devolver la contrasena al presentador', () => {
+    const resultado = iniciarSesion(
+      'estudiante@ucb.edu.bo',
+      'Demo12345',
+      almacenamiento
+    );
+
+    expect(resultado.usuario).not.toHaveProperty('contrasena');
+  });
+
+});
+
+describe('Conexion MVP del login', () => {
+
+  it('debe cargar el presentador desde el HTML', () => {
+    expect(html).toContain('src="./loginPresenter.js"');
+    expect(html).not.toContain('src="./login.js"');
+  });
+
+});
+
+
+describe('Sesion del estudiante', () => {
+
+  let cuentas;
+  let sesion;
+
+  beforeEach(() => {
+    const datosCuentas = {};
+    const datosSesion = {};
+
+    cuentas = {
+      getItem: clave => datosCuentas[clave] ?? null,
+      setItem: (clave, valor) => {
+        datosCuentas[clave] = valor;
+      }
+    };
+
+    sesion = {
+      getItem: clave => datosSesion[clave] ?? null,
+      setItem: (clave, valor) => {
+        datosSesion[clave] = valor;
+      },
+      removeItem: clave => {
+        delete datosSesion[clave];
+      }
+    };
+
+    const servicio = new UsuarioService(cuentas);
+
+    servicio.guardarUsuario({
+      nombre: 'Jose',
+      apellido: 'Prueba',
+      correo: 'estudiante@ucb.edu.bo',
+      contrasena: 'Demo12345'
+    });
+  });
+
+  it('debe guardar la sesion cuando el login es correcto', () => {
+    const resultado = iniciarSesion(
+      'estudiante@ucb.edu.bo',
+      'Demo12345',
+      cuentas,
+      sesion
+    );
+
+    expect(resultado.ok).toBe(true);
+    expect(obtenerSesion(sesion).correo).toBe('estudiante@ucb.edu.bo');
+  });
+
+  it('no debe guardar contrasenas en la sesion', () => {
+    iniciarSesion(
+      'estudiante@ucb.edu.bo',
+      'Demo12345',
+      cuentas,
+      sesion
+    );
+
+    expect(obtenerSesion(sesion)).not.toHaveProperty('contrasena');
+  });
+
+  it('no debe crear sesion con credenciales incorrectas', () => {
+    iniciarSesion(
+      'estudiante@ucb.edu.bo',
+      'Incorrecta',
+      cuentas,
+      sesion
+    );
+
+    expect(obtenerSesion(sesion)).toBeNull();
+  });
+
+  it('debe retornar null si no existe una sesion', () => {
+    expect(obtenerSesion(sesion)).toBeNull();
+  });
+
+  it('debe permitir cerrar la sesion sin borrar las cuentas', () => {
+    iniciarSesion(
+      'estudiante@ucb.edu.bo',
+      'Demo12345',
+      cuentas,
+      sesion
+    );
+
+    cerrarSesion(sesion);
+
+    expect(obtenerSesion(sesion)).toBeNull();
+
+    const servicio = new UsuarioService(cuentas);
+    expect(servicio.obtenerUsuarios()).toHaveLength(1);
+  });
+
+});
+describe('Integracion registro y login', () => {
+
+  it('debe iniciar sesion con una cuenta recien registrada', () => {
+    const datos = {};
+    const datosSesion = {};
+
+    const almacenamiento = {
+      getItem: clave => datos[clave] ?? null,
+      setItem: (clave, valor) => {
+        datos[clave] = valor;
+      }
+    };
+
+    const sesion = {
+      getItem: clave => datosSesion[clave] ?? null,
+      setItem: (clave, valor) => {
+        datosSesion[clave] = valor;
+      },
+      removeItem: clave => {
+        delete datosSesion[clave];
+      }
+    };
+
+    const registro = registrarEstudiante({
+      nombre: 'Estudiante',
+      apellido: 'Prueba',
+      correo: 'prueba@ucb.edu.bo',
+      contrasena: 'Demo12345',
+      confirmarContrasena: 'Demo12345'
+    }, almacenamiento);
+
+    expect(registro.ok).toBe(true);
+
+    const login = iniciarSesion(
+      'prueba@ucb.edu.bo',
+      'Demo12345',
+      almacenamiento,
+      sesion
+    );
+
+    expect(login.ok).toBe(true);
+    expect(obtenerSesion(sesion).correo).toBe('prueba@ucb.edu.bo');
+    expect(obtenerSesion(sesion)).not.toHaveProperty('contrasena');
+  });
+
+});
+
+describe('Recuperacion de contrasena', () => {
+
+  it('debe devolver el mensaje de confirmacion', () => {
+    expect(mensajeRecuperacion()).toBe(
+      'Te enviaríamos un enlace de recuperación a tu correo ' 
+    );
+  });
+
+});
+describe('Notificacion flotante de recuperacion', () => {
+
+  it('debe tener un contenedor para la notificacion', () => {
+    expect(html).toContain('id="mensaje-recuperacion"');
+    expect(html).toContain('class="login__toast"');
+    expect(html).toContain('role="status"');
+    expect(html).toContain('hidden');
+  });
+
+  it('debe mostrar la notificacion arriba y centrada', () => {
+    const estilos = css.split('.login__toast {')[1]?.split('}')[0] || '';
+
+    expect(estilos).toContain('position: fixed;');
+    expect(estilos).toContain('top: 38px;');
+    expect(estilos).toContain('left: 50%;');
+    expect(estilos).toContain('transform: translateX(-50%);');
+  });
+
+});
