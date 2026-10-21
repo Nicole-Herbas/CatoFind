@@ -209,12 +209,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "89e07ed3805eb03ddfb4f179e95fa0ab8b3cfe77",
     "author": "pochis",
     "commit": {
       "date": "2026-10-21T05:00:51.000Z",
       "message": "style: agregar estilos de enlaces del login",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/89e07ed3805eb03ddfb4f179e95fa0ab8b3cfe77"
     },
     "stats": {
       "total": 38,
@@ -224,6 +224,25 @@
     },
     "coverage": 18.18,
     "test_count": 22,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "pochis",
+    "commit": {
+      "date": "2026-10-21T05:03:21.000Z",
+      "message": "feat: Agregar principios de registro",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 105,
+      "additions": 105,
+      "deletions": 0,
+      "date": "2026-10-21"
+    },
+    "coverage": 18.18,
+    "test_count": 26,
     "failed_tests": 0,
     "conclusion": "success"
   }

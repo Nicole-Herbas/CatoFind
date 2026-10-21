@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CatoFind | Crear cuenta</title>
+  <link rel="stylesheet" href="./registro.css">
+</head>
+<body>
+
+  <main class="registro">
+    <section class="registro__tarjeta">
+
+      <div class="registro__marca">
+        <img src="../../../../../assets/images/ucb.png" alt="Escudo UCB">
+        <div>
+          <strong>CATO<span>FIND</span></strong>
+          <small>UCB COCHABAMBA</small>
+        </div>
+      </div>
+
+      <h1>Crear cuenta</h1>
+
+      <form id="registro-form">
+
+        <div class="registro__nombres">
+          <input type="text" id="nombre"
+                 placeholder="Nombre" aria-label="Nombre"
+                 autocomplete="given-name" required>
+
+          <input type="text" id="apellido"
+                 placeholder="Apellido" aria-label="Apellido"
+                 autocomplete="family-name" required>
+        </div>
+
+        <input type="email" id="correo-registro"
+               placeholder="Correo institucional"
+               aria-label="Correo institucional"
+               autocomplete="email" required>
+
+        <input type="password" id="contrasena-registro"
+               placeholder="Contraseña"
+               aria-label="Contraseña"
+               autocomplete="new-password" required>
+
+        <input type="password" id="confirmar-contrasena"
+               placeholder="Confirmar contraseña"
+               aria-label="Confirmar contraseña"
+               autocomplete="new-password" required>
+
+        <button type="submit">Crear cuenta</button>
+
+        <p id="registro-mensaje" role="status"></p>
+      </form>
+
+      <p class="registro__volver">
+        ¿Ya tienes cuenta?
+        <a href="../login/login.html">Inicia sesión</a>
+      </p>
+
+    </section>
+  </main>
+
+</body>
+</html>

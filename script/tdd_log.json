@@ -314,9 +314,31 @@
     "testId": 11
   },
   {
-    "commitId": "HEAD",
+    "commitId": "89e07ed3805eb03ddfb4f179e95fa0ab8b3cfe77",
     "commitName": "style: agregar estilos de enlaces del login",
     "commitTimestamp": 1792558851913,
     "testId": 11
+  },
+  {
+    "numPassedTests": 22,
+    "failedTests": 0,
+    "numTotalTests": 22,
+    "timestamp": 1792558902238,
+    "success": false,
+    "testId": 12
+  },
+  {
+    "numPassedTests": 26,
+    "failedTests": 0,
+    "numTotalTests": 26,
+    "timestamp": 1792558922849,
+    "success": true,
+    "testId": 12
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: Agregar principios de registro",
+    "commitTimestamp": 1792559002826,
+    "testId": 12
   }
 ]
