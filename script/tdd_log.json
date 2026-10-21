@@ -420,9 +420,39 @@
     "testId": 14
   },
   {
-    "commitId": "HEAD",
+    "commitId": "6b39eecfa8afdd3a93c13e2f777791fbb3a5db94",
     "commitName": "fix: corregir ruta en prueba del login",
     "commitTimestamp": 1792559728654,
     "testId": 14
+  },
+  {
+    "numPassedTests": 23,
+    "failedTests": 0,
+    "numTotalTests": 23,
+    "timestamp": 1792599484043,
+    "success": false,
+    "testId": 15
+  },
+  {
+    "numPassedTests": 23,
+    "failedTests": 0,
+    "numTotalTests": 23,
+    "timestamp": 1792599570626,
+    "success": false,
+    "testId": 15
+  },
+  {
+    "numPassedTests": 39,
+    "failedTests": 0,
+    "numTotalTests": 39,
+    "timestamp": 1792599601635,
+    "success": true,
+    "testId": 15
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "Feat: Se aniadio la logica de negocio principal para el login",
+    "commitTimestamp": 1792599636325,
+    "testId": 15
   }
 ]

@@ -266,12 +266,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "6b39eecfa8afdd3a93c13e2f777791fbb3a5db94",
     "author": "pochis",
     "commit": {
       "date": "2026-10-21T05:15:27.000Z",
       "message": "fix: corregir ruta en prueba del login",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/6b39eecfa8afdd3a93c13e2f777791fbb3a5db94"
     },
     "stats": {
       "total": 212,
@@ -281,6 +281,25 @@
     },
     "coverage": 18.18,
     "test_count": 32,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "pochis",
+    "commit": {
+      "date": "2026-10-21T16:20:35.000Z",
+      "message": "Feat: Se aniadio la logica de negocio principal para el login",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 202,
+      "additions": 202,
+      "deletions": 0,
+      "date": "2026-10-21"
+    },
+    "coverage": 77.78,
+    "test_count": 39,
     "failed_tests": 0,
     "conclusion": "success"
   }
