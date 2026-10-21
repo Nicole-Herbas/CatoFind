@@ -101,3 +101,47 @@ describe('Logo institucional del login', () => {
   });
 
 });
+
+
+
+const css = readFileSync(
+  'src/app/features/auth/pages/login/login.css',
+  'utf8'
+);
+
+describe('Estilos del logo institucional', () => {
+
+  it('debe organizar el logo horizontalmente', () => {
+    expect(css).toContain('.login__logo-ucb {');
+    expect(css).toContain('gap: 8px;');
+  });
+
+  it('debe establecer el tamaño del escudo', () => {
+    expect(css).toContain('.login__logo-ucb img {');
+    expect(css).toContain('width: 40px;');
+    expect(css).toContain('height: 56px;');
+  });
+
+  it('debe tener estilos para el texto', () => {
+    expect(css).toContain('.login__logo-texto {');
+    expect(css).toContain('.login__logo-texto strong {');
+  });
+
+});
+
+
+describe('Opciones de cuenta', () => {
+
+  it('debe mostrar la opcion de registrarse', () => {
+    expect(html).toContain('Registrarse');
+  });
+
+  it('debe mostrar la opcion de recuperar contraseña', () => {
+    expect(html).toContain('Recuperar contraseña');
+  });
+
+  it('debe tener el contenedor de opciones', () => {
+    expect(html).toContain('class="login__enlaces"');
+  });
+
+});

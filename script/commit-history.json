@@ -152,12 +152,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "177f23d2a76a06fc890e9e0c78d99c9bfcb5f98a",
     "author": "pochis",
     "commit": {
       "date": "2026-10-21T04:03:31.000Z",
       "message": "style: agregar estilos del logo institucional",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/177f23d2a76a06fc890e9e0c78d99c9bfcb5f98a"
     },
     "stats": {
       "total": 28,
@@ -167,6 +167,25 @@
     },
     "coverage": 18.18,
     "test_count": 15,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "pochis",
+    "commit": {
+      "date": "2026-10-21T04:25:38.000Z",
+      "message": "feat: agregar opciones de cuenta y pruebas del login",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 49,
+      "additions": 49,
+      "deletions": 0,
+      "date": "2026-10-21"
+    },
+    "coverage": 18.18,
+    "test_count": 18,
     "failed_tests": 0,
     "conclusion": "success"
   }

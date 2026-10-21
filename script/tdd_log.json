@@ -240,9 +240,31 @@
     "testId": 8
   },
   {
-    "commitId": "HEAD",
+    "commitId": "177f23d2a76a06fc890e9e0c78d99c9bfcb5f98a",
     "commitName": "style: agregar estilos del logo institucional",
     "commitTimestamp": 1792555412768,
     "testId": 8
+  },
+  {
+    "numPassedTests": 15,
+    "failedTests": 3,
+    "numTotalTests": 18,
+    "timestamp": 1792556583831,
+    "success": false,
+    "testId": 9
+  },
+  {
+    "numPassedTests": 18,
+    "failedTests": 0,
+    "numTotalTests": 18,
+    "timestamp": 1792556715443,
+    "success": true,
+    "testId": 9
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: agregar opciones de cuenta y pruebas del login",
+    "commitTimestamp": 1792556738951,
+    "testId": 9
   }
 ]
