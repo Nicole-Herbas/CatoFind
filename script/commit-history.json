@@ -304,12 +304,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "77490ad547f456c7c7a074538fe3cd9ddf1168cc",
     "author": "pochis",
     "commit": {
       "date": "2026-10-21T16:24:09.000Z",
       "message": "feat: implementar registro de estudiantes con MVP",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/77490ad547f456c7c7a074538fe3cd9ddf1168cc"
     },
     "stats": {
       "total": 32,
@@ -319,6 +319,25 @@
     },
     "coverage": 77.78,
     "test_count": 40,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "pochis",
+    "commit": {
+      "date": "2026-10-21T16:30:45.000Z",
+      "message": "feat: implementar autenticacion de estudiantes con MVP",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 193,
+      "additions": 176,
+      "deletions": 17,
+      "date": "2026-10-21"
+    },
+    "coverage": 97.92,
+    "test_count": 48,
     "failed_tests": 0,
     "conclusion": "success"
   }

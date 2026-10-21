@@ -1,22 +1,53 @@
+import { UsuarioService } from '../../services/UsuarioService.js';
+
+
 export function esCorreoInstitucional(correo) {
   return /^[^\s@]+@ucb\.edu\.bo$/i.test(correo.trim());
 }
 
-if (typeof document !== 'undefined') {
-  const formulario = document.getElementById('login-form');
 
-  if (formulario) {
-    formulario.addEventListener('submit', function(evento) {
-      evento.preventDefault();
+export function iniciarSesion(correo, contrasena, almacenamiento) {
 
-      const correo = document.getElementById('correo').value;
-      const mensaje = document.getElementById('mensaje-error');
+  const correoNormalizado = String(correo ?? '').trim().toLowerCase();
+  const clave = String(contrasena ?? '');
 
-      if (!esCorreoInstitucional(correo)) {
-        mensaje.textContent = 'Ingresa con tu cuenta académica @ucb.edu.bo.';
-      } else {
-        mensaje.textContent = 'Correo válido. Falta verificar las credenciales.';
-      }
-    });
+  if (!correoNormalizado || !clave) {
+    return {
+      ok: false,
+      mensaje: 'Completa el correo y la contraseña.'
+    };
   }
+
+  if (!esCorreoInstitucional(correoNormalizado)) {
+    return {
+      ok: false,
+      mensaje: 'Ingresa con tu cuenta académica @ucb.edu.bo.'
+    };
+  }
+
+  const servicio = new UsuarioService(almacenamiento);
+  const usuarios = servicio.obtenerUsuarios();
+
+  const usuario = usuarios.find(estudiante =>
+    typeof estudiante.correo === 'string' &&
+    estudiante.correo.trim().toLowerCase() === correoNormalizado &&
+    estudiante.contrasena === clave
+  );
+
+  if (!usuario) {
+    return {
+      ok: false,
+      mensaje: 'Correo o contraseña incorrectos.'
+    };
+  }
+
+  return {
+    ok: true,
+    mensaje: 'Inicio de sesión correcto.',
+    usuario: {
+      nombre: usuario.nombre,
+      apellido: usuario.apellido,
+      correo: usuario.correo
+    }
+  };
 }

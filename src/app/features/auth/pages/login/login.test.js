@@ -1,6 +1,7 @@
 
 import { readFileSync } from 'node:fs';
-import { esCorreoInstitucional } from './login.js';
+import { esCorreoInstitucional, iniciarSesion } from './login.js';
+import { UsuarioService } from '../../services/UsuarioService.js';
 
 const html = readFileSync(
   'src/app/features/auth/pages/login/login.html',
@@ -195,6 +196,113 @@ describe('Rutas del login', () => {
       'src/app/features/auth/pages/recuperar-password/recuperar-password.html',
       'utf8'
     )).not.toThrow();
+  });
+
+});
+
+describe('Autenticacion de estudiantes', () => {
+
+  let almacenamiento;
+
+  beforeEach(() => {
+    const memoria = {};
+
+    almacenamiento = {
+      getItem: clave => memoria[clave] ?? null,
+      setItem: (clave, valor) => {
+        memoria[clave] = valor;
+      }
+    };
+
+    const servicio = new UsuarioService(almacenamiento);
+
+    servicio.guardarUsuario({
+      nombre: 'Jose',
+      apellido: 'Prueba',
+      correo: 'estudiante@ucb.edu.bo',
+      contrasena: 'Demo12345'
+    });
+  });
+
+  it('debe iniciar sesion con credenciales correctas', () => {
+    const resultado = iniciarSesion(
+      'estudiante@ucb.edu.bo',
+      'Demo12345',
+      almacenamiento
+    );
+
+    expect(resultado.ok).toBe(true);
+    expect(resultado.usuario.correo).toBe('estudiante@ucb.edu.bo');
+  });
+
+  it('debe rechazar una contrasena incorrecta', () => {
+    const resultado = iniciarSesion(
+      'estudiante@ucb.edu.bo',
+      'Incorrecta',
+      almacenamiento
+    );
+
+    expect(resultado.ok).toBe(false);
+    expect(resultado.mensaje).toBe('Correo o contraseña incorrectos.');
+  });
+
+  it('debe rechazar un correo no registrado', () => {
+    const resultado = iniciarSesion(
+      'otro@ucb.edu.bo',
+      'Demo12345',
+      almacenamiento
+    );
+
+    expect(resultado.ok).toBe(false);
+  });
+
+  it('debe rechazar correos externos a la UCB', () => {
+    const resultado = iniciarSesion(
+      'estudiante@gmail.com',
+      'Demo12345',
+      almacenamiento
+    );
+
+    expect(resultado.ok).toBe(false);
+  });
+
+  it('debe rechazar campos vacios', () => {
+    const resultado = iniciarSesion(
+      '',
+      '',
+      almacenamiento
+    );
+
+    expect(resultado.ok).toBe(false);
+  });
+
+  it('debe aceptar correos con mayusculas', () => {
+    const resultado = iniciarSesion(
+      'ESTUDIANTE@UCB.EDU.BO',
+      'Demo12345',
+      almacenamiento
+    );
+
+    expect(resultado.ok).toBe(true);
+  });
+
+  it('no debe devolver la contrasena al presentador', () => {
+    const resultado = iniciarSesion(
+      'estudiante@ucb.edu.bo',
+      'Demo12345',
+      almacenamiento
+    );
+
+    expect(resultado.usuario).not.toHaveProperty('contrasena');
+  });
+
+});
+
+describe('Conexion MVP del login', () => {
+
+  it('debe cargar el presentador desde el HTML', () => {
+    expect(html).toContain('src="./loginPresenter.js"');
+    expect(html).not.toContain('src="./login.js"');
   });
 
 });
