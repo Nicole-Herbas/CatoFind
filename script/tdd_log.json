@@ -244,9 +244,39 @@
     "testId": 10
   },
   {
-    "commitId": "HEAD",
+    "commitId": "1db6ddff5ff2fe541d75f1d85a42781523107d63",
     "commitName": "feat: agregar datos iniciales, categorias y lugares",
     "commitTimestamp": 1792600453092,
     "testId": 10
+  },
+  {
+    "numPassedTests": 23,
+    "failedTests": 0,
+    "numTotalTests": 23,
+    "timestamp": 1792600852039,
+    "success": true,
+    "testId": 11
+  },
+  {
+    "numPassedTests": 23,
+    "failedTests": 3,
+    "numTotalTests": 26,
+    "timestamp": 1792601026673,
+    "success": false,
+    "testId": 11
+  },
+  {
+    "numPassedTests": 26,
+    "failedTests": 0,
+    "numTotalTests": 26,
+    "timestamp": 1792601038895,
+    "success": true,
+    "testId": 11
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: crear estructura de la pagina buscar",
+    "commitTimestamp": 1792601050849,
+    "testId": 11
   }
 ]

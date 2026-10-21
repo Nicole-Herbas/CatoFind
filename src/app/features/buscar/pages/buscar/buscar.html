@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CatoFind | Buscar</title>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="navbar__marca">
+      <strong>CATO<span>FIND</span></strong>
+      <small>UCB COCHABAMBA</small>
+    </div>
+    <nav>
+      <a href="#">Inicio</a>
+      <a href="#" class="navbar__activo">Buscar</a>
+      <a href="#">Reportar</a>
+      <a href="#">Mis reportes</a>
+    </nav>
+  </header>
+
+  <main class="buscar">
+
+    <input
+      type="search"
+      id="buscador"
+      class="buscar__input"
+      placeholder="Buscar por nombre..."
+      aria-label="Buscar objetos por nombre"
+    >
+
+    <div class="buscar__contenido">
+
+      <aside class="filtros">
+        <h2>Filtros</h2>
+
+        <label for="filtro-categoria">Tipo de objeto</label>
+        <select id="filtro-categoria"></select>
+
+        <label for="filtro-lugar">Zona</label>
+        <select id="filtro-lugar"></select>
+
+        <label for="filtro-fecha">Fecha</label>
+        <select id="filtro-fecha">
+          <option value="cualquiera">Cualquier fecha</option>
+          <option value="semana">Última semana</option>
+          <option value="mes">Último mes</option>
+        </select>
+      </aside>
+
+      <section class="resultados-zona">
+        <p id="mensaje-resultados" role="status"></p>
+        <div id="resultados" class="resultados"></div>
+      </section>
+
+    </div>
+
+  </main>
+
+</body>
+</html>
