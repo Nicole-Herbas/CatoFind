@@ -1,0 +1,161 @@
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Fondo y tarjeta */
+
+.registro {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f5f7fa;
+  padding: 24px;
+}
+
+.registro__tarjeta {
+  width: 100%;
+  max-width: 448px;
+  background: #ffffff;
+  border-radius: 28px;
+  padding: 32px;
+  box-shadow: 0 5px 22px rgba(0, 0, 0, 0.05);
+}
+
+/* Logo CatoFind */
+
+.registro__marca {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.registro__marca img {
+  width: 28px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.registro__marca strong {
+  font-size: 18px;
+  color: #0b3979;
+}
+
+.registro__marca span {
+  color: #ffc400;
+}
+
+.registro__marca small {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: #758197;
+}
+
+/* Titulo */
+
+.registro__tarjeta h1 {
+  font-size: 26px;
+  color: #17263e;
+  margin: 0 0 14px;
+}
+
+/* Formulario */
+
+#registro-form {
+  display: grid;
+  gap: 12px;
+}
+
+.registro__nombres {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+#registro-form input {
+  width: 100%;
+  min-width: 0;
+  padding: 14px 16px;
+  border: 1px solid #dce4ee;
+  border-radius: 24px;
+  font-size: 14px;
+  background: white;
+  outline: none;
+}
+
+#registro-form input::placeholder {
+  color: #98a1b0;
+}
+
+#correo-registro,
+#contrasena-registro {
+  background: #e8f0ff !important;
+}
+
+#registro-form input:focus {
+  border-color: #0b3979;
+}
+
+/* Boton crear cuenta */
+
+#registro-form button {
+  padding: 14px;
+  border: none;
+  border-radius: 24px;
+  background: #0b3979;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#registro-form button:hover {
+  background: #092b61;
+}
+
+/* Mensajes y enlace */
+
+#registro-mensaje {
+  color: #c62828;
+  font-size: 13px;
+  margin: 0;
+}
+
+#registro-mensaje:empty {
+  display: none;
+}
+
+.registro__volver {
+  margin: 16px 0 0;
+  text-align: center;
+  font-size: 13px;
+  color: #758197;
+}
+
+.registro__volver a {
+  color: #24518f;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.registro__volver a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .registro__tarjeta {
+    padding: 24px;
+  }
+
+  .registro__nombres {
+    grid-template-columns: 1fr;
+  }
+}

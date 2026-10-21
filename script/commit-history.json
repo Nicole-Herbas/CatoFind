@@ -247,12 +247,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "98bcb54b9750464677d76c60b0d7b09b2a95d9ca",
     "author": "pochis",
     "commit": {
       "date": "2026-10-21T05:07:26.000Z",
       "message": "feat: crear formulario de registro y corregir rutas",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/98bcb54b9750464677d76c60b0d7b09b2a95d9ca"
     },
     "stats": {
       "total": 32,
@@ -262,6 +262,25 @@
     },
     "coverage": 18.18,
     "test_count": 27,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "pochis",
+    "commit": {
+      "date": "2026-10-21T05:15:27.000Z",
+      "message": "fix: corregir ruta en prueba del login",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 212,
+      "additions": 212,
+      "deletions": 0,
+      "date": "2026-10-21"
+    },
+    "coverage": 18.18,
+    "test_count": 32,
     "failed_tests": 0,
     "conclusion": "success"
   }
