@@ -1,5 +1,6 @@
 
 import { readFileSync } from 'node:fs';
+import { esCorreoInstitucional } from './login.js';
 
 const html = readFileSync(
   'src/app/features/auth/pages/login/login.html',
@@ -30,6 +31,26 @@ describe('Estilos del login', () => {
     expect(css).toContain('min-height: 100vh;');
     expect(css).toContain('linear-gradient(');
     expect(css).toContain('background: #f5f7fa;');
+  });
+
+});
+
+describe('Validacion del correo institucional', () => {
+
+  it('debe aceptar un correo UCB', () => {
+    expect(esCorreoInstitucional('estudiante@ucb.edu.bo')).toBe(true);
+  });
+
+  it('debe rechazar un correo Gmail', () => {
+    expect(esCorreoInstitucional('estudiante@gmail.com')).toBe(false);
+  });
+
+  it('debe rechazar un correo sin usuario', () => {
+    expect(esCorreoInstitucional('@ucb.edu.bo')).toBe(false);
+  });
+
+  it('debe rechazar un dominio parecido', () => {
+    expect(esCorreoInstitucional('estudiante@falsoucb.edu.bo')).toBe(false);
   });
 
 });

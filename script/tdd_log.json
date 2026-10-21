@@ -60,9 +60,55 @@
     "testId": 2
   },
   {
-    "commitId": "HEAD",
+    "commitId": "4f913ce5c9e05376879a5bff782d666757d0d66d",
     "commitName": "feat: agregar distribucion y colores del login",
     "commitTimestamp": 1792551778646,
     "testId": 2
+  },
+  {
+    "numPassedTests": 2,
+    "failedTests": 4,
+    "numTotalTests": 6,
+    "timestamp": 1792552015529,
+    "success": false,
+    "testId": 3
+  },
+  {
+    "numPassedTests": 5,
+    "failedTests": 1,
+    "numTotalTests": 6,
+    "timestamp": 1792552079301,
+    "success": false,
+    "testId": 3
+  },
+  {
+    "numPassedTests": 5,
+    "failedTests": 1,
+    "numTotalTests": 6,
+    "timestamp": 1792552097518,
+    "success": false,
+    "testId": 3
+  },
+  {
+    "numPassedTests": 5,
+    "failedTests": 1,
+    "numTotalTests": 6,
+    "timestamp": 1792552117020,
+    "success": false,
+    "testId": 3
+  },
+  {
+    "numPassedTests": 6,
+    "failedTests": 0,
+    "numTotalTests": 6,
+    "timestamp": 1792552190169,
+    "success": true,
+    "testId": 3
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: agregar formulario y validacion de correo UCB",
+    "commitTimestamp": 1792552323653,
+    "testId": 3
   }
 ]

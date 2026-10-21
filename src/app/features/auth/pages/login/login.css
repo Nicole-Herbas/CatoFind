@@ -20,3 +20,52 @@ body {
 .login__acceso {
   background: #f5f7fa;
 }
+
+.login__acceso {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login__contenido {
+  width: 100%;
+  max-width: 384px;
+}
+
+.login__contenido h2 {
+  color: #17263e;
+  font-size: 26px;
+  margin-bottom: 8px;
+}
+
+.login__contenido p {
+  color: #758197;
+}
+
+#login-form {
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+#login-form input {
+  padding: 15px;
+  border: 1px solid #d9e2f0;
+  border-radius: 24px;
+  background: #e8effc;
+}
+
+#login-form button {
+  padding: 15px;
+  border: none;
+  border-radius: 24px;
+  background: #0b3979;
+  color: white;
+  cursor: pointer;
+}
+
+#mensaje-error {
+  color: #c62828;
+  font-size: 13px;
+  margin: 0;
+}

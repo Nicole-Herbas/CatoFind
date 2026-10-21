@@ -38,12 +38,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "4f913ce5c9e05376879a5bff782d666757d0d66d",
     "author": "pochis",
     "commit": {
       "date": "2026-10-21T03:02:57.000Z",
       "message": "feat: agregar distribucion y colores del login",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/4f913ce5c9e05376879a5bff782d666757d0d66d"
     },
     "stats": {
       "total": 42,
@@ -53,6 +53,25 @@
     },
     "coverage": 0,
     "test_count": 2,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "pochis",
+    "commit": {
+      "date": "2026-10-21T03:12:02.000Z",
+      "message": "feat: agregar formulario y validacion de correo UCB",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 122,
+      "additions": 122,
+      "deletions": 0,
+      "date": "2026-10-21"
+    },
+    "coverage": 18.18,
+    "test_count": 6,
     "failed_tests": 0,
     "conclusion": "success"
   }

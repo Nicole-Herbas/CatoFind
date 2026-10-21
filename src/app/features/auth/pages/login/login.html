@@ -15,9 +15,39 @@
     </section>
 
     <section class="login__acceso">
+          <div class="login__contenido">
+
+      <h2>Iniciar sesión</h2>
+      <p>Usa tu correo institucional.</p>
+
+      <form id="login-form" novalidate>
+        <input
+          type="email"
+          id="correo"
+          placeholder="Correo institucional"
+          aria-label="Correo institucional"
+          required
+        >
+
+        <input
+          type="password"
+          id="contrasena"
+          placeholder="Contraseña"
+          aria-label="Contraseña"
+          required
+        >
+
+        <button type="submit">Iniciar sesión</button>
+
+        <p id="mensaje-error" role="alert"></p>
+      </form>
+
+    </div>
     </section>
 
   </main>
+
+  <script type="module" src="./login.js"></script>
 
 </body>
 </html>
