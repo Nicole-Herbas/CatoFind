@@ -171,12 +171,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "cf2eb8e8049655c1fd2e1758913c41e4ae11d109",
     "author": "Nico Meneses",
     "commit": {
       "date": "2026-10-21T16:32:48.000Z",
       "message": "feat: obtener detalle de un objeto publicado",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/cf2eb8e8049655c1fd2e1758913c41e4ae11d109"
     },
     "stats": {
       "total": 23,
@@ -186,6 +186,25 @@
     },
     "coverage": 100,
     "test_count": 20,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "Nico Meneses",
+    "commit": {
+      "date": "2026-10-21T16:34:12.000Z",
+      "message": "feat: agregar datos iniciales, categorias y lugares",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 48,
+      "additions": 48,
+      "deletions": 0,
+      "date": "2026-10-21"
+    },
+    "coverage": 100,
+    "test_count": 23,
     "failed_tests": 0,
     "conclusion": "success"
   }

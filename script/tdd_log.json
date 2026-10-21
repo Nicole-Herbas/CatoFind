@@ -222,9 +222,31 @@
     "testId": 9
   },
   {
-    "commitId": "HEAD",
+    "commitId": "cf2eb8e8049655c1fd2e1758913c41e4ae11d109",
     "commitName": "feat: obtener detalle de un objeto publicado",
     "commitTimestamp": 1792600369626,
     "testId": 9
+  },
+  {
+    "numPassedTests": 21,
+    "failedTests": 2,
+    "numTotalTests": 23,
+    "timestamp": 1792600433149,
+    "success": false,
+    "testId": 10
+  },
+  {
+    "numPassedTests": 23,
+    "failedTests": 0,
+    "numTotalTests": 23,
+    "timestamp": 1792600444139,
+    "success": true,
+    "testId": 10
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: agregar datos iniciales, categorias y lugares",
+    "commitTimestamp": 1792600453092,
+    "testId": 10
   }
 ]
