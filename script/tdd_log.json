@@ -84,31 +84,55 @@
     "testId": 1
   },
   {
-    "numPassedTests": 4,
-    "failedTests": 0,
+    "numPassedTests": 3,
+    "failedTests": 1,
     "numTotalTests": 4,
-    "timestamp": 1792610856828,
-    "success": true,
+    "timestamp": 1792594784033,
+    "success": false,
     "testId": 2
   },
   {
     "numPassedTests": 4,
     "failedTests": 0,
     "numTotalTests": 4,
-    "timestamp": 1792612428211,
+    "timestamp": 1792598098193,
+    "success": false,
+    "testId": 2
+  },
+  {
+    "numPassedTests": 5,
+    "failedTests": 0,
+    "numTotalTests": 5,
+    "timestamp": 1792606540926,
     "success": true,
     "testId": 2
   },
   {
-    "commitId": "7ae3ac77b367554c5b356e030d8dc7cc0f1237ec",
-    "commitName": "fix: Arreglar merge conflict de pull request",
-    "commitTimestamp": 1792613691400,
+    "commitId": "5c7a3d06f26a40984e04b2c267305a3121c86af0",
+    "commitName": "feat: Agregar boton para aprobar una solicitud de recuperacion",
+    "commitTimestamp": 1792606774129,
     "testId": 2
+  },
+  {
+    "numPassedTests": 5,
+    "failedTests": 1,
+    "numTotalTests": 6,
+    "timestamp": 1792607522700,
+    "success": false,
+    "testId": 3
+  },
+  {
+    "numPassedTests": 6,
+    "failedTests": 0,
+    "numTotalTests": 6,
+    "timestamp": 1792607655569,
+    "success": true,
+    "testId": 3
   },
   {
     "commitId": "HEAD",
-    "commitName": "fix: merge conflicts fix 2",
-    "commitTimestamp": 1792614275114,
+    "commitName": "feat: Agregar boton de rechazar solicitud de recuperacion",
+    "commitTimestamp": 1792607695910,
     "testId": 3
   }
 ]

@@ -38,17 +38,17 @@
     "conclusion": "neutral"
   },
   {
-    "sha": "7ae3ac77b367554c5b356e030d8dc7cc0f1237ec",
+    "sha": "5c7a3d06f26a40984e04b2c267305a3121c86af0",
     "author": "Chris",
     "commit": {
-      "date": "2026-10-21T20:14:48.000Z",
-      "message": "fix: Arreglar merge conflict de pull request",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/7ae3ac77b367554c5b356e030d8dc7cc0f1237ec"
+      "date": "2026-10-21T18:19:31.000Z",
+      "message": "feat: Agregar boton para aprobar una solicitud de recuperacion",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/5c7a3d06f26a40984e04b2c267305a3121c86af0"
     },
     "stats": {
-      "total": 10,
-      "additions": 9,
-      "deletions": 1,
+      "total": 70,
+      "additions": 70,
+      "deletions": 0,
       "date": "2026-10-21"
     },
     "coverage": 0,
@@ -60,13 +60,13 @@
     "sha": "HEAD",
     "author": "Chris",
     "commit": {
-      "date": "2026-10-21T20:24:32.000Z",
-      "message": "fix: merge conflicts fix 2",
+      "date": "2026-10-21T18:34:54.000Z",
+      "message": "feat: Agregar boton de rechazar solicitud de recuperacion",
       "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
     },
     "stats": {
-      "total": 4,
-      "additions": 2,
+      "total": 18,
+      "additions": 16,
       "deletions": 2,
       "date": "2026-10-21"
     },
