@@ -36,6 +36,6 @@ if (
 ) {
   iniciarPanel(document, sessionStorage, {
     avisar: texto => window.alert(texto),
-    irAlLogin: () => window.location.assign('/login.html')
+    irAlLogin: () => window.location.assign('../../../auth/pages/login/login.html')
   });
 }

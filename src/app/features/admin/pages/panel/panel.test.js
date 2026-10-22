@@ -91,4 +91,11 @@ describe('Panel administrativo HU-02', () => {
     expect(navegar).toHaveBeenCalledTimes(1);
   });
 
+  it('debe tener enlace para revisar solicitudes de recuperacion', () => {
+    abrirPanel(crearSesion(administrador));
+    const enlace = document.querySelector('a[href*="reviewRecoveryRequest.html"]');
+    expect(enlace).not.toBeNull();
+    expect(enlace.getAttribute('href')).toBe('../../../reviewRecoveryRequest/pages/reviewRecoveryRequest.html');
+  });
+
 });
