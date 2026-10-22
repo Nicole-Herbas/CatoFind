@@ -22,5 +22,6 @@ formulario.addEventListener('submit', (evento) => {
 
   if (resultado.ok) {
     formulario.reset();
+    window.location.href = '../login/login.html';
   }
 });
