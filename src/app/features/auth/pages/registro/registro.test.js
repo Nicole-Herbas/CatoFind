@@ -185,4 +185,25 @@ describe('Registro de estudiantes - logica de negocio', () => {
     expect(nuevoServicio.obtenerUsuarios()).toHaveLength(1);
   });
 
+  it('debe asignar el rol ESTUDIANTE al registrar un usuario', () => {
+  registrarEstudiante(estudiante, almacenamiento);
+
+  const servicio = new UsuarioService(almacenamiento);
+  const usuario = servicio.obtenerUsuarios()[0];
+
+  expect(usuario.rol).toBe('ESTUDIANTE');
+});
+
+it('no debe permitir registrarse como ADMIN', () => {
+  registrarEstudiante({
+    ...estudiante,
+    rol: 'ADMIN'
+  }, almacenamiento);
+
+  const servicio = new UsuarioService(almacenamiento);
+  const usuario = servicio.obtenerUsuarios()[0];
+
+  expect(usuario.rol).toBe('ESTUDIANTE');
+});
+
 });

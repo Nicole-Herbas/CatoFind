@@ -5,7 +5,10 @@ import {
   iniciarSesion,
   obtenerSesion,
   cerrarSesion,
-  mensajeRecuperacion
+  mensajeRecuperacion,
+  crearAdministradorDemo,
+  verificarAccesoAdministrador,
+  obtenerRutaPostLogin
 } from './login.js';
 
 import { UsuarioService } from '../../services/UsuarioService.js';
@@ -479,6 +482,297 @@ describe('Notificacion flotante de recuperacion', () => {
     expect(estilos).toContain('top: 38px;');
     expect(estilos).toContain('left: 50%;');
     expect(estilos).toContain('transform: translateX(-50%);');
+  });
+
+});
+
+
+describe('Autenticacion de administradores HU-02', () => {
+
+  let almacenamiento;
+  let sesion;
+
+  beforeEach(() => {
+    const usuarios = {};
+    const sesiones = {};
+
+    almacenamiento = {
+      getItem: clave => usuarios[clave] ?? null,
+      setItem: (clave, valor) => {
+        usuarios[clave] = valor;
+      }
+    };
+
+    sesion = {
+      getItem: clave => sesiones[clave] ?? null,
+      setItem: (clave, valor) => {
+        sesiones[clave] = valor;
+      },
+      removeItem: clave => {
+        delete sesiones[clave];
+      }
+    };
+
+    const servicio = new UsuarioService(almacenamiento);
+
+    servicio.guardarUsuario({
+      nombre: 'Admin',
+      apellido: 'Bienestar',
+      correo: 'bienestar@ucb.edu.bo',
+      contrasena: 'Admin12345',
+      rol: 'ADMIN'
+    });
+
+    servicio.guardarUsuario({
+      nombre: 'Jose',
+      apellido: 'Prueba',
+      correo: 'estudiante@ucb.edu.bo',
+      contrasena: 'Demo12345'
+    });
+  });
+
+  it('debe identificar al administrador al iniciar sesion', () => {
+    const resultado = iniciarSesion(
+      'bienestar@ucb.edu.bo',
+      'Admin12345',
+      almacenamiento,
+      sesion
+    );
+
+    expect(resultado.ok).toBe(true);
+    expect(resultado.usuario.rol).toBe('ADMIN');
+  });
+
+  it('debe guardar el rol ADMIN en la sesion', () => {
+    iniciarSesion(
+      'bienestar@ucb.edu.bo',
+      'Admin12345',
+      almacenamiento,
+      sesion
+    );
+
+    expect(obtenerSesion(sesion).rol).toBe('ADMIN');
+  });
+
+  it('debe identificar cuentas antiguas como ESTUDIANTE', () => {
+    const resultado = iniciarSesion(
+      'estudiante@ucb.edu.bo',
+      'Demo12345',
+      almacenamiento,
+      sesion
+    );
+
+    expect(resultado.ok).toBe(true);
+    expect(resultado.usuario.rol).toBe('ESTUDIANTE');
+    expect(obtenerSesion(sesion).rol).toBe('ESTUDIANTE');
+  });
+
+  it('debe rechazar una contrasena administrativa incorrecta', () => {
+    const resultado = iniciarSesion(
+      'bienestar@ucb.edu.bo',
+      'Incorrecta',
+      almacenamiento,
+      sesion
+    );
+
+    expect(resultado.ok).toBe(false);
+    expect(obtenerSesion(sesion)).toBeNull();
+  });
+
+  it('no debe guardar la contrasena del administrador en sesion', () => {
+    iniciarSesion(
+      'bienestar@ucb.edu.bo',
+      'Admin12345',
+      almacenamiento,
+      sesion
+    );
+
+    expect(obtenerSesion(sesion)).not.toHaveProperty('contrasena');
+  });
+
+});
+describe('Cuenta administrativa de demostracion HU-02', () => {
+
+  let almacenamiento;
+
+  beforeEach(() => {
+    const datos = {};
+
+    almacenamiento = {
+      getItem: clave => datos[clave] ?? null,
+      setItem: (clave, valor) => {
+        datos[clave] = valor;
+      }
+    };
+  });
+
+  it('debe crear una cuenta ADMIN de Bienestar', () => {
+    crearAdministradorDemo(almacenamiento);
+
+    const servicio = new UsuarioService(almacenamiento);
+    const usuarios = servicio.obtenerUsuarios();
+
+    expect(usuarios).toHaveLength(1);
+    expect(usuarios[0].correo).toBe('bienestar@ucb.edu.bo');
+    expect(usuarios[0].rol).toBe('ADMIN');
+  });
+
+  it('debe permitir iniciar sesion con la cuenta demo', () => {
+    crearAdministradorDemo(almacenamiento);
+
+    const resultado = iniciarSesion(
+      'bienestar@ucb.edu.bo',
+      'Admin12345',
+      almacenamiento
+    );
+
+    expect(resultado.ok).toBe(true);
+    expect(resultado.usuario.rol).toBe('ADMIN');
+  });
+
+  it('no debe duplicar la cuenta al iniciar dos veces', () => {
+    crearAdministradorDemo(almacenamiento);
+    crearAdministradorDemo(almacenamiento);
+
+    const servicio = new UsuarioService(almacenamiento);
+
+    expect(servicio.obtenerUsuarios()).toHaveLength(1);
+  });
+
+  it('no debe convertir una cuenta existente en ADMIN', () => {
+    const servicio = new UsuarioService(almacenamiento);
+
+    servicio.guardarUsuario({
+      nombre: 'Alumno',
+      apellido: 'Prueba',
+      correo: 'bienestar@ucb.edu.bo',
+      contrasena: 'OtraClave',
+      rol: 'ESTUDIANTE'
+    });
+
+    crearAdministradorDemo(almacenamiento);
+
+    const usuarios = servicio.obtenerUsuarios();
+
+    expect(usuarios).toHaveLength(1);
+    expect(usuarios[0].rol).toBe('ESTUDIANTE');
+  });
+
+});
+
+
+describe('Permisos administrativos HU-02', () => {
+
+  function crearSesion(datos) {
+    return {
+      getItem: clave =>
+        clave === 'catofind_sesion' ? datos : null
+    };
+  }
+
+  it('debe permitir el acceso a un administrador', () => {
+    const sesion = crearSesion(JSON.stringify({
+      nombre: 'Administrador',
+      apellido: 'Bienestar',
+      correo: 'bienestar@ucb.edu.bo',
+      rol: 'ADMIN'
+    }));
+
+    const resultado = verificarAccesoAdministrador(sesion);
+
+    expect(resultado.permitido).toBe(true);
+  });
+
+  it('debe rechazar el acceso a un estudiante', () => {
+    const sesion = crearSesion(JSON.stringify({
+      nombre: 'Jose',
+      apellido: 'Prueba',
+      correo: 'estudiante@ucb.edu.bo',
+      rol: 'ESTUDIANTE'
+    }));
+
+    const resultado = verificarAccesoAdministrador(sesion);
+
+    expect(resultado.permitido).toBe(false);
+    expect(resultado.mensaje).toBe(
+      'No tienes permisos para acceder al panel administrativo.'
+    );
+  });
+
+  it('debe rechazar el acceso sin iniciar sesion', () => {
+    const sesion = crearSesion(null);
+
+    const resultado = verificarAccesoAdministrador(sesion);
+
+    expect(resultado.permitido).toBe(false);
+    expect(resultado.mensaje).toBe(
+      'Debes iniciar sesión para acceder al panel administrativo.'
+    );
+  });
+
+  it('debe rechazar una sesion invalida', () => {
+    const sesion = crearSesion('{datos invalidos');
+
+    const resultado = verificarAccesoAdministrador(sesion);
+
+    expect(resultado.permitido).toBe(false);
+  });
+
+  it('debe rechazar cuentas antiguas sin rol', () => {
+    const sesion = crearSesion(JSON.stringify({
+      nombre: 'Alumno',
+      apellido: 'Prueba',
+      correo: 'alumno@ucb.edu.bo'
+    }));
+
+    const resultado = verificarAccesoAdministrador(sesion);
+
+    expect(resultado.permitido).toBe(false);
+  });
+
+});
+
+
+describe('Redireccion despues del login HU-02', () => {
+
+  it('debe enviar al administrador al panel', () => {
+    const resultado = {
+      ok: true,
+      usuario: {
+        correo: 'bienestar@ucb.edu.bo',
+        rol: 'ADMIN'
+      }
+    };
+
+    expect(obtenerRutaPostLogin(resultado))
+      .toBe('/panel.html');
+  });
+
+  it('no debe enviar estudiantes al panel administrativo', () => {
+    const resultado = {
+      ok: true,
+      usuario: {
+        correo: 'estudiante@ucb.edu.bo',
+        rol: 'ESTUDIANTE'
+      }
+    };
+
+    expect(obtenerRutaPostLogin(resultado))
+      .toBeNull();
+  });
+
+  it('no debe redirigir con credenciales incorrectas', () => {
+    const resultado = {
+      ok: false,
+      mensaje: 'Correo o contraseña incorrectos.'
+    };
+
+    expect(obtenerRutaPostLogin(resultado))
+      .toBeNull();
+  });
+
+  it('no debe redirigir si el resultado es invalido', () => {
+    expect(obtenerRutaPostLogin(null)).toBeNull();
   });
 
 });

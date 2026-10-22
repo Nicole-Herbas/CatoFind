@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CatoFind | Panel de Bienestar</title>
+  <link rel="stylesheet" href="./panel.css">
+</head>
+<body>
+
+  <main id="panel-contenido" class="panel" hidden>
+
+    <header class="panel__barra">
+      <strong>CATO<span>FIND</span></strong>
+      <button id="cerrar-sesion" type="button">
+        Cerrar sesión
+      </button>
+    </header>
+
+    <section class="panel__contenido">
+      <p class="panel__etiqueta">
+        Administración
+      </p>
+
+      <h1>Panel de Bienestar Estudiantil</h1>
+
+      <p>
+        Bienvenido,
+        <strong id="nombre-admin"></strong>.
+      </p>
+
+      <div class="panel__tarjeta">
+        <h2>Gestión administrativa</h2>
+        <p>
+          Desde aquí podrás acceder a las funciones
+          de gestión de objetos y solicitudes cuando
+          se integren las historias correspondientes.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <script type="module" src="./panelPresenter.js"></script>
+</body>
+</html>
