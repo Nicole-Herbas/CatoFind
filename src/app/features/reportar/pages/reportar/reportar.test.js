@@ -15,6 +15,7 @@ import {
   validarInformacion,
   registrarReporte
 } from './reportar.js';
+import { iniciarPanel } from '../../../admin/pages/panel/panelPresenter.js';
 
 import { ReporteService } from '../../services/ReporteService.js';
 
@@ -596,4 +597,153 @@ describe('HU-03 - Flujo completo del formulario', () => {
       .toContain('No se pudo guardar');
   });
 
+});
+
+
+describe('HU-03 - Revision administrativa de reportes', () => {
+
+  const htmlPanel = readFileSync(
+    'src/app/features/admin/pages/panel/panel.html',
+    'utf8'
+  );
+
+  let pagina;
+  let almacenamiento;
+  let servicio;
+  let avisar;
+  let navegar;
+
+  function crearSesion(rol = 'ADMIN') {
+    return {
+      getItem: clave => clave === 'catofind_sesion'
+        ? JSON.stringify({
+            nombre: 'Usuario',
+            correo: 'bienestar@ucb.edu.bo',
+            rol
+          })
+        : null,
+      removeItem: jest.fn()
+    };
+  }
+
+  function abrirPanel(rol = 'ADMIN') {
+    iniciarPanel(
+      pagina,
+      crearSesion(rol),
+      { avisar, irAlLogin: navegar },
+      almacenamiento
+    );
+  }
+
+  beforeEach(() => {
+    pagina = new DOMParser().parseFromString(
+      htmlPanel,
+      'text/html'
+    );
+
+    const memoria = {};
+
+    almacenamiento = {
+      getItem: clave => memoria[clave] ?? null,
+      setItem: (clave, valor) => {
+        memoria[clave] = valor;
+      }
+    };
+
+    servicio = new ReporteService(almacenamiento);
+
+    servicio.guardarReporte({
+      titulo: 'Mochila negra',
+      categoria: 'Accesorios',
+      lugar: 'Biblioteca',
+      fecha: '2026-10-20',
+      hora: '10:30',
+      descripcion: 'Mochila encontrada en una mesa',
+      detallePrivado: 'Tiene iniciales JC',
+      imagen: 'data:image/jpeg;base64,Zm90bw=='
+    });
+
+    avisar = jest.fn();
+    navegar = jest.fn();
+  });
+
+  it('incluye una seccion para reportes pendientes', () => {
+    expect(pagina.getElementById('reportes-pendientes'))
+      .not.toBeNull();
+  });
+
+  it('muestra al administrador los reportes pendientes', () => {
+    abrirPanel();
+
+    const lista = pagina.getElementById('reportes-pendientes');
+
+    expect(lista.textContent).toContain('Mochila negra');
+    expect(lista.textContent).toContain('Tiene iniciales JC');
+    expect(lista.querySelector('img')).not.toBeNull();
+  });
+
+  it('no muestra los reportes a estudiantes', () => {
+    abrirPanel('ESTUDIANTE');
+
+    expect(avisar).toHaveBeenCalledWith(
+      'No tienes permisos para acceder al panel administrativo.'
+    );
+
+    expect(navegar).toHaveBeenCalledTimes(1);
+
+    expect(pagina.getElementById('panel-contenido').hidden)
+      .toBe(true);
+  });
+
+  it('permite aprobar un reporte pendiente', () => {
+    abrirPanel();
+
+    pagina.querySelector('[data-accion="aprobar"]').click();
+
+    expect(servicio.obtenerPendientes()).toHaveLength(0);
+    expect(servicio.obtenerPublicados()).toHaveLength(1);
+    expect(servicio.obtenerPublicados()[0].estado)
+      .toBe('Publicado');
+  });
+
+  it('permite rechazar un reporte pendiente', () => {
+    abrirPanel();
+
+    pagina.querySelector('[data-accion="rechazar"]').click();
+
+    expect(servicio.obtenerPendientes()).toHaveLength(0);
+    expect(servicio.obtenerPublicados()).toHaveLength(0);
+    expect(servicio.obtenerReportes()[0].estado)
+      .toBe('Rechazado');
+  });
+
+  it('no permite cambiar directamente a cualquier estado', () => {
+    const resultado = servicio.actualizarEstado(1, 'Inventado');
+
+    expect(resultado).toBeNull();
+    expect(servicio.obtenerPendientes()).toHaveLength(1);
+  });
+
+  it('no permite aprobar otra vez un reporte ya revisado', () => {
+    servicio.actualizarEstado(1, 'Publicado');
+
+    const segundoIntento = servicio.actualizarEstado(
+      1,
+      'Rechazado'
+    );
+
+    expect(segundoIntento).toBeNull();
+    expect(servicio.obtenerPublicados()).toHaveLength(1);
+  });
+
+  it('tiene estilos para las tarjetas de revision', () => {
+    const css = readFileSync(
+      'src/app/features/admin/pages/panel/panel.css',
+      'utf8'
+    );
+
+    expect(css).toContain('.panel__reporte');
+    expect(css).toContain('.panel__reporte-imagen');
+    expect(css).toContain('.panel__acciones');
+  });
 });

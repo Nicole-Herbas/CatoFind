@@ -1292,7 +1292,7 @@
     "testId": 25
   },
   {
-    "commitId": "HEAD",
+    "commitId": "7ac62edf7bf00aacf460d4a83997e0056ed03b3d",
     "commitName": "feat: crear interfaz de formulario de reporte en tres pasos",
     "commitTimestamp": 1792638293099,
     "testId": 25
@@ -1342,5 +1342,27 @@
     "commitName": "feat: implementar formulario de reporte con fotografia y confirmacion",
     "commitTimestamp": 1792640116792,
     "testId": 26
+  },
+  {
+    "numPassedTests": 158,
+    "failedTests": 7,
+    "numTotalTests": 165,
+    "timestamp": 1792640660855,
+    "success": false,
+    "testId": 27
+  },
+  {
+    "numPassedTests": 165,
+    "failedTests": 0,
+    "numTotalTests": 165,
+    "timestamp": 1792640797663,
+    "success": true,
+    "testId": 27
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: revisar y aprobar reportes encontrados desde bienestar",
+    "commitTimestamp": 1792640873083,
+    "testId": 27
   }
 ]

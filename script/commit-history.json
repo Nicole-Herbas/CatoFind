@@ -874,12 +874,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "7ac62edf7bf00aacf460d4a83997e0056ed03b3d",
     "author": "pochis",
     "commit": {
       "date": "2026-10-22T03:04:52.000Z",
       "message": "feat: crear interfaz de formulario de reporte en tres pasos",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/7ac62edf7bf00aacf460d4a83997e0056ed03b3d"
     },
     "stats": {
       "total": 418,
@@ -908,6 +908,25 @@
     },
     "coverage": 84.46,
     "test_count": 157,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "pochis",
+    "commit": {
+      "date": "2026-10-22T03:47:52.000Z",
+      "message": "feat: revisar y aprobar reportes encontrados desde bienestar",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 453,
+      "additions": 442,
+      "deletions": 11,
+      "date": "2026-10-22"
+    },
+    "coverage": 85.85,
+    "test_count": 165,
     "failed_tests": 0,
     "conclusion": "success"
   }

@@ -49,4 +49,43 @@ export class ReporteService {
     return nuevoReporte;
   }
 
+    obtenerPublicados() {
+    return this.obtenerReportes().filter(
+      reporte => reporte.estado === 'Publicado'
+    );
+  }
+
+  actualizarEstado(id, nuevoEstado) {
+    if (!['Publicado', 'Rechazado'].includes(nuevoEstado)) {
+      return null;
+    }
+
+    const reportes = this.obtenerReportes();
+
+    const indice = reportes.findIndex(
+      reporte => String(reporte.id) === String(id)
+    );
+
+    if (
+      indice === -1 ||
+      reportes[indice].estado !== 'Pendiente'
+    ) {
+      return null;
+    }
+
+    const actualizado = {
+      ...reportes[indice],
+      estado: nuevoEstado
+    };
+
+    reportes[indice] = actualizado;
+
+    this.almacenamiento.setItem(
+      'catofind_reportes',
+      JSON.stringify(reportes)
+    );
+
+    return actualizado;
+  }
+
 }

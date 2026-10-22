@@ -4,8 +4,14 @@ import {
   obtenerSesion,
   cerrarSesion
 } from '../../../auth/pages/login/login.js';
+import { iniciarRevisionReportes } from './revisionReportesPresenter.js';
 
-export function iniciarPanel(documento, almacenamientoSesion, acciones) {
+export function iniciarPanel(
+  documento,
+  almacenamientoSesion,
+  acciones,
+  almacenamientoReportes = null
+) {
 
   const acceso = verificarAccesoAdministrador(almacenamientoSesion);
 
@@ -22,6 +28,11 @@ export function iniciarPanel(documento, almacenamientoSesion, acciones) {
 
   documento.getElementById('panel-contenido').hidden = false;
 
+
+  if (almacenamientoReportes) {
+  iniciarRevisionReportes(documento, almacenamientoReportes);
+}
+
   documento.getElementById('cerrar-sesion')
     .addEventListener('click', () => {
       cerrarSesion(almacenamientoSesion);
@@ -35,7 +46,7 @@ if (
   document.getElementById('panel-contenido')
 ) {
   iniciarPanel(document, sessionStorage, {
-    avisar: texto => window.alert(texto),
-    irAlLogin: () => window.location.assign('/login.html')
-  });
+  avisar: texto => window.alert(texto),
+  irAlLogin: () => window.location.assign('/login.html')
+}, localStorage);
 }
