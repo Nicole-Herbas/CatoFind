@@ -7,7 +7,15 @@
   <title>CatoFind</title>
 </head>
 <body>
-  <a id="redirect" href="./src/app/features/auth/pages/login/login.html" style="display:none">Ir a Login</a>
+  <div style="display:none">
+    <a id="redirect" href="./src/app/features/auth/pages/login/login.html">Ir a Login</a>
+    <a href="./src/app/features/auth/pages/registro/registro.html">Registro</a>
+    <a href="./src/app/features/inicio/pages/inicio/inicio.html">Inicio</a>
+    <a href="./src/app/features/buscar/pages/buscar/buscar.html">Buscar</a>
+    <a href="./src/app/features/recoveryRequest/pages/recoveryRequest.html">Reportar Objeto</a>
+    <a href="./src/app/features/admin/pages/panel/panel.html">Panel Administrador</a>
+    <a href="./src/app/features/reviewRecoveryRequest/pages/reviewRecoveryRequest.html">Revisar Solicitudes</a>
+  </div>
   <script type="module">
     // Redirige al entry-point del login
     const target = document.getElementById('redirect').href;
