@@ -7,9 +7,11 @@
   <title>CatoFind</title>
 </head>
 <body>
+  <a id="redirect" href="./src/app/features/inicio/pages/inicio/inicio.html" style="display:none">Ir a Inicio</a>
   <script type="module">
     // Redirige al entry-point de la página de inicio
-    window.location.replace('./src/app/features/inicio/pages/inicio/inicio.html');
+    const target = document.getElementById('redirect').href;
+    window.location.replace(target);
   </script>
   <noscript>
     <meta http-equiv="refresh" content="0; url=./src/app/features/inicio/pages/inicio/inicio.html" />
