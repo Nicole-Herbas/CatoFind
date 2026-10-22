@@ -798,12 +798,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "dd23cda26b9625c2ca68e254143ad6a9b5d8968e",
     "author": "pochis",
     "commit": {
       "date": "2026-10-21T23:31:10.000Z",
       "message": "feat: redirigir administradores al panel de bienestar",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/dd23cda26b9625c2ca68e254143ad6a9b5d8968e"
     },
     "stats": {
       "total": 70,
@@ -832,6 +832,25 @@
     },
     "coverage": 95.67,
     "test_count": 124,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "pochis",
+    "commit": {
+      "date": "2026-10-22T02:56:06.000Z",
+      "message": "feat: guardar reportes de objetos en estado pendiente",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 377,
+      "additions": 285,
+      "deletions": 92,
+      "date": "2026-10-22"
+    },
+    "coverage": 95.72,
+    "test_count": 130,
     "failed_tests": 0,
     "conclusion": "success"
   }

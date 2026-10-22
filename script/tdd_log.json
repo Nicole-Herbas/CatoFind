@@ -1148,7 +1148,7 @@
     "testId": 21
   },
   {
-    "commitId": "HEAD",
+    "commitId": "dd23cda26b9625c2ca68e254143ad6a9b5d8968e",
     "commitName": "feat: redirigir administradores al panel de bienestar",
     "commitTimestamp": 1792625471263,
     "testId": 21
@@ -1182,5 +1182,59 @@
     "commitName": "feat: validar informacion de objetos encontrados",
     "commitTimestamp": 1792627016570,
     "testId": 22
+  },
+  {
+    "numPassedTests": 124,
+    "failedTests": 0,
+    "numTotalTests": 124,
+    "timestamp": 1792627362182,
+    "success": true,
+    "testId": 23
+  },
+  {
+    "numPassedTests": 117,
+    "failedTests": 0,
+    "numTotalTests": 117,
+    "timestamp": 1792627407833,
+    "success": false,
+    "testId": 23
+  },
+  {
+    "numPassedTests": 117,
+    "failedTests": 0,
+    "numTotalTests": 117,
+    "timestamp": 1792628834030,
+    "success": false,
+    "testId": 23
+  },
+  {
+    "numPassedTests": 117,
+    "failedTests": 0,
+    "numTotalTests": 117,
+    "timestamp": 1792628866774,
+    "success": false,
+    "testId": 23
+  },
+  {
+    "numPassedTests": 117,
+    "failedTests": 0,
+    "numTotalTests": 117,
+    "timestamp": 1792637647687,
+    "success": false,
+    "testId": 23
+  },
+  {
+    "numPassedTests": 130,
+    "failedTests": 0,
+    "numTotalTests": 130,
+    "timestamp": 1792637745116,
+    "success": true,
+    "testId": 23
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: guardar reportes de objetos en estado pendiente",
+    "commitTimestamp": 1792637767633,
+    "testId": 23
   }
 ]

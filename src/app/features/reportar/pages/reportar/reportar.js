@@ -3,6 +3,7 @@ import {
   CATEGORIAS,
   LUGARES
 } from '../../../../core/data/datosIniciales.js';
+import { ReporteService } from '../../services/ReporteService.js';
 
 export function validarInformacion(datos, hoy = new Date()) {
 
@@ -60,5 +61,42 @@ export function validarInformacion(datos, hoy = new Date()) {
   return {
     valido: Object.keys(errores).length === 0,
     errores
+  };
+}
+
+export function registrarReporte(datos, almacenamiento, hoy = new Date()) {
+
+  const validacion = validarInformacion(datos, hoy);
+  const errores = { ...validacion.errores };
+
+  const imagen = String(datos?.imagen ?? '');
+
+  if (!/^data:image\/(jpeg|png|webp);base64,/.test(imagen)) {
+    errores.imagen = 'Agrega una fotografía para continuar.';
+  }
+
+  if (Object.keys(errores).length > 0) {
+    return {
+      ok: false,
+      errores
+    };
+  }
+
+  const servicio = new ReporteService(almacenamiento);
+
+  const reporte = servicio.guardarReporte({
+    categoria: datos.categoria.trim(),
+    titulo: datos.titulo.trim(),
+    lugar: datos.lugar.trim(),
+    fecha: datos.fecha,
+    hora: datos.hora,
+    descripcion: datos.descripcion.trim(),
+    detallePrivado: String(datos.detallePrivado ?? '').trim(),
+    imagen
+  });
+
+  return {
+    ok: true,
+    reporte
   };
 }
