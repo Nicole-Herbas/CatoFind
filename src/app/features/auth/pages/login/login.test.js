@@ -735,7 +735,7 @@ describe('Permisos administrativos HU-02', () => {
 
 describe('Redireccion despues del login HU-02', () => {
 
-  it('debe enviar al administrador al panel', () => {
+  it('debe enviar al administrador al panel administrativo', () => {
     const resultado = {
       ok: true,
       usuario: {
@@ -745,10 +745,10 @@ describe('Redireccion despues del login HU-02', () => {
     };
 
     expect(obtenerRutaPostLogin(resultado))
-      .toBe('/panel.html');
+      .toBe('../../../admin/pages/panel/panel.html');
   });
 
-  it('no debe enviar estudiantes al panel administrativo', () => {
+  it('debe enviar al estudiante a inicio', () => {
     const resultado = {
       ok: true,
       usuario: {
@@ -758,7 +758,7 @@ describe('Redireccion despues del login HU-02', () => {
     };
 
     expect(obtenerRutaPostLogin(resultado))
-      .toBeNull();
+      .toBe('../../../inicio/pages/inicio/inicio.html');
   });
 
   it('no debe redirigir con credenciales incorrectas', () => {

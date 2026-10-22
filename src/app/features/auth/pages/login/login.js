@@ -150,8 +150,8 @@ export function obtenerRutaPostLogin(resultado) {
   }
 
   if (resultado.usuario?.rol === 'ADMIN') {
-    return '/panel.html';
+    return '../../../admin/pages/panel/panel.html';
   }
 
-  return null;
+  return '../../../inicio/pages/inicio/inicio.html';
 }
