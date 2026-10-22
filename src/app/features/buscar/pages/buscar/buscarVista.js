@@ -64,9 +64,9 @@ export function iniciarBuscador(documento, service, hoy = new Date()) {
   }
 
     function mostrarDetalle(objeto) {
-    const solicitar = crearElemento(documento, 'button', 'detalle__solicitar', 'Solicitar objeto');
+    const solicitar = crearElemento(documento, 'a', 'detalle__solicitar', 'Solicitar objeto');
+    solicitar.href = '../../../recoveryRequest/pages/recoveryRequest.html';
     const cerrar = crearElemento(documento, 'button', 'detalle__cerrar', 'Cerrar');
-    solicitar.type = 'button';
     cerrar.type = 'button';
     cerrar.addEventListener('click', () => {
       detalle.hidden = true;

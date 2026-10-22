@@ -103,6 +103,12 @@ describe('Vista Buscar - detalle del objeto (HU-08)', () => {
       .toBe('Solicitar objeto');
   });
 
+  it('debe tener el enlace para solicitar objeto apuntando a recoveryRequest.html', () => {
+    clicEnPrimeraTarjeta();
+    const solicitar = document.querySelector('#detalle .detalle__solicitar');
+    expect(solicitar.getAttribute('href')).toBe('../../../recoveryRequest/pages/recoveryRequest.html');
+  });
+
   it('debe ocultar el detalle al cerrarlo', () => {
     clicEnPrimeraTarjeta();
     document.querySelector('#detalle .detalle__cerrar').click();
