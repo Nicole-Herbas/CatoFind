@@ -1,6 +1,13 @@
 
-import { iniciarSesion, mensajeRecuperacion } from './login.js';
+import {
+  iniciarSesion,
+  mensajeRecuperacion,
+  crearAdministradorDemo,
+  obtenerRutaPostLogin
+} from './login.js';
 
+
+crearAdministradorDemo(localStorage);
 const formulario = document.getElementById('login-form');
 const correo = document.getElementById('correo');
 const contrasena = document.getElementById('contrasena');
@@ -18,6 +25,12 @@ formulario.addEventListener('submit', (evento) => {
 
   mensaje.textContent = resultado.mensaje;
   mensaje.style.color = resultado.ok ? '#16803d' : '#c62828';
+
+  const destino = obtenerRutaPostLogin(resultado);
+
+if (destino) {
+  window.location.assign(destino);
+}
 });
 
 const recuperar = document.getElementById('recuperar-contrasena');
