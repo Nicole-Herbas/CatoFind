@@ -34,7 +34,7 @@ describe('Validar campos del formulario', ()=>{
             dateLost: { value: '2026-10-20' },
             extraDescriptionObject: { value: 'Tiene una costura en la manga' }
         };
-        
+
         Object.keys(valoresValidos).forEach((campoVacio) => {
             const campos = {
                 locations: { ...valoresValidos.locations },
