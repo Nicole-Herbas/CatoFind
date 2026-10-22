@@ -817,12 +817,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "1c15c48d58064b8d450d83b9cbbcd517d56a2502",
     "author": "pochis",
     "commit": {
       "date": "2026-10-21T23:56:55.000Z",
       "message": "feat: validar informacion de objetos encontrados",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/1c15c48d58064b8d450d83b9cbbcd517d56a2502"
     },
     "stats": {
       "total": 156,
@@ -851,6 +851,25 @@
     },
     "coverage": 95.72,
     "test_count": 130,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "pochis",
+    "commit": {
+      "date": "2026-10-22T03:04:03.000Z",
+      "message": "Feat: agegar html de reportes",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 280,
+      "additions": 280,
+      "deletions": 0,
+      "date": "2026-10-22"
+    },
+    "coverage": 95.72,
+    "test_count": 138,
     "failed_tests": 0,
     "conclusion": "success"
   }

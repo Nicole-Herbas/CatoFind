@@ -1178,7 +1178,7 @@
     "testId": 22
   },
   {
-    "commitId": "HEAD",
+    "commitId": "1c15c48d58064b8d450d83b9cbbcd517d56a2502",
     "commitName": "feat: validar informacion de objetos encontrados",
     "commitTimestamp": 1792627016570,
     "testId": 22
@@ -1236,5 +1236,43 @@
     "commitName": "feat: guardar reportes de objetos en estado pendiente",
     "commitTimestamp": 1792637767633,
     "testId": 23
+  },
+  {
+    "numPassedTests": 117,
+    "failedTests": 0,
+    "numTotalTests": 117,
+    "timestamp": 1792638048233,
+    "success": false,
+    "testId": 24
+  },
+  {
+    "numPassedTests": 117,
+    "failedTests": 0,
+    "numTotalTests": 117,
+    "timestamp": 1792638095776,
+    "success": false,
+    "testId": 24
+  },
+  {
+    "numPassedTests": 117,
+    "failedTests": 0,
+    "numTotalTests": 117,
+    "timestamp": 1792638206306,
+    "success": false,
+    "testId": 24
+  },
+  {
+    "numPassedTests": 138,
+    "failedTests": 0,
+    "numTotalTests": 138,
+    "timestamp": 1792638219641,
+    "success": true,
+    "testId": 24
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "Feat: agegar html de reportes",
+    "commitTimestamp": 1792638244169,
+    "testId": 24
   }
 ]

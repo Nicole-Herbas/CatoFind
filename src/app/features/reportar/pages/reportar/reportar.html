@@ -1,0 +1,192 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CatoFind | Reportar objeto encontrado</title>
+  <link rel="stylesheet" href="./reportar.css">
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="navbar__marca">
+      <strong>CATO<span>FIND</span></strong>
+      <small>UCB COCHABAMBA</small>
+    </div>
+
+    <nav aria-label="Navegación principal">
+      <a href="/buscar.html">Buscar</a>
+      <a href="/reportar.html" class="activo" aria-current="page">Reportar</a>
+    </nav>
+  </header>
+
+  <main class="contenedor">
+
+    <div class="encabezado">
+      <h1>Reportar objeto encontrado</h1>
+      <p>Gracias por ayudar a la comunidad UCB.</p>
+    </div>
+
+    <ol class="pasos" aria-label="Progreso del formulario">
+      <li class="pasos__activo" data-paso="1" aria-current="step">
+        <span>1</span> Información
+      </li>
+      <li data-paso="2"><span>2</span> Foto</li>
+      <li data-paso="3"><span>3</span> Confirmación</li>
+    </ol>
+
+    <form id="form-reportar" novalidate>
+
+      <!-- PASO 1: INFORMACION -->
+      <section id="paso-informacion" class="paso">
+
+        <div class="tarjeta-formulario">
+
+          <div class="campo">
+            <label for="categoria">Tipo de objeto</label>
+            <select id="categoria" name="categoria" required>
+              <option value="">Selecciona...</option>
+            </select>
+            <small id="error-categoria" class="error" role="alert"></small>
+          </div>
+
+          <div class="campo">
+            <label for="titulo">Nombre</label>
+            <input id="titulo" name="titulo" type="text"
+                   placeholder="Ej. Mochila negra" minlength="3" required>
+            <small id="error-titulo" class="error" role="alert"></small>
+          </div>
+
+          <div class="campo">
+            <label for="lugar">Lugar del objeto</label>
+            <select id="lugar" name="lugar" required>
+              <option value="">Selecciona una zona del campus...</option>
+            </select>
+            <p class="ayuda">Solo se aceptan objetos encontrados dentro de la UCB.</p>
+            <small id="error-lugar" class="error" role="alert"></small>
+          </div>
+
+          <div class="fila">
+            <div class="campo">
+              <label for="fecha">Fecha</label>
+              <input id="fecha" name="fecha" type="date" required>
+              <small id="error-fecha" class="error" role="alert"></small>
+            </div>
+
+            <div class="campo">
+              <label for="hora">Hora aproximada</label>
+              <input id="hora" name="hora" type="time" required>
+              <small id="error-hora" class="error" role="alert"></small>
+            </div>
+          </div>
+
+          <div class="campo">
+            <label for="descripcion">Descripción pública</label>
+            <textarea id="descripcion" name="descripcion" minlength="10"
+                      placeholder="Color, marca, tamaño..." required></textarea>
+            <small id="error-descripcion" class="error" role="alert"></small>
+          </div>
+
+          <div class="campo">
+            <label for="detallePrivado">Detalle privado (opcional)</label>
+            <input id="detallePrivado" name="detallePrivado"
+                   placeholder="Algo que solo el dueño sabría. No se publicará.">
+          </div>
+        </div>
+
+        <div class="acciones acciones--derecha">
+          <button type="button" id="siguiente-informacion" class="boton">
+            Siguiente
+          </button>
+        </div>
+
+      </section>
+
+      <!-- PASO 2: FOTOGRAFIA -->
+      <section id="paso-foto" class="paso" hidden>
+
+        <h2>Agrega una fotografía</h2>
+        <p class="subtitulo">Una buena foto ayuda al dueño a reconocer su objeto.</p>
+
+        <div class="zona-foto">
+          <div class="zona-foto__icono" aria-hidden="true">▧</div>
+          <strong>Arrastra una foto aquí</strong>
+          <p>JPG o PNG</p>
+
+          <img id="foto-preview" class="vista-previa"
+               alt="Vista previa del objeto" hidden>
+
+          <div class="zona-foto__acciones">
+            <label for="foto-archivo" class="boton">Subir archivo</label>
+            <input type="file" id="foto-archivo"
+                   class="archivo-oculto" accept="image/*">
+
+            <label for="foto-camara" class="boton boton--secundario">
+              Tomar fotografía
+            </label>
+            <input type="file" id="foto-camara"
+                   class="archivo-oculto" accept="image/*"
+                   capture="environment">
+          </div>
+        </div>
+
+        <div class="acciones">
+          <button type="button" id="volver-informacion"
+                  class="boton boton--secundario">Atrás</button>
+          <button type="button" id="siguiente-foto"
+                  class="boton">Siguiente</button>
+        </div>
+
+      </section>
+
+      <!-- PASO 3: CONFIRMACION -->
+      <section id="paso-confirmacion" class="paso" hidden>
+
+        <h2>¿La información es correcta?</h2>
+        <p class="subtitulo">
+          Revisa los datos antes de enviar tu reporte.
+        </p>
+
+        <div class="tarjeta-resumen">
+          <img id="confirm-imagen" alt="Fotografía del objeto" hidden>
+
+          <div class="tarjeta-resumen__contenido">
+            <h3 id="confirm-titulo"></h3>
+            <p id="confirm-descripcion"></p>
+
+            <div class="resumen-datos">
+              <div><small>Tipo</small><strong id="confirm-categoria"></strong></div>
+              <div><small>Lugar</small><strong id="confirm-lugar"></strong></div>
+              <div><small>Fecha</small><strong id="confirm-fecha"></strong></div>
+              <div><small>Hora</small><strong id="confirm-hora"></strong></div>
+            </div>
+
+            <p id="confirm-privado" class="ayuda" hidden>
+              Detalle privado guardado (no se publicará).
+            </p>
+          </div>
+        </div>
+
+        <div class="acciones">
+          <button type="button" id="volver-foto"
+                  class="boton boton--secundario">Atrás</button>
+          <button type="submit" id="enviar-reporte"
+                  class="boton">Enviar reporte</button>
+        </div>
+
+      </section>
+
+      <div id="estado-reporte" class="reporte-exito"
+           role="status" hidden></div>
+
+    </form>
+  </main>
+
+  <div id="aviso-foto" class="toast" role="alert" hidden>
+    Agrega una fotografía para continuar.
+  </div>
+
+  <script type="module" src="./reportarPresenter.js"></script>
+</body>
+</html>
