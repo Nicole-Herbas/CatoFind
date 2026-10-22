@@ -836,12 +836,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "6fd02b2396c74f448989b3d1129d302b01c10c69",
     "author": "pochis",
     "commit": {
       "date": "2026-10-22T02:56:06.000Z",
       "message": "feat: guardar reportes de objetos en estado pendiente",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/6fd02b2396c74f448989b3d1129d302b01c10c69"
     },
     "stats": {
       "total": 377,
@@ -870,6 +870,25 @@
     },
     "coverage": 95.72,
     "test_count": 138,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "pochis",
+    "commit": {
+      "date": "2026-10-22T03:04:52.000Z",
+      "message": "feat: crear interfaz de formulario de reporte en tres pasos",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 418,
+      "additions": 418,
+      "deletions": 0,
+      "date": "2026-10-22"
+    },
+    "coverage": 95.72,
+    "test_count": 143,
     "failed_tests": 0,
     "conclusion": "success"
   }

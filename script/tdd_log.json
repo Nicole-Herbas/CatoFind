@@ -1232,7 +1232,7 @@
     "testId": 23
   },
   {
-    "commitId": "HEAD",
+    "commitId": "6fd02b2396c74f448989b3d1129d302b01c10c69",
     "commitName": "feat: guardar reportes de objetos en estado pendiente",
     "commitTimestamp": 1792637767633,
     "testId": 23
@@ -1274,5 +1274,27 @@
     "commitName": "Feat: agegar html de reportes",
     "commitTimestamp": 1792638244169,
     "testId": 24
+  },
+  {
+    "numPassedTests": 117,
+    "failedTests": 0,
+    "numTotalTests": 117,
+    "timestamp": 1792638262977,
+    "success": false,
+    "testId": 25
+  },
+  {
+    "numPassedTests": 143,
+    "failedTests": 0,
+    "numTotalTests": 143,
+    "timestamp": 1792638280261,
+    "success": true,
+    "testId": 25
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: crear interfaz de formulario de reporte en tres pasos",
+    "commitTimestamp": 1792638293099,
+    "testId": 25
   }
 ]

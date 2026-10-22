@@ -281,3 +281,37 @@ describe('HU-03 - Estructura HTML del formulario', () => {
 
 });
 
+
+describe('HU-03 - Estilos del formulario', () => {
+
+  const ruta = 'src/app/features/reportar/pages/reportar/reportar.css';
+  const css = readFileSync(ruta, 'utf8');
+
+  it('debe tener una tarjeta para los campos', () => {
+    expect(css).toContain('.tarjeta-formulario');
+    expect(css).toContain('border-radius:');
+    expect(css).toContain('box-shadow:');
+  });
+
+  it('debe tener estilos para mostrar errores', () => {
+    expect(css).toContain('.error');
+    expect(css).toContain('color: #e53935;');
+  });
+
+  it('debe tener estilos para los tres pasos', () => {
+    expect(css).toContain('.pasos');
+    expect(css).toContain('.pasos__activo');
+    expect(css).toContain('.paso[hidden]');
+  });
+
+  it('debe tener zona de fotografia y vista previa', () => {
+    expect(css).toContain('.zona-foto');
+    expect(css).toContain('.vista-previa');
+    expect(css).toContain('.toast');
+  });
+
+  it('debe adaptarse a pantallas pequeñas', () => {
+    expect(css).toContain('@media (max-width: 640px)');
+  });
+
+});
