@@ -138,9 +138,28 @@ document.addEventListener('DOMContentLoaded', () => {
   // Búsqueda en tiempo real al escribir
   inputBuscar.addEventListener('input', buscar);
 
-  // También al enviar el formulario (Enter o click en "Buscar")
+  // Al enviar el formulario (Enter o click en "Buscar"), ir a la página de búsqueda
   formBuscar.addEventListener('submit', (e) => {
     e.preventDefault();
-    buscar();
+    const query = inputBuscar.value.trim();
+    const destino = '../../../buscar/pages/buscar/buscar.html' + (query ? `?q=${encodeURIComponent(query)}` : '');
+    window.location.href = destino;
   });
+
+  // Logout
+  const btnLogout = document.getElementById('btn-logout');
+  if (btnLogout) {
+    btnLogout.addEventListener('click', () => {
+      sessionStorage.removeItem('catofind_sesion');
+      window.location.href = '../../../auth/pages/login/login.html';
+    });
+  }
+
+  // Botón flotante Reportar
+  const btnFab = document.getElementById('btn-reportar-fab');
+  if (btnFab) {
+    btnFab.addEventListener('click', () => {
+      window.location.href = '../../../recoveryRequest/pages/recoveryRequest.html';
+    });
+  }
 });
