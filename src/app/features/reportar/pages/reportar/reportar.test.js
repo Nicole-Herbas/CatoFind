@@ -4,6 +4,12 @@
  */
 
 import { readFileSync } from 'node:fs';
+import { iniciarFormularioReporte } from './reportarPresenter.js';
+
+import {
+  validarArchivoImagen,
+  calcularDimensiones
+} from './imagen.js';
 
 import {
   validarInformacion,
@@ -312,6 +318,282 @@ describe('HU-03 - Estilos del formulario', () => {
 
   it('debe adaptarse a pantallas pequeñas', () => {
     expect(css).toContain('@media (max-width: 640px)');
+  });
+
+});
+
+
+describe('HU-03 - Validar fotografias', () => {
+
+  it('acepta fotografias JPG, PNG y WebP', () => {
+    ['image/jpeg', 'image/png', 'image/webp'].forEach(tipo => {
+      const resultado = validarArchivoImagen({
+        type: tipo,
+        size: 1024
+      });
+
+      expect(resultado.valido).toBe(true);
+    });
+  });
+
+  it('rechaza archivos que no sean fotografias', () => {
+    const resultado = validarArchivoImagen({
+      type: 'application/pdf',
+      size: 1024
+    });
+
+    expect(resultado.valido).toBe(false);
+  });
+
+  it('rechaza archivos mayores a 12 MB', () => {
+    const resultado = validarArchivoImagen({
+      type: 'image/jpeg',
+      size: 13 * 1024 * 1024
+    });
+
+    expect(resultado.valido).toBe(false);
+  });
+
+  it('reduce imagenes grandes proporcionalmente', () => {
+    expect(calcularDimensiones(4000, 3000))
+      .toEqual({ ancho: 1000, alto: 750 });
+  });
+
+  it('no agranda fotografias pequeñas', () => {
+    expect(calcularDimensiones(600, 400))
+      .toEqual({ ancho: 600, alto: 400 });
+  });
+});
+
+
+describe('HU-03 - Flujo completo del formulario', () => {
+
+  const HTML = readFileSync(
+    'src/app/features/reportar/pages/reportar/reportar.html',
+    'utf8'
+  );
+
+  const FOTO = 'data:image/jpeg;base64,Zm90bw==';
+
+  let pagina;
+  let almacenamiento;
+  let procesarImagen;
+
+  function llenarFormulario() {
+    const datos = {
+      categoria: 'Accesorios',
+      titulo: 'Mochila negra',
+      lugar: 'Biblioteca',
+      fecha: '2026-10-20',
+      hora: '10:30',
+      descripcion: 'Mochila encontrada en una mesa',
+      detallePrivado: 'Tiene iniciales por dentro'
+    };
+
+    Object.entries(datos).forEach(([id, valor]) => {
+      pagina.getElementById(id).value = valor;
+    });
+  }
+
+  async function subirFoto(id = 'foto-archivo') {
+    const input = pagina.getElementById(id);
+
+    const archivo = new File(['foto'], 'mochila.jpg', {
+      type: 'image/jpeg'
+    });
+
+    Object.defineProperty(input, 'files', {
+      configurable: true,
+      value: [archivo]
+    });
+
+    input.dispatchEvent(new Event('change', { bubbles: true }));
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+  }
+
+  function avanzarAFoto() {
+    llenarFormulario();
+    pagina.getElementById('siguiente-informacion').click();
+  }
+
+  beforeEach(() => {
+    pagina = new DOMParser().parseFromString(
+      HTML, 'text/html'
+    );
+
+    const memoria = {};
+
+    almacenamiento = {
+      getItem: clave => memoria[clave] ?? null,
+      setItem: (clave, valor) => {
+        memoria[clave] = valor;
+      }
+    };
+
+    procesarImagen = jest.fn(async () => FOTO);
+
+    iniciarFormularioReporte(pagina, almacenamiento, {
+      procesarImagen,
+      ahora: () => new Date('2026-10-21T12:00:00')
+    });
+  });
+
+  it('carga categorias y lugares disponibles', () => {
+    expect(
+      pagina.querySelector('#categoria option[value="Accesorios"]')
+    ).not.toBeNull();
+
+    expect(
+      pagina.querySelector('#lugar option[value="Biblioteca"]')
+    ).not.toBeNull();
+  });
+
+  it('impide avanzar con campos vacios', () => {
+    pagina.getElementById('siguiente-informacion').click();
+
+    expect(pagina.getElementById('paso-informacion').hidden)
+      .toBe(false);
+
+    expect(pagina.getElementById('error-titulo').textContent)
+      .not.toBe('');
+  });
+
+  it('avanza al segundo paso con datos correctos', () => {
+    avanzarAFoto();
+
+    expect(pagina.getElementById('paso-informacion').hidden)
+      .toBe(true);
+
+    expect(pagina.getElementById('paso-foto').hidden)
+      .toBe(false);
+  });
+
+  it('muestra el aviso cuando falta fotografia', () => {
+    avanzarAFoto();
+
+    pagina.getElementById('siguiente-foto').click();
+
+    expect(pagina.getElementById('aviso-foto').hidden)
+      .toBe(false);
+
+    expect(pagina.getElementById('paso-foto').hidden)
+      .toBe(false);
+  });
+
+  it('acepta foto desde la camara y muestra resumen', async () => {
+    avanzarAFoto();
+
+    await subirFoto('foto-camara');
+
+    expect(pagina.getElementById('foto-preview').hidden)
+      .toBe(false);
+
+    pagina.getElementById('siguiente-foto').click();
+
+    expect(pagina.getElementById('paso-confirmacion').hidden)
+      .toBe(false);
+
+    expect(pagina.getElementById('confirm-titulo').textContent)
+      .toBe('Mochila negra');
+
+    expect(pagina.getElementById('confirm-imagen').src)
+      .toBe(FOTO);
+  });
+
+  it('permite regresar conservando los datos', async () => {
+    avanzarAFoto();
+
+    await subirFoto();
+
+    pagina.getElementById('siguiente-foto').click();
+    pagina.getElementById('volver-foto').click();
+    pagina.getElementById('volver-informacion').click();
+
+    expect(pagina.getElementById('titulo').value)
+      .toBe('Mochila negra');
+
+    expect(pagina.getElementById('paso-informacion').hidden)
+      .toBe(false);
+  });
+
+  it('guarda el reporte como Pendiente al enviarlo', async () => {
+    avanzarAFoto();
+
+    await subirFoto();
+
+    pagina.getElementById('siguiente-foto').click();
+
+    const formulario = pagina.getElementById('form-reportar');
+
+    formulario.dispatchEvent(
+      new Event('submit', {
+        bubbles: true,
+        cancelable: true
+      })
+    );
+
+    const servicio = new ReporteService(almacenamiento);
+
+    expect(servicio.obtenerPendientes()).toHaveLength(1);
+
+    expect(servicio.obtenerPendientes()[0].titulo)
+      .toBe('Mochila negra');
+
+    expect(pagina.getElementById('estado-reporte').textContent)
+      .toContain('Pendiente');
+
+    // No debe duplicarse por pulsar dos veces.
+    formulario.dispatchEvent(
+      new Event('submit', { bubbles: true, cancelable: true })
+    );
+
+    expect(servicio.obtenerPendientes()).toHaveLength(1);
+  });
+
+  it('acepta fotografias arrastradas', async () => {
+    avanzarAFoto();
+
+    const evento = new Event('drop', {
+      bubbles: true,
+      cancelable: true
+    });
+
+    Object.defineProperty(evento, 'dataTransfer', {
+      value: {
+        files: [
+          new File(['foto'], 'mochila.png', {
+            type: 'image/png'
+          })
+        ]
+      }
+    });
+
+    pagina.querySelector('.zona-foto').dispatchEvent(evento);
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    expect(procesarImagen).toHaveBeenCalledTimes(1);
+
+    expect(pagina.getElementById('foto-preview').hidden)
+      .toBe(false);
+  });
+
+  it('avisa cuando no se puede guardar el reporte', async () => {
+    avanzarAFoto();
+    await subirFoto();
+    pagina.getElementById('siguiente-foto').click();
+
+    almacenamiento.setItem = () => {
+      throw new Error('Almacenamiento lleno');
+    };
+
+    pagina.getElementById('form-reportar').dispatchEvent(
+      new Event('submit', { cancelable: true })
+    );
+
+    expect(pagina.getElementById('estado-reporte').textContent)
+      .toContain('No se pudo guardar');
   });
 
 });

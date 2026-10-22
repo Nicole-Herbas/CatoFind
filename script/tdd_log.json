@@ -1270,7 +1270,7 @@
     "testId": 24
   },
   {
-    "commitId": "HEAD",
+    "commitId": "4dbbf7c356addb3c6b53227146793ca8472fa6e1",
     "commitName": "Feat: agegar html de reportes",
     "commitTimestamp": 1792638244169,
     "testId": 24
@@ -1296,5 +1296,51 @@
     "commitName": "feat: crear interfaz de formulario de reporte en tres pasos",
     "commitTimestamp": 1792638293099,
     "testId": 25
+  },
+  {
+    "numPassedTests": 117,
+    "failedTests": 0,
+    "numTotalTests": 117,
+    "timestamp": 1792639197355,
+    "success": false,
+    "testId": 26
+  },
+  {
+    "numPassedTests": 117,
+    "failedTests": 0,
+    "numTotalTests": 117,
+    "timestamp": 1792639392282,
+    "success": false,
+    "testId": 26
+  },
+  {
+    "numPassedTests": 117,
+    "failedTests": 0,
+    "numTotalTests": 117,
+    "timestamp": 1792639409663,
+    "success": false,
+    "testId": 26
+  },
+  {
+    "numPassedTests": 157,
+    "failedTests": 0,
+    "numTotalTests": 157,
+    "timestamp": 1792639597504,
+    "success": true,
+    "testId": 26
+  },
+  {
+    "numPassedTests": 157,
+    "failedTests": 0,
+    "numTotalTests": 157,
+    "timestamp": 1792639607405,
+    "success": true,
+    "testId": 26
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: implementar formulario de reporte con fotografia y confirmacion",
+    "commitTimestamp": 1792640116792,
+    "testId": 26
   }
 ]

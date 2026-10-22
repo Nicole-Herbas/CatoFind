@@ -55,7 +55,7 @@ body {
 }
 
 .contenedor {
-  max-width: 900px;
+  max-width: 604px;
   margin: 36px auto;
   padding: 0 22px 60px;
 }
@@ -381,4 +381,13 @@ body {
   .paso h2 {
     font-size: 21px;
   }
+}
+.zona-foto--arrastrando {
+  border-color: #0b3979;
+  background: #eaf2ff;
+}
+
+.reporte-exito--error {
+  background: #fff0f0;
+  color: #c62828;
 }
