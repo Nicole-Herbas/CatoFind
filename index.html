@@ -7,14 +7,14 @@
   <title>CatoFind</title>
 </head>
 <body>
-  <a id="redirect" href="./src/app/features/inicio/pages/inicio/inicio.html" style="display:none">Ir a Inicio</a>
+  <a id="redirect" href="./src/app/features/auth/pages/login/login.html" style="display:none">Ir a Login</a>
   <script type="module">
-    // Redirige al entry-point de la página de inicio
+    // Redirige al entry-point del login
     const target = document.getElementById('redirect').href;
     window.location.replace(target);
   </script>
   <noscript>
-    <meta http-equiv="refresh" content="0; url=./src/app/features/inicio/pages/inicio/inicio.html" />
+    <meta http-equiv="refresh" content="0; url=./src/app/features/auth/pages/login/login.html" />
   </noscript>
 </body>
 </html>
