@@ -5,6 +5,9 @@ dist
 /coverage
 .DS_Store
 report.json
+script/report.json
+script/commit-history.json
+script/tdd_log.json
 ./.husky/_
 .husky/.commit-state
 script/commit-history.json
