@@ -25,4 +25,11 @@ describe('Página Buscar - estructura', () => {
   it('debe enlazar su hoja de estilos', () => {
     expect(pagina.querySelector('link[href="./buscar.css"]')).not.toBeNull();
   });
+
+  it('debe tener los enlaces correctos en la barra de navegacion', () => {
+    const navLinks = pagina.querySelectorAll('header.navbar nav a');
+    expect(navLinks[0].getAttribute('href')).toBe('../../../inicio/pages/inicio/inicio.html');
+    expect(navLinks[1].getAttribute('href')).toBe('./buscar.html');
+    expect(navLinks[2].getAttribute('href')).toBe('../../../recoveryRequest/pages/recoveryRequest.html');
+  });
 });
