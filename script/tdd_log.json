@@ -134,5 +134,53 @@
     "commitName": "feat: Agregar boton de rechazar solicitud de recuperacion",
     "commitTimestamp": 1792607695910,
     "testId": 3
+  },
+  {
+    "numPassedTests": 140,
+    "failedTests": 0,
+    "numTotalTests": 140,
+    "timestamp": 1794318083489,
+    "success": true,
+    "testId": 4
+  },
+  {
+    "numPassedTests": 140,
+    "failedTests": 0,
+    "numTotalTests": 140,
+    "timestamp": 1794318098023,
+    "success": true,
+    "testId": 4
+  },
+  {
+    "numPassedTests": 140,
+    "failedTests": 0,
+    "numTotalTests": 140,
+    "timestamp": 1794318456782,
+    "success": true,
+    "testId": 4
+  },
+  {
+    "numPassedTests": 165,
+    "failedTests": 17,
+    "numTotalTests": 182,
+    "timestamp": 1794319016170,
+    "success": false,
+    "testId": 4
+  },
+  {
+    "numPassedTests": 131,
+    "failedTests": 17,
+    "numTotalTests": 148,
+    "timestamp": 1794319223420,
+    "success": false,
+    "testId": 4
+  },
+  {
+    "numPassedTests": 148,
+    "failedTests": 0,
+    "numTotalTests": 148,
+    "timestamp": 1794319299688,
+    "success": true,
+    "testId": 4
   }
 ]
