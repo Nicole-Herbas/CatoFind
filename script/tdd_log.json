@@ -134,5 +134,13 @@
     "commitName": "feat: Agregar boton de rechazar solicitud de recuperacion",
     "commitTimestamp": 1792607695910,
     "testId": 3
+  },
+  {
+    "numPassedTests": 140,
+    "failedTests": 0,
+    "numTotalTests": 140,
+    "timestamp": 1794320196678,
+    "success": true,
+    "testId": 4
   }
 ]
