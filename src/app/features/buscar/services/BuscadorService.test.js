@@ -1,5 +1,5 @@
 import { Objeto } from '../../../core/models/Objeto.js';
-import { BuscadorService } from '../services/BuscadorService.js';
+import { BuscadorService } from './BuscadorService.js';
 
 function crearObjeto(id, titulo, estado, extra = {}) {
   return new Objeto({
