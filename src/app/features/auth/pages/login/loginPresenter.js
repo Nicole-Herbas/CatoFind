@@ -8,43 +8,43 @@ import {
 
 
 crearAdministradorDemo(localStorage);
-const formulario = document.getElementById('login-form');
-const correo = document.getElementById('correo');
-const contrasena = document.getElementById('contrasena');
-const mensaje = document.getElementById('mensaje-error');
+const formularioLogin = document.getElementById('login-form');
+const campoCorreo = document.getElementById('correo');
+const campoContrasena = document.getElementById('contrasena');
+const elementoMensajeLogin = document.getElementById('mensaje-error');
 
-formulario.addEventListener('submit', (evento) => {
-  evento.preventDefault();
+formularioLogin.addEventListener('submit', (eventoEnvioFormulario) => {
+  eventoEnvioFormulario.preventDefault();
 
-    const resultado = iniciarSesion(
-    correo.value,
-    contrasena.value,
+    const resultadoInicioSesion = iniciarSesion(
+    campoCorreo.value,
+    campoContrasena.value,
     localStorage,
     sessionStorage
   );
 
-  mensaje.textContent = resultado.mensaje;
-  mensaje.style.color = resultado.ok ? '#16803d' : '#c62828';
+  elementoMensajeLogin.textContent = resultadoInicioSesion.mensaje;
+  elementoMensajeLogin.style.color = resultadoInicioSesion.ok ? '#16803d' : '#c62828';
 
-  const destino = obtenerRutaPostLogin(resultado);
+  const rutaDestinoPostLogin = obtenerRutaPostLogin(resultadoInicioSesion);
 
-if (destino) {
-  window.location.assign(destino);
+if (rutaDestinoPostLogin) {
+  window.location.assign(rutaDestinoPostLogin);
 }
 });
 
-const recuperar = document.getElementById('recuperar-contrasena');
-const notificacion = document.getElementById('mensaje-recuperacion');
+const botonRecuperarContrasena = document.getElementById('recuperar-contrasena');
+const notificacionRecuperacion = document.getElementById('mensaje-recuperacion');
 
-let temporizadorNotificacion;
+let temporizadorOcultarNotificacion;
 
-recuperar.addEventListener('click', () => {
-  notificacion.textContent = mensajeRecuperacion();
-  notificacion.hidden = false;
+botonRecuperarContrasena.addEventListener('click', () => {
+  notificacionRecuperacion.textContent = mensajeRecuperacion();
+  notificacionRecuperacion.hidden = false;
 
-  clearTimeout(temporizadorNotificacion);
+  clearTimeout(temporizadorOcultarNotificacion);
 
-  temporizadorNotificacion = setTimeout(() => {
-    notificacion.hidden = true;
+  temporizadorOcultarNotificacion = setTimeout(() => {
+    notificacionRecuperacion.hidden = true;
   }, 4000);
 });

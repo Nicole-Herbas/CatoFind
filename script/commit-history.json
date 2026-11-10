@@ -57,12 +57,12 @@
     "conclusion": "neutral"
   },
   {
-    "sha": "HEAD",
+    "sha": "700102d8fc0a73d01e00a548a6d059e9c84f8aa2",
     "author": "Chris",
     "commit": {
       "date": "2026-10-21T18:34:54.000Z",
       "message": "feat: Agregar boton de rechazar solicitud de recuperacion",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/700102d8fc0a73d01e00a548a6d059e9c84f8aa2"
     },
     "stats": {
       "total": 18,
@@ -74,5 +74,24 @@
     "test_count": 0,
     "failed_tests": 0,
     "conclusion": "neutral"
+  },
+  {
+    "sha": "HEAD",
+    "author": "pochis",
+    "commit": {
+      "date": "2026-11-10T14:19:03.000Z",
+      "message": "Refactor: Se movieron las pruebas de backend a un arhcivo de pruebas de backend y las de frontend a uno de frontend",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 540,
+      "additions": 270,
+      "deletions": 270,
+      "date": "2026-11-10"
+    },
+    "coverage": 94.69,
+    "test_count": 140,
+    "failed_tests": 0,
+    "conclusion": "success"
   }
 ]

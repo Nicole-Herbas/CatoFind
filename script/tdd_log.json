@@ -130,7 +130,7 @@
     "testId": 3
   },
   {
-    "commitId": "HEAD",
+    "commitId": "700102d8fc0a73d01e00a548a6d059e9c84f8aa2",
     "commitName": "feat: Agregar boton de rechazar solicitud de recuperacion",
     "commitTimestamp": 1792607695910,
     "testId": 3
@@ -141,6 +141,12 @@
     "numTotalTests": 140,
     "timestamp": 1794320196678,
     "success": true,
+    "testId": 4
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "Refactor: Se movieron las pruebas de backend a un arhcivo de pruebas de backend y las de frontend a uno de frontend",
+    "commitTimestamp": 1794320344546,
     "testId": 4
   }
 ]
