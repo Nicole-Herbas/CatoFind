@@ -63,7 +63,7 @@ function renderTarjetas(objetos) {
   const grid = document.getElementById('objetos-grid');
   const empty = document.getElementById('objetos-empty');
 
-  grid.innerHTML = '';
+  grid.replaceChildren();
 
   if (objetos.length === 0) {
     empty.hidden = false;
@@ -78,7 +78,7 @@ function renderTarjetas(objetos) {
 
 function renderFiltros() {
   const lista = document.getElementById('filtros-lista');
-  lista.innerHTML = '';
+  lista.replaceChildren();
 
   CATEGORIAS.forEach((cat) => {
     const li = document.createElement('li');
