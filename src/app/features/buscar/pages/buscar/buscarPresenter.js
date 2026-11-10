@@ -2,7 +2,7 @@
 import {
   crearBuscador,
   opcionesDeFiltros,
-  obtenerBusquedaInicial,
+  leerBusquedaDeLaUrl,
   obtenerResultados,
   datosTarjeta,
   datosDetalle
@@ -111,5 +111,5 @@ resultados.addEventListener('click', (evento) => {
   }
 });
 
-buscador.value = obtenerBusquedaInicial(window.location.search);
+buscador.value = leerBusquedaDeLaUrl(window.location.search);
 mostrarResultados();

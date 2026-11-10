@@ -8,7 +8,7 @@ import {
   RUTA_SOLICITUD,
   crearBuscador,
   opcionesDeFiltros,
-  obtenerBusquedaInicial,
+  leerBusquedaDeLaUrl,
   obtenerResultados,
   datosTarjeta,
   datosDetalle,
@@ -80,9 +80,9 @@ describe('Buscar - lógica de la pantalla', () => {
   });
 
   it('debe leer la búsqueda que viene en la URL', () => {
-    expect(obtenerBusquedaInicial('?q=mochila')).toBe('mochila');
-    expect(obtenerBusquedaInicial('?q=%20celular%20')).toBe('celular');
-    expect(obtenerBusquedaInicial('')).toBe('');
+    expect(leerBusquedaDeLaUrl('?q=mochila')).toBe('mochila');
+    expect(leerBusquedaDeLaUrl('?q=%20celular%20')).toBe('celular');
+    expect(leerBusquedaDeLaUrl('')).toBe('');
   });
 
   it('debe devolver los objetos encontrados y su mensaje', () => {

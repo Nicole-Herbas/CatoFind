@@ -11,7 +11,7 @@ export function opcionesDeFiltros() {
   return { categorias: CATEGORIAS, lugares: LUGARES };
 }
 
-export function obtenerBusquedaInicial(textoUrl) {
+export function leerBusquedaDeLaUrl(textoUrl) {
   const texto = new URLSearchParams(textoUrl ?? '').get('q');
   return texto ? texto.trim() : '';
 }

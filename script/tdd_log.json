@@ -184,7 +184,7 @@
     "testId": 4
   },
   {
-    "commitId": "HEAD",
+    "commitId": "1037e8b6127197acc580cf8ca6a5a04b18192bfa",
     "commitName": "refactor: aplicar MVP en buscar con presentador como en login",
     "commitTimestamp": 1794319335542,
     "testId": 4
@@ -196,5 +196,43 @@
     "timestamp": 1794319454672,
     "success": true,
     "testId": 5
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "refactor: aplicar MVP en buscar con presentador como en login",
+    "commitTimestamp": 1794319467342,
+    "testId": 5
+  },
+  {
+    "numPassedTests": 148,
+    "failedTests": 0,
+    "numTotalTests": 148,
+    "timestamp": 1794319765328,
+    "success": true,
+    "testId": 6
+  },
+  {
+    "numPassedTests": 137,
+    "failedTests": 11,
+    "numTotalTests": 148,
+    "timestamp": 1794319872752,
+    "success": false,
+    "testId": 6
+  },
+  {
+    "numPassedTests": 137,
+    "failedTests": 11,
+    "numTotalTests": 148,
+    "timestamp": 1794319919032,
+    "success": false,
+    "testId": 6
+  },
+  {
+    "numPassedTests": 148,
+    "failedTests": 0,
+    "numTotalTests": 148,
+    "timestamp": 1794320002272,
+    "success": true,
+    "testId": 6
   }
 ]

@@ -57,12 +57,12 @@
     "conclusion": "neutral"
   },
   {
-    "sha": "HEAD",
+    "sha": "1037e8b6127197acc580cf8ca6a5a04b18192bfa",
     "author": "Chris",
     "commit": {
       "date": "2026-10-21T18:34:54.000Z",
       "message": "feat: Agregar boton de rechazar solicitud de recuperacion",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/1037e8b6127197acc580cf8ca6a5a04b18192bfa"
     },
     "stats": {
       "total": 18,
@@ -74,5 +74,24 @@
     "test_count": 0,
     "failed_tests": 0,
     "conclusion": "neutral"
+  },
+  {
+    "sha": "HEAD",
+    "author": "Nico Meneses",
+    "commit": {
+      "date": "2026-11-10T14:04:24.000Z",
+      "message": "refactor: aplicar MVP en buscar con presentador como en login",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 0,
+      "additions": 0,
+      "deletions": 0,
+      "date": "2026-11-10"
+    },
+    "coverage": 96.54,
+    "test_count": 148,
+    "failed_tests": 0,
+    "conclusion": "success"
   }
 ]
