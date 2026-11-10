@@ -55,4 +55,20 @@ describe('ObjetoService', () => {
     const resultado = service.buscarPorTitulo('xyzabcnoexiste');
     expect(resultado.length).toBe(0);
   });
+
+  it('debe buscar por título dentro de una lista filtrada', () => {
+    const service = new ObjetoService();
+    const ropa = service.filtrarPorCategoria('Ropa');
+    const resultado = service.buscarPorTitulo('mochila', ropa);
+
+    expect(resultado).toHaveLength(1);
+    expect(resultado[0].titulo).toBe('Mochila negra');
+  });
+
+  it('debe retornar los objetos recibidos cuando la búsqueda está vacía', () => {
+    const service = new ObjetoService();
+    const ropa = service.filtrarPorCategoria('Ropa');
+
+    expect(service.buscarPorTitulo('  ', ropa)).toBe(ropa);
+  });
 });

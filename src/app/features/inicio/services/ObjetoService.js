@@ -85,14 +85,21 @@ export class ObjetoService {
   }
 
   filtrarPorCategoria(categoria) {
-    if (categoria === 'Todos') return this.objetos;
+    if (categoria === 'Todos') {
+      return this.objetos;
+    }
+
     return this.objetos.filter((o) => o.categoria === categoria);
   }
 
-  buscarPorTitulo(query) {
-    if (!query) return this.objetos;
-    return this.objetos.filter((o) =>
-      o.titulo.toLowerCase().includes(query.toLowerCase())
+  buscarPorTitulo(query, objetos = this.objetos) {
+    const textoBuscado = query.trim().toLowerCase();
+    if (!textoBuscado) {
+      return objetos;
+    }
+
+    return objetos.filter((objeto) =>
+      objeto.titulo.toLowerCase().includes(textoBuscado)
     );
   }
 }

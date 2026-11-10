@@ -100,10 +100,21 @@ document.addEventListener('DOMContentLoaded', () => {
   renderFiltros();
   renderTarjetas(service.obtenerTodos());
 
+  const formBuscar = document.getElementById('form-buscar');
+  const inputBuscar = document.getElementById('input-buscar');
+
+  function actualizarResultados() {
+    const objetosPorCategoria = service.filtrarPorCategoria(categoriaActual);
+    const resultados = service.buscarPorTitulo(inputBuscar.value, objetosPorCategoria);
+    renderTarjetas(resultados);
+  }
+
   // ── Filtros de categoría ──
   document.getElementById('filtros-lista').addEventListener('click', (e) => {
     const btn = e.target.closest('.filtro-btn');
-    if (!btn) return;
+    if (!btn) {
+      return;
+    }
 
     categoriaActual = btn.dataset.categoria;
 
