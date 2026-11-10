@@ -130,7 +130,7 @@
     "testId": 3
   },
   {
-    "commitId": "HEAD",
+    "commitId": "700102d8fc0a73d01e00a548a6d059e9c84f8aa2",
     "commitName": "feat: Agregar boton de rechazar solicitud de recuperacion",
     "commitTimestamp": 1792607695910,
     "testId": 3
@@ -182,5 +182,19 @@
     "timestamp": 1794319299688,
     "success": true,
     "testId": 4
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "refactor: aplicar MVP en buscar con presentador como en login",
+    "commitTimestamp": 1794319335542,
+    "testId": 4
+  },
+  {
+    "numPassedTests": 148,
+    "failedTests": 0,
+    "numTotalTests": 148,
+    "timestamp": 1794319454672,
+    "success": true,
+    "testId": 5
   }
 ]
