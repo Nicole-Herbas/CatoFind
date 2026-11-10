@@ -125,29 +125,12 @@ document.addEventListener('DOMContentLoaded', () => {
       b.setAttribute('aria-pressed', isActive ? 'true' : 'false');
     });
 
-    renderTarjetas(service.filtrarPorCategoria(categoriaActual));
+    actualizarResultados();
   });
 
   // ── Buscador ──
-  const formBuscar = document.getElementById('form-buscar');
-  const inputBuscar = document.getElementById('input-buscar');
-
-  function buscar() {
-    const query = inputBuscar.value.trim();
-    // Primero aplica filtro de categoría, luego busca dentro del resultado
-    const base = service.filtrarPorCategoria(categoriaActual);
-    if (!query) {
-      renderTarjetas(base);
-      return;
-    }
-    const resultado = base.filter((o) =>
-      o.titulo.toLowerCase().includes(query.toLowerCase())
-    );
-    renderTarjetas(resultado);
-  }
-
   // Búsqueda en tiempo real al escribir
-  inputBuscar.addEventListener('input', buscar);
+  inputBuscar.addEventListener('input', actualizarResultados);
 
   // Al enviar el formulario (Enter o click en "Buscar"), ir a la página de búsqueda
   formBuscar.addEventListener('submit', (e) => {
@@ -161,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnLogout = document.getElementById('btn-logout');
   if (btnLogout) {
     btnLogout.addEventListener('click', () => {
-      sessionStorage.removeItem('catofind_sesion');
+      window.sessionStorage.removeItem('catofind_sesion');
       window.location.href = '../../../auth/pages/login/login.html';
     });
   }
