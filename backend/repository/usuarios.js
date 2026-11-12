@@ -14,7 +14,7 @@ export function crearUsuarios(supabase) {
     async obtenerPorAuthUid(authUid) {
       const { data, error } = await supabase
         .from('usuario')
-        .select('nombre,correo_institucional,rol')
+        .select('id,nombre,correo_institucional,rol')
         .eq('auth_uid', authUid)
         .single();
 

@@ -1,4 +1,4 @@
-﻿# CatoFind
+# CatoFind
 
 Aplicación para consultar objetos publicados y gestionar solicitudes de recuperación dentro de la comunidad UCB.
 
@@ -17,7 +17,7 @@ Copia `.env.example` a `.env` y configura `SUPABASE_URL` y `SUPABASE_SECRET_KEY`
 
 ## Base de datos
 
-El esquema versionado está en `supabase/migrations/202611120001_initial_schema.sql` y los datos demostrativos en `supabase/seed.sql`. Ambos se aplicaron al proyecto Supabase de pruebas autorizado.
+El esquema versionado está en `supabase/migrations/202611120001_initial_schema.sql` y `supabase/migrations/20261112203435_reportes_storage.sql`; los datos demostrativos están en `supabase/seed.sql`. Ambos se aplicaron al proyecto Supabase de pruebas autorizado.
 
 El seed crea un perfil estudiantil y uno administrativo sin credenciales de Auth, además de seis ejemplos del catálogo: cinco aprobados y uno pendiente. Son solo datos de demostración; los perfiles no sirven para iniciar sesión. El registro público crea estudiantes mediante Supabase Auth. Las cuentas administrativas se provisionan por separado en un proceso protegido.
 
@@ -48,9 +48,12 @@ npm test
 
 ## Datos y autenticación
 
-- `GET /api/objetos` devuelve reportes aprobados con el estado visible `Publicado`.
+- `GET /api/objetos` devuelve reportes aprobados con el estado visible `Publicado` y filtra los resultados en el backend.
+- `POST /api/reportes` guarda el objeto y el reporte pendiente con el usuario autenticado.
+- Las fotos se guardan en el bucket privado `reportes` de Supabase Storage; el backend emite URLs firmadas para mostrar imágenes aprobadas o revisar pendientes.
+- `GET /api/admin/reportes?estado=PENDIENTE` y `PATCH /api/admin/reportes/:id` requieren una sesión administrativa.
 - El registro y el inicio de sesión aceptan correos `@ucb.edu.bo`.
-- El inicio de sesión consulta Supabase Auth y el perfil en `usuario`. El navegador conserva únicamente el token y el perfil de la sesión activa.
+- El inicio de sesión consulta Supabase Auth y el perfil en `usuario`. Express mantiene el token en una cookie HttpOnly; el frontend no usa localStorage ni sessionStorage.
 - Las solicitudes de recuperación requieren una sesión y se asocian al reporte encontrado y al estudiante autenticado.
 - Inicio y búsqueda muestran objetos de `GET /api/objetos`; si la API falla, muestran un error en vez de datos locales.
 
