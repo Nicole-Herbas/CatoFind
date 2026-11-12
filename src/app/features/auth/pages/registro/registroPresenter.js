@@ -1,10 +1,11 @@
 
-import { registrarEstudiante } from './registro.js';
+import { AutenticacionApi } from '../../services/AutenticacionApi.js';
 
 const formulario = document.getElementById('registro-form');
 const mensaje = document.getElementById('registro-mensaje');
+const autenticacion = new AutenticacionApi();
 
-formulario.addEventListener('submit', (evento) => {
+formulario.addEventListener('submit', async (evento) => {
   evento.preventDefault();
 
   const datos = {
@@ -15,7 +16,7 @@ formulario.addEventListener('submit', (evento) => {
     confirmarContrasena: document.getElementById('confirmar-contrasena').value
   };
 
-  const resultado = registrarEstudiante(datos, localStorage);
+  const resultado = await autenticacion.registrarEstudiante(datos);
 
   mensaje.textContent = resultado.mensaje;
   mensaje.style.color = resultado.ok ? '#16803d' : '#c62828';

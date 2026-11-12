@@ -58,3 +58,66 @@ describe('API de objetos', () => {
     }
   });
 });
+
+describe('API de autenticación', () => {
+  it('registra estudiantes mediante el servicio y devuelve el perfil público', async () => {
+    const servicioAutenticacion = {
+      registrarEstudiante: jest.fn(async () => ({
+        nombre: 'Ana Torres',
+        correo: 'ana@ucb.edu.bo',
+        rol: 'ESTUDIANTE'
+      }))
+    };
+    const app = crearApp({ listarPublicados: async () => [] }, servicioAutenticacion);
+    const servidor = createServer(app);
+    await new Promise(resolve => servidor.listen(0, resolve));
+
+    try {
+      const respuesta = await fetch(`http://127.0.0.1:${servidor.address().port}/api/auth/registro`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nombre: 'Ana Torres', correo: 'ana@ucb.edu.bo', contrasena: 'privada' })
+      });
+
+      expect(respuesta.status).toBe(201);
+      expect(await respuesta.json()).toEqual({
+        usuario: { nombre: 'Ana Torres', correo: 'ana@ucb.edu.bo', rol: 'ESTUDIANTE' }
+      });
+      expect(servicioAutenticacion.registrarEstudiante).toHaveBeenCalledWith({
+        nombre: 'Ana Torres', correo: 'ana@ucb.edu.bo', contrasena: 'privada'
+      });
+    } finally {
+      await new Promise(resolve => servidor.close(resolve));
+    }
+  });
+
+  it('inicia sesión sin devolver la contraseña', async () => {
+    const servicioAutenticacion = {
+      iniciarSesion: jest.fn(async () => ({
+        accessToken: 'token-sesion',
+        usuario: { nombre: 'Ana Torres', correo: 'ana@ucb.edu.bo', rol: 'ESTUDIANTE' }
+      }))
+    };
+    const app = crearApp({ listarPublicados: async () => [] }, servicioAutenticacion);
+    const servidor = createServer(app);
+    await new Promise(resolve => servidor.listen(0, resolve));
+
+    try {
+      const respuesta = await fetch(`http://127.0.0.1:${servidor.address().port}/api/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ correo: 'ana@ucb.edu.bo', contrasena: 'privada' })
+      });
+      const resultado = await respuesta.json();
+
+      expect(respuesta.status).toBe(200);
+      expect(resultado).toEqual({
+        accessToken: 'token-sesion',
+        usuario: { nombre: 'Ana Torres', correo: 'ana@ucb.edu.bo', rol: 'ESTUDIANTE' }
+      });
+      expect(resultado).not.toHaveProperty('contrasena');
+    } finally {
+      await new Promise(resolve => servidor.close(resolve));
+    }
+  });
+});
