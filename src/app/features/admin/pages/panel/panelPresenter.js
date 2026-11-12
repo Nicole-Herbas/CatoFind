@@ -1,36 +1,36 @@
-import {
-  verificarAccesoAdministrador,
-  obtenerSesion,
-  cerrarSesion
-} from '../../../auth/pages/login/login.js';
+import { AutenticacionApi } from '../../../../api/autenticacion.js';
+import { crearApiReportes } from '../../../../api/reportes.js';
 import { iniciarRevisionReportes } from './revisionReportesPresenter.js';
 
-export function iniciarPanel(documento, almacenamientoSesion, acciones, almacenamientoReportes = null) {
-  const acceso = verificarAccesoAdministrador(almacenamientoSesion);
+export async function iniciarPanel(
+  documento,
+  acciones,
+  autenticacion = new AutenticacionApi(),
+  apiReportes = crearApiReportes()
+) {
+  let usuario;
 
-  if (!acceso.permitido) {
-    acciones.avisar(acceso.mensaje);
+  try {
+    usuario = await autenticacion.obtenerSesionAdministrador();
+  } catch (error) {
+    acciones.avisar(error.message);
     acciones.irAlLogin();
     return;
   }
 
-  const usuario = obtenerSesion(almacenamientoSesion);
   documento.getElementById('nombre-admin').textContent = usuario.nombre;
   documento.getElementById('panel-contenido').hidden = false;
+  await iniciarRevisionReportes(documento, apiReportes);
 
-  if (almacenamientoReportes) {
-    iniciarRevisionReportes(documento, almacenamientoReportes);
-  }
-
-  documento.getElementById('cerrar-sesion').addEventListener('click', () => {
-    cerrarSesion(almacenamientoSesion);
+  documento.getElementById('cerrar-sesion').addEventListener('click', async () => {
+    await autenticacion.cerrarSesion();
     acciones.irAlLogin();
   });
 }
 
 if (typeof document !== 'undefined' && document.getElementById('panel-contenido')) {
-  iniciarPanel(document, sessionStorage, {
+  iniciarPanel(document, {
     avisar: texto => window.alert(texto),
     irAlLogin: () => window.location.assign('../../../auth/pages/login/login.html')
-  }, localStorage);
+  });
 }

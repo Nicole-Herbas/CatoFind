@@ -1,13 +1,13 @@
 ﻿export class AutenticacionApi {
-  constructor(solicitar = globalThis.fetch.bind(globalThis), almacenamientoSesion = globalThis.sessionStorage) {
+  constructor(solicitar = globalThis.fetch.bind(globalThis)) {
     this.solicitar = solicitar;
-    this.almacenamientoSesion = almacenamientoSesion;
   }
 
   async iniciarSesion(correo, contrasena) {
     try {
       const respuesta = await this.solicitar('/api/auth/login', {
         method: 'POST',
+        credentials: 'same-origin',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ correo, contrasena })
       });
@@ -15,15 +15,26 @@
 
       if (!respuesta.ok) return { ok: false, mensaje: resultado.mensaje };
 
-      this.almacenamientoSesion.setItem('catofind_sesion', JSON.stringify({
-        ...resultado.usuario,
-        accessToken: resultado.accessToken
-      }));
-
       return { ok: true, mensaje: 'Inicio de sesión correcto.', usuario: resultado.usuario };
     } catch {
       return { ok: false, mensaje: 'No se pudo conectar con el servidor.' };
     }
+  }
+
+  async obtenerSesion() {
+    const respuesta = await this.solicitar('/api/auth/sesion', { credentials: 'same-origin' });
+    return respuesta.ok ? (await respuesta.json()).usuario : null;
+  }
+
+  async obtenerSesionAdministrador() {
+    const respuesta = await this.solicitar('/api/admin/sesion', { credentials: 'same-origin' });
+    const resultado = await respuesta.json();
+    if (!respuesta.ok) throw new Error(resultado.mensaje);
+    return resultado.usuario;
+  }
+
+  async cerrarSesion() {
+    await this.solicitar('/api/auth/logout', { method: 'POST', credentials: 'same-origin' });
   }
 
   async registrarEstudiante(datos) {
@@ -41,6 +52,7 @@
     try {
       const respuesta = await this.solicitar('/api/auth/registro', {
         method: 'POST',
+        credentials: 'same-origin',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           nombre,

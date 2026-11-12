@@ -1,5 +1,5 @@
 import Validador from './recoveryRequest.js';
-import { SolicitudesApi } from '../services/SolicitudesApi.js';
+import { SolicitudesApi } from '../../../api/solicitudes.js';
 
 const formulario = document.querySelector('.recoveryForm');
 const campoDescripcion = document.getElementById('extraDescriptionObject');
@@ -7,7 +7,7 @@ const mensajeError = document.getElementById('extraDescriptionError');
 const solicitudes = new SolicitudesApi();
 
 if (!formulario || !campoDescripcion || !mensajeError) {
-  throw new Error('No se encontraron los elementos requeridos del formulario de recuperación.');
+  throw new Error('No se encontraron los elementos requeridos del formulario de recuperaciÃ³n.');
 }
 
 formulario.addEventListener('submit', async (evento) => {
