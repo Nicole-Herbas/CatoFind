@@ -8,7 +8,16 @@ export function obtenerConfiguracionSupabase(entorno) {
 
   if (!claveSecreta) {
     throw new Error('Falta configurar SUPABASE_SECRET_KEY');
+    
   }
 
   return { url, claveSecreta };
+}
+
+export function crearClienteSupabase(entorno, crearCliente) {
+  const { url, claveSecreta } = obtenerConfiguracionSupabase(entorno);
+
+  return crearCliente(url, claveSecreta, {
+    auth: { autoRefreshToken: false, persistSession: false }
+  });
 }
