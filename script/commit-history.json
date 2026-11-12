@@ -57,18 +57,37 @@
     "conclusion": "neutral"
   },
   {
-    "sha": "HEAD",
+    "sha": "700102d8fc0a73d01e00a548a6d059e9c84f8aa2",
     "author": "Chris",
     "commit": {
       "date": "2026-10-21T18:34:54.000Z",
       "message": "feat: Agregar boton de rechazar solicitud de recuperacion",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/700102d8fc0a73d01e00a548a6d059e9c84f8aa2"
     },
     "stats": {
       "total": 18,
       "additions": 16,
       "deletions": 2,
       "date": "2026-10-21"
+    },
+    "coverage": 0,
+    "test_count": 0,
+    "failed_tests": 0,
+    "conclusion": "neutral"
+  },
+  {
+    "sha": "HEAD",
+    "author": "Chris",
+    "commit": {
+      "date": "2026-11-12T13:48:07.000Z",
+      "message": "style: agregar estilos a la pagina de recoveryRequest",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 365,
+      "additions": 329,
+      "deletions": 36,
+      "date": "2026-11-12"
     },
     "coverage": 0,
     "test_count": 0,

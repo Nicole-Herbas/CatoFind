@@ -12,3 +12,4 @@ script/tdd_log.json
 .husky/.commit-state
 script/commit-history.json
 script/tdd_log.json
+/script
