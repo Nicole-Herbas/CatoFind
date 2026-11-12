@@ -2,20 +2,13 @@
  * @jest-environment jsdom
  */
 import { readFileSync } from 'node:fs';
-import { Objeto } from '../../../../core/models/Objeto.js';
-import { BuscadorService } from '../../services/BuscadorService.js';
 import {
   RUTA_SOLICITUD,
-  crearBuscador,
-  opcionesDeFiltros,
   obtenerBusquedaInicial,
-  obtenerResultados,
   datosTarjeta,
-  datosDetalle,
 } from './buscar.js';
 
 const html = readFileSync('src/app/features/buscar/pages/buscar/buscar.html', 'utf8');
-const hoy = new Date('2026-10-21T12:00:00');
 const OBJETOS_DE_PRUEBA = [
   { id: 1, titulo: 'Mochila negra', categoria: 'Accesorios', lugar: 'Biblioteca', fecha: '2026-10-08', estado: 'Publicado' },
   { id: 2, titulo: 'Chompa azul', categoria: 'Ropa', lugar: 'Cafetería', fecha: '2026-10-05', estado: 'Publicado' },
@@ -24,17 +17,6 @@ const OBJETOS_DE_PRUEBA = [
   { id: 5, titulo: 'Carnet universitario', categoria: 'Documentos', lugar: 'Bloque B', fecha: '2026-10-15', estado: 'Publicado' },
   { id: 6, titulo: 'Calculadora', categoria: 'Electrónica', lugar: 'Bloque A', fecha: '2026-10-18', estado: 'En revisión' }
 ];
-
-function crearServicio() {
-  return new BuscadorService([
-    new Objeto({ id: 1, reporteId: 14, titulo: 'Mochila negra', categoria: 'Accesorios', lugar: 'Biblioteca',
-      fecha: '2026-10-19', imagen: '', estado: 'Publicado' }),
-    new Objeto({ id: 2, titulo: 'Chompa azul', categoria: 'Ropa', lugar: 'Cafetería',
-      fecha: '2026-10-05', imagen: '', estado: 'Publicado' }),
-    new Objeto({ id: 3, titulo: 'Calculadora', categoria: 'Electrónica', lugar: 'Bloque A',
-      fecha: '2026-10-18', imagen: '', estado: 'En revisión' }),
-  ]);
-}
 
 // ---------------------------------------------------------------------------
 // Vista: estructura de buscar.html
@@ -69,77 +51,35 @@ describe('Página Buscar - estructura', () => {
     const navLinks = pagina.querySelectorAll('header.navbar nav a');
     expect(navLinks[0].getAttribute('href')).toBe('../../../inicio/pages/inicio/inicio.html');
     expect(navLinks[1].getAttribute('href')).toBe('./buscar.html');
-    expect(navLinks[2].getAttribute('href')).toBe('../../../recoveryRequest/pages/recoveryRequest.html');
+    expect(navLinks[2].getAttribute('href')).toBe('../../../reportar/pages/reportar/reportar.html');
+    expect(navLinks[3].getAttribute('href')).toBe('../../../recoveryRequest/pages/recoveryRequest.html');
   });
 });
 
-// ---------------------------------------------------------------------------
-// Lógica de la pantalla (buscar.js): sin DOM
-// ---------------------------------------------------------------------------
-describe('Buscar - lógica de la pantalla', () => {
-  it('debe crear el buscador sin objetos locales por defecto', () => {
-    expect(crearBuscador().obtenerPublicados()).toEqual([]);
-  });
-
-  it('debe dar las opciones de los filtros', () => {
-    const { categorias, lugares } = opcionesDeFiltros();
-    expect(categorias[0]).toBe('Todos');
-    expect(lugares[0]).toBe('Todas');
-  });
-
-  it('debe leer la búsqueda que viene en la URL', () => {
-    expect(obtenerBusquedaInicial('?q=mochila')).toBe('mochila');
-    expect(obtenerBusquedaInicial('?q=%20celular%20')).toBe('celular');
-    expect(obtenerBusquedaInicial('')).toBe('');
-  });
-
-  it('debe devolver los objetos encontrados y su mensaje', () => {
-    const { objetos, mensaje } = obtenerResultados(crearServicio(), { texto: 'chompa' }, hoy);
-    expect(objetos.map((o) => o.titulo)).toEqual(['Chompa azul']);
-    expect(mensaje).toBe('1 resultado encontrado');
-  });
-
-  it('debe preparar los datos de una tarjeta', () => {
-    const [mochila] = crearServicio().obtenerPublicados();
-    expect(datosTarjeta(mochila)).toEqual({
-      id: 1,
-      titulo: 'Mochila negra',
-      imagen: '',
-      estado: 'Publicado',
-      datos: ['Accesorios', 'Biblioteca', '2026-10-19'],
-    });
-  });
-
-  it('debe preparar el detalle de un objeto publicado', () => {
-    expect(datosDetalle(crearServicio(), '1')).toEqual({
-      titulo: 'Mochila negra',
-      reporteId: 14,
-      lineas: ['Categoría: Accesorios', 'Lugar: Biblioteca', 'Fecha: 2026-10-19'],
-      rutaSolicitud: `${RUTA_SOLICITUD}?reporteId=14`,
-    });
-  });
-
-  it('no debe dar detalle de un objeto no publicado', () => {
-    expect(datosDetalle(crearServicio(), 3)).toBeNull();
-  });
-});
-
-// ---------------------------------------------------------------------------
 // Presentador (buscarPresenter.js): igual que loginPresenter.js, se ejecuta
 // solo al cargarse la página. En la prueba primero ponemos el HTML y luego
 // cargamos el presentador.
 // ---------------------------------------------------------------------------
 async function abrirPagina(url = '', objetosApi = OBJETOS_DE_PRUEBA) {
-  global.fetch = jest.fn(async () => ({
-    ok: true,
-    json: async () => objetosApi
-  }));
+  global.fetch = jest.fn(async (ruta) => {
+    const parametros = new URL(String(ruta), 'http://local').searchParams;
+    const texto = parametros.get('texto')?.toLocaleLowerCase() || '';
+    const categoria = parametros.get('categoria');
+    const lugar = parametros.get('lugar');
+    const encontrados = objetosApi.filter(objeto => objeto.estado === 'Publicado'
+      && objeto.titulo.toLocaleLowerCase().includes(texto)
+      && (!categoria || categoria === 'Todos' || objeto.categoria === categoria)
+      && (!lugar || lugar === 'Todas' || objeto.lugar === lugar));
+    return { ok: true, json: async () => encontrados };
+  });
   document.body.innerHTML = html;
   window.history.replaceState({}, '', `/buscar.html${url}`);
   jest.resetModules();
   await import('./buscarPresenter.js');
   await new Promise(resolve => setTimeout(resolve, 0));
 }
+
+const esperarCarga = () => new Promise(resolve => setTimeout(resolve, 0));
 
 function titulosEnPantalla() {
   return [...document.querySelectorAll('#resultados .tarjeta')]
@@ -196,27 +136,30 @@ describe('Presentador de Buscar', () => {
   });
 
   describe('al buscar y filtrar (HU-09)', () => {
-    it('debe actualizar las tarjetas al escribir en el buscador', () => {
+    it('debe actualizar las tarjetas al escribir en el buscador', async () => {
       const buscador = document.getElementById('buscador');
       buscador.value = 'chompa';
       buscador.dispatchEvent(new Event('input'));
+      await esperarCarga();
 
       expect(titulosEnPantalla()).toEqual(['Chompa azul']);
       expect(mensajeEnPantalla()).toBe('1 resultado encontrado');
     });
 
-    it('debe actualizar las tarjetas al cambiar un filtro', () => {
+    it('debe actualizar las tarjetas al cambiar un filtro', async () => {
       const filtro = document.getElementById('filtro-categoria');
       filtro.value = 'Documentos';
       filtro.dispatchEvent(new Event('change'));
+      await esperarCarga();
 
       expect(titulosEnPantalla()).toEqual(['Cuaderno verde', 'Carnet universitario']);
     });
 
-    it('debe avisar cuando no hay resultados', () => {
+    it('debe avisar cuando no hay resultados', async () => {
       const buscador = document.getElementById('buscador');
       buscador.value = 'xyz';
       buscador.dispatchEvent(new Event('input'));
+      await esperarCarga();
 
       expect(titulosEnPantalla()).toEqual([]);
       expect(mensajeEnPantalla()).toBe('No se encontró ningún objeto');

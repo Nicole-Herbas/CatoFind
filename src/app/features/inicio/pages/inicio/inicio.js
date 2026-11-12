@@ -1,9 +1,11 @@
-import { ObjetoService } from '../../services/ObjetoService.js';
+import { obtenerObjetos } from '../../../../api/objetos.js';
+import { AutenticacionApi } from '../../../../api/autenticacion.js';
 
-const service = new ObjetoService();
+const autenticacion = new AutenticacionApi();
 let categoriaActual = 'Todos';
+let objetos = [];
 
-/* ── Helpers ── */
+/* Ã¢â€â‚¬Ã¢â€â‚¬ Helpers Ã¢â€â‚¬Ã¢â€â‚¬ */
 
 function formatFecha(fechaStr) {
   const fecha = new Date(fechaStr + 'T00:00:00');
@@ -55,7 +57,7 @@ function crearTarjeta(objeto) {
   return li;
 }
 
-/* ── Render ── */
+/* Ã¢â€â‚¬Ã¢â€â‚¬ Render Ã¢â€â‚¬Ã¢â€â‚¬ */
 
 function renderTarjetas(objetos) {
   const grid = document.getElementById('objetos-grid');
@@ -77,7 +79,7 @@ function renderTarjetas(objetos) {
 function renderFiltros() {
   const lista = document.getElementById('filtros-lista');
   lista.innerHTML = '';
-  const categorias = ['Todos', ...new Set(service.obtenerTodos().map((objeto) => objeto.categoria))];
+  const categorias = ['Todos', ...new Set(objetos.map((objeto) => objeto.categoria))];
 
   categorias.forEach((cat) => {
     const li = document.createElement('li');
@@ -93,79 +95,55 @@ function renderFiltros() {
   });
 }
 
-/* ── Init ── */
+/* Ã¢â€â‚¬Ã¢â€â‚¬ Init Ã¢â€â‚¬Ã¢â€â‚¬ */
 
 document.addEventListener('DOMContentLoaded', () => {
-  renderFiltros();
-  service.cargarObjetos().then(() => {
-    renderFiltros();
-    renderTarjetas(service.filtrarPorCategoria(categoriaActual));
-  }).catch(() => {
-    const aviso = document.getElementById('objetos-empty');
-    aviso.textContent = 'No se pudieron cargar los objetos.';
-    aviso.hidden = false;
-  });
-
-  // ── Filtros de categoría ──
+  const cargar = async () => {
+    const inputBuscar = document.getElementById('input-buscar');
+    try {
+      objetos = await obtenerObjetos({
+        categoria: categoriaActual,
+        texto: inputBuscar.value.trim()
+      });
+      renderFiltros();
+      renderTarjetas(objetos);
+    } catch {
+      const aviso = document.getElementById('objetos-empty');
+      aviso.textContent = 'No se pudieron cargar los objetos.';
+      aviso.hidden = false;
+    }
+  };
+  cargar();
   document.getElementById('filtros-lista').addEventListener('click', (e) => {
     const btn = e.target.closest('.filtro-btn');
     if (!btn) return;
-
     categoriaActual = btn.dataset.categoria;
-
-    // Actualizar estados visuales
-    document.querySelectorAll('.filtro-btn').forEach((b) => {
-      const isActive = b.dataset.categoria === categoriaActual;
-      b.classList.toggle('filtro-btn--active', isActive);
-      b.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-    });
-
-    renderTarjetas(service.filtrarPorCategoria(categoriaActual));
+    cargar();
   });
 
-  // ── Buscador ──
   const formBuscar = document.getElementById('form-buscar');
   const inputBuscar = document.getElementById('input-buscar');
-
-  function buscar() {
-    const query = inputBuscar.value.trim();
-    // Primero aplica filtro de categoría, luego busca dentro del resultado
-    const base = service.filtrarPorCategoria(categoriaActual);
-    if (!query) {
-      renderTarjetas(base);
-      return;
-    }
-    const resultado = base.filter((o) =>
-      o.titulo.toLowerCase().includes(query.toLowerCase())
-    );
-    renderTarjetas(resultado);
-  }
-
-  // Búsqueda en tiempo real al escribir
-  inputBuscar.addEventListener('input', buscar);
-
-  // Al enviar el formulario (Enter o click en "Buscar"), ir a la página de búsqueda
+  inputBuscar.addEventListener('input', cargar);
   formBuscar.addEventListener('submit', (e) => {
     e.preventDefault();
     const query = inputBuscar.value.trim();
     const destino = '../../../buscar/pages/buscar/buscar.html' + (query ? `?q=${encodeURIComponent(query)}` : '');
     window.location.href = destino;
   });
-
   // Logout
   const btnLogout = document.getElementById('btn-logout');
   if (btnLogout) {
     btnLogout.addEventListener('click', () => {
-      sessionStorage.removeItem('catofind_sesion');
-      window.location.href = '../../../auth/pages/login/login.html';
+      autenticacion.cerrarSesion()
+        .finally(() => { window.location.href = '../../../auth/pages/login/login.html'; });
     });
   }
 
-  // Botón flotante Reportar
+  // BotÃƒÂ³n flotante Reportar
   const btnFab = document.getElementById('btn-reportar-fab');
   if (btnFab) {
     btnFab.addEventListener('click', () => {
-      window.location.href = '../../../recoveryRequest/pages/recoveryRequest.html';
+      window.location.href = '../../../reportar/pages/reportar/reportar.html';
     });
   }
 });

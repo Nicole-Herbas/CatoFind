@@ -19,10 +19,14 @@ describe('Página Inicio - navegación y enlaces', () => {
     expect(link.getAttribute('href')).toBe('../../../buscar/pages/buscar/buscar.html');
   });
 
-  it('debe tener el enlace de reportar apuntando a recoveryRequest.html', () => {
-    const link = pagina.querySelector('#nav-reportar');
-    expect(link).not.toBeNull();
-    expect(link.getAttribute('href')).toBe('../../../recoveryRequest/pages/recoveryRequest.html');
+  it('debe enlazar reportar objetos y solicitar recuperaciones por separado', () => {
+    const enlaceReportar = pagina.querySelector('#nav-reportar');
+    const enlaceRecuperacion = pagina.querySelector('#nav-solicitar-recuperacion');
+
+    expect(enlaceReportar.getAttribute('href'))
+      .toBe('../../../reportar/pages/reportar/reportar.html');
+    expect(enlaceRecuperacion.getAttribute('href'))
+      .toBe('../../../recoveryRequest/pages/recoveryRequest.html');
   });
 
   it('debe tener el enlace de ver todo apuntando a buscar.html', () => {
