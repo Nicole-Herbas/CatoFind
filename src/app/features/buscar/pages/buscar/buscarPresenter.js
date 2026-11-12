@@ -9,7 +9,7 @@ import {
 } from './buscar.js';
 
 
-const servicio = crearBuscador();
+let servicio = crearBuscador();
 const buscador = document.getElementById('buscador');
 const filtroCategoria = document.getElementById('filtro-categoria');
 const filtroLugar = document.getElementById('filtro-lugar');
@@ -113,3 +113,17 @@ resultados.addEventListener('click', (evento) => {
 
 buscador.value = obtenerBusquedaInicial(window.location.search);
 mostrarResultados();
+
+async function cargarObjetos() {
+  try {
+    const respuesta = await fetch('/api/objetos');
+    if (!respuesta.ok) return;
+
+    servicio = crearBuscador(await respuesta.json());
+    mostrarResultados();
+  } catch {
+    // Los datos iniciales mantienen la búsqueda disponible sin conexión.
+  }
+}
+
+cargarObjetos();

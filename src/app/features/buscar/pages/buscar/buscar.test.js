@@ -3,6 +3,7 @@
  */
 import { readFileSync } from 'node:fs';
 import { Objeto } from '../../../../core/models/Objeto.js';
+import { OBJETOS_INICIALES } from '../../../../core/data/datosIniciales.js';
 import { BuscadorService } from '../../services/BuscadorService.js';
 import {
   RUTA_SOLICITUD,
@@ -120,11 +121,16 @@ describe('Buscar - lógica de la pantalla', () => {
 // solo al cargarse la página. En la prueba primero ponemos el HTML y luego
 // cargamos el presentador.
 // ---------------------------------------------------------------------------
-async function abrirPagina(url = '') {
+async function abrirPagina(url = '', objetosApi = OBJETOS_INICIALES) {
+  global.fetch = jest.fn(async () => ({
+    ok: true,
+    json: async () => objetosApi
+  }));
   document.body.innerHTML = html;
   window.history.replaceState({}, '', `/buscar.html${url}`);
   jest.resetModules();
   await import('./buscarPresenter.js');
+  await new Promise(resolve => setTimeout(resolve, 0));
 }
 
 function titulosEnPantalla() {
@@ -142,6 +148,20 @@ describe('Presentador de Buscar', () => {
   });
 
   describe('al abrir la página (HU-07)', () => {
+    it('muestra los objetos que llegan desde la API', async () => {
+      await abrirPagina('', [{
+        id: 42,
+        titulo: 'Objeto desde Supabase',
+        categoria: 'Otros',
+        lugar: 'Patio',
+        fecha: '2026-11-01',
+        imagen: '',
+        estado: 'Publicado'
+      }]);
+
+      expect(titulosEnPantalla()).toEqual(['Objeto desde Supabase']);
+    });
+
     it('debe mostrar solo las tarjetas de objetos publicados', () => {
       expect(titulosEnPantalla()).toEqual([
         'Mochila negra',
