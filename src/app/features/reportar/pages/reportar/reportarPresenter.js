@@ -1,19 +1,6 @@
-
-import {
-  CATEGORIAS,
-  LUGARES
-} from '../../../../core/data/datosIniciales.js';
-
-import {
-  validarInformacion,
-  registrarReporte
-} from './reportar.js';
-
-import {
-  validarArchivoImagen,
-  convertirImagen
-} from './imagen.js';
-
+import { crearApiReportes } from '../../../../api/reportes.js';
+import { validarInformacion } from './reportar.js';
+import { validarArchivoImagen, convertirImagen } from './imagen.js';
 const CAMPOS = [
   'categoria',
   'titulo',
@@ -30,9 +17,9 @@ const PASOS = [
   'confirmacion'
 ];
 
-export function iniciarFormularioReporte(
+export async function iniciarFormularioReporte(
   documento,
-  almacenamiento,
+  apiReportes = crearApiReportes(),
   opciones = {}
 ) {
 
@@ -46,6 +33,7 @@ export function iniciarFormularioReporte(
   let fotografia = '';
   let procesandoFoto = false;
   let enviado = false;
+  let enviando = false;
   let versionFoto = 0;
 
   function cargarOpciones(id, opcionesLista, excluir) {
@@ -63,8 +51,17 @@ export function iniciarFormularioReporte(
       });
   }
 
-  cargarOpciones('categoria', CATEGORIAS, 'Todos');
-  cargarOpciones('lugar', LUGARES, 'Todas');
+  try {
+    const opciones = await apiReportes.obtenerOpciones();
+    cargarOpciones('categoria', opciones.categorias, '');
+    cargarOpciones('lugar', opciones.lugares, '');
+  } catch {
+    const estado = elemento('estado-reporte');
+    estado.textContent = 'No se pudieron cargar las opciones del reporte.';
+    estado.classList.add('reporte-exito--error');
+    estado.hidden = false;
+    return;
+  }
 
   function obtenerDatos() {
     const datos = {};
@@ -288,77 +285,40 @@ export function iniciarFormularioReporte(
       mostrarPaso('foto');
     });
 
-  elemento('form-reportar')
-    .addEventListener('submit', evento => {
+  elemento('form-reportar').addEventListener('submit', async evento => {
+    evento.preventDefault();
+    if (enviado || enviando) return;
 
-      evento.preventDefault();
+    if (!validarPasoInformacion()) {
+      mostrarPaso('informacion');
+      return;
+    }
+    if (!fotografia) {
+      mostrarPaso('foto');
+      mostrarAviso('Agrega una fotografía para continuar.');
+      return;
+    }
 
-      if (enviado) {
-        return;
-      }
+    const estado = elemento('estado-reporte');
+    enviando = true;
+    elemento('enviar-reporte').disabled = true;
 
-      if (!validarPasoInformacion()) {
-        mostrarPaso('informacion');
-        return;
-      }
-
-      if (!fotografia) {
-        mostrarPaso('foto');
-
-        mostrarAviso('Agrega una fotografía para continuar.');
-        return;
-      }
-
-      const estado = elemento('estado-reporte');
-
-      try {
-        const resultado = registrarReporte(
-          obtenerDatos(),
-          almacenamiento,
-          ahora()
-        );
-
-        if (!resultado.ok) {
-
-          mostrarErrores(resultado.errores);
-
-          if (resultado.errores.imagen) {
-            mostrarPaso('foto');
-            mostrarAviso(resultado.errores.imagen);
-          } else {
-            mostrarPaso('informacion');
-          }
-
-          return;
-        }
-
-        enviado = true;
-
-        documento.querySelectorAll('.paso').forEach(paso => {
-          paso.hidden = true;
-        });
-
-        estado.classList.remove('reporte-exito--error');
-
-        estado.textContent =
-          `Reporte #${resultado.reporte.id} enviado correctamente. ` +
-          'Estado: Pendiente de revisión por Bienestar Estudiantil.';
-
-        estado.hidden = false;
-
-        elemento('enviar-reporte').disabled = true;
-
-      } catch (error) {
-
-        estado.classList.add('reporte-exito--error');
-
-        estado.textContent =
-          'No se pudo guardar el reporte. ' +
-          'Verifica el espacio disponible e inténtalo nuevamente.';
-
-        estado.hidden = false;
-      }
-    });
+    try {
+      const reporte = await apiReportes.crear(obtenerDatos());
+      enviado = true;
+      documento.querySelectorAll('.paso').forEach(paso => { paso.hidden = true; });
+      estado.classList.remove('reporte-exito--error');
+      estado.textContent = `Reporte #${reporte.id} enviado correctamente. Estado: Pendiente de revisión por Bienestar Estudiantil.`;
+      estado.hidden = false;
+    } catch (error) {
+      estado.classList.add('reporte-exito--error');
+      estado.textContent = error.message || 'No se pudo guardar el reporte.';
+      estado.hidden = false;
+      elemento('enviar-reporte').disabled = false;
+    } finally {
+      enviando = false;
+    }
+  });
 
   mostrarPaso('informacion');
 }
@@ -367,5 +327,5 @@ if (
   typeof document !== 'undefined' &&
   document.getElementById('form-reportar')
 ) {
-  iniciarFormularioReporte(document, localStorage);
+  iniciarFormularioReporte(document);
 }
