@@ -1,27 +1,18 @@
 
-import {
-  iniciarSesion,
-  mensajeRecuperacion,
-  crearAdministradorDemo,
-  obtenerRutaPostLogin
-} from './login.js';
+import { mensajeRecuperacion, obtenerRutaPostLogin } from './login.js';
+import { AutenticacionApi } from '../../services/AutenticacionApi.js';
 
 
-crearAdministradorDemo(localStorage);
+const autenticacion = new AutenticacionApi();
 const formulario = document.getElementById('login-form');
 const correo = document.getElementById('correo');
 const contrasena = document.getElementById('contrasena');
 const mensaje = document.getElementById('mensaje-error');
 
-formulario.addEventListener('submit', (evento) => {
+formulario.addEventListener('submit', async (evento) => {
   evento.preventDefault();
 
-    const resultado = iniciarSesion(
-    correo.value,
-    contrasena.value,
-    localStorage,
-    sessionStorage
-  );
+  const resultado = await autenticacion.iniciarSesion(correo.value, contrasena.value);
 
   mensaje.textContent = resultado.mensaje;
   mensaje.style.color = resultado.ok ? '#16803d' : '#c62828';

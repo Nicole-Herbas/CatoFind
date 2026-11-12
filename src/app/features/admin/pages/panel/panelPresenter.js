@@ -1,4 +1,3 @@
-
 import {
   verificarAccesoAdministrador,
   obtenerSesion,
@@ -6,13 +5,7 @@ import {
 } from '../../../auth/pages/login/login.js';
 import { iniciarRevisionReportes } from './revisionReportesPresenter.js';
 
-export function iniciarPanel(
-  documento,
-  almacenamientoSesion,
-  acciones,
-  almacenamientoReportes = null
-) {
-
+export function iniciarPanel(documento, almacenamientoSesion, acciones, almacenamientoReportes = null) {
   const acceso = verificarAccesoAdministrador(almacenamientoSesion);
 
   if (!acceso.permitido) {
@@ -22,31 +15,22 @@ export function iniciarPanel(
   }
 
   const usuario = obtenerSesion(almacenamientoSesion);
-
-  documento.getElementById('nombre-admin').textContent =
-    usuario.nombre;
-
+  documento.getElementById('nombre-admin').textContent = usuario.nombre;
   documento.getElementById('panel-contenido').hidden = false;
 
-
   if (almacenamientoReportes) {
-  iniciarRevisionReportes(documento, almacenamientoReportes);
+    iniciarRevisionReportes(documento, almacenamientoReportes);
+  }
+
+  documento.getElementById('cerrar-sesion').addEventListener('click', () => {
+    cerrarSesion(almacenamientoSesion);
+    acciones.irAlLogin();
+  });
 }
 
-  documento.getElementById('cerrar-sesion')
-    .addEventListener('click', () => {
-      cerrarSesion(almacenamientoSesion);
-      acciones.irAlLogin();
-    });
-}
-
-// Ejecucion en el navegador
-if (
-  typeof document !== 'undefined' &&
-  document.getElementById('panel-contenido')
-) {
+if (typeof document !== 'undefined' && document.getElementById('panel-contenido')) {
   iniciarPanel(document, sessionStorage, {
-  avisar: texto => window.alert(texto),
-  irAlLogin: () => window.location.assign('/login.html')
-}, localStorage);
+    avisar: texto => window.alert(texto),
+    irAlLogin: () => window.location.assign('../../../auth/pages/login/login.html')
+  }, localStorage);
 }
