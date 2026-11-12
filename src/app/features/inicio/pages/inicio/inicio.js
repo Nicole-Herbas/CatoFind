@@ -1,7 +1,5 @@
 import { ObjetoService } from '../../services/ObjetoService.js';
 
-const CATEGORIAS = ['Todos', 'Electrónica', 'Ropa', 'Documentos', 'Mascotas', 'Accesorios', 'Otros'];
-
 const service = new ObjetoService();
 let categoriaActual = 'Todos';
 
@@ -79,8 +77,9 @@ function renderTarjetas(objetos) {
 function renderFiltros() {
   const lista = document.getElementById('filtros-lista');
   lista.innerHTML = '';
+  const categorias = ['Todos', ...new Set(service.obtenerTodos().map((objeto) => objeto.categoria))];
 
-  CATEGORIAS.forEach((cat) => {
+  categorias.forEach((cat) => {
     const li = document.createElement('li');
     const btn = document.createElement('button');
     btn.type = 'button';
@@ -98,7 +97,14 @@ function renderFiltros() {
 
 document.addEventListener('DOMContentLoaded', () => {
   renderFiltros();
-  renderTarjetas(service.obtenerTodos());
+  service.cargarObjetos().then(() => {
+    renderFiltros();
+    renderTarjetas(service.filtrarPorCategoria(categoriaActual));
+  }).catch(() => {
+    const aviso = document.getElementById('objetos-empty');
+    aviso.textContent = 'No se pudieron cargar los objetos.';
+    aviso.hidden = false;
+  });
 
   // ── Filtros de categoría ──
   document.getElementById('filtros-lista').addEventListener('click', (e) => {

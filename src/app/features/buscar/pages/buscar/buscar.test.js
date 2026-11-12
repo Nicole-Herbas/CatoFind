@@ -16,10 +16,18 @@ import {
 
 const html = readFileSync('src/app/features/buscar/pages/buscar/buscar.html', 'utf8');
 const hoy = new Date('2026-10-21T12:00:00');
+const OBJETOS_DE_PRUEBA = [
+  { id: 1, titulo: 'Mochila negra', categoria: 'Accesorios', lugar: 'Biblioteca', fecha: '2026-10-08', estado: 'Publicado' },
+  { id: 2, titulo: 'Chompa azul', categoria: 'Ropa', lugar: 'Cafetería', fecha: '2026-10-05', estado: 'Publicado' },
+  { id: 3, titulo: 'Cuaderno verde', categoria: 'Documentos', lugar: 'Laboratorio', fecha: '2026-09-30', estado: 'Publicado' },
+  { id: 4, titulo: 'Audífonos Sony', categoria: 'Electrónica', lugar: 'Bloque A', fecha: '2026-10-12', estado: 'Publicado' },
+  { id: 5, titulo: 'Carnet universitario', categoria: 'Documentos', lugar: 'Bloque B', fecha: '2026-10-15', estado: 'Publicado' },
+  { id: 6, titulo: 'Calculadora', categoria: 'Electrónica', lugar: 'Bloque A', fecha: '2026-10-18', estado: 'En revisión' }
+];
 
 function crearServicio() {
   return new BuscadorService([
-    new Objeto({ id: 1, titulo: 'Mochila negra', categoria: 'Accesorios', lugar: 'Biblioteca',
+    new Objeto({ id: 1, reporteId: 14, titulo: 'Mochila negra', categoria: 'Accesorios', lugar: 'Biblioteca',
       fecha: '2026-10-19', imagen: '', estado: 'Publicado' }),
     new Objeto({ id: 2, titulo: 'Chompa azul', categoria: 'Ropa', lugar: 'Cafetería',
       fecha: '2026-10-05', imagen: '', estado: 'Publicado' }),
@@ -69,8 +77,8 @@ describe('Página Buscar - estructura', () => {
 // Lógica de la pantalla (buscar.js): sin DOM
 // ---------------------------------------------------------------------------
 describe('Buscar - lógica de la pantalla', () => {
-  it('debe crear el buscador con los objetos iniciales por defecto', () => {
-    expect(crearBuscador().obtenerPublicados().length).toBeGreaterThan(0);
+  it('debe crear el buscador sin objetos locales por defecto', () => {
+    expect(crearBuscador().obtenerPublicados()).toEqual([]);
   });
 
   it('debe dar las opciones de los filtros', () => {
@@ -105,8 +113,9 @@ describe('Buscar - lógica de la pantalla', () => {
   it('debe preparar el detalle de un objeto publicado', () => {
     expect(datosDetalle(crearServicio(), '1')).toEqual({
       titulo: 'Mochila negra',
+      reporteId: 14,
       lineas: ['Categoría: Accesorios', 'Lugar: Biblioteca', 'Fecha: 2026-10-19'],
-      rutaSolicitud: RUTA_SOLICITUD,
+      rutaSolicitud: `${RUTA_SOLICITUD}?reporteId=14`,
     });
   });
 
@@ -120,11 +129,16 @@ describe('Buscar - lógica de la pantalla', () => {
 // solo al cargarse la página. En la prueba primero ponemos el HTML y luego
 // cargamos el presentador.
 // ---------------------------------------------------------------------------
-async function abrirPagina(url = '') {
+async function abrirPagina(url = '', objetosApi = OBJETOS_DE_PRUEBA) {
+  global.fetch = jest.fn(async () => ({
+    ok: true,
+    json: async () => objetosApi
+  }));
   document.body.innerHTML = html;
   window.history.replaceState({}, '', `/buscar.html${url}`);
   jest.resetModules();
   await import('./buscarPresenter.js');
+  await new Promise(resolve => setTimeout(resolve, 0));
 }
 
 function titulosEnPantalla() {
@@ -142,6 +156,20 @@ describe('Presentador de Buscar', () => {
   });
 
   describe('al abrir la página (HU-07)', () => {
+    it('muestra los objetos que llegan desde la API', async () => {
+      await abrirPagina('', [{
+        id: 42,
+        titulo: 'Objeto desde Supabase',
+        categoria: 'Otros',
+        lugar: 'Patio',
+        fecha: '2026-11-01',
+        imagen: '',
+        estado: 'Publicado'
+      }]);
+
+      expect(titulosEnPantalla()).toEqual(['Objeto desde Supabase']);
+    });
+
     it('debe mostrar solo las tarjetas de objetos publicados', () => {
       expect(titulosEnPantalla()).toEqual([
         'Mochila negra',

@@ -1,14 +1,16 @@
 import { BuscadorService } from '../../services/BuscadorService.js';
-import { CATEGORIAS, LUGARES, OBJETOS_INICIALES } from '../../../../core/data/datosIniciales.js';
 
 export const RUTA_SOLICITUD = '../../../recoveryRequest/pages/recoveryRequest.html';
 
-export function crearBuscador(objetos = OBJETOS_INICIALES) {
+export function crearBuscador(objetos = []) {
   return new BuscadorService(objetos);
 }
 
-export function opcionesDeFiltros() {
-  return { categorias: CATEGORIAS, lugares: LUGARES };
+export function opcionesDeFiltros(objetos = []) {
+  return {
+    categorias: ['Todos', ...new Set(objetos.map((objeto) => objeto.categoria).filter(Boolean))],
+    lugares: ['Todas', ...new Set(objetos.map((objeto) => objeto.lugar).filter(Boolean))]
+  };
 }
 
 export function obtenerBusquedaInicial(textoUrl) {
@@ -37,11 +39,14 @@ export function datosDetalle(servicio, id) {
 
   return {
     titulo: objeto.titulo,
+    reporteId: objeto.reporteId,
     lineas: [
       `Categoría: ${objeto.categoria}`,
       `Lugar: ${objeto.lugar}`,
       `Fecha: ${objeto.fecha}`,
     ],
-    rutaSolicitud: RUTA_SOLICITUD,
+    rutaSolicitud: objeto.reporteId
+      ? `${RUTA_SOLICITUD}?reporteId=${encodeURIComponent(objeto.reporteId)}`
+      : RUTA_SOLICITUD,
   };
 }
