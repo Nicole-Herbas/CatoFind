@@ -3,38 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Recueración</title>
+    <meta name="theme-color" content="#f6f9fc">
+    <title>CatoFind | Solicitar recuperación</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./recoveryRequest.css">
 </head>
 <body>
-    
-    <main>
-        <h2>Pregutas de verificación</h2>
-        <form class="recoveryForm" novalidate>
-            <label>¿Dónde crees que perdiste el objeto?</label>
-            <select id="locations" required aria-describedby="extraDescriptionError">
-                <option value="">Selecciona un lugar</option>
-                <option value="biblioteca">Biblioteca</option>
-                <option value="cafeteria">Cafetería</option>
-                <option value="bloqueA">Bloque A</option>
-                <option value="bloqueB">Bloque B</option>
-                <option value="auditorio">Auditorio</option>
-                <option value="estacionamiento">Estacionamiento</option>
-                <option value="patio">Patio</option>
-                <option value="laboratorio">Laboratorio</option>
-                <option value="administracion">Administración</option>
-            </select>
+    <header class="navbar">
+        <a class="navbar__brand" href="../../inicio/pages/inicio/inicio.html" aria-label="CatoFind, inicio">
+            <span class="navbar__logo" aria-hidden="true">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <circle cx="16" cy="16" r="16" fill="#1a2e7a"/>
+                    <path d="M10 16a6 6 0 1 1 12 0A6 6 0 0 1 10 16z" fill="none" stroke="#f5c518" stroke-width="2.5"/>
+                    <path d="M20 20l4 4" stroke="#f5c518" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+            </span>
+            <span class="navbar__brand-text">
+                <span class="navbar__brand-name">CATO FIND</span>
+                <span class="navbar__brand-sub">UCB Cochabamba</span>
+            </span>
+        </a>
 
-            <label>¿Cuándo aproximadamente lo perdiste?</label>
-            <input id="dateLost" type="date" required aria-describedby="extraDescriptionError">
+        <nav class="navbar__links" aria-label="Navegación principal">
+            <a href="../../inicio/pages/inicio/inicio.html" class="navbar__link">Inicio</a>
+            <a href="../../buscar/pages/buscar/buscar.html" class="navbar__link">Buscar</a>
+            <a href="./recoveryRequest.html" class="navbar__link navbar__link--active" aria-current="page">Reportar</a>
+            <a href="#" class="navbar__link">Mis reportes</a>
+        </nav>
+    </header>
 
-            <label>Describe una característica que no aparece en la publicación.</label>
-            <textarea id="extraDescriptionObject" placeholder="Ej. En la manga de la chompa esta costurado" required aria-describedby="extraDescriptionError"></textarea>
-            <p id="extraDescriptionError" class="error-message" role="alert" hidden></p>
+    <main class="recovery">
+        <div class="recovery__contenido">
+            <header class="recovery__encabezado">
+                <h1>Solicitar recuperación</h1>
+                <p>Cuéntanos algunos detalles para verificar que el objeto te pertenece.</p>
+            </header>
 
-            <button id="sendRequest" class="btn-sendRequest">Enviar Solicitud</button>
-        </form>
+            <form class="recoveryForm" novalidate>
+                <div class="recovery__campo">
+                    <label for="locations">¿Dónde crees que perdiste el objeto?</label>
+                    <select id="locations" required aria-describedby="extraDescriptionError">
+                        <option value="">Selecciona una zona del campus...</option>
+                        <option value="biblioteca">Biblioteca</option>
+                        <option value="cafeteria">Cafetería</option>
+                        <option value="bloqueA">Bloque A</option>
+                        <option value="bloqueB">Bloque B</option>
+                        <option value="auditorio">Auditorio</option>
+                        <option value="estacionamiento">Estacionamiento</option>
+                        <option value="patio">Patio</option>
+                        <option value="laboratorio">Laboratorio</option>
+                        <option value="administracion">Administración</option>
+                    </select>
+                </div>
+
+                <div class="recovery__campo">
+                    <label for="dateLost">¿Cuándo aproximadamente lo perdiste?</label>
+                    <input id="dateLost" type="date" required aria-describedby="extraDescriptionError">
+                </div>
+
+                <div class="recovery__campo">
+                    <label for="extraDescriptionObject">Describe una característica que no aparece en la publicación.</label>
+                    <textarea
+                        id="extraDescriptionObject"
+                        placeholder="Ej. Tiene una costura en la manga"
+                        required
+                        aria-describedby="extraDescriptionError"
+                    ></textarea>
+                </div>
+
+                <p id="extraDescriptionError" class="recovery__error" role="alert" hidden></p>
+
+                <div class="recovery__acciones">
+                    <button id="sendRequest" class="btn-sendRequest" type="submit">Enviar solicitud</button>
+                </div>
+            </form>
+        </div>
     </main>
-
 
     <script type="module" src="./presenter.js"></script>
 </body>

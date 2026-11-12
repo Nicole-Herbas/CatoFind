@@ -33,7 +33,7 @@ export default class Validador{
             && this.validarAreaTexto(documento);
     }
 
-    static Message(error) {
+    static showMessageWhen(error) {
         switch(error){
             case 'Lugar_invalido':
                 return 'El lugar seleccionado es inexistente';
@@ -44,7 +44,7 @@ export default class Validador{
         }
     }
 
-    Message(error){
-        return Validador.Message(error);
+    showMessageWhen(error){
+        return Validador.showMessageWhen(error);
     }
 }

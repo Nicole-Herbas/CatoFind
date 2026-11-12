@@ -38,6 +38,7 @@ describe('Estilos del login', () => {
     );
 
     expect(html).toContain('href="./login.css"');
+
     expect(css).toContain('display: grid;');
     expect(css).toContain('grid-template-columns: 1fr 1fr;');
     expect(css).toContain('min-height: 100vh;');

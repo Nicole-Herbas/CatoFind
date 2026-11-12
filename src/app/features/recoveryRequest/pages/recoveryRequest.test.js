@@ -7,7 +7,7 @@ describe('Validar campos del formulario', ()=>{
         };
 
         expect(Validador.validarLugar(documento)).toBe(false);
-        expect(Validador.Message('Lugar_invalido')).toBe('El lugar seleccionado es inexistente');
+        expect(Validador.showMessageWhen('Lugar_invalido')).toBe('El lugar seleccionado es inexistente');
     });
 
     it('rechaza el área de texto vacía y devuelve su mensaje de error', ()=>{
@@ -16,7 +16,7 @@ describe('Validar campos del formulario', ()=>{
         };
 
         expect(Validador.validarAreaTexto(documento)).toBe(false);
-        expect(Validador.Message('Area_Vacia')).toBe('Es obligatorio describir caracteristicas del objeto');
+        expect(Validador.showMessageWhen('Area_Vacia')).toBe('Es obligatorio describir caracteristicas del objeto');
     });
 
     it('acepta el área de texto cuando contiene una característica', ()=>{
@@ -49,6 +49,6 @@ describe('Validar campos del formulario', ()=>{
             expect(Validador.validarCampos(documento)).toBe(false);
         });
 
-        expect(Validador.Message('Campos_Vacios')).toBe('Todos los campos deben de estar llenados');
+        expect(Validador.showMessageWhen('Campos_Vacios')).toBe('Todos los campos deben de estar llenados');
     });
 });
