@@ -1,4 +1,5 @@
 node_modules
+AGENTS.md
 .cache
 dist
 .parcel-cache
@@ -8,6 +9,9 @@ report.json
 script/report.json
 script/commit-history.json
 script/tdd_log.json
+.env
+.env.*
+!.env.example
 ./.husky/_
 .husky/.commit-state
 script/commit-history.json

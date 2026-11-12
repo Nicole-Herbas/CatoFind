@@ -1,11 +1,11 @@
 export class ObjetoPublicadoDto {
-  constructor({ id, titulo, categoria, lugar, fecha, imagen, estado }) {
-    this.id = id;
-    this.titulo = titulo;
-    this.categoria = categoria;
-    this.lugar = lugar;
-    this.fecha = fecha;
-    this.imagen = imagen;
-    this.estado = estado;
+  constructor(reporte) {
+    this.id = reporte.objeto.id;
+    this.titulo = reporte.objeto.nombre;
+    this.categoria = reporte.objeto.categoria;
+    this.lugar = reporte.lugar;
+    this.fecha = reporte.fecha;
+    this.imagen = reporte.objeto.foto;
+    this.estado = 'Publicado';
   }
 }

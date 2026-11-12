@@ -5,10 +5,7 @@ export function crearServicioObjetos(repositorio) {
     async listarPublicados() {
       const reportes = await repositorio.listarReportes();
       const aprobados = reportes.filter(reporte => reporte.estado === 'APROBADO');
-      return aprobados.map(reporte => new ObjetoPublicadoDto({
-        ...reporte,
-        estado: 'Publicado'
-      }));
+      return aprobados.map(reporte => new ObjetoPublicadoDto(reporte));
     }
   };
 }
