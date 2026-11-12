@@ -11,47 +11,37 @@ body {
 }
 
 .navbar {
-  background: white;
-  border-bottom: 2px solid #ffc400;
-  padding: 14px 5%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 20px;
+  gap: 40px;
+  padding: 14px 8%;
+  background: #ffffff;
+  border-bottom: 2px solid #f2c230;
 }
 
-.navbar__marca {
-  display: flex;
-  flex-direction: column;
-  color: #0b3979;
-}
+.navbar__marca strong { color: #0b3979; font-size: 20px; }
 
-.navbar__marca span {
-  color: #e4a900;
-}
+.navbar__marca span { color: #f2c230; }
 
-.navbar__marca small {
-  font-size: 10px;
-}
+.navbar__marca small { display: block; font-size: 10px; letter-spacing: 2px; color: #24518f; }
 
 .navbar nav {
   display: flex;
-  align-items: center;
-  gap: 12px;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .navbar nav a {
-  padding: 9px 16px;
-  border-radius: 30px;
+  padding: 8px 18px;
+  border-radius: 20px;
+  color: #4a5568;
   text-decoration: none;
-  color: #3d4d62;
-  font-size: 13px;
 }
 
-.navbar nav a.activo {
-  background: #e8efff;
+.navbar nav a.navbar__activo {
+  background: #e8effc;
   color: #0b3979;
-  border-bottom: 2px solid #ffc400;
+  border-bottom: 2px solid #f2c230;
 }
 
 .contenedor {
@@ -356,7 +346,13 @@ body {
   }
 
   .navbar {
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .navbar nav {
+    justify-content: center;
+    gap: 4px;
   }
 
   .pasos {
