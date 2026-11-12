@@ -1,89 +1,27 @@
-import { ObjetoService } from '../services/ObjetoService.js';
+﻿import { ObjetoService } from '../services/ObjetoService.js';
+
+const publicados = [
+  { id: 10, titulo: 'Mochila azul', categoria: 'Accesorios', lugar: 'Biblioteca', fecha: '2026-11-01', estado: 'Publicado' },
+  { id: 11, titulo: 'Chompa roja', categoria: 'Ropa', lugar: 'Patio', fecha: '2026-11-02', estado: 'Publicado' }
+];
 
 describe('ObjetoService', () => {
-  it('carga los objetos publicados desde la API', async () => {
-    const respuesta = [{
-      id: 10,
-      titulo: 'Mochila azul',
-      categoria: 'Accesorios',
-      lugar: 'Biblioteca',
-      fecha: '2026-11-01',
-      imagen: 'mochila.jpg',
-      estado: 'Publicado'
-    }];
-    const solicitar = jest.fn(async () => ({
-      ok: true,
-      json: async () => respuesta
-    }));
+  it('empieza sin objetos locales y carga los publicados desde la API', async () => {
+    const solicitar = jest.fn(async () => ({ ok: true, json: async () => publicados }));
     const service = new ObjetoService(solicitar);
+    expect(service.obtenerTodos()).toEqual([]);
 
     await service.cargarObjetos();
 
     expect(solicitar).toHaveBeenCalledWith('/api/objetos');
-    expect(service.obtenerTodos()).toEqual(respuesta);
+    expect(service.obtenerTodos()).toEqual(publicados);
+    expect(service.filtrarPorCategoria('Ropa').map((objeto) => objeto.id)).toEqual([11]);
+    expect(service.buscarPorTitulo('MOCHILA').map((objeto) => objeto.id)).toEqual([10]);
   });
 
-  it('mantiene los ejemplos si la API no está disponible', async () => {
+  it('no muestra ejemplos locales cuando falla la API', async () => {
     const service = new ObjetoService(async () => ({ ok: false }));
-    const ejemplos = service.obtenerTodos();
-
-    await service.cargarObjetos();
-
-    expect(service.obtenerTodos()).toEqual(ejemplos);
-  });
-
-  it('debe retornar todos los objetos', () => {
-    const service = new ObjetoService();
-    const objetos = service.obtenerTodos();
-    expect(objetos.length).toBeGreaterThan(0);
-  });
-
-  it('cada objeto debe tener las propiedades requeridas', () => {
-    const service = new ObjetoService();
-    const objetos = service.obtenerTodos();
-    objetos.forEach((obj) => {
-      expect(obj).toHaveProperty('id');
-      expect(obj).toHaveProperty('titulo');
-      expect(obj).toHaveProperty('categoria');
-      expect(obj).toHaveProperty('estado');
-    });
-  });
-
-  it('debe filtrar objetos por categoría', () => {
-    const service = new ObjetoService();
-    const ropa = service.filtrarPorCategoria('Ropa');
-    expect(ropa.length).toBeGreaterThan(0);
-    expect(ropa.every((o) => o.categoria === 'Ropa')).toBe(true);
-  });
-
-  it('debe retornar todos cuando la categoría es Todos', () => {
-    const service = new ObjetoService();
-    const todos = service.filtrarPorCategoria('Todos');
-    expect(todos.length).toBe(service.obtenerTodos().length);
-  });
-
-  it('debe retornar lista vacía si la categoría no existe', () => {
-    const service = new ObjetoService();
-    const resultado = service.filtrarPorCategoria('CategoriaInexistente');
-    expect(resultado.length).toBe(0);
-  });
-
-  it('debe buscar objetos por título (case insensitive)', () => {
-    const service = new ObjetoService();
-    const resultado = service.buscarPorTitulo('mochila');
-    expect(resultado.length).toBeGreaterThan(0);
-    expect(resultado[0].titulo.toLowerCase()).toContain('mochila');
-  });
-
-  it('debe retornar todos los objetos si la búsqueda está vacía', () => {
-    const service = new ObjetoService();
-    const resultado = service.buscarPorTitulo('');
-    expect(resultado.length).toBe(service.obtenerTodos().length);
-  });
-
-  it('debe retornar lista vacía si no hay coincidencias', () => {
-    const service = new ObjetoService();
-    const resultado = service.buscarPorTitulo('xyzabcnoexiste');
-    expect(resultado.length).toBe(0);
+    await expect(service.cargarObjetos()).rejects.toThrow('No se pudieron cargar los objetos.');
+    expect(service.obtenerTodos()).toEqual([]);
   });
 });

@@ -13,7 +13,11 @@ const repositorio = crearRepositorioObjetos(supabase);
 const usuarios = crearUsuarios(supabase);
 const repositorioSolicitudes = crearRepositorioSolicitudes(supabase);
 const servicioSolicitudes = crearSolicitudesRecuperacion(supabase, repositorioSolicitudes);
-const servicioAutenticacion = crearServicioAutenticacion(supabase, usuarios);
+const servicioAutenticacion = crearServicioAutenticacion(
+  supabase,
+  usuarios,
+  () => crearClienteSupabase(process.env, createClient)
+);
 const servicio = crearServicioObjetos(repositorio);
 const app = crearApp(servicio, servicioAutenticacion, servicioSolicitudes);
 const port = process.env.PORT || 3000;

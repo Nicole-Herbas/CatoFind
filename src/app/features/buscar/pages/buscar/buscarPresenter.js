@@ -1,4 +1,4 @@
-
+﻿
 import {
   crearBuscador,
   opcionesDeFiltros,
@@ -27,6 +27,7 @@ function crearElemento(etiqueta, clase, texto = '') {
 }
 
 function llenarSelect(select, opciones) {
+  select.replaceChildren();
   opciones.forEach((opcion) => {
     const option = document.createElement('option');
     option.value = opcion;
@@ -112,17 +113,20 @@ resultados.addEventListener('click', (evento) => {
 });
 
 buscador.value = obtenerBusquedaInicial(window.location.search);
-mostrarResultados();
+mensaje.textContent = 'Cargando objetos...';
 
 async function cargarObjetos() {
   try {
     const respuesta = await fetch('/api/objetos');
-    if (!respuesta.ok) return;
+    if (!respuesta.ok) throw new Error('No se pudieron cargar los objetos.');
 
     servicio = crearBuscador(await respuesta.json());
+    const filtros = opcionesDeFiltros(servicio.obtenerPublicados());
+    llenarSelect(filtroCategoria, filtros.categorias);
+    llenarSelect(filtroLugar, filtros.lugares);
     mostrarResultados();
   } catch {
-    // Los datos iniciales mantienen la búsqueda disponible sin conexión.
+    mensaje.textContent = 'No se pudieron cargar los objetos.';
   }
 }
 

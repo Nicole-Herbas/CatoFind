@@ -12,14 +12,7 @@ const mensaje = document.getElementById('mensaje-error');
 formulario.addEventListener('submit', async (evento) => {
   evento.preventDefault();
 
-  let resultado = await autenticacion.iniciarSesion(correo.value, contrasena.value);
-
-  if (!resultado.ok) {
-    resultado = await autenticacion.migrarCuentaAnterior(
-      correo.value,
-      contrasena.value
-    ) ?? resultado;
-  }
+  const resultado = await autenticacion.iniciarSesion(correo.value, contrasena.value);
 
   mensaje.textContent = resultado.mensaje;
   mensaje.style.color = resultado.ok ? '#16803d' : '#c62828';

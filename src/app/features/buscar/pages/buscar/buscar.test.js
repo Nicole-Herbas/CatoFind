@@ -3,7 +3,6 @@
  */
 import { readFileSync } from 'node:fs';
 import { Objeto } from '../../../../core/models/Objeto.js';
-import { OBJETOS_INICIALES } from '../../../../core/data/datosIniciales.js';
 import { BuscadorService } from '../../services/BuscadorService.js';
 import {
   RUTA_SOLICITUD,
@@ -17,6 +16,14 @@ import {
 
 const html = readFileSync('src/app/features/buscar/pages/buscar/buscar.html', 'utf8');
 const hoy = new Date('2026-10-21T12:00:00');
+const OBJETOS_DE_PRUEBA = [
+  { id: 1, titulo: 'Mochila negra', categoria: 'Accesorios', lugar: 'Biblioteca', fecha: '2026-10-08', estado: 'Publicado' },
+  { id: 2, titulo: 'Chompa azul', categoria: 'Ropa', lugar: 'Cafetería', fecha: '2026-10-05', estado: 'Publicado' },
+  { id: 3, titulo: 'Cuaderno verde', categoria: 'Documentos', lugar: 'Laboratorio', fecha: '2026-09-30', estado: 'Publicado' },
+  { id: 4, titulo: 'Audífonos Sony', categoria: 'Electrónica', lugar: 'Bloque A', fecha: '2026-10-12', estado: 'Publicado' },
+  { id: 5, titulo: 'Carnet universitario', categoria: 'Documentos', lugar: 'Bloque B', fecha: '2026-10-15', estado: 'Publicado' },
+  { id: 6, titulo: 'Calculadora', categoria: 'Electrónica', lugar: 'Bloque A', fecha: '2026-10-18', estado: 'En revisión' }
+];
 
 function crearServicio() {
   return new BuscadorService([
@@ -70,8 +77,8 @@ describe('Página Buscar - estructura', () => {
 // Lógica de la pantalla (buscar.js): sin DOM
 // ---------------------------------------------------------------------------
 describe('Buscar - lógica de la pantalla', () => {
-  it('debe crear el buscador con los objetos iniciales por defecto', () => {
-    expect(crearBuscador().obtenerPublicados().length).toBeGreaterThan(0);
+  it('debe crear el buscador sin objetos locales por defecto', () => {
+    expect(crearBuscador().obtenerPublicados()).toEqual([]);
   });
 
   it('debe dar las opciones de los filtros', () => {
@@ -122,7 +129,7 @@ describe('Buscar - lógica de la pantalla', () => {
 // solo al cargarse la página. En la prueba primero ponemos el HTML y luego
 // cargamos el presentador.
 // ---------------------------------------------------------------------------
-async function abrirPagina(url = '', objetosApi = OBJETOS_INICIALES) {
+async function abrirPagina(url = '', objetosApi = OBJETOS_DE_PRUEBA) {
   global.fetch = jest.fn(async () => ({
     ok: true,
     json: async () => objetosApi

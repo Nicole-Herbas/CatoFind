@@ -4,7 +4,7 @@ function crearError(mensaje, codigo) {
   return error;
 }
 
-export function crearServicioAutenticacion(supabase, usuarios) {
+export function crearServicioAutenticacion(supabase, usuarios, crearClienteSesion = () => supabase) {
   return {
     async registrarEstudiante({ nombre, correo, contrasena }) {
       const nombreLimpio = String(nombre ?? '').trim();
@@ -47,7 +47,7 @@ export function crearServicioAutenticacion(supabase, usuarios) {
         throw crearError('Ingresa un correo institucional UCB.', 'VALIDACION');
       }
 
-      const { data, error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await crearClienteSesion().auth.signInWithPassword({
         email: correoNormalizado,
         password: String(contrasena ?? '')
       });

@@ -1,5 +1,5 @@
 export class SolicitudesApi {
-  constructor(solicitar = globalThis.fetch, almacenamientoSesion = globalThis.sessionStorage) {
+  constructor(solicitar = globalThis.fetch.bind(globalThis), almacenamientoSesion = globalThis.sessionStorage) {
     this.solicitar = solicitar;
     this.almacenamientoSesion = almacenamientoSesion;
   }

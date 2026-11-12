@@ -100,6 +100,30 @@ describe('autenticación de estudiantes', () => {
     expect(usuarios.obtenerPorAuthUid).toHaveBeenCalledWith('auth-1');
   });
 
+  it('inicia sesión con un cliente aislado y consulta el perfil con el repositorio administrativo', async () => {
+    const administrativo = { auth: { signInWithPassword: jest.fn() } };
+    const autenticacion = { auth: { signInWithPassword: jest.fn(async () => ({
+      data: { user: { id: 'auth-2' }, session: { access_token: 'token-2' } },
+      error: null
+    })) } };
+    const crearClienteAutenticacion = jest.fn(() => autenticacion);
+    const usuarios = { obtenerPorAuthUid: jest.fn(async () => ({
+      nombre: 'Ana', correo_institucional: 'ana@ucb.edu.bo', rol: 'ESTUDIANTE'
+    })) };
+
+    const resultado = await crearServicioAutenticacion(
+      administrativo, usuarios, crearClienteAutenticacion
+    ).iniciarSesion({ correo: 'ana@ucb.edu.bo', contrasena: 'clave' });
+
+    expect(crearClienteAutenticacion).toHaveBeenCalledTimes(1);
+    expect(autenticacion.auth.signInWithPassword).toHaveBeenCalledWith({
+      email: 'ana@ucb.edu.bo', password: 'clave'
+    });
+    expect(administrativo.auth.signInWithPassword).not.toHaveBeenCalled();
+    expect(usuarios.obtenerPorAuthUid).toHaveBeenCalledWith('auth-2');
+    expect(resultado.accessToken).toBe('token-2');
+  });
+
   it('rechaza el inicio de sesión con correos fuera del dominio UCB', async () => {
     const supabase = { auth: { signInWithPassword: jest.fn() } };
     const servicio = crearServicioAutenticacion(supabase, {});

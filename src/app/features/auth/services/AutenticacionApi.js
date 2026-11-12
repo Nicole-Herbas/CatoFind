@@ -1,5 +1,5 @@
-export class AutenticacionApi {
-  constructor(solicitar = globalThis.fetch, almacenamientoSesion = globalThis.sessionStorage) {
+﻿export class AutenticacionApi {
+  constructor(solicitar = globalThis.fetch.bind(globalThis), almacenamientoSesion = globalThis.sessionStorage) {
     this.solicitar = solicitar;
     this.almacenamientoSesion = almacenamientoSesion;
   }
@@ -58,46 +58,4 @@ export class AutenticacionApi {
     }
   }
 
-  async migrarCuentaAnterior(correo, contrasena, almacenamiento = globalThis.localStorage) {
-    let usuarios;
-
-    try {
-      usuarios = JSON.parse(almacenamiento.getItem('catofind_usuarios') || '[]');
-    } catch {
-      return null;
-    }
-
-    if (!Array.isArray(usuarios)) return null;
-
-    const correoNormalizado = String(correo ?? '').trim().toLowerCase();
-    const usuarioAnterior = usuarios.find(usuario =>
-      usuario.correo?.trim().toLowerCase() === correoNormalizado &&
-      usuario.contrasena === contrasena &&
-      usuario.rol !== 'ADMIN' &&
-      usuario.rol !== 'ADMINISTRATIVO'
-    );
-
-    if (!usuarioAnterior) return null;
-
-    const registro = await this.registrarEstudiante({
-      nombre: usuarioAnterior.nombre,
-      apellido: usuarioAnterior.apellido,
-      correo: usuarioAnterior.correo,
-      contrasena,
-      confirmarContrasena: contrasena
-    });
-
-    if (!registro.ok) return null;
-
-    const sesion = await this.iniciarSesion(correoNormalizado, contrasena);
-    if (!sesion.ok) return null;
-
-    try {
-      almacenamiento.setItem('catofind_usuarios', JSON.stringify(
-        usuarios.filter(usuario => usuario !== usuarioAnterior)
-      ));
-    } catch {}
-
-    return sesion;
-  }
 }
