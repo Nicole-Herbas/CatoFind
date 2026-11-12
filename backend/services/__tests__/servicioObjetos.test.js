@@ -16,6 +16,7 @@ describe('servicio de objetos', () => {
 
     expect(objetos).toEqual([{
       id: 1,
+      reporteId: 1,
       titulo: 'Mochila negra',
       categoria: 'Accesorios',
       lugar: 'Biblioteca',
@@ -47,6 +48,7 @@ describe('servicio de objetos', () => {
 
     expect(objetos).toEqual([{
       id: 2,
+      reporteId: 4,
       titulo: 'Mochila negra',
       categoria: 'Accesorios',
       imagen: 'mochila.jpg',

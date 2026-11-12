@@ -37,11 +37,14 @@ export function datosDetalle(servicio, id) {
 
   return {
     titulo: objeto.titulo,
+    reporteId: objeto.reporteId,
     lineas: [
       `Categoría: ${objeto.categoria}`,
       `Lugar: ${objeto.lugar}`,
       `Fecha: ${objeto.fecha}`,
     ],
-    rutaSolicitud: RUTA_SOLICITUD,
+    rutaSolicitud: objeto.reporteId
+      ? `${RUTA_SOLICITUD}?reporteId=${encodeURIComponent(objeto.reporteId)}`
+      : RUTA_SOLICITUD,
   };
 }

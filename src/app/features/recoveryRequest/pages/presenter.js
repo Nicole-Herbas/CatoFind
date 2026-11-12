@@ -1,14 +1,16 @@
 import Validador from './recoveryRequest.js';
+import { SolicitudesApi } from '../services/SolicitudesApi.js';
 
 const formulario = document.querySelector('.recoveryForm');
 const campoDescripcion = document.getElementById('extraDescriptionObject');
 const mensajeError = document.getElementById('extraDescriptionError');
+const solicitudes = new SolicitudesApi();
 
 if (!formulario || !campoDescripcion || !mensajeError) {
   throw new Error('No se encontraron los elementos requeridos del formulario de recuperación.');
 }
 
-formulario.addEventListener('submit', (evento) => {
+formulario.addEventListener('submit', async (evento) => {
     evento.preventDefault();
 
     if(!Validador.validarCampos()){
@@ -17,6 +19,14 @@ formulario.addEventListener('submit', (evento) => {
     }
 
     limpiarMensaje();
+    const resultado = await solicitudes.crear({
+      reporteId: new URLSearchParams(window.location.search).get('reporteId'),
+      lugarEstimado: document.getElementById('locations').value,
+      fechaEstimada: document.getElementById('dateLost').value,
+      caracteristicaPrivada: campoDescripcion.value
+    });
+    mensajeError.textContent = resultado.mensaje;
+    mensajeError.hidden = false;
 });
 
 campoDescripcion.addEventListener('input', () => {

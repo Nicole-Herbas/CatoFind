@@ -121,3 +121,42 @@ describe('API de autenticación', () => {
     }
   });
 });
+
+describe('API de solicitudes de recuperación', () => {
+  it('asocia al usuario autenticado y devuelve la solicitud creada', async () => {
+    const servicioSolicitudes = {
+      crear: jest.fn(async () => ({ id: 12 }))
+    };
+    const app = crearApp(
+      { listarPublicados: async () => [] },
+      {},
+      servicioSolicitudes
+    );
+    const servidor = createServer(app);
+    await new Promise(resolve => servidor.listen(0, resolve));
+
+    try {
+      const respuesta = await fetch(`http://127.0.0.1:${servidor.address().port}/api/solicitudes-recuperacion`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer token-estudiante'
+        },
+        body: JSON.stringify({
+          reporteId: '14', lugarEstimado: 'biblioteca',
+          fechaEstimada: '2026-10-20', caracteristicaPrivada: 'Costura en la manga'
+        })
+      });
+
+      expect(respuesta.status).toBe(201);
+      expect(await respuesta.json()).toEqual({ id: 12 });
+      expect(servicioSolicitudes.crear).toHaveBeenCalledWith({
+        reporteId: '14', lugarEstimado: 'biblioteca',
+        fechaEstimada: '2026-10-20', caracteristicaPrivada: 'Costura en la manga',
+        token: 'token-estudiante'
+      });
+    } finally {
+      await new Promise(resolve => servidor.close(resolve));
+    }
+  });
+});

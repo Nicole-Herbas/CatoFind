@@ -20,7 +20,7 @@ const hoy = new Date('2026-10-21T12:00:00');
 
 function crearServicio() {
   return new BuscadorService([
-    new Objeto({ id: 1, titulo: 'Mochila negra', categoria: 'Accesorios', lugar: 'Biblioteca',
+    new Objeto({ id: 1, reporteId: 14, titulo: 'Mochila negra', categoria: 'Accesorios', lugar: 'Biblioteca',
       fecha: '2026-10-19', imagen: '', estado: 'Publicado' }),
     new Objeto({ id: 2, titulo: 'Chompa azul', categoria: 'Ropa', lugar: 'Cafetería',
       fecha: '2026-10-05', imagen: '', estado: 'Publicado' }),
@@ -106,8 +106,9 @@ describe('Buscar - lógica de la pantalla', () => {
   it('debe preparar el detalle de un objeto publicado', () => {
     expect(datosDetalle(crearServicio(), '1')).toEqual({
       titulo: 'Mochila negra',
+      reporteId: 14,
       lineas: ['Categoría: Accesorios', 'Lugar: Biblioteca', 'Fecha: 2026-10-19'],
-      rutaSolicitud: RUTA_SOLICITUD,
+      rutaSolicitud: `${RUTA_SOLICITUD}?reporteId=14`,
     });
   });
 
