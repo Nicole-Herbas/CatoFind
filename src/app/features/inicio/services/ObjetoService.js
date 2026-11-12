@@ -76,8 +76,22 @@ const DATOS_ESTATICOS = [
 ];
 
 export class ObjetoService {
-  constructor() {
+  constructor(solicitar = globalThis.fetch) {
     this.objetos = DATOS_ESTATICOS.map((d) => new Objeto(d));
+    this.solicitar = solicitar;
+  }
+
+  async cargarObjetos() {
+    try {
+      const respuesta = await this.solicitar('/api/objetos');
+      if (!respuesta.ok) return this.objetos;
+
+      this.objetos = (await respuesta.json()).map((datos) => new Objeto(datos));
+    } catch {
+      return this.objetos;
+    }
+
+    return this.objetos;
   }
 
   obtenerTodos() {

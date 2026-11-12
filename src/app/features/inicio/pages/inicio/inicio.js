@@ -98,7 +98,9 @@ function renderFiltros() {
 
 document.addEventListener('DOMContentLoaded', () => {
   renderFiltros();
-  renderTarjetas(service.obtenerTodos());
+  service.cargarObjetos().then(() => {
+    renderTarjetas(service.filtrarPorCategoria(categoriaActual));
+  });
 
   // ── Filtros de categoría ──
   document.getElementById('filtros-lista').addEventListener('click', (e) => {

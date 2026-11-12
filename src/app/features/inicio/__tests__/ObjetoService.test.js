@@ -1,6 +1,37 @@
 import { ObjetoService } from '../services/ObjetoService.js';
 
 describe('ObjetoService', () => {
+  it('carga los objetos publicados desde la API', async () => {
+    const respuesta = [{
+      id: 10,
+      titulo: 'Mochila azul',
+      categoria: 'Accesorios',
+      lugar: 'Biblioteca',
+      fecha: '2026-11-01',
+      imagen: 'mochila.jpg',
+      estado: 'Publicado'
+    }];
+    const solicitar = jest.fn(async () => ({
+      ok: true,
+      json: async () => respuesta
+    }));
+    const service = new ObjetoService(solicitar);
+
+    await service.cargarObjetos();
+
+    expect(solicitar).toHaveBeenCalledWith('/api/objetos');
+    expect(service.obtenerTodos()).toEqual(respuesta);
+  });
+
+  it('mantiene los ejemplos si la API no está disponible', async () => {
+    const service = new ObjetoService(async () => ({ ok: false }));
+    const ejemplos = service.obtenerTodos();
+
+    await service.cargarObjetos();
+
+    expect(service.obtenerTodos()).toEqual(ejemplos);
+  });
+
   it('debe retornar todos los objetos', () => {
     const service = new ObjetoService();
     const objetos = service.obtenerTodos();
