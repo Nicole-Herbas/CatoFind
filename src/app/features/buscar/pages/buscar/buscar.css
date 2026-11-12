@@ -119,35 +119,6 @@ body {
 
 .tarjeta__dato { margin: 2px 16px; color: #758197; font-size: 14px; }
 
-/* ---------- Detalle (ventana emergente) ---------- */
-.detalle {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: min(90%, 420px);
-  padding: 28px;
-  background: #ffffff;
-  border-radius: 24px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
-}
-
-.detalle[hidden] { display: none; }
-
-.detalle__titulo { margin-top: 0; }
-
-.detalle button {
-  margin-top: 16px;
-  margin-right: 8px;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 24px;
-  cursor: pointer;
-}
-
-.detalle__solicitar { background: #f2c230; color: #17263e; font-weight: bold; }
-.detalle__cerrar { background: #e8effc; color: #0b3979; }
-
 /* ---------- Celular ---------- */
 @media (max-width: 768px) {
   .navbar { flex-direction: column; gap: 12px; }

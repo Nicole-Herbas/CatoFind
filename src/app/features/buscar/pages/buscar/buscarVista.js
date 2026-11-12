@@ -36,14 +36,18 @@ export function crearTarjeta(documento, objeto) {
   return tarjeta;
 }
 
-export function iniciarBuscador(documento, service, hoy = new Date()) {
+export function iniciarBuscador(
+  documento,
+  service,
+  hoy = new Date(),
+  { almacenamiento = globalThis.sessionStorage, navegar } = {}
+) {
   const buscador = documento.querySelector('#buscador');
   const filtroCategoria = documento.querySelector('#filtro-categoria');
   const filtroLugar = documento.querySelector('#filtro-lugar');
   const filtroFecha = documento.querySelector('#filtro-fecha');
   const mensaje = documento.querySelector('#mensaje-resultados');
   const resultados = documento.querySelector('#resultados');
-  const detalle = documento.querySelector('#detalle');
 
   llenarSelect(filtroCategoria, CATEGORIAS);
   llenarSelect(filtroLugar, LUGARES);
@@ -63,24 +67,20 @@ export function iniciarBuscador(documento, service, hoy = new Date()) {
     resultados.replaceChildren(...encontrados.map((objeto) => crearTarjeta(documento, objeto)));
   }
 
-    function mostrarDetalle(objeto) {
-    const solicitar = crearElemento(documento, 'a', 'detalle__solicitar', 'Solicitar objeto');
-    solicitar.href = '../../../recoveryRequest/pages/recoveryRequest.html';
-    const cerrar = crearElemento(documento, 'button', 'detalle__cerrar', 'Cerrar');
-    cerrar.type = 'button';
-    cerrar.addEventListener('click', () => {
-      detalle.hidden = true;
-    });
+  function abrirDetalle(objeto) {
+    try {
+      almacenamiento.setItem('catofind_objeto_seleccionado', JSON.stringify(objeto));
+    } catch {
+      mensaje.textContent = 'No se pudo guardar el objeto seleccionado. Inténtalo nuevamente.';
+      return;
+    }
 
-    detalle.replaceChildren(
-      crearElemento(documento, 'h2', 'detalle__titulo', objeto.titulo),
-      crearElemento(documento, 'p', 'detalle__dato', `Categoría: ${objeto.categoria}`),
-      crearElemento(documento, 'p', 'detalle__dato', `Lugar: ${objeto.lugar}`),
-      crearElemento(documento, 'p', 'detalle__dato', `Fecha: ${objeto.fecha}`),
-      solicitar,
-      cerrar
-    );
-    detalle.hidden = false;
+    const ruta = '../../../reviewRecoveryRequest/pages/reviewRecoveryRequest.html';
+    if (navegar) {
+      navegar(ruta);
+    } else {
+      globalThis.location.href = ruta;
+    }
   }
 
   resultados.addEventListener('click', (evento) => {
@@ -88,7 +88,7 @@ export function iniciarBuscador(documento, service, hoy = new Date()) {
     if (!tarjeta) return;
 
     const objeto = service.obtenerDetalle(Number(tarjeta.dataset.id));
-    if (objeto) mostrarDetalle(objeto);
+    if (objeto) abrirDetalle(objeto);
   });
 
   buscador.addEventListener('input', actualizar);

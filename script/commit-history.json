@@ -76,17 +76,36 @@
     "conclusion": "neutral"
   },
   {
-    "sha": "HEAD",
+    "sha": "b2f0af814a3284dc8b9e26d8de1b898017602ba9",
     "author": "Chris",
     "commit": {
       "date": "2026-11-12T13:48:07.000Z",
       "message": "style: agregar estilos a la pagina de recoveryRequest",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/b2f0af814a3284dc8b9e26d8de1b898017602ba9"
     },
     "stats": {
       "total": 365,
       "additions": 329,
       "deletions": 36,
+      "date": "2026-11-12"
+    },
+    "coverage": 0,
+    "test_count": 0,
+    "failed_tests": 0,
+    "conclusion": "neutral"
+  },
+  {
+    "sha": "HEAD",
+    "author": "Chris",
+    "commit": {
+      "date": "2026-11-12T13:50:58.000Z",
+      "message": "fix: modificado gitignore",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 3,
+      "additions": 2,
+      "deletions": 1,
       "date": "2026-11-12"
     },
     "coverage": 0,

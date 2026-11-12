@@ -144,9 +144,23 @@
     "testId": 4
   },
   {
-    "commitId": "HEAD",
+    "commitId": "b2f0af814a3284dc8b9e26d8de1b898017602ba9",
     "commitName": "style: agregar estilos a la pagina de recoveryRequest",
     "commitTimestamp": 1794491289124,
     "testId": 4
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "fix: modificado gitignore",
+    "commitTimestamp": 1794491460748,
+    "testId": 5
+  },
+  {
+    "numPassedTests": 141,
+    "failedTests": 0,
+    "numTotalTests": 141,
+    "timestamp": 1794492169915,
+    "success": true,
+    "testId": 6
   }
 ]

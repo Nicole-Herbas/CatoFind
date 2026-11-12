@@ -8,6 +8,8 @@ import { iniciarBuscador } from '../pages/buscar/buscarVista.js';
 
 const html = readFileSync('src/app/features/buscar/pages/buscar/buscar.html', 'utf8');
 const hoy = new Date('2026-10-21T12:00:00');
+const almacenamiento = { setItem: jest.fn() };
+const navegar = jest.fn();
 
 function crearServicio() {
   return new BuscadorService([
@@ -30,8 +32,10 @@ function mensajeEnPantalla() {
 }
 
 beforeEach(() => {
+  almacenamiento.setItem.mockClear();
+  navegar.mockClear();
   document.body.innerHTML = html;
-  iniciarBuscador(document, crearServicio(), hoy);
+  iniciarBuscador(document, crearServicio(), hoy, { almacenamiento, navegar });
 });
 
 describe('Vista Buscar - al abrir la página (HU-07)', () => {
@@ -87,32 +91,34 @@ describe('Vista Buscar - detalle del objeto (HU-08)', () => {
     document.querySelector('#resultados .tarjeta').click();
   }
 
-  it('debe mostrar el detalle al hacer clic en una tarjeta', () => {
+  it('debe guardar el objeto seleccionado y navegar a su página de detalle', () => {
     clicEnPrimeraTarjeta();
-    const detalle = document.querySelector('#detalle');
 
-    expect(detalle.hidden).toBe(false);
-    expect(detalle.querySelector('.detalle__titulo').textContent).toBe('Mochila negra');
-    expect(detalle.textContent).toContain('Biblioteca');
+    expect(almacenamiento.setItem).toHaveBeenCalledWith(
+      'catofind_objeto_seleccionado',
+      JSON.stringify({
+        id: 1,
+        titulo: 'Mochila negra',
+        categoria: 'Accesorios',
+        lugar: 'Biblioteca',
+        fecha: '2026-10-19',
+        imagen: '',
+        estado: 'Publicado',
+      })
+    );
+    expect(navegar).toHaveBeenCalledWith(
+      '../../../reviewRecoveryRequest/pages/reviewRecoveryRequest.html'
+    );
   });
 
-  it('debe tener el botón para solicitar el objeto', () => {
+  it('debe informar si no se puede guardar el objeto seleccionado', () => {
+    almacenamiento.setItem.mockImplementation(() => {
+      throw new Error('Storage is unavailable');
+    });
     clicEnPrimeraTarjeta();
 
-    expect(document.querySelector('#detalle .detalle__solicitar').textContent)
-      .toBe('Solicitar objeto');
-  });
-
-  it('debe tener el enlace para solicitar objeto apuntando a recoveryRequest.html', () => {
-    clicEnPrimeraTarjeta();
-    const solicitar = document.querySelector('#detalle .detalle__solicitar');
-    expect(solicitar.getAttribute('href')).toBe('../../../recoveryRequest/pages/recoveryRequest.html');
-  });
-
-  it('debe ocultar el detalle al cerrarlo', () => {
-    clicEnPrimeraTarjeta();
-    document.querySelector('#detalle .detalle__cerrar').click();
-
-    expect(document.querySelector('#detalle').hidden).toBe(true);
+    expect(navegar).not.toHaveBeenCalled();
+    expect(document.querySelector('#mensaje-resultados').textContent)
+      .toContain('No se pudo guardar el objeto seleccionado');
   });
 });
