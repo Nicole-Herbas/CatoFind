@@ -134,4 +134,24 @@ describe('autenticación de estudiantes', () => {
 
     expect(supabase.auth.signInWithPassword).not.toHaveBeenCalled();
   });
+  it('distingue una sesión inválida de un usuario sin permisos administrativos', async () => {
+    const supabase = {
+      auth: {
+        getUser: jest.fn(async token => token === 'token-valido'
+          ? { data: { user: { id: 'auth-estudiante' } }, error: null }
+          : { data: { user: null }, error: new Error('Sesión inválida') })
+      }
+    };
+    const usuarios = {
+      obtenerPorAuthUid: jest.fn(async () => ({
+        nombre: 'Ana', correo_institucional: 'ana@ucb.edu.bo', rol: 'ESTUDIANTE'
+      }))
+    };
+    const servicio = crearServicioAutenticacion(supabase, usuarios);
+
+    await expect(servicio.obtenerSesionAdministrador('token-invalido'))
+      .rejects.toMatchObject({ codigo: 'NO_AUTORIZADO' });
+    await expect(servicio.obtenerSesionAdministrador('token-valido'))
+      .rejects.toMatchObject({ codigo: 'SIN_PERMISOS' });
+  });
 });

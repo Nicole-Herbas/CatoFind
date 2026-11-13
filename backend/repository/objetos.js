@@ -24,6 +24,15 @@ export function crearRepositorioObjetos(supabase) {
         administrativoId: reporte.administrativo_id,
         objeto: reporte.objeto
       }));
+    },
+
+    async obtenerUrlFirmada(rutaImagen) {
+      const { data, error } = await supabase.storage
+        .from('reportes')
+        .createSignedUrl(rutaImagen, 60 * 60);
+
+      if (error) throw error;
+      return data?.signedUrl || '';
     }
   };
 }

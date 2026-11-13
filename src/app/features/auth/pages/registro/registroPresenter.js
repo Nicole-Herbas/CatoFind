@@ -1,5 +1,5 @@
 
-import { AutenticacionApi } from '../../services/AutenticacionApi.js';
+import { AutenticacionApi } from '../../../../api/autenticacion.js';
 
 const formulario = document.getElementById('registro-form');
 const mensaje = document.getElementById('registro-mensaje');

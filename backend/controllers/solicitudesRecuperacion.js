@@ -1,8 +1,7 @@
 export function crearControladorSolicitudesRecuperacion(servicio) {
   return {
     async crear(solicitud, respuesta) {
-      const autorizacion = solicitud.get('authorization') || '';
-      const token = autorizacion.startsWith('Bearer ') ? autorizacion.slice(7) : '';
+      const token = solicitud.cookies?.catofind_sesion || '';
 
       try {
         const resultado = await servicio.crear({ ...solicitud.body, token });

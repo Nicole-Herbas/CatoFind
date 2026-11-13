@@ -1,28 +1,16 @@
 export class SolicitudesApi {
-  constructor(solicitar = globalThis.fetch.bind(globalThis), almacenamientoSesion = globalThis.sessionStorage) {
+  constructor(solicitar = globalThis.fetch.bind(globalThis)) {
     this.solicitar = solicitar;
-    this.almacenamientoSesion = almacenamientoSesion;
   }
 
   async crear(datos) {
-    let sesion;
-    try {
-      sesion = JSON.parse(this.almacenamientoSesion.getItem('catofind_sesion') || 'null');
-    } catch {
-      sesion = null;
-    }
-
-    if (!sesion?.accessToken) {
-      return { ok: false, mensaje: 'Inicia sesión para enviar una solicitud.' };
-    }
-
     try {
       const respuesta = await this.solicitar('/api/solicitudes-recuperacion', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${sesion.accessToken}`
         },
+        credentials: 'same-origin',
         body: JSON.stringify(datos)
       });
       const resultado = await respuesta.json();

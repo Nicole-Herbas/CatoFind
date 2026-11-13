@@ -1,15 +1,11 @@
 ﻿
 import {
-  crearBuscador,
-  opcionesDeFiltros,
   obtenerBusquedaInicial,
-  obtenerResultados,
-  datosTarjeta,
-  datosDetalle
+  datosTarjeta
 } from './buscar.js';
 
 
-let servicio = crearBuscador();
+let objetosPublicados = [];
 const buscador = document.getElementById('buscador');
 const filtroCategoria = document.getElementById('filtro-categoria');
 const filtroLugar = document.getElementById('filtro-lugar');
@@ -58,15 +54,10 @@ function dibujarTarjeta(objeto) {
 }
 
 function mostrarResultados() {
-  const resultado = obtenerResultados(servicio, {
-    texto: buscador.value,
-    categoria: filtroCategoria.value,
-    lugar: filtroLugar.value,
-    fecha: filtroFecha.value
-  });
-
-  mensaje.textContent = resultado.mensaje;
-  resultados.replaceChildren(...resultado.objetos.map(dibujarTarjeta));
+  const cantidad = objetosPublicados.length;
+  mensaje.textContent = cantidad === 1 ? '1 resultado encontrado'
+    : cantidad ? `${cantidad} resultados encontrados` : 'No se encontró ningún objeto';
+  resultados.replaceChildren(...objetosPublicados.map(dibujarTarjeta));
 }
 
 function mostrarDetalle(datos) {
@@ -89,27 +80,21 @@ function mostrarDetalle(datos) {
 }
 
 
-const opciones = opcionesDeFiltros();
-llenarSelect(filtroCategoria, opciones.categorias);
-llenarSelect(filtroLugar, opciones.lugares);
-
-buscador.addEventListener('input', mostrarResultados);
-filtroCategoria.addEventListener('change', mostrarResultados);
-filtroLugar.addEventListener('change', mostrarResultados);
-filtroFecha.addEventListener('change', mostrarResultados);
-
-resultados.addEventListener('click', (evento) => {
-  const tarjeta = evento.target.closest('.tarjeta');
-
-  if (!tarjeta) {
-    return;
-  }
-
-  const datos = datosDetalle(servicio, tarjeta.dataset.id);
-
-  if (datos) {
-    mostrarDetalle(datos);
-  }
+for (const filtro of [buscador, filtroCategoria, filtroLugar, filtroFecha]) {
+  filtro.addEventListener('input', cargarObjetos);
+  filtro.addEventListener('change', cargarObjetos);
+}
+resultados.addEventListener('click', async (evento) => {
+  const id = evento.target.closest('.tarjeta')?.dataset.id;
+  const objeto = objetosPublicados.find(item => String(item.id) === id);
+  if (!objeto) return;
+  mostrarDetalle({
+    titulo: objeto.titulo,
+    lineas: [`Categoría: ${objeto.categoria}`, `Lugar: ${objeto.lugar}`, `Fecha: ${objeto.fecha}`],
+    rutaSolicitud: objeto.reporteId
+      ? `../../../recoveryRequest/pages/recoveryRequest.html?reporteId=${encodeURIComponent(objeto.reporteId)}`
+      : '../../../recoveryRequest/pages/recoveryRequest.html'
+  });
 });
 
 buscador.value = obtenerBusquedaInicial(window.location.search);
@@ -117,17 +102,20 @@ mensaje.textContent = 'Cargando objetos...';
 
 async function cargarObjetos() {
   try {
-    const respuesta = await fetch('/api/objetos');
+    const parametros = new URLSearchParams({texto: buscador.value, categoria: filtroCategoria.value, lugar: filtroLugar.value, fecha: filtroFecha.value});
+    const respuesta = await fetch(`/api/objetos?${parametros}`);
     if (!respuesta.ok) throw new Error('No se pudieron cargar los objetos.');
 
-    servicio = crearBuscador(await respuesta.json());
-    const filtros = opcionesDeFiltros(servicio.obtenerPublicados());
-    llenarSelect(filtroCategoria, filtros.categorias);
-    llenarSelect(filtroLugar, filtros.lugares);
+    objetosPublicados = await respuesta.json();
     mostrarResultados();
   } catch {
     mensaje.textContent = 'No se pudieron cargar los objetos.';
   }
 }
+
+fetch('/api/objetos').then(respuesta => respuesta.json()).then(objetos => {
+  llenarSelect(filtroCategoria, ['Todos', ...new Set(objetos.map(item => item.categoria))]);
+  llenarSelect(filtroLugar, ['Todas', ...new Set(objetos.map(item => item.lugar))]);
+}).catch(() => {});
 
 cargarObjetos();

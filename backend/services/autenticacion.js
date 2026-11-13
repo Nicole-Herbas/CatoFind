@@ -69,6 +69,27 @@ export function crearServicioAutenticacion(supabase, usuarios, crearClienteSesio
           rol: perfil.rol === 'ADMINISTRATIVO' ? 'ADMIN' : 'ESTUDIANTE'
         }
       };
+    },
+
+    async obtenerSesion(token) {
+      if (!token) throw crearError('Debes iniciar sesión.', 'NO_AUTORIZADO');
+      const { data, error } = await supabase.auth.getUser(token);
+      if (error || !data?.user) throw crearError('Debes iniciar sesión.', 'NO_AUTORIZADO');
+      const perfil = await usuarios.obtenerPorAuthUid(data.user.id);
+      if (!perfil) throw crearError('La cuenta no tiene un perfil registrado.', 'PERFIL');
+      return { usuario: {
+        nombre: perfil.nombre,
+        correo: perfil.correo_institucional,
+        rol: perfil.rol === 'ADMINISTRATIVO' ? 'ADMIN' : 'ESTUDIANTE'
+      } };
+    },
+
+    async obtenerSesionAdministrador(token) {
+      const sesion = await this.obtenerSesion(token);
+      if (sesion.usuario.rol !== 'ADMIN') {
+        throw crearError('No tienes permisos para acceder al panel administrativo.', 'SIN_PERMISOS');
+      }
+      return sesion;
     }
   };
 }

@@ -57,4 +57,22 @@ describe('servicio de objetos', () => {
       estado: 'Publicado'
     }]);
   });
+
+  it.each(['audifonos', '  AUDÍFONOS  '])(
+    'encuentra Audífonos Sony con la búsqueda normalizada "%s"', async texto => {
+      const repositorio = {
+        listarReportes: async () => [new Reporte({
+          id: 31,
+          fecha: '2026-11-12',
+          lugar: 'Biblioteca',
+          estado: 'APROBADO',
+          objeto: { id: 11, nombre: 'Audífonos Sony', categoria: 'Electrónica', foto: '' }
+        })]
+      };
+
+      const objetos = await crearServicioObjetos(repositorio).listarPublicados({ texto });
+
+      expect(objetos.map(objeto => objeto.titulo)).toEqual(['Audífonos Sony']);
+    }
+  );
 });

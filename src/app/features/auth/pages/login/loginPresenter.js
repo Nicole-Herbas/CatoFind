@@ -1,6 +1,6 @@
 
 import { mensajeRecuperacion, obtenerRutaPostLogin } from './login.js';
-import { AutenticacionApi } from '../../services/AutenticacionApi.js';
+import { AutenticacionApi } from '../../../../api/autenticacion.js';
 
 
 const autenticacion = new AutenticacionApi();

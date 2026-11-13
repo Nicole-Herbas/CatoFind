@@ -1,7 +1,55 @@
 import { createServer } from 'node:http';
 import { crearApp } from '../app.js';
+import { crearRepositorioObjetos } from '../repository/objetos.js';
+import { crearServicioObjetos } from '../services/objetos.js';
 
 describe('API de objetos', () => {
+  it('firma fotos de reportes aprobados usando el repositorio conectado a la ruta real', async () => {
+    const reportes = [{
+      id: 19,
+      tipo: 'ENCONTRADO',
+      fecha: '2026-11-10',
+      lugar: 'Biblioteca',
+      estado: 'APROBADO',
+      objeto: { id: 8, nombre: 'Mochila', categoria: 'Ropa', foto: '19/mochila.jpg' }
+    }, {
+      id: 20, tipo: 'ENCONTRADO', fecha: '2026-11-10', lugar: 'Patio', estado: 'APROBADO',
+      objeto: { id: 9, nombre: 'Llaves', categoria: 'Otros', foto: 'https://ejemplo.test/llaves.jpg' }
+    }, {
+      id: 21, tipo: 'ENCONTRADO', fecha: '2026-11-10', lugar: 'Patio', estado: 'PENDIENTE',
+      objeto: { id: 10, nombre: 'Pendiente', categoria: 'Otros', foto: '21/pendiente.jpg' }
+    }];
+    const firma = jest.fn(async ruta => ({
+      data: { signedUrl: `https://storage.test/${ruta}?token=firmado` }, error: null
+    }));
+    const supabase = {
+      from: () => ({ select: async () => ({ data: reportes, error: null }) }),
+      storage: { from: bucket => ({
+        createSignedUrl: (ruta, segundos) => {
+          expect(bucket).toBe('reportes');
+          return firma(ruta, segundos);
+        }
+      }) }
+    };
+    const servicioObjetos = crearServicioObjetos(crearRepositorioObjetos(supabase));
+    const servidor = createServer(crearApp(servicioObjetos));
+    await new Promise(resolve => servidor.listen(0, resolve));
+
+    try {
+      const respuesta = await fetch(`http://127.0.0.1:${servidor.address().port}/api/objetos`);
+
+      expect(respuesta.status).toBe(200);
+      const objetos = await respuesta.json();
+      expect(objetos[0].imagen)
+        .toBe('https://storage.test/19/mochila.jpg?token=firmado');
+      expect(objetos[1].imagen).toBe('https://ejemplo.test/llaves.jpg');
+      expect(objetos).toHaveLength(2);
+      expect(firma).toHaveBeenCalledWith('19/mochila.jpg', 60 * 60);
+    } finally {
+      await new Promise(resolve => servidor.close(resolve));
+    }
+  });
+
   it('GET /api/objetos devuelve los objetos publicados', async () => {
     const app = crearApp({
       listarPublicados: async () => [{
@@ -112,9 +160,9 @@ describe('API de autenticación', () => {
 
       expect(respuesta.status).toBe(200);
       expect(resultado).toEqual({
-        accessToken: 'token-sesion',
         usuario: { nombre: 'Ana Torres', correo: 'ana@ucb.edu.bo', rol: 'ESTUDIANTE' }
       });
+      expect(respuesta.headers.get('set-cookie')).toContain('HttpOnly');
       expect(resultado).not.toHaveProperty('contrasena');
     } finally {
       await new Promise(resolve => servidor.close(resolve));
@@ -140,7 +188,7 @@ describe('API de solicitudes de recuperación', () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: 'Bearer token-estudiante'
+          Cookie: 'catofind_sesion=token-estudiante'
         },
         body: JSON.stringify({
           reporteId: '14', lugarEstimado: 'biblioteca',
@@ -153,6 +201,122 @@ describe('API de solicitudes de recuperación', () => {
       expect(servicioSolicitudes.crear).toHaveBeenCalledWith({
         reporteId: '14', lugarEstimado: 'biblioteca',
         fechaEstimada: '2026-10-20', caracteristicaPrivada: 'Costura en la manga',
+        token: 'token-estudiante'
+      });
+    } finally {
+      await new Promise(resolve => servidor.close(resolve));
+    }
+  });
+});
+
+describe('API de revisión de reportes', () => {
+  it('autoriza al administrador, lista pendientes, revisa y cierra la sesión', async () => {
+    const servicioAutenticacion = {
+      obtenerSesionAdministrador: jest.fn(async token => {
+        if (token !== 'token-admin') throw new Error('Sesión inválida.');
+        return { usuario: { nombre: 'Administradora', rol: 'ADMIN' } };
+      }),
+      cerrarSesion: jest.fn()
+    };
+    let reportesPendientes = [{ id: 7, titulo: 'Mochila negra' }];
+    const servicioReportes = {
+      listarPendientes: jest.fn(async () => reportesPendientes),
+      actualizarEstado: jest.fn(async ({ id, estado }) => {
+        const reporte = { id: Number(id), estado };
+        reportesPendientes = [];
+        return reporte;
+      })
+    };
+    const app = crearApp(
+      { listarPublicados: async () => [] },
+      servicioAutenticacion,
+      {},
+      servicioReportes
+    );
+    const servidor = createServer(app);
+    await new Promise(resolve => servidor.listen(0, resolve));
+    const baseUrl = `http://127.0.0.1:${servidor.address().port}`;
+    const encabezadosSesion = { Cookie: 'catofind_sesion=token-admin' };
+
+    try {
+      const sesion = await fetch(`${baseUrl}/api/admin/sesion`, {
+        headers: encabezadosSesion
+      });
+      expect(sesion.status).toBe(200);
+      expect((await sesion.json()).usuario.rol).toBe('ADMIN');
+
+      const pendientes = await fetch(`${baseUrl}/api/admin/reportes?estado=PENDIENTE`, {
+        headers: encabezadosSesion
+      });
+      expect(pendientes.status).toBe(200);
+      expect((await pendientes.json()).reportes).toEqual([
+        { id: 7, titulo: 'Mochila negra' }
+      ]);
+      expect(servicioAutenticacion.obtenerSesionAdministrador)
+        .toHaveBeenCalledWith('token-admin');
+      expect(servicioReportes.listarPendientes)
+        .toHaveBeenCalledWith('token-admin');
+
+      const revision = await fetch(`${baseUrl}/api/admin/reportes/7`, {
+        method: 'PATCH',
+        headers: { ...encabezadosSesion, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ estado: 'APROBADO' })
+      });
+      expect(revision.status).toBe(200);
+      expect((await revision.json()).reporte).toEqual({ id: 7, estado: 'APROBADO' });
+      expect(servicioReportes.actualizarEstado).toHaveBeenCalledWith({
+        id: '7', estado: 'APROBADO', token: 'token-admin'
+      });
+
+      const cierre = await fetch(`${baseUrl}/api/auth/logout`, { method: 'POST' });
+      expect(cierre.status).toBe(204);
+      expect(cierre.headers.get('set-cookie')).toContain('Max-Age=0');
+    } finally {
+      await new Promise(resolve => servidor.close(resolve));
+    }
+  });
+});
+describe('API de creación de reportes', () => {
+  it('entrega el reporte y la sesión al caso de uso backend', async () => {
+    const servicioReportes = {
+      crear: jest.fn(async () => ({ id: 21, estado: 'PENDIENTE' }))
+    };
+    const app = crearApp(
+      { listarPublicados: async () => [] },
+      {},
+      {},
+      servicioReportes
+    );
+    const servidor = createServer(app);
+    await new Promise(resolve => servidor.listen(0, resolve));
+    const reporte = {
+      titulo: 'Mochila negra',
+      categoria: 'Accesorios',
+      lugar: 'Biblioteca',
+      fecha: '2026-11-10',
+      hora: '10:30',
+      descripcion: 'Mochila encontrada junto a la entrada.',
+      detallePrivado: 'Tiene una costura roja.',
+      imagen: 'data:image/jpeg;base64,Zm90bw=='
+    };
+
+    try {
+      const respuesta = await fetch(
+        `http://127.0.0.1:${servidor.address().port}/api/reportes`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Cookie: 'catofind_sesion=token-estudiante'
+          },
+          body: JSON.stringify(reporte)
+        }
+      );
+
+      expect(respuesta.status).toBe(201);
+      expect(await respuesta.json()).toEqual({ reporte: { id: 21, estado: 'PENDIENTE' } });
+      expect(servicioReportes.crear).toHaveBeenCalledWith({
+        ...reporte,
         token: 'token-estudiante'
       });
     } finally {
