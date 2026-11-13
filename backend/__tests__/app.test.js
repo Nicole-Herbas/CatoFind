@@ -1,7 +1,55 @@
 import { createServer } from 'node:http';
 import { crearApp } from '../app.js';
+import { crearRepositorioObjetos } from '../repository/objetos.js';
+import { crearServicioObjetos } from '../services/objetos.js';
 
 describe('API de objetos', () => {
+  it('firma fotos de reportes aprobados usando el repositorio conectado a la ruta real', async () => {
+    const reportes = [{
+      id: 19,
+      tipo: 'ENCONTRADO',
+      fecha: '2026-11-10',
+      lugar: 'Biblioteca',
+      estado: 'APROBADO',
+      objeto: { id: 8, nombre: 'Mochila', categoria: 'Ropa', foto: '19/mochila.jpg' }
+    }, {
+      id: 20, tipo: 'ENCONTRADO', fecha: '2026-11-10', lugar: 'Patio', estado: 'APROBADO',
+      objeto: { id: 9, nombre: 'Llaves', categoria: 'Otros', foto: 'https://ejemplo.test/llaves.jpg' }
+    }, {
+      id: 21, tipo: 'ENCONTRADO', fecha: '2026-11-10', lugar: 'Patio', estado: 'PENDIENTE',
+      objeto: { id: 10, nombre: 'Pendiente', categoria: 'Otros', foto: '21/pendiente.jpg' }
+    }];
+    const firma = jest.fn(async ruta => ({
+      data: { signedUrl: `https://storage.test/${ruta}?token=firmado` }, error: null
+    }));
+    const supabase = {
+      from: () => ({ select: async () => ({ data: reportes, error: null }) }),
+      storage: { from: bucket => ({
+        createSignedUrl: (ruta, segundos) => {
+          expect(bucket).toBe('reportes');
+          return firma(ruta, segundos);
+        }
+      }) }
+    };
+    const servicioObjetos = crearServicioObjetos(crearRepositorioObjetos(supabase));
+    const servidor = createServer(crearApp(servicioObjetos));
+    await new Promise(resolve => servidor.listen(0, resolve));
+
+    try {
+      const respuesta = await fetch(`http://127.0.0.1:${servidor.address().port}/api/objetos`);
+
+      expect(respuesta.status).toBe(200);
+      const objetos = await respuesta.json();
+      expect(objetos[0].imagen)
+        .toBe('https://storage.test/19/mochila.jpg?token=firmado');
+      expect(objetos[1].imagen).toBe('https://ejemplo.test/llaves.jpg');
+      expect(objetos).toHaveLength(2);
+      expect(firma).toHaveBeenCalledWith('19/mochila.jpg', 60 * 60);
+    } finally {
+      await new Promise(resolve => servidor.close(resolve));
+    }
+  });
+
   it('GET /api/objetos devuelve los objetos publicados', async () => {
     const app = crearApp({
       listarPublicados: async () => [{

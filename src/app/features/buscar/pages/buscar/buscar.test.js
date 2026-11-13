@@ -10,7 +10,7 @@ import {
 
 const html = readFileSync('src/app/features/buscar/pages/buscar/buscar.html', 'utf8');
 const OBJETOS_DE_PRUEBA = [
-  { id: 1, titulo: 'Mochila negra', categoria: 'Accesorios', lugar: 'Biblioteca', fecha: '2026-10-08', estado: 'Publicado' },
+  { id: 1, reporteId: 101, titulo: 'Mochila negra', categoria: 'Accesorios', lugar: 'Biblioteca', fecha: '2026-10-08', estado: 'Publicado' },
   { id: 2, titulo: 'Chompa azul', categoria: 'Ropa', lugar: 'Cafetería', fecha: '2026-10-05', estado: 'Publicado' },
   { id: 3, titulo: 'Cuaderno verde', categoria: 'Documentos', lugar: 'Laboratorio', fecha: '2026-09-30', estado: 'Publicado' },
   { id: 4, titulo: 'Audífonos Sony', categoria: 'Electrónica', lugar: 'Bloque A', fecha: '2026-10-12', estado: 'Publicado' },
@@ -52,7 +52,7 @@ describe('Página Buscar - estructura', () => {
     expect(navLinks[0].getAttribute('href')).toBe('../../../inicio/pages/inicio/inicio.html');
     expect(navLinks[1].getAttribute('href')).toBe('./buscar.html');
     expect(navLinks[2].getAttribute('href')).toBe('../../../reportar/pages/reportar/reportar.html');
-    expect(navLinks[3].getAttribute('href')).toBe('../../../recoveryRequest/pages/recoveryRequest.html');
+    expect(navLinks[3].getAttribute('href')).toBe('../../../buscar/pages/buscar/buscar.html');
   });
 });
 
@@ -192,7 +192,7 @@ describe('Presentador de Buscar', () => {
       const solicitar = document.querySelector('#detalle .detalle__solicitar');
 
       expect(solicitar.textContent).toBe('Solicitar objeto');
-      expect(solicitar.getAttribute('href')).toBe(RUTA_SOLICITUD);
+      expect(solicitar.getAttribute('href')).toBe(`${RUTA_SOLICITUD}?reporteId=101`);
     });
 
     it('debe ocultar el detalle al cerrarlo', () => {

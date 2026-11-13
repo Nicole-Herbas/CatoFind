@@ -5,13 +5,26 @@ const formulario = document.querySelector('.recoveryForm');
 const campoDescripcion = document.getElementById('extraDescriptionObject');
 const mensajeError = document.getElementById('extraDescriptionError');
 const solicitudes = new SolicitudesApi();
+const reporteId = new URLSearchParams(window.location.search).get('reporteId');
+const avisoElegirObjeto = document.getElementById('elegir-objeto');
+const botonEnviar = document.getElementById('sendRequest');
 
 if (!formulario || !campoDescripcion || !mensajeError) {
   throw new Error('No se encontraron los elementos requeridos del formulario de recuperaciÃ³n.');
 }
 
+if (!reporteId) {
+  avisoElegirObjeto.hidden = false;
+  botonEnviar.disabled = true;
+}
+
 formulario.addEventListener('submit', async (evento) => {
     evento.preventDefault();
+
+    if (!reporteId) {
+      avisoElegirObjeto.hidden = false;
+      return;
+    }
 
     if(!Validador.validarCampos()){
         mostrarMensaje('Campos_Vacios');
@@ -20,7 +33,7 @@ formulario.addEventListener('submit', async (evento) => {
 
     limpiarMensaje();
     const resultado = await solicitudes.crear({
-      reporteId: new URLSearchParams(window.location.search).get('reporteId'),
+      reporteId,
       lugarEstimado: document.getElementById('locations').value,
       fechaEstimada: document.getElementById('dateLost').value,
       caracteristicaPrivada: campoDescripcion.value

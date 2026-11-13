@@ -33,7 +33,7 @@ describe('navegación principal de reportes', () => {
       ['Inicio', '../../../inicio/pages/inicio/inicio.html'],
       ['Buscar', '../../../buscar/pages/buscar/buscar.html'],
       ['Reportar objeto', './reportar.html'],
-      ['Solicitar recuperación', '../../../recoveryRequest/pages/recoveryRequest.html'],
+      ['Solicitar recuperación', '../../../buscar/pages/buscar/buscar.html'],
       ['Mis reportes', '#']
     ]);
   });

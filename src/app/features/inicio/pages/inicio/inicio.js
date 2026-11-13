@@ -1,149 +1,173 @@
 import { obtenerObjetos } from '../../../../api/objetos.js';
 import { AutenticacionApi } from '../../../../api/autenticacion.js';
 
-const autenticacion = new AutenticacionApi();
-let categoriaActual = 'Todos';
-let objetos = [];
+const IMAGEN_RESPALDO = 'https://images.unsplash.com/photo-1494526585095-c41746248156?w=400&q=80';
 
-/* Ã¢â€â‚¬Ã¢â€â‚¬ Helpers Ã¢â€â‚¬Ã¢â€â‚¬ */
-
-function formatFecha(fechaStr) {
-  const fecha = new Date(fechaStr + 'T00:00:00');
-  return fecha.toLocaleDateString('es-BO', { day: 'numeric', month: 'short', year: 'numeric' });
-}
-
-function crearTarjeta(objeto) {
-  const li = document.createElement('li');
-  li.className = 'tarjeta';
-  li.setAttribute('tabindex', '0');
-  li.setAttribute('aria-label', `Objeto encontrado: ${objeto.titulo}`);
-  li.dataset.id = objeto.id;
-
-  li.innerHTML = `
-    <div class="tarjeta__img-wrap">
-      <img
-        class="tarjeta__img"
-        src="${objeto.imagen}"
-        alt="${objeto.titulo}"
-        loading="lazy"
-        onerror="this.src='https://images.unsplash.com/photo-1494526585095-c41746248156?w=400&q=80'"
-      />
-      <span class="tarjeta__estado">${objeto.estado}</span>
-    </div>
-    <div class="tarjeta__body">
-      <p class="tarjeta__titulo">${objeto.titulo}</p>
-      <div class="tarjeta__meta">
-        <span class="tarjeta__meta-item">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-            <circle cx="12" cy="10" r="3"/>
-          </svg>
-          ${objeto.lugar}
-        </span>
-        <span class="tarjeta__meta-item">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-            <line x1="16" y1="2" x2="16" y2="6"/>
-            <line x1="8" y1="2" x2="8" y2="6"/>
-            <line x1="3" y1="10" x2="21" y2="10"/>
-          </svg>
-          ${formatFecha(objeto.fecha)}
-        </span>
-      </div>
-      <span class="tarjeta__categoria">${objeto.categoria}</span>
-    </div>
-  `;
-
-  return li;
-}
-
-/* Ã¢â€â‚¬Ã¢â€â‚¬ Render Ã¢â€â‚¬Ã¢â€â‚¬ */
-
-function renderTarjetas(objetos) {
-  const grid = document.getElementById('objetos-grid');
-  const empty = document.getElementById('objetos-empty');
-
-  grid.innerHTML = '';
-
-  if (objetos.length === 0) {
-    empty.hidden = false;
-    return;
-  }
-
-  empty.hidden = true;
-  const fragment = document.createDocumentFragment();
-  objetos.forEach((obj) => fragment.appendChild(crearTarjeta(obj)));
-  grid.appendChild(fragment);
-}
-
-function renderFiltros() {
-  const lista = document.getElementById('filtros-lista');
-  lista.innerHTML = '';
-  const categorias = ['Todos', ...new Set(objetos.map((objeto) => objeto.categoria))];
-
-  categorias.forEach((cat) => {
-    const li = document.createElement('li');
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.textContent = cat;
-    btn.className = 'filtro-btn' + (cat === categoriaActual ? ' filtro-btn--active' : '');
-    btn.id = `filtro-${cat.toLowerCase().replace(/[^a-z0-9]/g, '-')}`;
-    btn.setAttribute('aria-pressed', cat === categoriaActual ? 'true' : 'false');
-    btn.dataset.categoria = cat;
-    li.appendChild(btn);
-    lista.appendChild(li);
+function formatFecha(fecha) {
+  return new Date(`${fecha}T00:00:00`).toLocaleDateString('es-BO', {
+    day: 'numeric', month: 'short', year: 'numeric'
   });
 }
 
-/* Ã¢â€â‚¬Ã¢â€â‚¬ Init Ã¢â€â‚¬Ã¢â€â‚¬ */
+function crearIcono(documento, tipo) {
+  const svg = documento.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('width', '12');
+  svg.setAttribute('height', '12');
+  svg.setAttribute('viewBox', '0 0 24 24');
+  svg.setAttribute('fill', 'none');
+  svg.setAttribute('stroke', 'currentColor');
+  svg.setAttribute('stroke-width', '2');
+  svg.setAttribute('aria-hidden', 'true');
 
-document.addEventListener('DOMContentLoaded', () => {
-  const cargar = async () => {
-    const inputBuscar = document.getElementById('input-buscar');
+  const figura = documento.createElementNS('http://www.w3.org/2000/svg', 'path');
+  figura.setAttribute('d', tipo === 'lugar'
+    ? 'M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'
+    : 'M3 10h18M8 2v4m8-4v4M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z');
+  svg.appendChild(figura);
+
+  if (tipo === 'lugar') {
+    const punto = documento.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    punto.setAttribute('cx', '12');
+    punto.setAttribute('cy', '10');
+    punto.setAttribute('r', '3');
+    svg.appendChild(punto);
+  }
+  return svg;
+}
+
+function crearTextoConIcono(documento, clase, texto, tipo) {
+  const elemento = documento.createElement('span');
+  elemento.className = clase;
+  elemento.append(crearIcono(documento, tipo), documento.createTextNode(texto));
+  return elemento;
+}
+
+function crearTarjeta(documento, objeto) {
+  const tarjeta = documento.createElement('li');
+  tarjeta.className = 'tarjeta';
+  tarjeta.tabIndex = 0;
+  tarjeta.setAttribute('aria-label', `Objeto encontrado: ${objeto.titulo}`);
+  tarjeta.dataset.id = objeto.id;
+
+  const imagenContenedor = documento.createElement('div');
+  imagenContenedor.className = 'tarjeta__img-wrap';
+  const imagen = documento.createElement('img');
+  imagen.className = 'tarjeta__img';
+  imagen.src = objeto.imagen || IMAGEN_RESPALDO;
+  imagen.alt = objeto.titulo;
+  imagen.loading = 'lazy';
+  imagen.addEventListener('error', () => {
+    imagen.src = IMAGEN_RESPALDO;
+  }, { once: true });
+
+  const estado = documento.createElement('span');
+  estado.className = 'tarjeta__estado';
+  estado.textContent = objeto.estado;
+  imagenContenedor.append(imagen, estado);
+
+  const cuerpo = documento.createElement('div');
+  cuerpo.className = 'tarjeta__body';
+  const titulo = documento.createElement('p');
+  titulo.className = 'tarjeta__titulo';
+  titulo.textContent = objeto.titulo;
+  const meta = documento.createElement('div');
+  meta.className = 'tarjeta__meta';
+  meta.append(
+    crearTextoConIcono(documento, 'tarjeta__meta-item', objeto.lugar, 'lugar'),
+    crearTextoConIcono(documento, 'tarjeta__meta-item', formatFecha(objeto.fecha), 'fecha')
+  );
+  const categoria = documento.createElement('span');
+  categoria.className = 'tarjeta__categoria';
+  categoria.textContent = objeto.categoria;
+  cuerpo.append(titulo, meta, categoria);
+  tarjeta.append(imagenContenedor, cuerpo);
+  return tarjeta;
+}
+
+function renderTarjetas(documento, objetos) {
+  const grid = documento.getElementById('objetos-grid');
+  const avisoVacio = documento.getElementById('objetos-empty');
+  grid.replaceChildren(...objetos.map(objeto => crearTarjeta(documento, objeto)));
+  avisoVacio.hidden = objetos.length > 0;
+}
+
+function renderFiltros(documento, categorias, categoriaActual) {
+  const lista = documento.getElementById('filtros-lista');
+  const botones = ['Todos', ...new Set(categorias.map(objeto => objeto.categoria))]
+    .map(categoria => {
+      const elementoLista = documento.createElement('li');
+      const boton = documento.createElement('button');
+      boton.type = 'button';
+      boton.textContent = categoria;
+      boton.className = `filtro-btn${categoria === categoriaActual ? ' filtro-btn--active' : ''}`;
+      boton.id = `filtro-${categoria.toLowerCase().replace(/[^a-z0-9]/g, '-')}`;
+      boton.setAttribute('aria-pressed', String(categoria === categoriaActual));
+      boton.dataset.categoria = categoria;
+      elementoLista.appendChild(boton);
+      return elementoLista;
+    });
+  lista.replaceChildren(...botones);
+}
+
+export function iniciarInicio(documento = globalThis.document, apiObjetos = obtenerObjetos) {
+  const autenticacion = new AutenticacionApi();
+  let categoriaActual = 'Todos';
+  let catalogoObjetos = [];
+  let revisionSolicitud = 0;
+  const filtroCategorias = documento.getElementById('filtros-lista');
+  const formularioBusqueda = documento.getElementById('form-buscar');
+  const campoBusqueda = documento.getElementById('input-buscar');
+
+  const cargarResultados = async () => {
+    const revisionActual = ++revisionSolicitud;
     try {
-      objetos = await obtenerObjetos({
+      const objetos = await apiObjetos({
         categoria: categoriaActual,
-        texto: inputBuscar.value.trim()
+        texto: campoBusqueda.value.trim()
       });
-      renderFiltros();
-      renderTarjetas(objetos);
+      if (revisionActual !== revisionSolicitud) return;
+      renderTarjetas(documento, objetos);
     } catch {
-      const aviso = document.getElementById('objetos-empty');
+      if (revisionActual !== revisionSolicitud) return;
+      const aviso = documento.getElementById('objetos-empty');
       aviso.textContent = 'No se pudieron cargar los objetos.';
       aviso.hidden = false;
     }
   };
-  cargar();
-  document.getElementById('filtros-lista').addEventListener('click', (e) => {
-    const btn = e.target.closest('.filtro-btn');
-    if (!btn) return;
-    categoriaActual = btn.dataset.categoria;
-    cargar();
+
+  apiObjetos().then(objetos => {
+    catalogoObjetos = objetos;
+    renderFiltros(documento, catalogoObjetos, categoriaActual);
+    if (revisionSolicitud === 0) renderTarjetas(documento, catalogoObjetos);
+  }).catch(() => {
+    const aviso = documento.getElementById('objetos-empty');
+    aviso.textContent = 'No se pudieron cargar los objetos.';
+    aviso.hidden = false;
   });
 
-  const formBuscar = document.getElementById('form-buscar');
-  const inputBuscar = document.getElementById('input-buscar');
-  inputBuscar.addEventListener('input', cargar);
-  formBuscar.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const query = inputBuscar.value.trim();
-    const destino = '../../../buscar/pages/buscar/buscar.html' + (query ? `?q=${encodeURIComponent(query)}` : '');
-    window.location.href = destino;
+  filtroCategorias.addEventListener('click', evento => {
+    const boton = evento.target.closest('.filtro-btn');
+    if (!boton) return;
+    categoriaActual = boton.dataset.categoria;
+    renderFiltros(documento, catalogoObjetos, categoriaActual);
+    cargarResultados();
   });
-  // Logout
-  const btnLogout = document.getElementById('btn-logout');
-  if (btnLogout) {
-    btnLogout.addEventListener('click', () => {
-      autenticacion.cerrarSesion()
-        .finally(() => { window.location.href = '../../../auth/pages/login/login.html'; });
-    });
-  }
+  campoBusqueda.addEventListener('input', cargarResultados);
+  formularioBusqueda.addEventListener('submit', evento => {
+    evento.preventDefault();
+    const texto = campoBusqueda.value.trim();
+    const destino = '../../../buscar/pages/buscar/buscar.html'
+      + (texto ? `?q=${encodeURIComponent(texto)}` : '');
+    globalThis.location.href = destino;
+  });
 
-  // BotÃƒÂ³n flotante Reportar
-  const btnFab = document.getElementById('btn-reportar-fab');
-  if (btnFab) {
-    btnFab.addEventListener('click', () => {
-      window.location.href = '../../../reportar/pages/reportar/reportar.html';
-    });
-  }
-});
+  documento.getElementById('btn-logout')?.addEventListener('click', () => {
+    autenticacion.cerrarSesion()
+      .finally(() => { globalThis.location.href = '../../../auth/pages/login/login.html'; });
+  });
+  documento.getElementById('btn-reportar-fab')?.addEventListener('click', () => {
+    globalThis.location.href = '../../../reportar/pages/reportar/reportar.html';
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => iniciarInicio());

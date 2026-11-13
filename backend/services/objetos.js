@@ -1,7 +1,11 @@
 import { ObjetoPublicadoDto } from '../dtos/objetoPublicadoDto.js';
 
 function normalizar(valor) {
-  return String(valor ?? '').trim().toLocaleLowerCase('es');
+  return String(valor ?? '')
+    .trim()
+    .toLocaleLowerCase('es')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
 }
 
 function coincideConFiltros(objeto, filtros) {

@@ -26,7 +26,7 @@ describe('Página Inicio - navegación y enlaces', () => {
     expect(enlaceReportar.getAttribute('href'))
       .toBe('../../../reportar/pages/reportar/reportar.html');
     expect(enlaceRecuperacion.getAttribute('href'))
-      .toBe('../../../recoveryRequest/pages/recoveryRequest.html');
+      .toBe('../../../buscar/pages/buscar/buscar.html');
   });
 
   it('debe tener el enlace de ver todo apuntando a buscar.html', () => {
