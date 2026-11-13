@@ -1,49 +1,41 @@
-async function obtenerResultado(respuesta, mensajePredeterminado) {
-  const resultado = await respuesta.json();
-  if (!respuesta.ok) {
-    throw new Error(resultado.mensaje || mensajePredeterminado);
-  }
-  return resultado;
-}
+import { crearApiCliente } from '../core/api/apiCliente.js';
 
-export function crearApiReportes(solicitar = globalThis.fetch.bind(globalThis)) {
+export function crearApiReportes(fetchImpl) {
+  const cliente = crearApiCliente(fetchImpl);
+
+  async function solicitar(ruta, opciones, mensajePredeterminado) {
+    try {
+      return await cliente.solicitar(ruta, opciones);
+    } catch (error) {
+      error.message ||= mensajePredeterminado;
+      throw error;
+    }
+  }
+
   return {
     async obtenerOpciones() {
-      const respuesta = await solicitar('/api/reportes/opciones');
-      const resultado = await obtenerResultado(
-        respuesta,
-        'No se pudieron cargar las opciones del reporte.'
-      );
+      const resultado = await solicitar('/reportes/opciones', undefined,
+        'No se pudieron cargar las opciones del reporte.');
       return resultado.opciones;
     },
 
     async crear(datos) {
-      const respuesta = await solicitar('/api/reportes', {
-        method: 'POST',
-        credentials: 'same-origin',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(datos)
-      });
-      const resultado = await obtenerResultado(respuesta, 'No se pudo guardar el reporte.');
+      const resultado = await solicitar('/reportes', { method: 'POST', body: datos },
+        'No se pudo guardar el reporte.');
       return resultado.reporte;
     },
 
     async listarPendientes() {
-      const respuesta = await solicitar('/api/admin/reportes?estado=PENDIENTE', {
-        credentials: 'same-origin'
-      });
-      const resultado = await obtenerResultado(respuesta, 'No se pudieron cargar los reportes.');
+      const resultado = await solicitar('/admin/reportes?estado=PENDIENTE', undefined,
+        'No se pudieron cargar los reportes.');
       return resultado.reportes;
     },
 
     async actualizarEstado(id, estado) {
-      const respuesta = await solicitar(`/api/admin/reportes/${encodeURIComponent(id)}`, {
+      const resultado = await solicitar(`/admin/reportes/${encodeURIComponent(id)}`, {
         method: 'PATCH',
-        credentials: 'same-origin',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ estado })
-      });
-      const resultado = await obtenerResultado(respuesta, 'No se pudo actualizar el reporte.');
+        body: { estado }
+      }, 'No se pudo actualizar el reporte.');
       return resultado.reporte;
     }
   };

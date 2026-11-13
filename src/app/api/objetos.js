@@ -1,11 +1,14 @@
-export async function obtenerObjetos(
-  filtros = {},
-  solicitar = globalThis.fetch.bind(globalThis)
-) {
+import { crearApiCliente } from '../core/api/apiCliente.js';
+
+export async function obtenerObjetos(filtros = {}, fetchImpl) {
   const parametros = new URLSearchParams(filtros);
-  const respuesta = await solicitar(`/api/objetos?${parametros}`, {
-    credentials: 'same-origin'
-  });
-  if (!respuesta.ok) throw new Error('No se pudieron cargar los objetos.');
-  return respuesta.json();
+  const consulta = parametros.toString();
+  try {
+    return await crearApiCliente(fetchImpl).solicitar(
+      consulta ? `/objetos?${consulta}` : '/objetos'
+    );
+  } catch (error) {
+    error.message ||= 'No se pudieron cargar los objetos.';
+    throw error;
+  }
 }

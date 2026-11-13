@@ -28,4 +28,22 @@ describe('API de solicitudes de recuperación', () => {
       ok: false, mensaje: 'Inicia sesión para enviar una solicitud.'
     });
   });
+
+  it('usa un mensaje entendible cuando el backend rechaza sin enviar detalle', async () => {
+    const solicitar = jest.fn(async () => ({ ok: false, status: 500, json: async () => ({}) }));
+
+    await expect(new SolicitudesApi(solicitar).crear({ reporteId: 14 })).resolves.toEqual({
+      ok: false,
+      mensaje: 'No se pudo enviar la solicitud.'
+    });
+  });
+
+  it('mantiene el mensaje de conexion que espera el formulario ante error de red', async () => {
+    const solicitar = jest.fn().mockRejectedValue(new TypeError('offline'));
+
+    await expect(new SolicitudesApi(solicitar).crear({ reporteId: 14 })).resolves.toEqual({
+      ok: false,
+      mensaje: 'No se pudo conectar con el servidor.'
+    });
+  });
 });

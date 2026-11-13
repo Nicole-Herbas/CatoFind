@@ -155,6 +155,27 @@ describe('Presentador de Buscar', () => {
       expect(titulosEnPantalla()).toEqual(['Cuaderno verde', 'Carnet universitario']);
     });
 
+    it('envía texto y filtros seleccionados al endpoint de objetos', async () => {
+      const buscar = document.getElementById('buscador');
+      const categoria = document.getElementById('filtro-categoria');
+      const lugar = document.getElementById('filtro-lugar');
+      const fecha = document.getElementById('filtro-fecha');
+      buscar.value = 'mochila';
+      categoria.value = 'Accesorios';
+      lugar.value = 'Biblioteca';
+      fecha.value = 'mes';
+      fecha.dispatchEvent(new Event('change'));
+      await esperarCarga();
+
+      expect(global.fetch.mock.calls.some(([ruta]) => {
+        const parametros = new URL(String(ruta), 'http://local').searchParams;
+        return parametros.get('texto') === 'mochila'
+          && parametros.get('categoria') === 'Accesorios'
+          && parametros.get('lugar') === 'Biblioteca'
+          && parametros.get('fecha') === 'mes';
+      })).toBe(true);
+    });
+
     it('debe avisar cuando no hay resultados', async () => {
       const buscador = document.getElementById('buscador');
       buscador.value = 'xyz';

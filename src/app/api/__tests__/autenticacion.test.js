@@ -54,4 +54,58 @@ describe('API de autenticación del frontend', () => {
     expect(solicitar).not.toHaveBeenCalled();
   });
 
+  it('trata una sesión HTTP inválida como sesión inexistente', async () => {
+    const solicitar = jest.fn(async () => ({
+      ok: false,
+      status: 401,
+      json: async () => ({ mensaje: 'La sesión no es válida.' })
+    }));
+
+    await expect(new AutenticacionApi(solicitar).obtenerSesion()).resolves.toBeNull();
+  });
+
+  it('muestra el rechazo de inicio de sesión devuelto por el backend', async () => {
+    const solicitar = jest.fn(async () => ({
+      ok: false,
+      status: 401,
+      json: async () => ({ mensaje: 'Correo o contraseña incorrectos.' })
+    }));
+
+    await expect(new AutenticacionApi(solicitar).iniciarSesion('ana@ucb.edu.bo', 'mal'))
+      .resolves.toEqual({ ok: false, mensaje: 'Correo o contraseña incorrectos.' });
+  });
+
+  it('cierra sesión cuando el servidor responde 204 sin cuerpo', async () => {
+    const solicitar = jest.fn(async () => ({ ok: true, status: 204 }));
+
+    await expect(new AutenticacionApi(solicitar).cerrarSesion()).resolves.toBeUndefined();
+    expect(solicitar).toHaveBeenCalledWith('/api/auth/logout', expect.objectContaining({
+      method: 'POST',
+      credentials: 'same-origin'
+    }));
+  });
+
+  it('conserva el mensaje de una sesión administrativa rechazada', async () => {
+    const solicitar = jest.fn(async () => ({
+      ok: false,
+      status: 403,
+      json: async () => ({ mensaje: 'No tienes permisos administrativos.' })
+    }));
+
+    await expect(new AutenticacionApi(solicitar).obtenerSesionAdministrador())
+      .rejects.toMatchObject({ status: 403, message: 'No tienes permisos administrativos.' });
+  });
+
+  it('muestra el mensaje del backend cuando el registro es rechazado', async () => {
+    const solicitar = jest.fn(async () => ({
+      ok: false,
+      status: 409,
+      json: async () => ({ mensaje: 'El correo ya está registrado.' })
+    }));
+
+    await expect(new AutenticacionApi(solicitar).registrarEstudiante({
+      nombre: 'Ana', correo: 'ana@ucb.edu.bo', contrasena: 'clave'
+    })).resolves.toEqual({ ok: false, mensaje: 'El correo ya está registrado.' });
+  });
+
 });

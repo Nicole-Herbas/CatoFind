@@ -46,6 +46,32 @@ Reinicia el backend tras cambiar su código para cargar la versión nueva.
 npm test
 ```
 
+## Repositorios HTTP del frontend
+
+Las pantallas importan operaciones de `src/app/api/`; esos repositorios usan el cliente compartido y envian cookies del mismo origen.
+
+| Pantalla | Modulo | Funciones |
+| --- | --- | --- |
+| Inicio y Buscar | `objetos.js` | `obtenerObjetos(filtros)` |
+| Inicio de sesion, sesion y cierre | `autenticacion.js` | `iniciarSesion`, `obtenerSesion`, `cerrarSesion` |
+| Registro | `autenticacion.js` | `registrarEstudiante` |
+| Panel administrativo | `autenticacion.js`, `reportes.js` | `obtenerSesionAdministrador`, `cerrarSesion`, `listarPendientes`, `actualizarEstado` |
+| Reportar un objeto | `reportes.js` | `obtenerOpciones`, `crear` |
+| Solicitar recuperacion | `solicitudes.js` | `crear` |
+
+Ejemplo de importacion, llamada y manejo de error:
+
+```js
+import { obtenerObjetos } from './src/app/api/objetos.js';
+
+try {
+  const objetos = await obtenerObjetos({ categoria: 'Accesorios' });
+  mostrarObjetos(objetos);
+} catch (error) {
+  mostrarMensaje(error.message || 'No se pudieron cargar los objetos.');
+}
+```
+
 ## Datos y autenticación
 
 - `GET /api/objetos` devuelve reportes aprobados con el estado visible `Publicado` y filtra los resultados en el backend.

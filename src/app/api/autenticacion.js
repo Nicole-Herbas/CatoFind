@@ -1,40 +1,38 @@
-﻿export class AutenticacionApi {
-  constructor(solicitar = globalThis.fetch.bind(globalThis)) {
-    this.solicitar = solicitar;
+import { crearApiCliente } from '../core/api/apiCliente.js';
+
+export class AutenticacionApi {
+  constructor(fetchImpl) {
+    this.solicitar = crearApiCliente(fetchImpl).solicitar;
   }
 
   async iniciarSesion(correo, contrasena) {
     try {
-      const respuesta = await this.solicitar('/api/auth/login', {
+      const resultado = await this.solicitar('/auth/login', {
         method: 'POST',
-        credentials: 'same-origin',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ correo, contrasena })
+        body: { correo, contrasena }
       });
-      const resultado = await respuesta.json();
-
-      if (!respuesta.ok) return { ok: false, mensaje: resultado.mensaje };
-
       return { ok: true, mensaje: 'Inicio de sesión correcto.', usuario: resultado.usuario };
-    } catch {
-      return { ok: false, mensaje: 'No se pudo conectar con el servidor.' };
+    } catch (error) {
+      return { ok: false, mensaje: error.message || 'No se pudo conectar con el servidor.' };
     }
   }
 
   async obtenerSesion() {
-    const respuesta = await this.solicitar('/api/auth/sesion', { credentials: 'same-origin' });
-    return respuesta.ok ? (await respuesta.json()).usuario : null;
+    try {
+      return (await this.solicitar('/auth/sesion')).usuario;
+    } catch (error) {
+      if (error.status !== null) return null;
+      throw error;
+    }
   }
 
   async obtenerSesionAdministrador() {
-    const respuesta = await this.solicitar('/api/admin/sesion', { credentials: 'same-origin' });
-    const resultado = await respuesta.json();
-    if (!respuesta.ok) throw new Error(resultado.mensaje);
+    const resultado = await this.solicitar('/admin/sesion');
     return resultado.usuario;
   }
 
   async cerrarSesion() {
-    await this.solicitar('/api/auth/logout', { method: 'POST', credentials: 'same-origin' });
+    await this.solicitar('/auth/logout', { method: 'POST' });
   }
 
   async registrarEstudiante(datos) {
@@ -50,24 +48,13 @@
     }
 
     try {
-      const respuesta = await this.solicitar('/api/auth/registro', {
+      await this.solicitar('/auth/registro', {
         method: 'POST',
-        credentials: 'same-origin',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          nombre,
-          correo,
-          contrasena: datos.contrasena
-        })
+        body: { nombre, correo, contrasena: datos.contrasena }
       });
-      const resultado = await respuesta.json();
-
-      if (!respuesta.ok) return { ok: false, mensaje: resultado.mensaje };
-
       return { ok: true, mensaje: 'Cuenta creada correctamente.' };
-    } catch {
-      return { ok: false, mensaje: 'No se pudo conectar con el servidor.' };
+    } catch (error) {
+      return { ok: false, mensaje: error.message || 'No se pudo conectar con el servidor.' };
     }
   }
-
 }
