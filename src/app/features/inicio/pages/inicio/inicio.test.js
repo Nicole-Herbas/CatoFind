@@ -60,7 +60,7 @@ const objetoServicio = {
   estado: 'Publicado'
 };
 
-const paginaInicio = new DOMParser().parseFromString(htmlPaginaInicio, 'text/html');
+const paginaInicio = new globalThis.DOMParser().parseFromString(htmlPaginaInicio, 'text/html');
 const esperarActualizacion = () => new Promise(resolve => globalThis.setTimeout(resolve, 0));
 
 beforeEach(() => {
