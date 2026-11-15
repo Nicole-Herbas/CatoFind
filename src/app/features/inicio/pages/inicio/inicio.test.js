@@ -16,7 +16,7 @@ async function abrirInicio(fetchObjetos) {
   document.body.innerHTML = htmlInicio;
   global.fetch = jest.fn(fetchObjetos);
   jest.resetModules();
-  await import('./inicio.js');
+  await import('./inicioPresenter.js');
   document.dispatchEvent(new Event('DOMContentLoaded'));
   await new Promise(resolve => setTimeout(resolve, 0));
 }
