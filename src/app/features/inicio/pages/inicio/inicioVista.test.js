@@ -1,4 +1,5 @@
 /** @jest-environment jsdom */
+import { beforeEach } from '@jest/globals';
 import { readFileSync } from 'node:fs';
 import { Objeto } from '../../../../core/models/Objeto.js';
 import { renderFiltros, renderTarjetas } from './inicioVista.js';
