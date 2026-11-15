@@ -57,12 +57,12 @@
     "conclusion": "neutral"
   },
   {
-    "sha": "HEAD",
+    "sha": "4175482ce9c6723f68e325cddd59ed3233610fac",
     "author": "Chris",
     "commit": {
       "date": "2026-10-21T18:34:54.000Z",
       "message": "feat: Agregar boton de rechazar solicitud de recuperacion",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/4175482ce9c6723f68e325cddd59ed3233610fac"
     },
     "stats": {
       "total": 18,
@@ -74,5 +74,233 @@
     "test_count": 0,
     "failed_tests": 0,
     "conclusion": "neutral"
+  },
+  {
+    "sha": "02e7fbdd5b757be268b7ee6d9766729e014602fb",
+    "author": "Nicole",
+    "commit": {
+      "date": "2026-11-15T19:09:39.000Z",
+      "message": "test: definir contrato del servicio de inicio",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/02e7fbdd5b757be268b7ee6d9766729e014602fb"
+    },
+    "stats": {
+      "total": 46,
+      "additions": 46,
+      "deletions": 0,
+      "date": "2026-11-15"
+    },
+    "coverage": 75.66,
+    "test_count": 128,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "3ab4ebdd5a4f7216029cb62ba11c9f34803fefc8",
+    "author": "Nicole",
+    "commit": {
+      "date": "2026-11-15T19:11:20.000Z",
+      "message": "feat: crear servicio sin DOM para inicio",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/3ab4ebdd5a4f7216029cb62ba11c9f34803fefc8"
+    },
+    "stats": {
+      "total": 19,
+      "additions": 19,
+      "deletions": 0,
+      "date": "2026-11-15"
+    },
+    "coverage": 75.78,
+    "test_count": 131,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "8fc79253a4f1337eeb0c4c7c0bddf0890cf43548",
+    "author": "Nicole",
+    "commit": {
+      "date": "2026-11-15T19:12:25.000Z",
+      "message": "test: definir contrato de la vista de inicio",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/8fc79253a4f1337eeb0c4c7c0bddf0890cf43548"
+    },
+    "stats": {
+      "total": 61,
+      "additions": 61,
+      "deletions": 0,
+      "date": "2026-11-15"
+    },
+    "coverage": 75.78,
+    "test_count": 131,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "e61537fa1787b22b4e38efb0f9a1f216f170f269",
+    "author": "Nicole",
+    "commit": {
+      "date": "2026-11-15T19:13:37.000Z",
+      "message": "refactor: separar el renderizado de inicio",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/e61537fa1787b22b4e38efb0f9a1f216f170f269"
+    },
+    "stats": {
+      "total": 123,
+      "additions": 123,
+      "deletions": 0,
+      "date": "2026-11-15"
+    },
+    "coverage": 77.31,
+    "test_count": 134,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "88b224427165cdd55913190307cd588e1dbdac73",
+    "author": "Nicole",
+    "commit": {
+      "date": "2026-11-15T19:14:59.000Z",
+      "message": "test: definir contrato del presentador de inicio",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/88b224427165cdd55913190307cd588e1dbdac73"
+    },
+    "stats": {
+      "total": 115,
+      "additions": 114,
+      "deletions": 1,
+      "date": "2026-11-15"
+    },
+    "coverage": 76.03,
+    "test_count": 134,
+    "failed_tests": 3,
+    "conclusion": "failure"
+  },
+  {
+    "sha": "2e9812284ab17943e30aa40153e11569a68e1704",
+    "author": "Nicole",
+    "commit": {
+      "date": "2026-11-15T19:17:46.000Z",
+      "message": "refactor: separar el presentador de inicio",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/2e9812284ab17943e30aa40153e11569a68e1704"
+    },
+    "stats": {
+      "total": 328,
+      "additions": 132,
+      "deletions": 196,
+      "date": "2026-11-15"
+    },
+    "coverage": 77.36,
+    "test_count": 138,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "71b3f980f9b21c3dfed76c9eb66344d4075cbb80",
+    "author": "Nicole",
+    "commit": {
+      "date": "2026-11-15T19:18:46.000Z",
+      "message": "refactor: quitar modelo duplicado de inicio",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/71b3f980f9b21c3dfed76c9eb66344d4075cbb80"
+    },
+    "stats": {
+      "total": 34,
+      "additions": 0,
+      "deletions": 34,
+      "date": "2026-11-15"
+    },
+    "coverage": 77.2,
+    "test_count": 137,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "3cfe73cc330bc67b9221cf0ce4d62fb55e0fe218",
+    "author": "Nicole",
+    "commit": {
+      "date": "2026-11-15T19:20:22.000Z",
+      "message": "docs: actualizar referencias al presentador de inicio",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/3cfe73cc330bc67b9221cf0ce4d62fb55e0fe218"
+    },
+    "stats": {
+      "total": 4,
+      "additions": 2,
+      "deletions": 2,
+      "date": "2026-11-15"
+    },
+    "coverage": 77.2,
+    "test_count": 137,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "278a851284d4a0b4eda850ec398c3654de963914",
+    "author": "Nicole",
+    "commit": {
+      "date": "2026-11-15T19:30:46.000Z",
+      "message": "test(inicio): consolidate page tests",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/278a851284d4a0b4eda850ec398c3654de963914"
+    },
+    "stats": {
+      "total": 541,
+      "additions": 255,
+      "deletions": 286,
+      "date": "2026-11-15"
+    },
+    "coverage": 76.99,
+    "test_count": 137,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "24c84f6bfe5e00aca9028f233e073065016f752d",
+    "author": "Nicole",
+    "commit": {
+      "date": "2026-11-15T19:31:48.000Z",
+      "message": "refactor(inicio): simplify view module name",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/24c84f6bfe5e00aca9028f233e073065016f752d"
+    },
+    "stats": {
+      "total": 4,
+      "additions": 2,
+      "deletions": 2,
+      "date": "2026-11-15"
+    },
+    "coverage": 76.99,
+    "test_count": 137,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "b58d90dc4328cc9b35bb2e5c893b9c572022274b",
+    "author": "Nicole",
+    "commit": {
+      "date": "2026-11-15T19:33:50.000Z",
+      "message": "chore(inicio): remove unused placeholder files",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/b58d90dc4328cc9b35bb2e5c893b9c572022274b"
+    },
+    "stats": {
+      "total": 0,
+      "additions": 0,
+      "deletions": 0,
+      "date": "2026-11-15"
+    },
+    "coverage": 76.99,
+    "test_count": 137,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "Nicole",
+    "commit": {
+      "date": "2026-11-15T19:34:23.000Z",
+      "message": "test(inicio): qualify browser parser global",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 2,
+      "additions": 1,
+      "deletions": 1,
+      "date": "2026-11-15"
+    },
+    "coverage": 76.99,
+    "test_count": 137,
+    "failed_tests": 0,
+    "conclusion": "success"
   }
 ]
