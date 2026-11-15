@@ -31,7 +31,7 @@ const objetos = [
   }
 ];
 
-const esperarActualizacion = () => new Promise(resolve => setTimeout(resolve, 0));
+const esperarActualizacion = () => new Promise(resolve => globalThis.setTimeout(resolve, 0));
 
 beforeEach(() => {
   document.body.innerHTML = htmlInicio;
@@ -43,8 +43,9 @@ describe('presentador de Inicio', () => {
       obtenerRecientes: jest.fn().mockResolvedValue(objetos),
       filtrar: jest.fn().mockResolvedValue([objetos[0]])
     };
+    const autenticacion = { cerrarSesion: jest.fn() };
 
-    await iniciarInicio(document, { servicio });
+    await iniciarInicio(document, { servicio, autenticacion });
 
     expect(document.querySelectorAll('#objetos-grid .tarjeta')).toHaveLength(2);
     expect([...document.querySelectorAll('#filtros-lista button')]
@@ -60,7 +61,7 @@ describe('presentador de Inicio', () => {
 
     const busqueda = document.getElementById('input-buscar');
     busqueda.value = ' mochila ';
-    busqueda.dispatchEvent(new Event('input'));
+    busqueda.dispatchEvent(new globalThis.Event('input'));
     await esperarActualizacion();
     expect(servicio.filtrar).toHaveBeenLastCalledWith({
       categoria: 'Ropa',
@@ -68,13 +69,30 @@ describe('presentador de Inicio', () => {
     });
   });
 
-  it('muestra errores al fallar la carga inicial o una búsqueda', async () => {
+  it('muestra un error al fallar la carga inicial', async () => {
     const servicio = {
       obtenerRecientes: jest.fn().mockRejectedValue(new Error('fallo')),
       filtrar: jest.fn().mockRejectedValue(new Error('fallo'))
     };
+    const autenticacion = { cerrarSesion: jest.fn() };
 
-    await iniciarInicio(document, { servicio });
+    await iniciarInicio(document, { servicio, autenticacion });
+
+    const aviso = document.getElementById('objetos-empty');
+    expect(aviso.hidden).toBe(false);
+    expect(aviso.textContent).toBe('No se pudieron cargar los objetos.');
+  });
+
+  it('muestra un error si falla la búsqueda filtrada', async () => {
+    const servicio = {
+      obtenerRecientes: jest.fn().mockResolvedValue(objetos),
+      filtrar: jest.fn().mockRejectedValue(new Error('fallo'))
+    };
+    const autenticacion = { cerrarSesion: jest.fn() };
+
+    await iniciarInicio(document, { servicio, autenticacion });
+    document.getElementById('input-buscar').dispatchEvent(new globalThis.Event('input'));
+    await esperarActualizacion();
 
     const aviso = document.getElementById('objetos-empty');
     expect(aviso.hidden).toBe(false);
@@ -93,7 +111,7 @@ describe('presentador de Inicio', () => {
 
     const busqueda = document.getElementById('input-buscar');
     busqueda.value = 'mochila negra';
-    document.getElementById('form-buscar').dispatchEvent(new Event('submit', {
+    document.getElementById('form-buscar').dispatchEvent(new globalThis.Event('submit', {
       bubbles: true,
       cancelable: true
     }));

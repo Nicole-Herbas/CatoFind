@@ -1,4 +1,5 @@
 /** @jest-environment jsdom */
+import { jest } from '@jest/globals';
 import { readFileSync } from 'node:fs';
 
 const htmlInicio = readFileSync('src/app/features/inicio/pages/inicio/inicio.html', 'utf8');
@@ -14,11 +15,11 @@ const objetoDocumentos = {
 
 async function abrirInicio(fetchObjetos) {
   document.body.innerHTML = htmlInicio;
-  global.fetch = jest.fn(fetchObjetos);
+  globalThis.fetch = jest.fn(fetchObjetos);
   jest.resetModules();
   await import('./inicioPresenter.js');
-  document.dispatchEvent(new Event('DOMContentLoaded'));
-  await new Promise(resolve => setTimeout(resolve, 0));
+  document.dispatchEvent(new globalThis.Event('DOMContentLoaded'));
+  await new Promise(resolve => globalThis.setTimeout(resolve, 0));
 }
 
 function titulosInicio() {
@@ -34,20 +35,27 @@ describe('Inicio conectado al catálogo', () => {
     expect(document.querySelector('#objetos-grid script, #objetos-grid img[src="x"]')).toBeNull();
     const imagen = document.querySelector('#objetos-grid img');
     expect(imagen.alt).toBe('<img src=x onerror=alert(1)>');
-    imagen.dispatchEvent(new Event('error'));
+    imagen.dispatchEvent(new globalThis.Event('error'));
     expect(imagen.src).toContain('photo-1494526585095-c41746248156');
   });
 
   it('mantiene todas las categorías disponibles al filtrar tarjetas por categoría', async () => {
     await abrirInicio(async ruta => {
-      const categoria = new URL(String(ruta), 'http://local').searchParams.get('categoria');
+      const categoria = new globalThis.URL(String(ruta), 'http://local').searchParams.get('categoria');
       const catalogo = [objetoRopa, objetoDocumentos];
-      return { ok: true, json: async () => categoria && categoria !== 'Todos'
-        ? catalogo.filter(objeto => objeto.categoria === categoria) : catalogo };
+      return {
+        ok: true,
+        json: async () => {
+          if (categoria && categoria !== 'Todos') {
+            return catalogo.filter(objeto => objeto.categoria === categoria);
+          }
+          return catalogo;
+        }
+      };
     });
 
     document.querySelector('[data-categoria="Ropa"]').click();
-    await new Promise(resolve => setTimeout(resolve, 0));
+    await new Promise(resolve => globalThis.setTimeout(resolve, 0));
 
     expect(titulosInicio()).toHaveLength(1);
     expect([...document.querySelectorAll('#filtros-lista button')]
@@ -57,23 +65,26 @@ describe('Inicio conectado al catálogo', () => {
   it('ignora una respuesta anterior si termina después de la búsqueda más reciente', async () => {
     const resoluciones = [];
     await abrirInicio(async ruta => ({ ok: true, json: async () => {
-      const texto = new URL(String(ruta), 'http://local').searchParams.get('texto');
-      if (!texto) return [objetoRopa, objetoDocumentos];
+      const texto = new globalThis.URL(String(ruta), 'http://local').searchParams.get('texto');
+      if (!texto) {
+        return [objetoRopa, objetoDocumentos];
+      }
+
       return new Promise(resolve => resoluciones.push({ texto, resolve }));
     } }));
 
     const buscador = document.getElementById('input-buscar');
     buscador.value = 'ropa';
-    buscador.dispatchEvent(new Event('input'));
-    await new Promise(resolve => setTimeout(resolve, 0));
+    buscador.dispatchEvent(new globalThis.Event('input'));
+    await new Promise(resolve => globalThis.setTimeout(resolve, 0));
     buscador.value = 'cuaderno';
-    buscador.dispatchEvent(new Event('input'));
-    await new Promise(resolve => setTimeout(resolve, 0));
+    buscador.dispatchEvent(new globalThis.Event('input'));
+    await new Promise(resolve => globalThis.setTimeout(resolve, 0));
 
     resoluciones.find(item => item.texto === 'cuaderno').resolve([objetoDocumentos]);
-    await new Promise(resolve => setTimeout(resolve, 0));
+    await new Promise(resolve => globalThis.setTimeout(resolve, 0));
     resoluciones.find(item => item.texto === 'ropa').resolve([objetoRopa]);
-    await new Promise(resolve => setTimeout(resolve, 0));
+    await new Promise(resolve => globalThis.setTimeout(resolve, 0));
 
     expect(titulosInicio()).toEqual(['Cuaderno']);
   });
