@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import { Objeto } from '../../../core/models/Objeto.js';
 import { crearServicioInicio } from '../services/inicioService.js';
 
