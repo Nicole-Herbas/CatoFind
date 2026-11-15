@@ -1,6 +1,6 @@
 import { AutenticacionApi } from '../../../../api/autenticacion.js';
 import { crearServicioInicio } from '../../services/inicioService.js';
-import { mostrarError, renderFiltros, renderTarjetas } from './inicioVista.js';
+import { mostrarError, renderFiltros, renderTarjetas } from './inicio.js';
 
 const RUTA_BUSCAR = '../../../buscar/pages/buscar/buscar.html';
 const RUTA_LOGIN = '../../../auth/pages/login/login.html';

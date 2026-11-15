@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { Objeto } from '../../../../core/models/Objeto.js';
 import { crearServicioInicio } from '../../services/inicioService.js';
 import { iniciarInicio } from './inicioPresenter.js';
-import { renderFiltros, renderTarjetas } from './inicioVista.js';
+import { renderFiltros, renderTarjetas } from './inicio.js';
 
 const htmlInicio = readFileSync('src/app/features/inicio/pages/inicio/inicio.html', 'utf8');
 const htmlPaginaInicio = htmlInicio;
