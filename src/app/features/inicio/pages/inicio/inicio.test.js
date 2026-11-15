@@ -1,8 +1,13 @@
 /** @jest-environment jsdom */
-import { jest } from '@jest/globals';
+import { beforeEach, jest } from '@jest/globals';
 import { readFileSync } from 'node:fs';
+import { Objeto } from '../../../../core/models/Objeto.js';
+import { crearServicioInicio } from '../../services/inicioService.js';
+import { iniciarInicio } from './inicioPresenter.js';
+import { renderFiltros, renderTarjetas } from './inicioVista.js';
 
 const htmlInicio = readFileSync('src/app/features/inicio/pages/inicio/inicio.html', 'utf8');
+const htmlPaginaInicio = htmlInicio;
 const objetoRopa = {
   id: 1, reporteId: 11, titulo: '<img src=x onerror=alert(1)>', categoria: 'Ropa',
   lugar: '<script>alert(2)</script>', fecha: '2026-11-10', imagen: 'https://foto.test/ropa.jpg',
@@ -12,14 +17,62 @@ const objetoDocumentos = {
   id: 2, reporteId: 12, titulo: 'Cuaderno', categoria: 'Documentos', lugar: 'Biblioteca',
   fecha: '2026-11-09', imagen: 'https://foto.test/cuaderno.jpg', estado: 'Publicado'
 };
+const objetoPublicadoVista = new Objeto({
+  id: 1,
+  reporteId: 11,
+  titulo: '<img src=x onerror=alert(1)>',
+  categoria: 'Ropa',
+  lugar: '<script>alert(2)</script>',
+  fecha: '2026-11-10',
+  imagen: '',
+  estado: 'Publicado'
+});
+const objetosPresentador = [
+  {
+    id: 1,
+    reporteId: 11,
+    titulo: 'Mochila negra',
+    categoria: 'Ropa',
+    lugar: 'Biblioteca',
+    fecha: '2026-11-10',
+    imagen: '',
+    estado: 'Publicado'
+  },
+  {
+    id: 2,
+    reporteId: 12,
+    titulo: 'Cuaderno',
+    categoria: 'Documentos',
+    lugar: 'Aula',
+    fecha: '2026-11-09',
+    imagen: '',
+    estado: 'Publicado'
+  }
+];
+const objetoServicio = {
+  id: 1,
+  reporteId: 11,
+  titulo: 'Mochila negra',
+  categoria: 'Accesorios',
+  lugar: 'Biblioteca',
+  fecha: '2026-11-10',
+  imagen: 'https://foto.test/mochila.jpg',
+  estado: 'Publicado'
+};
+
+const paginaInicio = new DOMParser().parseFromString(htmlPaginaInicio, 'text/html');
+const esperarActualizacion = () => new Promise(resolve => globalThis.setTimeout(resolve, 0));
+
+beforeEach(() => {
+  document.body.innerHTML = htmlInicio;
+});
 
 async function abrirInicio(fetchObjetos) {
   document.body.innerHTML = htmlInicio;
   globalThis.fetch = jest.fn(fetchObjetos);
-  jest.resetModules();
-  await import('./inicioPresenter.js');
-  document.dispatchEvent(new globalThis.Event('DOMContentLoaded'));
-  await new Promise(resolve => globalThis.setTimeout(resolve, 0));
+  await iniciarInicio(document, {
+    autenticacion: { cerrarSesion: jest.fn() }
+  });
 }
 
 function titulosInicio() {
@@ -87,5 +140,202 @@ describe('Inicio conectado al catálogo', () => {
     await new Promise(resolve => globalThis.setTimeout(resolve, 0));
 
     expect(titulosInicio()).toEqual(['Cuaderno']);
+  });
+});
+
+describe('Vista de Inicio', () => {
+  it('renderiza los datos como texto y usa una imagen de respaldo', () => {
+    renderTarjetas(document, [objetoPublicadoVista]);
+
+    expect(document.querySelector('.tarjeta__titulo').textContent)
+      .toBe('<img src=x onerror=alert(1)>');
+    expect(document.querySelector('#objetos-grid script, #objetos-grid img[src="x"]'))
+      .toBeNull();
+    expect(document.querySelector('.tarjeta__meta-item').textContent)
+      .toBe('<script>alert(2)</script>');
+    expect(document.querySelector('.tarjeta__img').src)
+      .toContain('photo-1494526585095-c41746248156');
+  });
+
+  it('muestra el estado vacío cuando no hay objetos', () => {
+    renderTarjetas(document, []);
+
+    const aviso = document.getElementById('objetos-empty');
+    expect(aviso.hidden).toBe(false);
+    expect(aviso.textContent.trim()).toBe('No se encontraron objetos con ese criterio.');
+  });
+
+  it('dibuja categorías únicas y marca la selección accesiblemente', () => {
+    renderFiltros(document, [
+      objetoPublicadoVista,
+      new Objeto({ ...objetoPublicadoVista, id: 2, categoria: 'Documentos' }),
+      new Objeto({ ...objetoPublicadoVista, id: 3, categoria: 'Ropa' })
+    ], 'Documentos');
+
+    const botones = [...document.querySelectorAll('#filtros-lista button')];
+    expect(botones.map(boton => boton.dataset.categoria))
+      .toEqual(['Todos', 'Ropa', 'Documentos']);
+    expect(botones.map(boton => boton.getAttribute('aria-pressed')))
+      .toEqual(['false', 'false', 'true']);
+  });
+});
+
+describe('Presentador de Inicio', () => {
+  it('carga el catálogo inicial y conecta filtros y búsqueda con el servicio', async () => {
+    const servicio = {
+      obtenerRecientes: jest.fn().mockResolvedValue(objetosPresentador),
+      filtrar: jest.fn().mockResolvedValue([objetosPresentador[0]])
+    };
+    const autenticacion = { cerrarSesion: jest.fn() };
+
+    await iniciarInicio(document, { servicio, autenticacion });
+
+    expect(document.querySelectorAll('#objetos-grid .tarjeta')).toHaveLength(2);
+    expect([...document.querySelectorAll('#filtros-lista button')]
+      .map(boton => boton.dataset.categoria))
+      .toEqual(['Todos', 'Ropa', 'Documentos']);
+
+    document.querySelector('[data-categoria="Ropa"]').click();
+    await esperarActualizacion();
+    expect(servicio.filtrar).toHaveBeenLastCalledWith({
+      categoria: 'Ropa',
+      texto: ''
+    });
+
+    const busqueda = document.getElementById('input-buscar');
+    busqueda.value = ' mochila ';
+    busqueda.dispatchEvent(new globalThis.Event('input'));
+    await esperarActualizacion();
+    expect(servicio.filtrar).toHaveBeenLastCalledWith({
+      categoria: 'Ropa',
+      texto: 'mochila'
+    });
+  });
+
+  it('muestra un error al fallar la carga inicial', async () => {
+    const servicio = {
+      obtenerRecientes: jest.fn().mockRejectedValue(new Error('fallo')),
+      filtrar: jest.fn().mockRejectedValue(new Error('fallo'))
+    };
+    const autenticacion = { cerrarSesion: jest.fn() };
+
+    await iniciarInicio(document, { servicio, autenticacion });
+
+    const aviso = document.getElementById('objetos-empty');
+    expect(aviso.hidden).toBe(false);
+    expect(aviso.textContent).toBe('No se pudieron cargar los objetos.');
+  });
+
+  it('muestra un error si falla la búsqueda filtrada', async () => {
+    const servicio = {
+      obtenerRecientes: jest.fn().mockResolvedValue(objetosPresentador),
+      filtrar: jest.fn().mockRejectedValue(new Error('fallo'))
+    };
+    const autenticacion = { cerrarSesion: jest.fn() };
+
+    await iniciarInicio(document, { servicio, autenticacion });
+    document.getElementById('input-buscar').dispatchEvent(new globalThis.Event('input'));
+    await esperarActualizacion();
+
+    const aviso = document.getElementById('objetos-empty');
+    expect(aviso.hidden).toBe(false);
+    expect(aviso.textContent).toBe('No se pudieron cargar los objetos.');
+  });
+
+  it('mantiene la navegación de búsqueda, reportar y cierre de sesión', async () => {
+    const servicio = {
+      obtenerRecientes: jest.fn().mockResolvedValue(objetosPresentador),
+      filtrar: jest.fn().mockResolvedValue(objetosPresentador)
+    };
+    const autenticacion = { cerrarSesion: jest.fn().mockResolvedValue() };
+    const navegar = jest.fn();
+
+    await iniciarInicio(document, { servicio, autenticacion, navegar });
+
+    const busqueda = document.getElementById('input-buscar');
+    busqueda.value = 'mochila negra';
+    document.getElementById('form-buscar').dispatchEvent(new globalThis.Event('submit', {
+      bubbles: true,
+      cancelable: true
+    }));
+    document.getElementById('btn-reportar-fab').click();
+    document.getElementById('btn-logout').click();
+    await esperarActualizacion();
+
+    expect(navegar).toHaveBeenCalledWith(
+      '../../../buscar/pages/buscar/buscar.html?q=mochila%20negra'
+    );
+    expect(navegar).toHaveBeenCalledWith(
+      '../../../reportar/pages/reportar/reportar.html'
+    );
+    expect(autenticacion.cerrarSesion).toHaveBeenCalledTimes(1);
+    expect(navegar).toHaveBeenCalledWith('../../../auth/pages/login/login.html');
+  });
+});
+
+describe('Servicio de Inicio', () => {
+  it('obtiene los objetos recientes sin filtros y usa el modelo compartido', async () => {
+    const apiObjetos = jest.fn().mockResolvedValue([objetoServicio]);
+    const servicio = crearServicioInicio(apiObjetos);
+
+    const objetos = await servicio.obtenerRecientes();
+
+    expect(apiObjetos).toHaveBeenCalledWith();
+    expect(objetos).toHaveLength(1);
+    expect(objetos[0]).toBeInstanceOf(Objeto);
+    expect(objetos[0]).toEqual(objetoServicio);
+  });
+
+  it('delega los filtros a la API y convierte sus resultados al modelo compartido', async () => {
+    const apiObjetos = jest.fn().mockResolvedValue([objetoServicio]);
+    const servicio = crearServicioInicio(apiObjetos);
+    const filtros = { categoria: 'Accesorios', texto: 'mochila' };
+
+    const objetos = await servicio.filtrar(filtros);
+
+    expect(apiObjetos).toHaveBeenCalledWith(filtros);
+    expect(objetos[0]).toBeInstanceOf(Objeto);
+    expect(objetos[0].reporteId).toBe(11);
+  });
+
+  it('propaga errores de la API para que el presentador los comunique', async () => {
+    const error = new Error('No se pudo cargar el catálogo.');
+    const servicio = crearServicioInicio(jest.fn().mockRejectedValue(error));
+
+    await expect(servicio.obtenerRecientes()).rejects.toBe(error);
+  });
+});
+
+describe('Página Inicio - navegación y enlaces', () => {
+  it('debe tener el enlace de inicio apuntando a inicio.html', () => {
+    const link = paginaInicio.querySelector('#nav-inicio');
+    expect(link).not.toBeNull();
+    expect(link.getAttribute('href')).toBe('./inicio.html');
+  });
+
+  it('debe tener el enlace de buscar apuntando a buscar.html', () => {
+    const link = paginaInicio.querySelector('#nav-buscar');
+    expect(link).not.toBeNull();
+    expect(link.getAttribute('href')).toBe('../../../buscar/pages/buscar/buscar.html');
+  });
+
+  it('debe enlazar reportar objetos y solicitar recuperaciones por separado', () => {
+    const enlaceReportar = paginaInicio.querySelector('#nav-reportar');
+    const enlaceRecuperacion = paginaInicio.querySelector('#nav-solicitar-recuperacion');
+
+    expect(enlaceReportar.getAttribute('href'))
+      .toBe('../../../reportar/pages/reportar/reportar.html');
+    expect(enlaceRecuperacion.getAttribute('href'))
+      .toBe('../../../buscar/pages/buscar/buscar.html');
+  });
+
+  it('debe tener el enlace de ver todo apuntando a buscar.html', () => {
+    const link = paginaInicio.querySelector('#link-ver-todo');
+    expect(link).not.toBeNull();
+    expect(link.getAttribute('href')).toBe('../../../buscar/pages/buscar/buscar.html');
+  });
+
+  it('debe tener el boton de logout', () => {
+    expect(paginaInicio.querySelector('#btn-logout')).not.toBeNull();
   });
 });
