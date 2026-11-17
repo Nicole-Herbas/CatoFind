@@ -285,12 +285,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "68bf5d64cc6221b33d48b26ba46fb101bca90bed",
     "author": "Nicole",
     "commit": {
       "date": "2026-11-15T19:34:23.000Z",
       "message": "test(inicio): qualify browser parser global",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/68bf5d64cc6221b33d48b26ba46fb101bca90bed"
     },
     "stats": {
       "total": 2,
@@ -302,5 +302,24 @@
     "test_count": 137,
     "failed_tests": 0,
     "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "Chris",
+    "commit": {
+      "date": "2026-11-17T13:29:05.000Z",
+      "message": "Merge branch 'main' into admin-review-Requests",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 9057,
+      "additions": 6744,
+      "deletions": 2313,
+      "date": "2026-11-17"
+    },
+    "coverage": 0,
+    "test_count": 0,
+    "failed_tests": 0,
+    "conclusion": "neutral"
   }
 ]

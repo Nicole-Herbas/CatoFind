@@ -257,7 +257,7 @@ describe('Redireccion despues del login HU-02', () => {
     };
 
     expect(obtenerRutaPostLogin(resultado))
-      .toBe('../../../admin/pages/panel/panel.html');
+      .toBe('../../../admin/pages/reviewRequests/pages/reviewRequests.html');
   });
 
   it('debe enviar al estudiante a inicio', () => {

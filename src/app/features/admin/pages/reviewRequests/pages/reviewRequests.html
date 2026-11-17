@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f1f4f8">
+  <title>CatoFind | Panel Administrativo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./reviewRequests.css">
+</head>
+<body>
+  <main id="panel-contenido" class="administracion" hidden>
+    <header class="administracion__barra">
+      <div class="administracion__marca">
+        <strong class="administracion__logo">CATO<span>FIND</span></strong>
+        <span class="administracion__titulo">Panel Administrativo</span>
+      </div>
+      <nav class="administracion__acciones-header" aria-label="Acciones administrativas">
+        <a
+          class="administracion__solicitudes"
+          href="../../../../reviewRecoveryRequest/pages/reviewRecoveryRequest.html"
+        >Solicitudes de recuperación</a>
+        <button id="cerrar-sesion" class="administracion__cerrar-sesion" type="button">
+          Cerrar sesión
+        </button>
+      </nav>
+    </header>
+
+    <section class="administracion__contenido" aria-labelledby="titulo-solicitudes">
+      <div class="administracion__introduccion">
+        <h1 id="titulo-solicitudes">Solicitudes</h1>
+        <p id="resumen-reportes">Reportes pendientes de revisión</p>
+      </div>
+
+      <p id="mensaje-revision" class="administracion__mensaje" role="status" aria-live="polite"></p>
+      <div id="reportes-pendientes" class="administracion__lista"></div>
+    </section>
+  </main>
+  <script type="module" src="./reviewRequestsPresenter.js"></script>
+</body>
+</html>
