@@ -1,6 +1,7 @@
 /** @jest-environment jsdom */
 import { readFileSync } from 'node:fs';
 import { iniciarPanel } from './panelPresenter.js';
+import { iniciarNavbar } from '../../../../shared/components/navbar/navbar.js';
 
 const rutaHtml = 'src/app/features/admin/pages/panel/panel.html';
 let navegar;
@@ -8,7 +9,7 @@ let avisar;
 let autenticacion;
 let apiReportes;
 
-const administrador = { nombre: 'Administradora' };
+const administrador = { nombre: 'Administradora', rol: 'ADMIN' };
 const reportePendiente = {
   id: 7,
   titulo: 'Mochila negra',
@@ -25,6 +26,7 @@ beforeEach(() => {
   avisar = jest.fn();
   autenticacion = {
     obtenerSesionAdministrador: jest.fn(),
+    obtenerSesion: jest.fn().mockResolvedValue(administrador),
     cerrarSesion: jest.fn()
   };
   apiReportes = {
@@ -76,7 +78,8 @@ describe('Panel administrativo', () => {
     expect(document.getElementById('reportes-pendientes').textContent)
       .toContain('No hay reportes pendientes');
 
-    document.getElementById('cerrar-sesion').click();
+    await iniciarNavbar(document, autenticacion, navegar);
+    document.getElementById('btn-logout').click();
     await new Promise(resolve => setTimeout(resolve, 0));
 
     expect(autenticacion.cerrarSesion).toHaveBeenCalledTimes(1);

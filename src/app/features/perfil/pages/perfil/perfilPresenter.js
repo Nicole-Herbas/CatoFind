@@ -12,7 +12,8 @@ function iniciales(nombre) {
 function mostrarPerfil(documento, perfil) {
   documento.getElementById('perfil-nombre').textContent = perfil.nombre;
   documento.getElementById('perfil-correo').textContent = perfil.correo;
-  documento.getElementById('perfil-carrera').textContent = perfil.carrera;
+  documento.getElementById('perfil-carrera').textContent =
+    perfil.carrera || 'No especificada';
   documento.getElementById('perfil-avatar').textContent = iniciales(perfil.nombre);
   documento.getElementById('editar-nombre').value = perfil.nombre;
   documento.getElementById('editar-correo').value = perfil.correo;
@@ -83,6 +84,9 @@ export async function iniciarPerfil(
       mensaje.classList.add('perfil__mensaje--exito');
     } catch (error) {
       mensaje.textContent = error.message || 'No se pudo guardar el perfil.';
+      if (error.status === 401) {
+        navegar(RUTA_LOGIN);
+      }
     } finally {
       botonGuardar.disabled = false;
     }

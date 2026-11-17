@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import { AutenticacionApi } from '../autenticacion.js';
 
 describe('API de autenticación del frontend', () => {

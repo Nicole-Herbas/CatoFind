@@ -1,5 +1,6 @@
 /** @jest-environment jsdom */
 import { readFileSync } from 'node:fs';
+import { jest } from '@jest/globals';
 import { iniciarPerfil } from './perfilPresenter.js';
 
 const htmlPerfil = readFileSync(

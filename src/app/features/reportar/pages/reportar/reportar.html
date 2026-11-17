@@ -6,23 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CatoFind | Reportar objeto encontrado</title>
   <link rel="stylesheet" href="./reportar.css">
+  <link rel="stylesheet" href="../../../../shared/components/navbar/navbar.css">
 </head>
 <body>
-
-  <header class="navbar">
-    <div class="navbar__marca">
-      <strong>CATO<span>FIND</span></strong>
-      <small>UCB COCHABAMBA</small>
-    </div>
-
-    <nav aria-label="Navegación principal">
-      <a href="../../../inicio/pages/inicio/inicio.html">Inicio</a>
-      <a href="../../../buscar/pages/buscar/buscar.html">Buscar</a>
-      <a href="./reportar.html" class="navbar__activo" aria-current="page">Reportar objeto</a>
-      <a href="../../../buscar/pages/buscar/buscar.html">Solicitar recuperación</a>
-      <a href="#">Mis reportes</a>
-    </nav>
-  </header>
+  <div id="shared-navbar" data-pagina="reportar" data-rol="ESTUDIANTE"></div>
 
   <main class="contenedor">
 
@@ -190,6 +177,7 @@
     Agrega una fotografía para continuar.
   </div>
 
+  <script type="module" src="../../../../shared/components/navbar/navbar.js"></script>
   <script type="module" src="./reportarPresenter.js"></script>
 </body>
 </html>
