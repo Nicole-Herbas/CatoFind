@@ -1,17 +1,16 @@
-import { BuscadorService } from '../../services/BuscadorService.js';
-import { OBJETOS_INICIALES } from '../../../../core/data/datosIniciales.js';
-import { iniciarBuscador } from './buscarVista.js';
+export const RUTA_SOLICITUD = '../../../recoveryRequest/pages/recoveryRequest.html';
 
-iniciarBuscador(document, new BuscadorService(OBJETOS_INICIALES));
+export function obtenerBusquedaInicial(textoUrl) {
+  const texto = new URLSearchParams(textoUrl ?? '').get('q');
+  return texto ? texto.trim() : '';
+}
 
-if (typeof window !== 'undefined' && window.location) {
-  const params = new URLSearchParams(window.location.search);
-  const q = params.get('q');
-  if (q) {
-    const input = document.querySelector('#buscador');
-    if (input) {
-      input.value = q;
-      input.dispatchEvent(new Event('input'));
-    }
-  }
+export function datosTarjeta(objeto) {
+  return {
+    id: objeto.id,
+    titulo: objeto.titulo,
+    imagen: objeto.imagen || '',
+    estado: objeto.estado,
+    datos: [objeto.categoria, objeto.lugar, objeto.fecha],
+  };
 }

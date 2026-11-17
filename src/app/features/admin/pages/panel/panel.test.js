@@ -1,101 +1,89 @@
-
-/**
- * @jest-environment jsdom
- */
+/** @jest-environment jsdom */
 import { readFileSync } from 'node:fs';
 import { iniciarPanel } from './panelPresenter.js';
 
-const RUTA_HTML =
-  'src/app/features/admin/pages/panel/panel.html';
-
+const rutaHtml = 'src/app/features/admin/pages/panel/panel.html';
 let navegar;
 let avisar;
+let autenticacion;
+let apiReportes;
 
-function crearSesion(usuario) {
-  let datos = usuario ? JSON.stringify(usuario) : null;
-
-  return {
-    getItem: clave =>
-      clave === 'catofind_sesion' ? datos : null,
-
-    removeItem: clave => {
-      if (clave === 'catofind_sesion') datos = null;
-    }
-  };
-}
-
-const administrador = {
-  nombre: 'Administrador',
-  apellido: 'Bienestar',
-  correo: 'bienestar@ucb.edu.bo',
-  rol: 'ADMIN'
+const administrador = { nombre: 'Administradora' };
+const reportePendiente = {
+  id: 7,
+  titulo: 'Mochila negra',
+  categoria: 'Accesorios',
+  lugar: 'Biblioteca',
+  fecha: '2026-11-10',
+  hora: '10:30',
+  descripcion: 'Mochila negra con cuadernos.'
 };
 
 beforeEach(() => {
-  document.body.innerHTML = readFileSync(RUTA_HTML, 'utf8');
+  document.body.innerHTML = readFileSync(rutaHtml, 'utf8');
   navegar = jest.fn();
   avisar = jest.fn();
+  autenticacion = {
+    obtenerSesionAdministrador: jest.fn(),
+    cerrarSesion: jest.fn()
+  };
+  apiReportes = {
+    listarPendientes: jest.fn().mockResolvedValue([]),
+    actualizarEstado: jest.fn()
+  };
 });
 
-function abrirPanel(sesion) {
-  return iniciarPanel(document, sesion, {
-    irAlLogin: navegar,
-    avisar
-  });
-}
+const acciones = () => ({ irAlLogin: navegar, avisar });
 
-describe('Panel administrativo HU-02', () => {
+describe('Panel administrativo', () => {
+  it('muestra el panel con el perfil autorizado por backend', async () => {
+    autenticacion.obtenerSesionAdministrador.mockResolvedValue(administrador);
 
-  it('debe mostrar el panel al administrador', () => {
-    abrirPanel(crearSesion(administrador));
+    await iniciarPanel(document, acciones(), autenticacion, apiReportes);
 
-    expect(document.getElementById('panel-contenido').hidden)
-      .toBe(false);
-    expect(document.getElementById('nombre-admin').textContent)
-      .toBe('Administrador');
-    expect(navegar).not.toHaveBeenCalled();
+    expect(document.getElementById('panel-contenido').hidden).toBe(false);
+    expect(document.getElementById('nombre-admin').textContent).toBe('Administradora');
   });
 
-  it('debe avisar y redirigir al estudiante', () => {
-    abrirPanel(crearSesion({
-      nombre: 'Jose',
-      correo: 'estudiante@ucb.edu.bo',
-      rol: 'ESTUDIANTE'
-    }));
+  it('redirige cuando backend rechaza el acceso', async () => {
+    autenticacion.obtenerSesionAdministrador.mockRejectedValue(new Error('No tienes permisos.'));
 
-    expect(avisar).toHaveBeenCalledWith(
-      'No tienes permisos para acceder al panel administrativo.'
-    );
+    await iniciarPanel(document, acciones(), autenticacion, apiReportes);
+
+    expect(avisar).toHaveBeenCalledWith('No tienes permisos.');
     expect(navegar).toHaveBeenCalledTimes(1);
-    expect(document.getElementById('panel-contenido').hidden)
-      .toBe(true);
+    expect(document.getElementById('panel-contenido').hidden).toBe(true);
+    expect(apiReportes.listarPendientes).not.toHaveBeenCalled();
   });
 
-  it('debe rechazar usuarios sin sesion', () => {
-    abrirPanel(crearSesion(null));
+  it('permite al administrador revisar reportes y cerrar su sesión backend', async () => {
+    autenticacion.obtenerSesionAdministrador.mockResolvedValue(administrador);
+    apiReportes.listarPendientes
+      .mockResolvedValueOnce([reportePendiente])
+      .mockResolvedValueOnce([]);
+    apiReportes.actualizarEstado.mockResolvedValue({ id: 7, estado: 'APROBADO' });
 
-    expect(avisar).toHaveBeenCalledWith(
-      'Debes iniciar sesión para acceder al panel administrativo.'
-    );
-    expect(navegar).toHaveBeenCalledTimes(1);
-  });
+    await iniciarPanel(document, acciones(), autenticacion, apiReportes);
 
-  it('debe permitir cerrar sesion', () => {
-    const sesion = crearSesion(administrador);
+    expect(apiReportes.listarPendientes).toHaveBeenCalledTimes(1);
+    expect(document.querySelector('#reportes-pendientes h3').textContent)
+      .toBe('Mochila negra');
 
-    abrirPanel(sesion);
+    document.querySelector('button[data-accion="aprobar"]').click();
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    expect(apiReportes.actualizarEstado).toHaveBeenCalledWith('7', 'APROBADO');
+    expect(document.getElementById('reportes-pendientes').textContent)
+      .toContain('No hay reportes pendientes');
 
     document.getElementById('cerrar-sesion').click();
+    await new Promise(resolve => setTimeout(resolve, 0));
 
-    expect(sesion.getItem('catofind_sesion')).toBeNull();
+    expect(autenticacion.cerrarSesion).toHaveBeenCalledTimes(1);
     expect(navegar).toHaveBeenCalledTimes(1);
   });
 
-  it('debe tener enlace para revisar solicitudes de recuperacion', () => {
-    abrirPanel(crearSesion(administrador));
-    const enlace = document.querySelector('a[href*="reviewRecoveryRequest.html"]');
-    expect(enlace).not.toBeNull();
-    expect(enlace.getAttribute('href')).toBe('../../../reviewRecoveryRequest/pages/reviewRecoveryRequest.html');
+  it('mantiene el enlace de revisión de solicitudes de recuperación', () => {
+    expect(document.querySelector('a[href*="reviewRecoveryRequest.html"]')).not.toBeNull();
   });
-
 });

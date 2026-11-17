@@ -1,6 +1,7 @@
 export class Objeto {
-  constructor({ id, titulo, categoria, lugar, fecha, imagen, estado }) {
+  constructor({ id, reporteId, titulo, categoria, lugar, fecha, imagen, estado }) {
     this.id = id;
+    this.reporteId = reporteId;
     this.titulo = titulo;
     this.categoria = categoria;
     this.lugar = lugar;

@@ -139,28 +139,134 @@
     "numPassedTests": 140,
     "failedTests": 0,
     "numTotalTests": 140,
-    "timestamp": 1794490882377,
+    "timestamp": 1794318083489,
     "success": true,
     "testId": 4
   },
   {
-    "commitId": "b2f0af814a3284dc8b9e26d8de1b898017602ba9",
-    "commitName": "style: agregar estilos a la pagina de recoveryRequest",
-    "commitTimestamp": 1794491289124,
+    "numPassedTests": 140,
+    "failedTests": 0,
+    "numTotalTests": 140,
+    "timestamp": 1794318098023,
+    "success": true,
     "testId": 4
   },
   {
-    "commitId": "HEAD",
-    "commitName": "fix: modificado gitignore",
-    "commitTimestamp": 1794491460748,
+    "numPassedTests": 140,
+    "failedTests": 0,
+    "numTotalTests": 140,
+    "timestamp": 1794318456782,
+    "success": true,
+    "testId": 4
+  },
+  {
+    "numPassedTests": 165,
+    "failedTests": 17,
+    "numTotalTests": 182,
+    "timestamp": 1794319016170,
+    "success": false,
+    "testId": 4
+  },
+  {
+    "numPassedTests": 131,
+    "failedTests": 17,
+    "numTotalTests": 148,
+    "timestamp": 1794319223420,
+    "success": false,
+    "testId": 4
+  },
+  {
+    "numPassedTests": 148,
+    "failedTests": 0,
+    "numTotalTests": 148,
+    "timestamp": 1794319299688,
+    "success": true,
+    "testId": 4
+  },
+  {
+    "commitId": "4175482ce9c6723f68e325cddd59ed3233610fac",
+    "commitName": "refactor: aplicar MVP en buscar con presentador como en login",
+    "commitTimestamp": 1794319335542,
+    "testId": 4
+  },
+  {
+    "numPassedTests": 148,
+    "failedTests": 0,
+    "numTotalTests": 148,
+    "timestamp": 1794319454672,
+    "success": true,
     "testId": 5
   },
   {
-    "numPassedTests": 141,
-    "failedTests": 0,
-    "numTotalTests": 141,
-    "timestamp": 1794492169915,
-    "success": true,
+    "commitId": "02e7fbdd5b757be268b7ee6d9766729e014602fb",
+    "commitName": "test: definir contrato del servicio de inicio",
+    "commitTimestamp": 1794769780895,
+    "testId": 5
+  },
+  {
+    "commitId": "3ab4ebdd5a4f7216029cb62ba11c9f34803fefc8",
+    "commitName": "feat: crear servicio sin DOM para inicio",
+    "commitTimestamp": 1794769882449,
     "testId": 6
+  },
+  {
+    "commitId": "8fc79253a4f1337eeb0c4c7c0bddf0890cf43548",
+    "commitName": "test: definir contrato de la vista de inicio",
+    "commitTimestamp": 1794769946683,
+    "testId": 7
+  },
+  {
+    "commitId": "e61537fa1787b22b4e38efb0f9a1f216f170f269",
+    "commitName": "refactor: separar el renderizado de inicio",
+    "commitTimestamp": 1794770018523,
+    "testId": 8
+  },
+  {
+    "commitId": "88b224427165cdd55913190307cd588e1dbdac73",
+    "commitName": "test: definir contrato del presentador de inicio",
+    "commitTimestamp": 1794770100724,
+    "testId": 9
+  },
+  {
+    "commitId": "2e9812284ab17943e30aa40153e11569a68e1704",
+    "commitName": "refactor: separar el presentador de inicio",
+    "commitTimestamp": 1794770267824,
+    "testId": 10
+  },
+  {
+    "commitId": "71b3f980f9b21c3dfed76c9eb66344d4075cbb80",
+    "commitName": "refactor: quitar modelo duplicado de inicio",
+    "commitTimestamp": 1794770328131,
+    "testId": 11
+  },
+  {
+    "commitId": "3cfe73cc330bc67b9221cf0ce4d62fb55e0fe218",
+    "commitName": "docs: actualizar referencias al presentador de inicio",
+    "commitTimestamp": 1794770424324,
+    "testId": 12
+  },
+  {
+    "commitId": "278a851284d4a0b4eda850ec398c3654de963914",
+    "commitName": "test(inicio): consolidate page tests",
+    "commitTimestamp": 1794771048124,
+    "testId": 13
+  },
+  {
+    "commitId": "24c84f6bfe5e00aca9028f233e073065016f752d",
+    "commitName": "refactor(inicio): simplify view module name",
+    "commitTimestamp": 1794771109998,
+    "testId": 14
+  },
+  {
+    "commitId": "b58d90dc4328cc9b35bb2e5c893b9c572022274b",
+    "commitName": "chore(inicio): remove unused placeholder files",
+    "commitTimestamp": 1794771231731,
+    "testId": 15
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "test(inicio): qualify browser parser global",
+    "commitTimestamp": 1794771265196,
+    "testId": 16
   }
 ]
