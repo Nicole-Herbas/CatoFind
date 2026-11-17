@@ -23,6 +23,8 @@ export function crearApp(servicioObjetos, servicioAutenticacion, servicioSolicit
   app.post('/api/auth/registro', controladorAutenticacion.registrar);
   app.post('/api/auth/login', controladorAutenticacion.iniciarSesion);
   app.get('/api/auth/sesion', controladorAutenticacion.obtenerSesion);
+  app.get('/api/auth/perfil', controladorAutenticacion.obtenerPerfilEstudiante);
+  app.patch('/api/auth/perfil', controladorAutenticacion.actualizarPerfilEstudiante);
   app.get('/api/admin/sesion', controladorAutenticacion.obtenerSesionAdministrador);
   app.post('/api/auth/logout', controladorAutenticacion.cerrarSesion);
   app.post('/api/solicitudes-recuperacion', controladorSolicitudes.crear);
