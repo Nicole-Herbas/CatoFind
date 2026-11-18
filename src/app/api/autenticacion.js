@@ -13,7 +13,9 @@
       });
       const resultado = await respuesta.json();
 
-      if (!respuesta.ok) return { ok: false, mensaje: resultado.mensaje };
+      if (!respuesta.ok) {
+        return { ok: false, mensaje: resultado.mensaje };
+      }
 
       return { ok: true, mensaje: 'Inicio de sesión correcto.', usuario: resultado.usuario };
     } catch {
@@ -29,8 +31,42 @@
   async obtenerSesionAdministrador() {
     const respuesta = await this.solicitar('/api/admin/sesion', { credentials: 'same-origin' });
     const resultado = await respuesta.json();
-    if (!respuesta.ok) throw new Error(resultado.mensaje);
+    if (!respuesta.ok) {
+      throw new Error(resultado.mensaje);
+    }
     return resultado.usuario;
+  }
+
+  async obtenerPerfil() {
+    const respuesta = await this.solicitar('/api/auth/perfil', {
+      credentials: 'same-origin'
+    });
+    const resultado = await respuesta.json();
+    if (!respuesta.ok) {
+      throw Object.assign(new Error(resultado.mensaje || 'No se pudo cargar el perfil.'), {
+        status: respuesta.status
+      });
+    }
+    return resultado.perfil;
+  }
+
+  async actualizarPerfil(datos) {
+    const respuesta = await this.solicitar('/api/auth/perfil', {
+      method: 'PATCH',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        nombre: datos.nombre,
+        carrera: datos.carrera
+      })
+    });
+    const resultado = await respuesta.json();
+    if (!respuesta.ok) {
+      throw Object.assign(new Error(resultado.mensaje || 'No se pudo guardar el perfil.'), {
+        status: respuesta.status
+      });
+    }
+    return resultado.perfil;
   }
 
   async cerrarSesion() {
@@ -62,7 +98,9 @@
       });
       const resultado = await respuesta.json();
 
-      if (!respuesta.ok) return { ok: false, mensaje: resultado.mensaje };
+      if (!respuesta.ok) {
+        return { ok: false, mensaje: resultado.mensaje };
+      }
 
       return { ok: true, mensaje: 'Cuenta creada correctamente.' };
     } catch {

@@ -1,0 +1,190 @@
+.app-navbar {
+  position: sticky;
+  z-index: 100;
+  top: 0;
+  display: flex;
+  min-height: 76px;
+  align-items: center;
+  gap: 42px;
+  padding: 10px max(24px, calc((100% - 1396px) / 2));
+  border-bottom: 2px solid #f2c230;
+  background: #fff;
+  color: #17263e;
+  font-family: Inter, Arial, sans-serif;
+}
+
+.app-navbar__marca {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 10px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.app-navbar__logo {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  border: 2px solid #f2c230;
+  border-radius: 50%;
+  color: #0b3979;
+  font-size: 13px;
+  font-weight: 800;
+  place-items: center;
+}
+
+.app-navbar__marca-texto {
+  display: flex;
+  flex-direction: column;
+  color: #0b3979;
+  line-height: 1.15;
+}
+
+.app-navbar__marca-texto strong {
+  font-size: 17px;
+}
+
+.app-navbar__marca-texto small {
+  color: #64748b;
+  font-size: 10px;
+  letter-spacing: 1.2px;
+}
+
+.app-navbar nav {
+  margin-right: auto;
+}
+
+.app-navbar__enlaces {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.app-navbar__link {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  padding: 0 14px;
+  border-radius: 22px;
+  color: #5b667a;
+  font-size: 15px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.app-navbar__link:hover,
+.app-navbar__link[aria-current="page"] {
+  background: #eef2f8;
+  color: #0b3979;
+}
+
+.app-navbar__acciones {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 20px;
+}
+
+.app-navbar__notificaciones {
+  position: relative;
+  display: inline-flex;
+  color: #607087;
+}
+
+.app-navbar__notificaciones svg {
+  display: block;
+}
+
+.app-navbar__badge {
+  position: absolute;
+  top: -5px;
+  right: -7px;
+  display: grid;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: #e8323a;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  place-items: center;
+}
+
+.app-navbar__perfil {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: #17263e;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+a.app-navbar__perfil:hover .app-navbar__nombre {
+  color: #0b3979;
+  text-decoration: underline;
+}
+
+.app-navbar__avatar {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #0b3979;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  place-items: center;
+}
+
+.app-navbar__salir {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #64748b;
+  cursor: pointer;
+  place-items: center;
+}
+
+.app-navbar__salir:hover {
+  background: #f1f4f8;
+  color: #0b3979;
+}
+
+@media (max-width: 900px) {
+  .app-navbar {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px 20px;
+    padding: 12px 20px;
+  }
+
+  .app-navbar nav {
+    order: 3;
+    width: 100%;
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 520px) {
+  .app-navbar__acciones {
+    gap: 12px;
+  }
+
+  .app-navbar__nombre {
+    display: none;
+  }
+
+  .app-navbar__link {
+    padding: 0 10px;
+    font-size: 14px;
+  }
+}

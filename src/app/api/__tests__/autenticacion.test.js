@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import { AutenticacionApi } from '../autenticacion.js';
 
 describe('API de autenticación del frontend', () => {
@@ -52,6 +53,55 @@ describe('API de autenticación del frontend', () => {
 
     expect(resultado).toEqual({ ok: false, mensaje: 'Las contraseñas no coinciden.' });
     expect(solicitar).not.toHaveBeenCalled();
+  });
+
+  it('obtiene el perfil con la cookie de sesión', async () => {
+    const perfil = {
+      nombre: 'Ana Torres',
+      correo: 'ana@ucb.edu.bo',
+      carrera: 'Ingeniería de Software'
+    };
+    const solicitar = jest.fn(async () => ({
+      ok: true,
+      json: async () => ({ perfil })
+    }));
+    const api = new AutenticacionApi(solicitar);
+
+    await expect(api.obtenerPerfil()).resolves.toEqual(perfil);
+    expect(solicitar).toHaveBeenCalledWith('/api/auth/perfil', {
+      credentials: 'same-origin'
+    });
+  });
+
+  it('actualiza solo nombre y carrera y rechaza errores de la API', async () => {
+    const solicitar = jest.fn(async (_ruta, opciones) => ({
+      ok: true,
+      json: async () => ({ perfil: JSON.parse(opciones.body) })
+    }));
+    const api = new AutenticacionApi(solicitar);
+
+    await expect(api.actualizarPerfil({
+      nombre: 'Ana Torres',
+      carrera: 'Informática',
+      correo: 'intruso@ucb.edu.bo'
+    })).resolves.toEqual({
+      nombre: 'Ana Torres',
+      carrera: 'Informática'
+    });
+    expect(solicitar).toHaveBeenCalledWith('/api/auth/perfil', {
+      method: 'PATCH',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nombre: 'Ana Torres', carrera: 'Informática' })
+    });
+
+    const apiConError = new AutenticacionApi(jest.fn(async () => ({
+      ok: false,
+      status: 401,
+      json: async () => ({ mensaje: 'Debes iniciar sesión.' })
+    })));
+    await expect(apiConError.obtenerPerfil())
+      .rejects.toMatchObject({ status: 401, message: 'Debes iniciar sesión.' });
   });
 
 });

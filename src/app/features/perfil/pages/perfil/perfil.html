@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CatoFind | Mi perfil</title>
+  <link rel="stylesheet" href="../../../../shared/components/navbar/navbar.css">
+  <link rel="stylesheet" href="./perfil.css">
+</head>
+<body>
+  <div id="shared-navbar" data-pagina="perfil" data-rol="ESTUDIANTE"></div>
+
+  <main class="perfil">
+    <section class="perfil__tarjeta" id="perfil-contenido" hidden aria-labelledby="perfil-nombre">
+      <div class="perfil__avatar" id="perfil-avatar" aria-hidden="true"></div>
+      <h1 id="perfil-nombre"></h1>
+      <p class="perfil__correo" id="perfil-correo"></p>
+      <p class="perfil__carrera">
+        <span>Carrera</span>
+        <strong id="perfil-carrera"></strong>
+      </p>
+    </section>
+
+    <button class="perfil__editar" id="btn-editar-perfil" type="button" hidden>
+      <span aria-hidden="true">✎</span>
+      Editar perfil
+    </button>
+
+    <form class="perfil__formulario" id="form-perfil" hidden>
+      <h2>Editar perfil</h2>
+      <label for="editar-nombre">Nombre</label>
+      <input id="editar-nombre" name="nombre" type="text" autocomplete="name" required>
+
+      <label for="editar-correo">Correo institucional</label>
+      <input id="editar-correo" name="correo" type="email" disabled>
+
+      <label for="editar-carrera">Carrera</label>
+      <input id="editar-carrera" name="carrera" type="text" required>
+
+      <div class="perfil__acciones">
+        <button class="perfil__cancelar" id="btn-cancelar-edicion" type="button">Cancelar</button>
+        <button class="perfil__guardar" id="btn-guardar-perfil" type="submit">Guardar cambios</button>
+      </div>
+    </form>
+
+    <p class="perfil__mensaje" id="mensaje-perfil" role="status" aria-live="polite"></p>
+    <script type="module" src="./perfilPresenter.js"></script>
+    <script type="module" src="../../../../shared/components/navbar/navbar.js"></script>
+  </main>
+</body>
+</html>

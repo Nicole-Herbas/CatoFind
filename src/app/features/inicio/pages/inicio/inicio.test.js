@@ -242,15 +242,14 @@ describe('Presentador de Inicio', () => {
     expect(aviso.textContent).toBe('No se pudieron cargar los objetos.');
   });
 
-  it('mantiene la navegación de búsqueda, reportar y cierre de sesión', async () => {
+  it('mantiene la navegación de búsqueda y reportar', async () => {
     const servicio = {
       obtenerRecientes: jest.fn().mockResolvedValue(objetosPresentador),
       filtrar: jest.fn().mockResolvedValue(objetosPresentador)
     };
-    const autenticacion = { cerrarSesion: jest.fn().mockResolvedValue() };
     const navegar = jest.fn();
 
-    await iniciarInicio(document, { servicio, autenticacion, navegar });
+    await iniciarInicio(document, { servicio, navegar });
 
     const busqueda = document.getElementById('input-buscar');
     busqueda.value = 'mochila negra';
@@ -259,8 +258,6 @@ describe('Presentador de Inicio', () => {
       cancelable: true
     }));
     document.getElementById('btn-reportar-fab').click();
-    document.getElementById('btn-logout').click();
-    await esperarActualizacion();
 
     expect(navegar).toHaveBeenCalledWith(
       '../../../buscar/pages/buscar/buscar.html?q=mochila%20negra'
@@ -268,8 +265,6 @@ describe('Presentador de Inicio', () => {
     expect(navegar).toHaveBeenCalledWith(
       '../../../reportar/pages/reportar/reportar.html'
     );
-    expect(autenticacion.cerrarSesion).toHaveBeenCalledTimes(1);
-    expect(navegar).toHaveBeenCalledWith('../../../auth/pages/login/login.html');
   });
 });
 
@@ -307,26 +302,11 @@ describe('Servicio de Inicio', () => {
 });
 
 describe('Página Inicio - navegación y enlaces', () => {
-  it('debe tener el enlace de inicio apuntando a inicio.html', () => {
-    const link = paginaInicio.querySelector('#nav-inicio');
-    expect(link).not.toBeNull();
-    expect(link.getAttribute('href')).toBe('./inicio.html');
-  });
-
-  it('debe tener el enlace de buscar apuntando a buscar.html', () => {
-    const link = paginaInicio.querySelector('#nav-buscar');
-    expect(link).not.toBeNull();
-    expect(link.getAttribute('href')).toBe('../../../buscar/pages/buscar/buscar.html');
-  });
-
-  it('debe enlazar reportar objetos y solicitar recuperaciones por separado', () => {
-    const enlaceReportar = paginaInicio.querySelector('#nav-reportar');
-    const enlaceRecuperacion = paginaInicio.querySelector('#nav-solicitar-recuperacion');
-
-    expect(enlaceReportar.getAttribute('href'))
-      .toBe('../../../reportar/pages/reportar/reportar.html');
-    expect(enlaceRecuperacion.getAttribute('href'))
-      .toBe('../../../buscar/pages/buscar/buscar.html');
+  it('monta la barra compartida para estudiantes', () => {
+    expect(paginaInicio.querySelector('#shared-navbar').dataset).toMatchObject({
+      pagina: 'inicio',
+      rol: 'ESTUDIANTE'
+    });
   });
 
   it('debe tener el enlace de ver todo apuntando a buscar.html', () => {
@@ -335,7 +315,12 @@ describe('Página Inicio - navegación y enlaces', () => {
     expect(link.getAttribute('href')).toBe('../../../buscar/pages/buscar/buscar.html');
   });
 
-  it('debe tener el boton de logout', () => {
-    expect(paginaInicio.querySelector('#btn-logout')).not.toBeNull();
+  it('carga los estilos y el script del navbar compartido', () => {
+    expect(paginaInicio.querySelector(
+      'link[href="../../../../shared/components/navbar/navbar.css"]'
+    )).not.toBeNull();
+    expect(paginaInicio.querySelector(
+      'script[src="../../../../shared/components/navbar/navbar.js"]'
+    )).not.toBeNull();
   });
 });
