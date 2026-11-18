@@ -47,6 +47,23 @@ describe('navegación principal de reportes', () => {
 });
 
 describe('formulario de reportes', () => {
+  it('presenta los tres pasos en orden y comienza en informacion', () => {
+    const pagina = new DOMParser().parseFromString(
+      readFileSync(rutaHtml, 'utf8'),
+      'text/html'
+    );
+    const pasos = [...pagina.querySelectorAll('#form-reportar > .paso')];
+
+    expect(pasos.map(paso => paso.id)).toEqual([
+      'paso-informacion',
+      'paso-foto',
+      'paso-confirmacion'
+    ]);
+    expect(pasos.map(paso => paso.hidden)).toEqual([false, true, true]);
+    expect(pagina.querySelector('.pasos li[aria-current="step"]')?.dataset.paso)
+      .toBe('1');
+  });
+
   it('valida los datos requeridos antes de enviar al backend', () => {
     const validacion = validarInformacion({
       categoria: 'Accesorios',
@@ -58,6 +75,41 @@ describe('formulario de reportes', () => {
     }, fechaActual);
 
     expect(validacion).toEqual({ valido: true, errores: {} });
+  });
+
+  it('devuelve errores para informacion vacia o invalida', () => {
+    const validacion = validarInformacion({
+      categoria: '',
+      titulo: 'ab',
+      lugar: '',
+      fecha: '2026-02-30',
+      hora: '25:90',
+      descripcion: 'corta'
+    }, fechaActual);
+
+    expect(validacion.valido).toBe(false);
+    expect(Object.keys(validacion.errores)).toEqual([
+      'categoria',
+      'titulo',
+      'lugar',
+      'fecha',
+      'hora',
+      'descripcion'
+    ]);
+  });
+
+  it('rechaza una fecha futura', () => {
+    const validacion = validarInformacion({
+      categoria: 'Accesorios',
+      titulo: 'Mochila negra',
+      lugar: 'Biblioteca',
+      fecha: '2026-11-13',
+      hora: '10:30',
+      descripcion: 'Mochila encontrada junto a la entrada.'
+    }, fechaActual);
+
+    expect(validacion.valido).toBe(false);
+    expect(validacion.errores.fecha).toBe('La fecha no puede ser futura.');
   });
 
   it('carga las opciones del backend, envía el reporte y muestra confirmación', async () => {
