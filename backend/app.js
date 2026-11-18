@@ -30,6 +30,7 @@ export function crearApp(servicioObjetos, servicioAutenticacion, servicioSolicit
   app.get('/api/reportes/opciones', controladorReportes.obtenerOpciones);
   app.post('/api/reportes', controladorReportes.crear);
   app.get('/api/admin/reportes', controladorReportes.listarPendientes);
+  app.get('/api/admin/reportes/:id', controladorReportes.obtenerDetallePendiente);
   app.patch('/api/admin/reportes/:id', controladorReportes.actualizarEstado);
 
   return app;

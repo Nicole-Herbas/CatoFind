@@ -70,12 +70,13 @@ describe('Solicitudes administrativas', () => {
     expect(apiReportes.listarPendientes).not.toHaveBeenCalled();
   });
 
-  it('permite aprobar reportes y cerrar la sesión backend', async () => {
+  it('abre el detalle desde el reporte y permite cerrar la sesión backend', async () => {
     autenticacion.obtenerSesionAdministrador.mockResolvedValue(administrador);
-    apiReportes.listarPendientes
-      .mockResolvedValueOnce([reportePendiente])
-      .mockResolvedValueOnce([]);
-    apiReportes.actualizarEstado.mockResolvedValue({ id: 7, estado: 'APROBADO' });
+    apiReportes.listarPendientes.mockResolvedValue([{
+      ...reportePendiente,
+      detallePrivado: 'Marca secreta',
+      descripcion: 'Descripción que no debe mostrarse en la lista.'
+    }]);
 
     await iniciarPanel(document, acciones(), autenticacion, apiReportes, apiSolicitudes);
 
@@ -83,13 +84,13 @@ describe('Solicitudes administrativas', () => {
       .toBe('Mochila negra');
     expect(document.querySelector('.administracion__estado').textContent).toBe('En revisión');
     expect(document.getElementById('resumen-reportes').textContent).toBe('1 reporte pendiente');
-
-    document.querySelector('button[data-accion="aprobar"]').click();
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    expect(apiReportes.actualizarEstado).toHaveBeenCalledWith('7', 'APROBADO');
+    expect(document.querySelector('#reportes-pendientes button')).toBeNull();
     expect(document.getElementById('reportes-pendientes').textContent)
-      .toContain('No hay reportes pendientes');
+      .not.toContain('Marca secreta');
+    expect(document.getElementById('reportes-pendientes').textContent)
+      .not.toContain('Descripción que no debe mostrarse');
+    expect(document.querySelector('#reportes-pendientes a').getAttribute('href'))
+      .toBe('../../viewDetailsObject/pages/viewDetailsObject.html?id=7');
 
     document.getElementById('cerrar-sesion').click();
     await new Promise(resolve => setTimeout(resolve, 0));
@@ -126,7 +127,7 @@ describe('Solicitudes administrativas', () => {
     expect(document.getElementById('filtro-recuperaciones').getAttribute('aria-pressed')).toBe('true');
     expect(document.querySelector('#reportes-pendientes h2').textContent).toBe('Botella térmica');
     expect(document.getElementById('reportes-pendientes').textContent)
-      .toContain('Tiene una marca en la tapa.');
+      .not.toContain('Tiene una marca en la tapa.');
 
     document.getElementById('filtro-reportes').click();
 

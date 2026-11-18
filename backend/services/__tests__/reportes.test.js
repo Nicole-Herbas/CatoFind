@@ -43,10 +43,21 @@ function crearDependencias({ rol = 'ESTUDIANTE' } = {}) {
       lugar: 'Biblioteca',
       fecha: '2026-11-10',
       hora: '10:30:00',
-      descripcion: 'Mochila encontrada.',
-      detallePrivado: 'Costura roja.',
       imagen: 'reportes/7.jpg'
     }]),
+    obtenerDetallePendiente: jest.fn(async () => ({
+      id: 7,
+      titulo: 'Mochila negra',
+      categoria: 'Accesorios',
+      descripcion: 'Mochila encontrada.',
+      lugar: 'Biblioteca',
+      fecha: '2026-11-10',
+      hora: '10:30',
+      estado: 'PENDIENTE',
+      reportante: 'Ana Torres',
+      detallePrivado: 'Costura roja.',
+      imagen: 'reportes/7.jpg'
+    })),
     actualizarEstado: jest.fn(async () => ({ id: 7, estado: 'APROBADO' }))
   };
 
@@ -78,12 +89,17 @@ describe('reportes en Supabase', () => {
     const servicio = crearServicioReportes(supabase, repositorio, usuarios);
 
     const [reporte] = await servicio.listarPendientes('token-admin');
+    const detalle = await servicio.obtenerDetallePendiente({ id: '7', token: 'token-admin' });
     const actualizado = await servicio.actualizarEstado({
       id: '7', estado: 'APROBADO', token: 'token-admin'
     });
 
     expect(reporte.imagen).toBe('https://supabase.test/foto-firmada');
-    expect(reporte.detallePrivado).toBe('Costura roja.');
+    expect(reporte).not.toHaveProperty('detallePrivado');
+    expect(detalle.imagen).toBe('https://supabase.test/foto-firmada');
+    expect(detalle.detallePrivado).toBe('Costura roja.');
+    expect(detalle.reportante).toBe('Ana Torres');
+    expect(repositorio.obtenerDetallePendiente).toHaveBeenCalledWith(7);
     expect(repositorio.actualizarEstado).toHaveBeenCalledWith(expect.objectContaining({
       id: '7', estado: 'APROBADO', administrativoId: 5
     }));
@@ -96,6 +112,9 @@ describe('reportes en Supabase', () => {
 
     await expect(servicio.listarPendientes('token-estudiante'))
       .rejects.toMatchObject({ codigo: 'SIN_PERMISOS' });
+    await expect(servicio.obtenerDetallePendiente({ id: '7', token: 'token-estudiante' }))
+      .rejects.toMatchObject({ codigo: 'SIN_PERMISOS' });
     expect(repositorio.listarPendientes).not.toHaveBeenCalled();
+    expect(repositorio.obtenerDetallePendiente).not.toHaveBeenCalled();
   });
 });

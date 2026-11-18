@@ -44,6 +44,22 @@ export function crearControladorReportes(servicio) {
       }
     },
 
+    async obtenerDetallePendiente(solicitud, respuesta) {
+      try {
+        const reporte = await servicio.obtenerDetallePendiente({
+          id: solicitud.params.id,
+          token: solicitud.cookies?.catofind_sesion
+        });
+        return respuesta.json({ reporte });
+      } catch (error) {
+        return responderError(
+          respuesta,
+          error,
+          'No se pudo cargar el detalle del reporte.'
+        );
+      }
+    },
+
     async actualizarEstado(solicitud, respuesta) {
       try {
         const reporte = await servicio.actualizarEstado({

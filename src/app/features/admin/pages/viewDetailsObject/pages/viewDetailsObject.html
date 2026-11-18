@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f1f4f8">
+  <meta name="description" content="Detalle administrativo de un reporte de objeto encontrado.">
+  <title>CatoFind | Detalle del reporte</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./viewDetailsObject.css">
+</head>
+<body>
+  <main class="detalle-admin">
+    <a class="detalle-admin__volver" href="../../reviewRequests/pages/reviewRequests.html">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="m15 18-6-6 6-6"></path>
+        <path d="M20 12H9"></path>
+      </svg>
+      Solicitudes
+    </a>
+
+    <p id="detalle-error" class="detalle-admin__error" role="alert" hidden></p>
+
+    <article id="detalle-contenido" class="detalle-admin__contenido" hidden>
+      <div class="detalle-admin__imagen-wrap">
+        <img id="objeto-imagen" class="detalle-admin__imagen" alt="" hidden>
+        <div id="objeto-imagen-vacia" class="detalle-admin__imagen-vacia" hidden aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <rect x="3" y="3" width="18" height="18" rx="3"></rect>
+            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+            <path d="m21 15-5-5L5 21"></path>
+          </svg>
+        </div>
+      </div>
+
+      <section class="detalle-admin__informacion" aria-labelledby="objeto-titulo">
+        <h1 id="objeto-titulo"></h1>
+        <span id="objeto-estado" class="detalle-admin__estado"></span>
+        <p id="objeto-descripcion" class="detalle-admin__descripcion" hidden></p>
+
+        <dl class="detalle-admin__datos">
+          <div class="detalle-admin__dato">
+            <dt>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m20.6 13.4-7.9 7.9a2 2 0 0 1-2.8 0L2 13.4V3h10.4l8.2 7.6a2 2 0 0 1 0 2.8Z"></path>
+                <circle cx="7.5" cy="8" r="1.2"></circle>
+              </svg>
+              Categoría
+            </dt>
+            <dd id="objeto-categoria"></dd>
+          </div>
+          <div class="detalle-admin__dato">
+            <dt>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"></path>
+                <circle cx="12" cy="10" r="2.5"></circle>
+              </svg>
+              Lugar
+            </dt>
+            <dd id="objeto-lugar"></dd>
+          </div>
+          <div class="detalle-admin__dato">
+            <dt>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+                <path d="M16 3v4M8 3v4M3 10h18"></path>
+              </svg>
+              Fecha
+            </dt>
+            <dd id="objeto-fecha"></dd>
+          </div>
+          <div class="detalle-admin__dato">
+            <dt>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 7v5l3 2"></path>
+              </svg>
+              Hora
+            </dt>
+            <dd id="objeto-hora"></dd>
+          </div>
+        </dl>
+
+        <section class="detalle-admin__reportante" aria-labelledby="reportante-titulo">
+          <p id="reportante-titulo" class="detalle-admin__etiqueta">Usuario que reportó</p>
+          <h2 id="reportante-nombre"></h2>
+          <div class="detalle-admin__privado">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="4" y="10" width="16" height="11" rx="2"></rect>
+              <path d="M8 10V7a4 4 0 1 1 8 0v3"></path>
+            </svg>
+            <p>
+              <span class="detalle-admin__privado-etiqueta">Detalle privado</span>
+              <span id="detalle-privado"></span>
+            </p>
+          </div>
+        </section>
+
+        <section id="revision-acciones" class="detalle-admin__acciones" aria-label="Revisar reporte">
+          <button id="aprobar-reporte" class="detalle-admin__boton detalle-admin__boton--aprobar"
+            type="button" data-estado="APROBADO">Aprobar y publicar</button>
+          <button id="rechazar-reporte" class="detalle-admin__boton detalle-admin__boton--rechazar"
+            type="button" data-estado="RECHAZADO">Rechazar</button>
+        </section>
+        <p id="revision-mensaje" class="detalle-admin__revision-mensaje" role="status" hidden></p>
+      </section>
+    </article>
+  </main>
+  <script type="module" src="./viewDetailsObjectPresenter.js"></script>
+</body>
+</html>

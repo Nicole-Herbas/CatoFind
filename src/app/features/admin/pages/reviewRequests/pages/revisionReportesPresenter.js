@@ -38,9 +38,14 @@ export async function iniciarRevisionReportes(documento, apiReportes, apiSolicit
     return imagenVacia;
   }
 
-  function crearTarjeta(titulo, metadata) {
-    const tarjeta = documento.createElement('article');
+  function crearTarjeta(titulo, metadata, href = '') {
+    const tarjeta = documento.createElement(href ? 'a' : 'article');
     tarjeta.className = 'administracion__reporte';
+    if (href) {
+      tarjeta.href = href;
+      tarjeta.classList.add('administracion__reporte-enlace');
+      tarjeta.setAttribute('aria-label', `Ver detalles de ${titulo}`);
+    }
     tarjeta.appendChild(crearImagenVacia());
 
     const contenido = documento.createElement('div');
@@ -52,7 +57,7 @@ export async function iniciarRevisionReportes(documento, apiReportes, apiSolicit
     finalTarjeta.className = 'administracion__reporte-final';
     agregarTexto(finalTarjeta, 'span', 'En revisión', 'administracion__estado');
     tarjeta.append(contenido, finalTarjeta);
-    return { tarjeta, contenido, finalTarjeta };
+    return tarjeta;
   }
 
   function actualizarContadores() {
@@ -68,67 +73,35 @@ export async function iniciarRevisionReportes(documento, apiReportes, apiSolicit
 
   function mostrarReportes() {
     reportes.forEach(reporte => {
-      const { tarjeta, finalTarjeta } = crearTarjeta(
-        reporte.titulo || 'Sin nombre',
-        contenedor => {
-          agregarTexto(contenedor, 'p', `${reporte.categoria} · ${reporte.lugar}`);
+      const titulo = reporte.titulo || 'Sin nombre';
+      const tarjeta = crearTarjeta(
+        titulo,
+        contenido => {
+          agregarTexto(contenido, 'p', `${reporte.categoria} · ${reporte.lugar}`);
           agregarTexto(
-            contenedor,
+            contenido,
             'p',
             `${reporte.fecha} · ${reporte.hora || 'Hora no indicada'}`
           );
-          if (reporte.descripcion) {
-            agregarTexto(
-              contenedor,
-              'p',
-              reporte.descripcion,
-              'administracion__descripcion'
-            );
-          }
-          if (reporte.detallePrivado) {
-            agregarTexto(
-              contenedor,
-              'p',
-              `Detalle privado: ${reporte.detallePrivado}`,
-              'administracion__detalle-privado'
-            );
-          }
-        }
+        },
+        `../../viewDetailsObject/pages/viewDetailsObject.html?id=${encodeURIComponent(reporte.id)}`
       );
 
       if (reporte.imagen) {
         const foto = documento.createElement('img');
         foto.className = 'administracion__imagen';
         foto.src = reporte.imagen;
-        foto.alt = `Fotografía de ${reporte.titulo}`;
+        foto.alt = `Fotografía de ${titulo}`;
         tarjeta.replaceChild(foto, tarjeta.firstChild);
       }
 
-      const acciones = documento.createElement('div');
-      acciones.className = 'administracion__acciones-reporte';
-      [
-        { etiqueta: 'Aprobar', accion: 'aprobar', estado: 'APROBADO' },
-        { etiqueta: 'Rechazar', accion: 'rechazar', estado: 'RECHAZADO' }
-      ].forEach(({ etiqueta, accion, estado }) => {
-        const boton = documento.createElement('button');
-        boton.type = 'button';
-        boton.textContent = etiqueta;
-        boton.dataset.accion = accion;
-        boton.dataset.estado = estado;
-        boton.dataset.id = reporte.id;
-        if (accion === 'rechazar') {
-          boton.className = 'administracion__rechazar';
-        }
-        acciones.appendChild(boton);
-      });
-      finalTarjeta.appendChild(acciones);
       lista.appendChild(tarjeta);
     });
   }
 
   function mostrarSolicitudes() {
     solicitudes.forEach(solicitud => {
-      const { tarjeta } = crearTarjeta(
+      const tarjeta = crearTarjeta(
         solicitud.titulo || `Solicitud #${solicitud.id}`,
         contenido => {
           const referencia = solicitud.categoria || `Reporte #${solicitud.reporteId}`;
@@ -143,12 +116,6 @@ export async function iniciarRevisionReportes(documento, apiReportes, apiSolicit
             contenido,
             'p',
             `Lugar estimado: ${solicitud.lugarEstimado} · Fecha estimada: ${solicitud.fechaEstimada}`
-          );
-          agregarTexto(
-            contenido,
-            'p',
-            `Característica privada: ${solicitud.caracteristicaPrivada}`,
-            'administracion__detalle-privado'
           );
         }
       );
@@ -212,35 +179,6 @@ export async function iniciarRevisionReportes(documento, apiReportes, apiSolicit
       mensaje.textContent = '';
       mostrarFiltro();
     });
-  });
-
-  lista.addEventListener('click', async evento => {
-    const boton = evento.target.closest('button[data-accion]');
-    if (!boton || !lista.contains(boton)) {
-      return;
-    }
-
-    boton.disabled = true;
-    try {
-      const reporte = await apiReportes.actualizarEstado(
-        boton.dataset.id,
-        boton.dataset.estado
-      );
-      mensaje.textContent = boton.dataset.estado === 'APROBADO'
-        ? `Reporte #${reporte.id} aprobado. Estado: Publicado.`
-        : `Reporte #${reporte.id} rechazado.`;
-      const resultado = await cargarDatos(
-        () => apiReportes.listarPendientes(),
-        'No se pudieron cargar los reportes pendientes.'
-      );
-      reportes = resultado.datos;
-      errorReportes = resultado.error;
-      actualizarContadores();
-      mostrarFiltro();
-    } catch (error) {
-      mensaje.textContent = error.message || 'No se pudo guardar la revisión.';
-      boton.disabled = false;
-    }
   });
 
   const [resultadoReportes, resultadoSolicitudes] = await Promise.all([

@@ -1,6 +1,12 @@
 const SELECTOR_REPORTES = [
+  'id,fecha,hora,lugar',
+  'objeto:objeto_id(nombre,categoria,foto)'
+].join(',');
+
+const SELECTOR_DETALLE_REPORTE = [
   'id,fecha,hora,lugar,estado,detalle_privado',
-  'objeto:objeto_id(nombre,categoria,descripcion,foto)'
+  'objeto:objeto_id(nombre,categoria,descripcion,foto)',
+  'reportante:usuario!reporte_estudiante_id_fkey(nombre)'
 ].join(',');
 
 export function crearRepositorioReportes(supabase) {
@@ -60,10 +66,39 @@ export function crearRepositorioReportes(supabase) {
         lugar: reporte.lugar,
         fecha: reporte.fecha,
         hora: String(reporte.hora ?? '').slice(0, 5),
-        descripcion: reporte.objeto.descripcion || '',
-        detallePrivado: reporte.detalle_privado || '',
         imagen: reporte.objeto.foto || ''
       }));
+    },
+
+    async obtenerDetallePendiente(id) {
+      const { data, error } = await supabase
+        .from('reporte')
+        .select(SELECTOR_DETALLE_REPORTE)
+        .eq('id', id)
+        .eq('tipo', 'ENCONTRADO')
+        .eq('estado', 'PENDIENTE')
+        .maybeSingle();
+
+      if (error) {
+        throw error;
+      }
+      if (!data) {
+        return null;
+      }
+
+      return {
+        id: data.id,
+        titulo: data.objeto?.nombre || '',
+        categoria: data.objeto?.categoria || '',
+        descripcion: data.objeto?.descripcion || '',
+        lugar: data.lugar,
+        fecha: data.fecha,
+        hora: String(data.hora ?? '').slice(0, 5),
+        estado: data.estado,
+        reportante: data.reportante?.nombre || '',
+        detallePrivado: data.detalle_privado || '',
+        imagen: data.objeto?.foto || ''
+      };
     },
 
     async actualizarEstado({ id, estado, administrativoId, fechaRevision, motivoRechazo }) {

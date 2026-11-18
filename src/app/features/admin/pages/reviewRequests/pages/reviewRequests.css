@@ -172,6 +172,22 @@ body {
   box-shadow: 0 7px 22px rgba(23, 38, 62, 0.055);
 }
 
+.administracion__reporte-enlace {
+  color: inherit;
+  text-decoration: none;
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.administracion__reporte-enlace:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(23, 38, 62, 0.1);
+}
+
+.administracion__reporte-enlace:focus-visible {
+  outline: 3px solid rgba(8, 116, 223, 0.42);
+  outline-offset: 3px;
+}
+
 .administracion__imagen,
 .administracion__imagen-vacia {
   width: 76px;
@@ -223,22 +239,9 @@ body {
   overflow-wrap: anywhere;
 }
 
-.administracion__reporte-contenido .administracion__descripcion {
-  margin-top: 7px;
-  color: #526075;
-}
-
 .administracion__solicitud-detalle {
   margin-top: 7px !important;
   color: #526075 !important;
-}
-
-.administracion__detalle-privado {
-  margin-top: 8px !important;
-  padding: 9px 11px;
-  border-radius: 10px;
-  background: #fff5dd;
-  color: #604500 !important;
 }
 
 .administracion__reporte-final {
@@ -269,52 +272,10 @@ body {
   content: "";
 }
 
-.administracion__acciones-reporte {
-  display: flex;
-  gap: 8px;
-}
-
-.administracion__acciones-reporte button {
-  min-height: 40px;
-  padding: 8px 14px;
-  border: 1px solid #0b3979;
-  border-radius: 999px;
-  background: #0b3979;
-  color: #fff;
-  font: inherit;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 150ms ease, border-color 150ms ease;
-}
-
-.administracion__acciones-reporte button:hover {
-  border-color: #092b61;
-  background: #092b61;
-}
-
-.administracion__acciones-reporte .administracion__rechazar {
-  border-color: #d7dee8;
-  background: #fff;
-  color: #526075;
-}
-
-.administracion__acciones-reporte .administracion__rechazar:hover {
-  border-color: #b42332;
-  background: #fff5f5;
-  color: #b42332;
-}
-
 .administracion__acciones-header a:focus-visible,
-.administracion__acciones-header button:focus-visible,
-.administracion__acciones-reporte button:focus-visible {
+.administracion__acciones-header button:focus-visible {
   outline: 3px solid rgba(8, 116, 223, 0.42);
   outline-offset: 3px;
-}
-
-.administracion__acciones-reporte button:disabled {
-  cursor: wait;
-  opacity: 0.65;
 }
 
 @media (max-width: 760px) {
@@ -346,9 +307,7 @@ body {
   }
 
   .administracion__reporte-final {
-    width: 100%;
-    justify-content: space-between;
-    padding-left: 90px;
+    margin-left: auto;
   }
 }
 
@@ -389,16 +348,7 @@ body {
   }
 
   .administracion__reporte-final {
-    align-items: flex-start;
-    flex-direction: column;
-    padding-left: 74px;
-  }
-
-  .administracion__acciones-reporte {
     width: 100%;
-  }
-
-  .administracion__acciones-reporte button {
-    flex: 1;
+    margin-left: 74px;
   }
 }

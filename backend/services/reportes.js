@@ -140,6 +140,33 @@ export function crearServicioReportes(supabase, repositorio, usuarios, ahora = (
       }));
     },
 
+    async obtenerDetallePendiente({ id, token }) {
+      const perfil = await obtenerPerfilAutenticado(supabase, usuarios, token);
+      exigirRol(perfil, 'ADMINISTRATIVO');
+      const idNumerico = Number(id);
+      if (!Number.isInteger(idNumerico) || idNumerico < 1) {
+        throw crearError('El reporte pendiente no existe.', 'REPORTE_NO_ENCONTRADO');
+      }
+
+      const reporte = await repositorio.obtenerDetallePendiente(idNumerico);
+      if (!reporte) {
+        throw crearError('El reporte pendiente no existe.', 'REPORTE_NO_ENCONTRADO');
+      }
+
+      let imagen = reporte.imagen;
+      if (imagen && !/^https?:\/\//i.test(imagen)) {
+        const { data, error } = await supabase.storage
+          .from(NOMBRE_BUCKET_REPORTES)
+          .createSignedUrl(imagen, 60 * 60);
+        if (error || !data?.signedUrl) {
+          throw crearError('No se pudo cargar la fotografía del reporte.', 'PERSISTENCIA');
+        }
+        imagen = data.signedUrl;
+      }
+
+      return { ...reporte, imagen };
+    },
+
     async actualizarEstado({ id, estado, motivoRechazo, token }) {
       const perfil = await obtenerPerfilAutenticado(supabase, usuarios, token);
       exigirRol(perfil, 'ADMINISTRATIVO');

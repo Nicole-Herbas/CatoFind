@@ -39,6 +39,10 @@ describe('Página Buscar - estructura', () => {
     expect(pagina.querySelector('#resultados')).not.toBeNull();
   });
 
+  it('debe tener el contenedor de detalle usado por el presentador', () => {
+    expect(pagina.querySelector('#detalle[role="dialog"]')).not.toBeNull();
+  });
+
   it('debe enlazar su hoja de estilos', () => {
     expect(pagina.querySelector('link[href="./buscar.css"]')).not.toBeNull();
   });

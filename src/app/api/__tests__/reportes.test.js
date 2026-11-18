@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import { crearApiReportes } from '../reportes.js';
 
 describe('API de reportes', () => {
@@ -24,5 +25,30 @@ describe('API de reportes', () => {
 
     await expect(crearApiReportes(solicitar).obtenerOpciones()).resolves.toEqual(opciones);
     expect(solicitar).toHaveBeenCalledWith('/api/reportes/opciones');
+  });
+
+  it('obtiene el detalle de un reporte usando la sesión del administrador', async () => {
+    const reporte = { id: 21, titulo: 'Mochila negra', detallePrivado: 'Costura roja.' };
+    const solicitar = jest.fn(async () => ({ ok: true, json: async () => ({ reporte }) }));
+
+    await expect(crearApiReportes(solicitar).obtenerDetallePendiente('21'))
+      .resolves.toEqual(reporte);
+    expect(solicitar).toHaveBeenCalledWith('/api/admin/reportes/21', {
+      credentials: 'same-origin'
+    });
+  });
+
+  it('actualiza el estado del reporte enviando la sesión del administrador', async () => {
+    const reporte = { id: 21, estado: 'APROBADO' };
+    const solicitar = jest.fn(async () => ({ ok: true, json: async () => ({ reporte }) }));
+
+    await expect(crearApiReportes(solicitar).actualizarEstado('21', 'APROBADO'))
+      .resolves.toEqual(reporte);
+    expect(solicitar).toHaveBeenCalledWith('/api/admin/reportes/21', {
+      method: 'PATCH',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ estado: 'APROBADO' })
+    });
   });
 });

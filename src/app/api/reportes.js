@@ -36,6 +36,18 @@ export function crearApiReportes(solicitar = globalThis.fetch.bind(globalThis)) 
       return resultado.reportes;
     },
 
+    async obtenerDetallePendiente(id) {
+      const respuesta = await solicitar(
+        `/api/admin/reportes/${encodeURIComponent(id)}`,
+        { credentials: 'same-origin' }
+      );
+      const resultado = await obtenerResultado(
+        respuesta,
+        'No se pudo cargar el detalle del reporte.'
+      );
+      return resultado.reporte;
+    },
+
     async actualizarEstado(id, estado) {
       const respuesta = await solicitar(`/api/admin/reportes/${encodeURIComponent(id)}`, {
         method: 'PATCH',

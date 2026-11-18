@@ -221,6 +221,13 @@ describe('API de revisión de reportes', () => {
     let reportesPendientes = [{ id: 7, titulo: 'Mochila negra' }];
     const servicioReportes = {
       listarPendientes: jest.fn(async () => reportesPendientes),
+      obtenerDetallePendiente: jest.fn(async () => ({
+        id: 7,
+        titulo: 'Mochila negra',
+        estado: 'PENDIENTE',
+        reportante: 'Ana Torres',
+        detallePrivado: 'Costura roja.'
+      })),
       actualizarEstado: jest.fn(async ({ id, estado }) => {
         const reporte = { id: Number(id), estado };
         reportesPendientes = [];
@@ -256,6 +263,22 @@ describe('API de revisión de reportes', () => {
         .toHaveBeenCalledWith('token-admin');
       expect(servicioReportes.listarPendientes)
         .toHaveBeenCalledWith('token-admin');
+
+      const detalle = await fetch(`${baseUrl}/api/admin/reportes/7`, {
+        headers: encabezadosSesion
+      });
+      expect(detalle.status).toBe(200);
+      expect((await detalle.json()).reporte).toEqual({
+        id: 7,
+        titulo: 'Mochila negra',
+        estado: 'PENDIENTE',
+        reportante: 'Ana Torres',
+        detallePrivado: 'Costura roja.'
+      });
+      expect(servicioReportes.obtenerDetallePendiente).toHaveBeenCalledWith({
+        id: '7',
+        token: 'token-admin'
+      });
 
       const revision = await fetch(`${baseUrl}/api/admin/reportes/7`, {
         method: 'PATCH',

@@ -323,18 +323,37 @@
     "conclusion": "neutral"
   },
   {
-    "sha": "HEAD",
+    "sha": "6a20346a71270a924f7aff55ec3b2520ee2fe5e3",
     "author": "Chris",
     "commit": {
       "date": "2026-11-17T14:35:07.000Z",
       "message": "fix: Refactor de visualizacion html en la pagina de admin",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/6a20346a71270a924f7aff55ec3b2520ee2fe5e3"
     },
     "stats": {
       "total": 692,
       "additions": 673,
       "deletions": 19,
       "date": "2026-11-17"
+    },
+    "coverage": 0,
+    "test_count": 0,
+    "failed_tests": 0,
+    "conclusion": "neutral"
+  },
+  {
+    "sha": "HEAD",
+    "author": "Chris",
+    "commit": {
+      "date": "2026-11-18T01:54:31.000Z",
+      "message": "feat: visualizar solicitudes de recuperacion en el panel administrativo",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 463,
+      "additions": 383,
+      "deletions": 80,
+      "date": "2026-11-18"
     },
     "coverage": 0,
     "test_count": 0,

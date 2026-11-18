@@ -33,11 +33,9 @@ describe('repositorio de reportes', () => {
         hora: '10:30:00',
         lugar: 'Biblioteca',
         estado: 'PENDIENTE',
-        detalle_privado: 'Costura roja.',
         objeto: {
           nombre: 'Mochila negra',
           categoria: 'Accesorios',
-          descripcion: 'Mochila encontrada.',
           foto: 'foto.jpg'
         }
       }],
@@ -53,12 +51,54 @@ describe('repositorio de reportes', () => {
       lugar: 'Biblioteca',
       fecha: '2026-11-10',
       hora: '10:30',
+      imagen: 'foto.jpg'
+    });
+    expect(consultas[0].operaciones[0][1]).not.toContain('detalle_privado');
+    expect(consultas[0].operaciones[0][1]).not.toContain('descripcion');
+    expect(consultas[0].operaciones).toContainEqual(['eq', 'estado', 'PENDIENTE']);
+    expect(consultas[0].operaciones).toContainEqual(['eq', 'tipo', 'ENCONTRADO']);
+  });
+
+  it('obtiene los datos privados solo del reporte encontrado pendiente solicitado', async () => {
+    const { supabase, consultas } = crearClienteSupabase([{
+      data: {
+        id: 7,
+        fecha: '2026-11-10',
+        hora: '10:30:00',
+        lugar: 'Biblioteca',
+        estado: 'PENDIENTE',
+        detalle_privado: 'Costura roja.',
+        objeto: {
+          nombre: 'Mochila negra',
+          categoria: 'Accesorios',
+          descripcion: 'Mochila encontrada.',
+          foto: 'foto.jpg'
+        },
+        reportante: { nombre: 'Ana Torres' }
+      },
+      error: null
+    }]);
+
+    const reporte = await crearRepositorioReportes(supabase).obtenerDetallePendiente(7);
+
+    expect(reporte).toEqual({
+      id: 7,
+      titulo: 'Mochila negra',
+      categoria: 'Accesorios',
       descripcion: 'Mochila encontrada.',
+      lugar: 'Biblioteca',
+      fecha: '2026-11-10',
+      hora: '10:30',
+      estado: 'PENDIENTE',
+      reportante: 'Ana Torres',
       detallePrivado: 'Costura roja.',
       imagen: 'foto.jpg'
     });
-    expect(consultas[0].operaciones).toContainEqual(['eq', 'estado', 'PENDIENTE']);
+    expect(consultas[0].operaciones).toContainEqual(['eq', 'id', 7]);
     expect(consultas[0].operaciones).toContainEqual(['eq', 'tipo', 'ENCONTRADO']);
+    expect(consultas[0].operaciones).toContainEqual(['eq', 'estado', 'PENDIENTE']);
+    expect(consultas[0].operaciones[0][1])
+      .toContain('reportante:usuario!reporte_estudiante_id_fkey(nombre)');
   });
 
   it('crea el objeto y lo vincula al reporte pendiente del estudiante', async () => {

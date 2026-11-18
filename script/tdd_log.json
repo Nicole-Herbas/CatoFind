@@ -276,9 +276,15 @@
     "testId": 17
   },
   {
-    "commitId": "HEAD",
+    "commitId": "6a20346a71270a924f7aff55ec3b2520ee2fe5e3",
     "commitName": "fix: Refactor de visualizacion html en la pagina de admin",
     "commitTimestamp": 1794926108859,
     "testId": 18
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: visualizar solicitudes de recuperacion en el panel administrativo",
+    "commitTimestamp": 1794966873270,
+    "testId": 19
   }
 ]

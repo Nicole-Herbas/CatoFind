@@ -119,6 +119,76 @@ body {
 
 .tarjeta__dato { margin: 2px 16px; color: #758197; font-size: 14px; }
 
+.buscar__detalle {
+  position: fixed;
+  z-index: 10;
+  inset: 0;
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 12px;
+  padding: 28px;
+  background: rgba(15, 29, 49, 0.48);
+}
+
+.buscar__detalle:not([hidden]) {
+  display: grid;
+}
+
+.buscar__detalle > * {
+  width: min(100%, 560px);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.buscar__detalle .detalle__titulo,
+.buscar__detalle .detalle__dato,
+.buscar__detalle .detalle__solicitar,
+.buscar__detalle .detalle__cerrar {
+  padding: 16px 20px;
+  border: 0;
+  border-radius: 16px;
+  background: #fff;
+}
+
+.buscar__detalle .detalle__titulo {
+  margin-top: 0;
+  margin-bottom: 0;
+  color: #17263e;
+  font-size: 22px;
+}
+
+.buscar__detalle .detalle__dato {
+  margin-top: 0;
+  margin-bottom: 0;
+  color: #526075;
+}
+
+.buscar__detalle .detalle__solicitar,
+.buscar__detalle .detalle__cerrar {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.buscar__detalle .detalle__solicitar {
+  background: #0b3979;
+  color: #fff;
+}
+
+.buscar__detalle .detalle__cerrar {
+  color: #17263e;
+}
+
+.buscar__detalle[hidden] {
+  display: none;
+}
+
 /* ---------- Celular ---------- */
 @media (max-width: 768px) {
   .navbar { flex-direction: column; gap: 12px; }
