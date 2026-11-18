@@ -20,13 +20,13 @@ export function crearClienteApi({
       headers: {},
       ...opciones
     });
-    const resultado = await respuesta.json();
+    const resultado = respuesta.status === 204 ? null : await respuesta.json();
 
     if (!respuesta.ok) {
       throw new ApiError(
-        resultado.mensaje || 'No se pudo completar la solicitud.',
+        resultado?.mensaje || 'No se pudo completar la solicitud.',
         respuesta.status,
-        resultado.codigo
+        resultado?.codigo
       );
     }
 
