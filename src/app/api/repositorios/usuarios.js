@@ -21,8 +21,15 @@ export function crearRepositorioUsuarios(cliente = crearClienteApi()) {
     },
 
     async obtenerSesion() {
-      const resultado = await cliente.get('/auth/sesion');
-      return resultado.usuario;
+      try {
+        const resultado = await cliente.get('/auth/sesion');
+        return resultado.usuario;
+      } catch (error) {
+        if (error.status === 401) {
+          return null;
+        }
+        throw error;
+      }
     },
 
     async obtenerSesionAdministrador() {
