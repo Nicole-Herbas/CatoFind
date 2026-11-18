@@ -3,9 +3,11 @@ import {
   obtenerBusquedaInicial,
   datosTarjeta
 } from './buscar.js';
+import { crearRepositorioObjetos } from '../../../../api/repositorios/objetos.js';
 
 
 let objetosPublicados = [];
+const repositorioObjetos = crearRepositorioObjetos();
 const buscador = document.getElementById('buscador');
 const filtroCategoria = document.getElementById('filtro-categoria');
 const filtroLugar = document.getElementById('filtro-lugar');
@@ -102,20 +104,23 @@ mensaje.textContent = 'Cargando objetos...';
 
 async function cargarObjetos() {
   try {
-    const parametros = new URLSearchParams({texto: buscador.value, categoria: filtroCategoria.value, lugar: filtroLugar.value, fecha: filtroFecha.value});
-    const respuesta = await fetch(`/api/objetos?${parametros}`);
-    if (!respuesta.ok) throw new Error('No se pudieron cargar los objetos.');
-
-    objetosPublicados = await respuesta.json();
+    objetosPublicados = await repositorioObjetos.listar({
+      texto: buscador.value,
+      categoria: filtroCategoria.value,
+      lugar: filtroLugar.value,
+      fecha: filtroFecha.value
+    });
     mostrarResultados();
   } catch {
     mensaje.textContent = 'No se pudieron cargar los objetos.';
   }
 }
 
-fetch('/api/objetos').then(respuesta => respuesta.json()).then(objetos => {
+repositorioObjetos.listar().then(objetos => {
   llenarSelect(filtroCategoria, ['Todos', ...new Set(objetos.map(item => item.categoria))]);
   llenarSelect(filtroLugar, ['Todas', ...new Set(objetos.map(item => item.lugar))]);
-}).catch(() => {});
+}).catch(() => {
+  mensaje.textContent = 'No se pudieron cargar los objetos.';
+});
 
 cargarObjetos();
