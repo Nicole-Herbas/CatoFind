@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import { crearServicioAutenticacion } from '../autenticacion.js';
 
 describe('autenticación de estudiantes', () => {
@@ -153,5 +154,100 @@ describe('autenticación de estudiantes', () => {
       .rejects.toMatchObject({ codigo: 'NO_AUTORIZADO' });
     await expect(servicio.obtenerSesionAdministrador('token-valido'))
       .rejects.toMatchObject({ codigo: 'SIN_PERMISOS' });
+  });
+
+  it('devuelve los datos completos del perfil del estudiante autenticado', async () => {
+    const supabase = {
+      auth: {
+        getUser: jest.fn(async () => ({
+          data: { user: { id: 'auth-1' } },
+          error: null
+        }))
+      }
+    };
+    const usuarios = {
+      obtenerPorAuthUid: jest.fn(async () => ({
+        nombre: 'Ana Torres',
+        correo_institucional: 'ana@ucb.edu.bo',
+        carrera: 'Ingeniería de Software',
+        rol: 'ESTUDIANTE'
+      }))
+    };
+
+    await expect(crearServicioAutenticacion(supabase, usuarios)
+      .obtenerPerfilEstudiante('token-estudiante'))
+      .resolves.toEqual({
+        nombre: 'Ana Torres',
+        correo: 'ana@ucb.edu.bo',
+        carrera: 'Ingeniería de Software'
+      });
+    expect(usuarios.obtenerPorAuthUid).toHaveBeenCalledWith('auth-1');
+  });
+
+  it('actualiza nombre y carrera del estudiante sin permitir cambiar su correo', async () => {
+    const supabase = {
+      auth: {
+        getUser: jest.fn(async () => ({
+          data: { user: { id: 'auth-1' } },
+          error: null
+        }))
+      }
+    };
+    const perfil = {
+      nombre: 'Ana Actualizada',
+      correo_institucional: 'ana@ucb.edu.bo',
+      carrera: 'Informática',
+      rol: 'ESTUDIANTE'
+    };
+    const usuarios = {
+      obtenerPorAuthUid: jest.fn(async () => ({
+        nombre: 'Ana Torres',
+        correo_institucional: 'ana@ucb.edu.bo',
+        rol: 'ESTUDIANTE'
+      })),
+      actualizarPerfilEstudiante: jest.fn(async (authUid, cambios) => {
+        expect(authUid).toBe('auth-1');
+        expect(cambios).toEqual({ nombre: 'Ana Actualizada', carrera: 'Informática' });
+        return perfil;
+      })
+    };
+    const servicio = crearServicioAutenticacion(supabase, usuarios);
+
+    await expect(servicio.actualizarPerfilEstudiante('token-estudiante', {
+      nombre: ' Ana Actualizada ',
+      carrera: ' Informática ',
+      correo: 'intruso@ucb.edu.bo'
+    })).resolves.toEqual({
+      nombre: 'Ana Actualizada',
+      correo: 'ana@ucb.edu.bo',
+      carrera: 'Informática'
+    });
+  });
+
+  it('rechaza perfiles de estudiantes sin sesión y cuentas administrativas', async () => {
+    const supabase = {
+      auth: {
+        getUser: jest.fn(async token => token === 'token-admin'
+          ? { data: { user: { id: 'auth-admin' } }, error: null }
+          : { data: { user: null }, error: new Error('Sesión inválida') })
+      }
+    };
+    const usuarios = {
+      obtenerPorAuthUid: jest.fn(async () => ({
+        nombre: 'Administradora',
+        correo_institucional: 'admin@ucb.edu.bo',
+        rol: 'ADMINISTRATIVO'
+      })),
+      actualizarPerfilEstudiante: jest.fn()
+    };
+    const servicio = crearServicioAutenticacion(supabase, usuarios);
+
+    await expect(servicio.obtenerPerfilEstudiante('token-invalido'))
+      .rejects.toMatchObject({ codigo: 'NO_AUTORIZADO' });
+    await expect(servicio.actualizarPerfilEstudiante('token-admin', {
+      nombre: 'Administradora',
+      carrera: 'Ingeniería'
+    })).rejects.toMatchObject({ codigo: 'SIN_PERMISOS' });
+    expect(usuarios.actualizarPerfilEstudiante).not.toHaveBeenCalled();
   });
 });

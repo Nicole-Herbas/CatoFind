@@ -1,11 +1,11 @@
-import { obtenerObjetos } from '../../../../api/objetos.js';
-import { AutenticacionApi } from '../../../../api/autenticacion.js';
-
 const IMAGEN_RESPALDO = 'https://images.unsplash.com/photo-1494526585095-c41746248156?w=400&q=80';
+const MENSAJE_SIN_RESULTADOS = 'No se encontraron objetos con ese criterio.';
 
 function formatFecha(fecha) {
   return new Date(`${fecha}T00:00:00`).toLocaleDateString('es-BO', {
-    day: 'numeric', month: 'short', year: 'numeric'
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric'
   });
 }
 
@@ -32,6 +32,7 @@ function crearIcono(documento, tipo) {
     punto.setAttribute('r', '3');
     svg.appendChild(punto);
   }
+
   return svg;
 }
 
@@ -84,90 +85,38 @@ function crearTarjeta(documento, objeto) {
   return tarjeta;
 }
 
-function renderTarjetas(documento, objetos) {
+export function renderTarjetas(documento, objetos) {
   const grid = documento.getElementById('objetos-grid');
   const avisoVacio = documento.getElementById('objetos-empty');
+
   grid.replaceChildren(...objetos.map(objeto => crearTarjeta(documento, objeto)));
+  avisoVacio.textContent = MENSAJE_SIN_RESULTADOS;
   avisoVacio.hidden = objetos.length > 0;
 }
 
-function renderFiltros(documento, categorias, categoriaActual) {
+export function renderFiltros(documento, objetos, categoriaActual) {
   const lista = documento.getElementById('filtros-lista');
-  const botones = ['Todos', ...new Set(categorias.map(objeto => objeto.categoria))]
-    .map(categoria => {
-      const elementoLista = documento.createElement('li');
-      const boton = documento.createElement('button');
-      boton.type = 'button';
-      boton.textContent = categoria;
-      boton.className = `filtro-btn${categoria === categoriaActual ? ' filtro-btn--active' : ''}`;
-      boton.id = `filtro-${categoria.toLowerCase().replace(/[^a-z0-9]/g, '-')}`;
-      boton.setAttribute('aria-pressed', String(categoria === categoriaActual));
-      boton.dataset.categoria = categoria;
-      elementoLista.appendChild(boton);
-      return elementoLista;
-    });
-  lista.replaceChildren(...botones);
+  const categorias = ['Todos', ...new Set(objetos.map(objeto => objeto.categoria))];
+  const elementos = categorias.map(categoria => {
+    const elementoLista = documento.createElement('li');
+    const boton = documento.createElement('button');
+    const estaActivo = categoria === categoriaActual;
+
+    boton.type = 'button';
+    boton.textContent = categoria;
+    boton.className = `filtro-btn${estaActivo ? ' filtro-btn--active' : ''}`;
+    boton.id = `filtro-${categoria.toLowerCase().replace(/[^a-z0-9]/g, '-')}`;
+    boton.setAttribute('aria-pressed', String(estaActivo));
+    boton.dataset.categoria = categoria;
+    elementoLista.appendChild(boton);
+    return elementoLista;
+  });
+
+  lista.replaceChildren(...elementos);
 }
 
-export function iniciarInicio(documento = globalThis.document, apiObjetos = obtenerObjetos) {
-  const autenticacion = new AutenticacionApi();
-  let categoriaActual = 'Todos';
-  let catalogoObjetos = [];
-  let revisionSolicitud = 0;
-  const filtroCategorias = documento.getElementById('filtros-lista');
-  const formularioBusqueda = documento.getElementById('form-buscar');
-  const campoBusqueda = documento.getElementById('input-buscar');
-
-  const cargarResultados = async () => {
-    const revisionActual = ++revisionSolicitud;
-    try {
-      const objetos = await apiObjetos({
-        categoria: categoriaActual,
-        texto: campoBusqueda.value.trim()
-      });
-      if (revisionActual !== revisionSolicitud) return;
-      renderTarjetas(documento, objetos);
-    } catch {
-      if (revisionActual !== revisionSolicitud) return;
-      const aviso = documento.getElementById('objetos-empty');
-      aviso.textContent = 'No se pudieron cargar los objetos.';
-      aviso.hidden = false;
-    }
-  };
-
-  apiObjetos().then(objetos => {
-    catalogoObjetos = objetos;
-    renderFiltros(documento, catalogoObjetos, categoriaActual);
-    if (revisionSolicitud === 0) renderTarjetas(documento, catalogoObjetos);
-  }).catch(() => {
-    const aviso = documento.getElementById('objetos-empty');
-    aviso.textContent = 'No se pudieron cargar los objetos.';
-    aviso.hidden = false;
-  });
-
-  filtroCategorias.addEventListener('click', evento => {
-    const boton = evento.target.closest('.filtro-btn');
-    if (!boton) return;
-    categoriaActual = boton.dataset.categoria;
-    renderFiltros(documento, catalogoObjetos, categoriaActual);
-    cargarResultados();
-  });
-  campoBusqueda.addEventListener('input', cargarResultados);
-  formularioBusqueda.addEventListener('submit', evento => {
-    evento.preventDefault();
-    const texto = campoBusqueda.value.trim();
-    const destino = '../../../buscar/pages/buscar/buscar.html'
-      + (texto ? `?q=${encodeURIComponent(texto)}` : '');
-    globalThis.location.href = destino;
-  });
-
-  documento.getElementById('btn-logout')?.addEventListener('click', () => {
-    autenticacion.cerrarSesion()
-      .finally(() => { globalThis.location.href = '../../../auth/pages/login/login.html'; });
-  });
-  documento.getElementById('btn-reportar-fab')?.addEventListener('click', () => {
-    globalThis.location.href = '../../../reportar/pages/reportar/reportar.html';
-  });
+export function mostrarError(documento) {
+  const aviso = documento.getElementById('objetos-empty');
+  aviso.textContent = 'No se pudieron cargar los objetos.';
+  aviso.hidden = false;
 }
-
-document.addEventListener('DOMContentLoaded', () => iniciarInicio());

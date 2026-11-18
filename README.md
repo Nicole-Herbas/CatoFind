@@ -80,6 +80,7 @@ try {
 - `GET /api/admin/reportes?estado=PENDIENTE` y `PATCH /api/admin/reportes/:id` requieren una sesión administrativa.
 - El registro y el inicio de sesión aceptan correos `@ucb.edu.bo`.
 - El inicio de sesión consulta Supabase Auth y el perfil en `usuario`. Express mantiene el token en una cookie HttpOnly; el frontend no usa localStorage ni sessionStorage.
+- `GET /api/auth/perfil` y `PATCH /api/auth/perfil` permiten consultar y actualizar el nombre y la carrera del estudiante autenticado. El correo institucional permanece de solo lectura.
 - Las solicitudes de recuperación requieren una sesión y se asocian al reporte encontrado y al estudiante autenticado.
 - Inicio y búsqueda muestran objetos de `GET /api/objetos`; si la API falla, muestran un error en vez de datos locales.
 

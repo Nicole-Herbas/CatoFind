@@ -20,29 +20,18 @@ beforeEach(() => {
 });
 
 describe('navegación principal de reportes', () => {
-  const pagina = new DOMParser().parseFromString(
+  const pagina = new globalThis.DOMParser().parseFromString(
     readFileSync(rutaHtml, 'utf8'),
     'text/html'
   );
 
-  it('mantiene todos los enlaces de navegación principal', () => {
-    const enlaces = [...pagina.querySelectorAll('.navbar nav a')]
-      .map(enlace => [enlace.textContent.trim(), enlace.getAttribute('href')]);
-
-    expect(enlaces).toEqual([
-      ['Inicio', '../../../inicio/pages/inicio/inicio.html'],
-      ['Buscar', '../../../buscar/pages/buscar/buscar.html'],
-      ['Reportar objeto', './reportar.html'],
-      ['Solicitar recuperación', '../../../buscar/pages/buscar/buscar.html'],
-      ['Mis reportes', '#']
-    ]);
-  });
-
-  it('marca Reportar objeto como la página activa', () => {
-    const enlaceActivo = pagina.querySelector('.navbar nav a.navbar__activo');
-
-    expect(enlaceActivo.textContent.trim()).toBe('Reportar objeto');
-    expect(enlaceActivo.getAttribute('aria-current')).toBe('page');
+  it('monta la barra compartida con Reportar como página activa', () => {
+    expect(pagina.querySelector('#shared-navbar').dataset).toMatchObject({
+      pagina: 'reportar',
+      rol: 'ESTUDIANTE'
+    });
+    expect(pagina.querySelector('script[src="../../../../shared/components/navbar/navbar.js"]'))
+      .not.toBeNull();
   });
 });
 

@@ -47,12 +47,13 @@ describe('Página Buscar - estructura', () => {
     expect(pagina.querySelector('script[src="./buscarPresenter.js"]')).not.toBeNull();
   });
 
-  it('debe tener los enlaces correctos en la barra de navegacion', () => {
-    const navLinks = pagina.querySelectorAll('header.navbar nav a');
-    expect(navLinks[0].getAttribute('href')).toBe('../../../inicio/pages/inicio/inicio.html');
-    expect(navLinks[1].getAttribute('href')).toBe('./buscar.html');
-    expect(navLinks[2].getAttribute('href')).toBe('../../../reportar/pages/reportar/reportar.html');
-    expect(navLinks[3].getAttribute('href')).toBe('../../../buscar/pages/buscar/buscar.html');
+  it('monta la barra compartida en la página autenticada', () => {
+    expect(pagina.querySelector('#shared-navbar').dataset).toMatchObject({
+      pagina: 'buscar',
+      rol: 'ESTUDIANTE'
+    });
+    expect(pagina.querySelector('script[src="../../../../shared/components/navbar/navbar.js"]'))
+      .not.toBeNull();
   });
 });
 
