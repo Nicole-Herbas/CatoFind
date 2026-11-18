@@ -15,11 +15,15 @@ const repositorioObjetos = crearRepositorioObjetos(supabase);
 const repositorioReportes = crearRepositorioReportes(supabase);
 const usuarios = crearUsuarios(supabase);
 const repositorioSolicitudes = crearRepositorioSolicitudes(supabase);
-const servicioSolicitudes = crearSolicitudesRecuperacion(supabase, repositorioSolicitudes);
 const servicioAutenticacion = crearServicioAutenticacion(
   supabase,
   usuarios,
   () => crearClienteSupabase(process.env, createClient)
+);
+const servicioSolicitudes = crearSolicitudesRecuperacion(
+  supabase,
+  repositorioSolicitudes,
+  servicioAutenticacion
 );
 const servicioObjetos = crearServicioObjetos(repositorioObjetos);
 const servicioReportes = crearServicioReportes(supabase, repositorioReportes, usuarios);

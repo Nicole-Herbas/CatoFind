@@ -1,16 +1,48 @@
-import Approval from './reviewRecoveryRequest.js';
+import { formatearFecha, obtenerObjetoSeleccionado } from './reviewRecoveryRequest.js';
 
-const botonAprobar = document.getElementById('btn-approve');
-const botonRechazar = document.getElementById('btn-deny');
+const contenido = document.getElementById('detalle-contenido');
+const mensajeError = document.getElementById('detalle-error');
 
-if (!botonAprobar || !botonRechazar) {
-    throw new Error('No se encontraron los botones para aprobar o rechazar la solicitud.');
+if (!contenido || !mensajeError) {
+    throw new Error('No se encontraron los elementos requeridos de la página de detalle.');
 }
 
-botonAprobar.addEventListener('click', () => {
-    window.alert(Approval.approveMessage());
-});
+try {
+    const objeto = obtenerObjetoSeleccionado(window.sessionStorage);
+    document.title = `CatoFind | ${objeto.titulo}`;
 
-botonRechazar.addEventListener('click', () => {
-    window.alert(Approval.denyMessage());
-});
+    document.getElementById('objeto-estado').textContent = objeto.estado || 'Publicado';
+    document.getElementById('objeto-titulo').textContent = objeto.titulo;
+    document.getElementById('objeto-categoria').textContent = objeto.categoria;
+    document.getElementById('objeto-lugar').textContent = objeto.lugar;
+    document.getElementById('objeto-fecha').textContent = formatearFecha(objeto.fecha);
+
+    if (objeto.descripcion) {
+        const descripcion = document.getElementById('objeto-descripcion');
+        descripcion.textContent = objeto.descripcion;
+        descripcion.hidden = false;
+    }
+
+    if (objeto.hora) {
+        document.getElementById('objeto-hora').textContent = objeto.hora;
+        document.getElementById('objeto-hora-contenedor').hidden = false;
+    }
+
+    const imagen = document.getElementById('objeto-imagen');
+    const imagenVacia = document.getElementById('objeto-imagen-vacia');
+    if (objeto.imagen) {
+        imagen.src = objeto.imagen;
+        imagen.alt = objeto.titulo;
+        imagen.addEventListener('error', () => {
+            imagen.hidden = true;
+            imagenVacia.hidden = false;
+        }, { once: true });
+    } else {
+        imagen.hidden = true;
+        imagenVacia.hidden = false;
+    }
+
+    contenido.hidden = false;
+} catch {
+    mensajeError.hidden = false;
+}

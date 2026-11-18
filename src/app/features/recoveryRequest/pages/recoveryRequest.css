@@ -1,0 +1,246 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background: #f6f9fc;
+  color: #17263e;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0.85rem 2.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  background: #ffffff;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
+}
+
+.navbar__brand {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+}
+
+.navbar__brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.navbar__brand-name {
+  color: #1a2e7a;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.navbar__brand-sub {
+  color: #6b7280;
+  font-size: 0.65rem;
+  font-weight: 500;
+}
+
+.navbar__links {
+  display: flex;
+  gap: 0.25rem;
+  margin-right: auto;
+}
+
+.navbar__link {
+  display: inline-block;
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  color: #6b7280;
+  font-size: 0.88rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.22s ease, background 0.22s ease;
+}
+
+.navbar__link:hover {
+  background: #eef1fb;
+  color: #1a2e7a;
+}
+
+.navbar__link--active {
+  background: #1a2e7a;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.recovery {
+  min-height: 100vh;
+  padding: 32px 24px;
+}
+
+.recovery__contenido {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.recovery__encabezado {
+  margin-bottom: 24px;
+}
+
+.recovery__encabezado h1 {
+  margin: 0 0 6px;
+  color: #17263e;
+  font-size: clamp(26px, 5vw, 32px);
+  letter-spacing: -0.5px;
+}
+
+.recovery__encabezado > p {
+  margin: 0;
+  color: #758197;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.recoveryForm {
+  display: grid;
+  gap: 18px;
+  padding: 28px;
+  border-radius: 28px;
+  background: #ffffff;
+  box-shadow: 0 5px 22px rgba(23, 38, 62, 0.07);
+}
+
+.recovery__campo {
+  display: grid;
+  gap: 8px;
+}
+
+.recovery__campo label {
+  color: #17263e;
+  font-size: 14px;
+}
+
+.recovery__campo select,
+.recovery__campo input,
+.recovery__campo textarea {
+  width: 100%;
+  min-width: 0;
+  padding: 12px 15px;
+  border: 1px solid #d5deea;
+  border-radius: 20px;
+  outline: none;
+  background: #ffffff;
+  color: #17263e;
+  font: inherit;
+  font-size: 14px;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.recovery__campo select,
+.recovery__campo input {
+  min-height: 44px;
+}
+
+.recovery__campo select {
+  cursor: pointer;
+}
+
+.recovery__campo textarea {
+  min-height: 112px;
+  resize: vertical;
+  border-radius: 20px;
+  line-height: 1.5;
+}
+
+.recovery__campo textarea::placeholder {
+  color: #8a94a5;
+}
+
+.recovery__campo select:focus,
+.recovery__campo input:focus,
+.recovery__campo textarea:focus {
+  border-color: #0b3979;
+  box-shadow: 0 0 0 3px rgba(11, 57, 121, 0.12);
+}
+
+.recovery__error {
+  margin: -6px 0 0;
+  color: #c62828;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.recovery__acciones {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2px;
+}
+
+.btn-sendRequest {
+  min-height: 44px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: 24px;
+  background: #0b3979;
+  color: #ffffff;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 150ms ease, transform 150ms ease;
+}
+
+.btn-sendRequest:hover {
+  background: #092b61;
+}
+
+.btn-sendRequest:active {
+  transform: translateY(1px);
+}
+
+.btn-sendRequest:focus-visible,
+.navbar__brand:focus-visible,
+.navbar__link:focus-visible {
+  outline: 3px solid rgba(11, 57, 121, 0.35);
+  outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    gap: 1rem;
+    padding: 0.7rem 1rem;
+  }
+
+  .navbar__links {
+    display: none;
+  }
+
+  .recovery {
+    padding: 24px 16px;
+  }
+
+  .recovery__encabezado {
+    margin-bottom: 20px;
+  }
+
+  .recoveryForm {
+    gap: 16px;
+    padding: 22px 18px;
+    border-radius: 24px;
+  }
+
+  .recovery__acciones {
+    justify-content: stretch;
+  }
+
+  .btn-sendRequest {
+    width: 100%;
+  }
+}

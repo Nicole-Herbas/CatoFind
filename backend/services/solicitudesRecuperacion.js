@@ -4,8 +4,13 @@ function crearError(mensaje, codigo) {
   return error;
 }
 
-export function crearSolicitudesRecuperacion(supabase, repositorio) {
+export function crearSolicitudesRecuperacion(supabase, repositorio, autenticacion) {
   return {
+    async listarPendientes(token) {
+      await autenticacion.obtenerSesionAdministrador(token);
+      return repositorio.listarPendientes();
+    },
+
     async crear({ token, reporteId, lugarEstimado, fechaEstimada, caracteristicaPrivada }) {
       const id = Number(reporteId);
       const lugar = String(lugarEstimado ?? '').trim();

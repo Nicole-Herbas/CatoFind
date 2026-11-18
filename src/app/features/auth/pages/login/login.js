@@ -9,6 +9,6 @@ export function mensajeRecuperacion() {
 export function obtenerRutaPostLogin(resultado) {
   if (!resultado?.ok) return null;
   return resultado.usuario?.rol === 'ADMIN'
-    ? '../../../admin/pages/panel/panel.html'
+    ? '../../../admin/pages/reviewRequests/pages/reviewRequests.html'
     : '../../../inicio/pages/inicio/inicio.html';
 }
