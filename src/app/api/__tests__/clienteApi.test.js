@@ -53,4 +53,22 @@ describe('cliente HTTP común', () => {
       message: 'Datos inválidos.'
     });
   });
+
+  it('envía actualizaciones PATCH con cuerpo JSON', async () => {
+    const cambios = { nombre: 'Ana', carrera: 'Informática' };
+    const solicitar = jest.fn().mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: async () => cambios
+    });
+    const cliente = crearClienteApi({ solicitar });
+
+    await expect(cliente.patch('/auth/perfil', cambios)).resolves.toEqual(cambios);
+    expect(solicitar).toHaveBeenCalledWith('/api/auth/perfil', {
+      method: 'PATCH',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(cambios)
+    });
+  });
 });
