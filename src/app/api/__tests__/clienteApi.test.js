@@ -37,4 +37,20 @@ describe('cliente HTTP común', () => {
       body: JSON.stringify(solicitud)
     });
   });
+
+  it('convierte errores HTTP en un error común con código y mensaje del servidor', async () => {
+    const solicitar = jest.fn().mockResolvedValue({
+      ok: false,
+      status: 422,
+      json: async () => ({ mensaje: 'Datos inválidos.', codigo: 'VALIDACION' })
+    });
+    const cliente = crearClienteApi({ solicitar });
+
+    await expect(cliente.get('/objetos')).rejects.toMatchObject({
+      name: 'ApiError',
+      status: 422,
+      codigo: 'VALIDACION',
+      message: 'Datos inválidos.'
+    });
+  });
 });
