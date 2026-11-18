@@ -269,6 +269,16 @@ describe('Presentador de Inicio', () => {
 });
 
 describe('Servicio de Inicio', () => {
+  it('obtiene objetos a través del repositorio compartido', async () => {
+    const repositorioObjetos = {
+      listar: jest.fn().mockResolvedValue([objetoServicio])
+    };
+    const servicio = crearServicioInicio(repositorioObjetos);
+
+    await expect(servicio.obtenerRecientes()).resolves.toHaveLength(1);
+    expect(repositorioObjetos.listar).toHaveBeenCalledWith();
+  });
+
   it('obtiene los objetos recientes sin filtros y usa el modelo compartido', async () => {
     const apiObjetos = jest.fn().mockResolvedValue([objetoServicio]);
     const servicio = crearServicioInicio(apiObjetos);
