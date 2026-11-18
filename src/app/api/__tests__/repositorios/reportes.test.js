@@ -18,4 +18,21 @@ describe('repositorio de reportes del frontend', () => {
       titulo: 'Mochila negra'
     });
   });
+
+  it('lista reportes pendientes y actualiza su estado por el endpoint administrativo', async () => {
+    const reportes = [{ id: 8, titulo: 'Cuaderno' }];
+    const reporte = { id: 8, estado: 'APROBADO' };
+    const cliente = {
+      get: jest.fn().mockResolvedValue({ reportes }),
+      patch: jest.fn().mockResolvedValue({ reporte })
+    };
+    const repositorio = crearRepositorioReportes(cliente);
+
+    await expect(repositorio.listarPendientes()).resolves.toEqual(reportes);
+    await expect(repositorio.actualizarEstado('8', 'APROBADO')).resolves.toEqual(reporte);
+    expect(cliente.get).toHaveBeenCalledWith('/admin/reportes?estado=PENDIENTE');
+    expect(cliente.patch).toHaveBeenCalledWith('/admin/reportes/8', {
+      estado: 'APROBADO'
+    });
+  });
 });
