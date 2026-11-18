@@ -71,4 +71,17 @@ describe('cliente HTTP común', () => {
       body: JSON.stringify(cambios)
     });
   });
+
+  it('acepta respuestas 204 sin intentar leer un cuerpo JSON', async () => {
+    const json = jest.fn();
+    const solicitar = jest.fn().mockResolvedValue({
+      ok: true,
+      status: 204,
+      json
+    });
+    const cliente = crearClienteApi({ solicitar });
+
+    await expect(cliente.post('/auth/logout')).resolves.toBeNull();
+    expect(json).not.toHaveBeenCalled();
+  });
 });
