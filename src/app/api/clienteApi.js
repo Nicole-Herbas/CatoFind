@@ -23,6 +23,14 @@ export function crearClienteApi({
   return {
     get(ruta) {
       return solicitarJson(ruta);
+    },
+
+    post(ruta, datos) {
+      return solicitarJson(ruta, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(datos)
+      });
     }
   };
 }
