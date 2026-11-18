@@ -30,6 +30,10 @@ export function crearRepositorioUsuarios(cliente = crearClienteApi()) {
       return resultado.usuario;
     },
 
+    async cerrarSesion() {
+      await cliente.post('/auth/logout', {});
+    },
+
     async obtenerPerfil() {
       const resultado = await cliente.get('/auth/perfil');
       return resultado.perfil;
