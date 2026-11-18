@@ -44,6 +44,14 @@ export function crearClienteApi({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(datos)
       });
+    },
+
+    patch(ruta, datos) {
+      return solicitarJson(ruta, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(datos)
+      });
     }
   };
 }
