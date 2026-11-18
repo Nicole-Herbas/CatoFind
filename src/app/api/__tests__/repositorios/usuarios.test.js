@@ -27,4 +27,30 @@ describe('repositorio de usuarios del frontend', () => {
       contrasena: 'clave'
     });
   });
+
+  it('lee y actualiza el perfil sin enviar un cambio de correo', async () => {
+    const perfil = {
+      nombre: 'Ana Torres',
+      correo: 'ana@ucb.edu.bo',
+      carrera: 'Informática'
+    };
+    const cliente = {
+      get: jest.fn().mockResolvedValue({ perfil }),
+      patch: jest.fn().mockResolvedValue({ perfil })
+    };
+    const repositorio = crearRepositorioUsuarios(cliente);
+
+    await expect(repositorio.obtenerPerfil()).resolves.toEqual(perfil);
+    await expect(repositorio.actualizarPerfil({
+      nombre: 'Ana Torres',
+      carrera: 'Informática',
+      correo: 'otro@ucb.edu.bo'
+    })).resolves.toEqual(perfil);
+
+    expect(cliente.get).toHaveBeenCalledWith('/auth/perfil');
+    expect(cliente.patch).toHaveBeenCalledWith('/auth/perfil', {
+      nombre: 'Ana Torres',
+      carrera: 'Informática'
+    });
+  });
 });
