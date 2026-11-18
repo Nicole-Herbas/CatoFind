@@ -18,4 +18,23 @@ describe('cliente HTTP común', () => {
       headers: {}
     });
   });
+
+  it('envía datos JSON en POST y conserva las credenciales de sesión', async () => {
+    const datos = { id: 3 };
+    const solicitud = { titulo: 'Mochila negra' };
+    const solicitar = jest.fn().mockResolvedValue({
+      ok: true,
+      status: 201,
+      json: async () => datos
+    });
+    const cliente = crearClienteApi({ solicitar });
+
+    await expect(cliente.post('/reportes', solicitud)).resolves.toEqual(datos);
+    expect(solicitar).toHaveBeenCalledWith('/api/reportes', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(solicitud)
+    });
+  });
 });
