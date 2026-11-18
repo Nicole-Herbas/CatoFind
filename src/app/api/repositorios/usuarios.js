@@ -23,6 +23,19 @@ export function crearRepositorioUsuarios(cliente = crearClienteApi()) {
     async obtenerSesion() {
       const resultado = await cliente.get('/auth/sesion');
       return resultado.usuario;
+    },
+
+    async obtenerPerfil() {
+      const resultado = await cliente.get('/auth/perfil');
+      return resultado.perfil;
+    },
+
+    async actualizarPerfil(datos) {
+      const resultado = await cliente.patch('/auth/perfil', {
+        nombre: datos.nombre,
+        carrera: datos.carrera
+      });
+      return resultado.perfil;
     }
   };
 }
