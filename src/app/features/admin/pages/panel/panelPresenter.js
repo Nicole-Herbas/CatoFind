@@ -1,12 +1,12 @@
-import { AutenticacionApi } from '../../../../api/autenticacion.js';
-import { crearApiReportes } from '../../../../api/reportes.js';
+import { crearRepositorioUsuarios } from '../../../../api/repositorios/usuarios.js';
+import { crearRepositorioReportes } from '../../../../api/repositorios/reportes.js';
 import { iniciarRevisionReportes } from './revisionReportesPresenter.js';
 
 export async function iniciarPanel(
   documento,
   acciones,
-  autenticacion = new AutenticacionApi(),
-  apiReportes = crearApiReportes()
+  autenticacion = crearRepositorioUsuarios(),
+  apiReportes = crearRepositorioReportes()
 ) {
   let usuario;
 
