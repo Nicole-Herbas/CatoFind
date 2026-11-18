@@ -1,3 +1,12 @@
+export class ApiError extends Error {
+  constructor(mensaje, status, codigo = null) {
+    super(mensaje);
+    this.name = 'ApiError';
+    this.status = status;
+    this.codigo = codigo;
+  }
+}
+
 export function crearClienteApi({
   baseUrl = '/api',
   solicitar = globalThis.fetch.bind(globalThis)
@@ -14,7 +23,11 @@ export function crearClienteApi({
     const resultado = await respuesta.json();
 
     if (!respuesta.ok) {
-      throw new Error(resultado.mensaje || 'No se pudo completar la solicitud.');
+      throw new ApiError(
+        resultado.mensaje || 'No se pudo completar la solicitud.',
+        respuesta.status,
+        resultado.codigo
+      );
     }
 
     return resultado;
