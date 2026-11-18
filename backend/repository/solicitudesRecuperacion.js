@@ -24,6 +24,17 @@ export function crearSolicitudesRecuperacion(supabase) {
       return Boolean(data);
     },
 
+    async listarPorSolicitante(solicitanteId) {
+      const { data, error } = await supabase
+        .from('solicitud_recuperacion')
+        .select('id,fecha_solicitud,estado,motivo_rechazo,reporte(objeto(nombre))')
+        .eq('solicitante_id', solicitanteId)
+        .order('fecha_solicitud', { ascending: false });
+
+      if (error) throw error;
+      return data;
+    },
+
     async crear(solicitud) {
       const { data, error } = await supabase
         .from('solicitud_recuperacion')

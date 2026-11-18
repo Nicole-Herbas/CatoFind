@@ -30,6 +30,33 @@ describe('navbar compartido', () => {
       .textContent).toBe('Inicio');
   });
 
+  it('enlaza Mis solicitudes para estudiantes y mantiene la revisión para admin', async () => {
+    const autenticacionEstudiante = {
+      obtenerSesion: jest.fn().mockResolvedValue({ nombre: 'Ana Torres', rol: 'ESTUDIANTE' }),
+      cerrarSesion: jest.fn()
+    };
+
+    await iniciarNavbar(document, autenticacionEstudiante, jest.fn());
+
+    const enlaceEstudiante = [...document.querySelectorAll('.app-navbar__link')]
+      .find(enlace => enlace.textContent === 'Mis solicitudes');
+    expect(enlaceEstudiante.getAttribute('href')).toBe(
+      '/src/app/features/recoveryRequest/pages/misSolicitudes/misSolicitudes.html'
+    );
+
+    document.getElementById('shared-navbar').dataset.rol = 'ADMIN';
+    const autenticacionAdmin = {
+      obtenerSesion: jest.fn().mockResolvedValue({ nombre: 'Bienestar', rol: 'ADMIN' }),
+      cerrarSesion: jest.fn()
+    };
+    await iniciarNavbar(document, autenticacionAdmin, jest.fn());
+
+    const enlaceAdmin = document.querySelector('.app-navbar__link');
+    expect(enlaceAdmin.textContent).toBe('Panel');
+    expect(document.querySelector('.app-navbar__link[href*="reviewRecoveryRequest"]')
+      .textContent).toBe('Solicitudes');
+  });
+
   it('marca como activa la sección correspondiente a la página actual', async () => {
     document.getElementById('shared-navbar').dataset.pagina = 'reportar';
     const autenticacion = {
@@ -105,6 +132,7 @@ describe('navbar compartido', () => {
       ['src/app/features/buscar/pages/buscar/buscar.html', 'buscar', 'ESTUDIANTE'],
       ['src/app/features/reportar/pages/reportar/reportar.html', 'reportar', 'ESTUDIANTE'],
       ['src/app/features/recoveryRequest/pages/recoveryRequest.html', 'recoveryRequest', 'ESTUDIANTE'],
+      ['src/app/features/recoveryRequest/pages/misSolicitudes/misSolicitudes.html', 'solicitudes', 'ESTUDIANTE'],
       ['src/app/features/admin/pages/panel/panel.html', 'panel', 'ADMIN'],
       ['src/app/features/reviewRecoveryRequest/pages/reviewRecoveryRequest.html', 'solicitudes', 'ADMIN'],
       ['src/app/features/perfil/pages/perfil/perfil.html', 'perfil', 'ESTUDIANTE']

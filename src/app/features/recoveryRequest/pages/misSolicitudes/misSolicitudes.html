@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CatoFind | Mis solicitudes</title>
+  <link rel="stylesheet" href="../../../../shared/components/navbar/navbar.css">
+  <link rel="stylesheet" href="./misSolicitudes.css">
+</head>
+<body>
+  <div id="shared-navbar" data-pagina="solicitudes" data-rol="ESTUDIANTE"></div>
+
+  <main class="mis-solicitudes">
+    <h1>Mis solicitudes de recuperación</h1>
+    <p id="estado-solicitudes" class="mis-solicitudes__mensaje" role="status" aria-live="polite">
+      Cargando solicitudes...
+    </p>
+    <ul id="lista-solicitudes" class="mis-solicitudes__lista" aria-label="Mis solicitudes" hidden></ul>
+  </main>
+
+  <script type="module" src="../../../../shared/components/navbar/navbar.js"></script>
+  <script type="module" src="./misSolicitudesPresenter.js"></script>
+</body>
+</html>

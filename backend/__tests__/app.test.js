@@ -207,6 +207,47 @@ describe('API de solicitudes de recuperación', () => {
       await new Promise(resolve => servidor.close(resolve));
     }
   });
+
+  it('GET lista solicitudes propias y responde 401 sin sesión', async () => {
+    const solicitudes = [{
+      id: 12,
+      nombreObjeto: 'Mochila',
+      fechaSolicitud: '2026-11-18T00:00:00.000Z',
+      estado: 'PENDIENTE',
+      motivoRechazo: null
+    }];
+    const listarMisSolicitudes = jest.fn(async ({ token }) => {
+      if (token !== 'token-estudiante') {
+        throw Object.assign(new Error('Inicia sesión para consultar tus solicitudes.'), {
+          codigo: 'NO_AUTORIZADO'
+        });
+      }
+      return solicitudes;
+    });
+    const servicioSolicitudes = { crear: jest.fn(), listarMisSolicitudes };
+    const app = crearApp({ listarPublicados: async () => [] }, {}, servicioSolicitudes);
+    const servidor = createServer(app);
+    await new Promise(resolve => servidor.listen(0, resolve));
+    const baseUrl = `http://127.0.0.1:${servidor.address().port}`;
+
+    try {
+      const respuesta = await fetch(`${baseUrl}/api/solicitudes-recuperacion`, {
+        headers: { Cookie: 'catofind_sesion=token-estudiante' }
+      });
+
+      expect(respuesta.status).toBe(200);
+      expect(await respuesta.json()).toEqual({ solicitudes });
+      expect(listarMisSolicitudes).toHaveBeenCalledWith({ token: 'token-estudiante' });
+
+      const sinSesion = await fetch(`${baseUrl}/api/solicitudes-recuperacion`);
+      expect(sinSesion.status).toBe(401);
+      expect(await sinSesion.json()).toEqual({
+        mensaje: 'Inicia sesión para consultar tus solicitudes.'
+      });
+    } finally {
+      await new Promise(resolve => servidor.close(resolve));
+    }
+  });
 });
 
 describe('API de revisión de reportes', () => {

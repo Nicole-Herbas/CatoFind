@@ -6,6 +6,31 @@ function crearError(mensaje, codigo) {
 
 export function crearSolicitudesRecuperacion(supabase, repositorio) {
   return {
+    async listarMisSolicitudes({ token }) {
+      if (!token) {
+        throw crearError('Inicia sesión para consultar tus solicitudes.', 'NO_AUTORIZADO');
+      }
+
+      const { data, error } = await supabase.auth.getUser(token);
+      if (error || !data?.user) {
+        throw crearError('Inicia sesión para consultar tus solicitudes.', 'NO_AUTORIZADO');
+      }
+
+      const estudiante = await repositorio.obtenerEstudiante(data.user.id);
+      if (!estudiante || estudiante.rol !== 'ESTUDIANTE') {
+        throw crearError('Inicia sesión para consultar tus solicitudes.', 'NO_AUTORIZADO');
+      }
+
+      const solicitudes = await repositorio.listarPorSolicitante(estudiante.id);
+      return solicitudes.map(solicitud => ({
+        id: solicitud.id,
+        nombreObjeto: solicitud.reporte?.objeto?.nombre || 'Objeto no disponible',
+        fechaSolicitud: solicitud.fecha_solicitud,
+        estado: solicitud.estado,
+        motivoRechazo: solicitud.motivo_rechazo
+      }));
+    },
+
     async crear({ token, reporteId, lugarEstimado, fechaEstimada, caracteristicaPrivada }) {
       const id = Number(reporteId);
       const lugar = String(lugarEstimado ?? '').trim();
