@@ -25,6 +25,11 @@ export function crearRepositorioUsuarios(cliente = crearClienteApi()) {
       return resultado.usuario;
     },
 
+    async obtenerSesionAdministrador() {
+      const resultado = await cliente.get('/admin/sesion');
+      return resultado.usuario;
+    },
+
     async obtenerPerfil() {
       const resultado = await cliente.get('/auth/perfil');
       return resultado.perfil;
