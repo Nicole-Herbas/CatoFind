@@ -270,9 +270,15 @@
     "testId": 16
   },
   {
-    "commitId": "HEAD",
+    "commitId": "579a607e9d1329099b3d5b1026e86d2aaf7eea7d",
     "commitName": "Merge branch 'main' into admin-review-Requests",
     "commitTimestamp": 1794922146564,
     "testId": 17
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "fix: Refactor de visualizacion html en la pagina de admin",
+    "commitTimestamp": 1794926108859,
+    "testId": 18
   }
 ]

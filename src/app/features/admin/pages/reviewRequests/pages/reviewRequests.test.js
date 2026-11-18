@@ -7,6 +7,7 @@ let navegar;
 let avisar;
 let autenticacion;
 let apiReportes;
+let apiSolicitudes;
 
 const administrador = { nombre: 'Administradora' };
 const reportePendiente = {
@@ -31,6 +32,9 @@ beforeEach(() => {
     listarPendientes: jest.fn().mockResolvedValue([]),
     actualizarEstado: jest.fn()
   };
+  apiSolicitudes = {
+    listarPendientes: jest.fn().mockResolvedValue([])
+  };
 });
 
 const acciones = () => ({ irAlLogin: navegar, avisar });
@@ -48,7 +52,7 @@ describe('Solicitudes administrativas', () => {
   it('muestra el panel con el perfil autorizado por backend', async () => {
     autenticacion.obtenerSesionAdministrador.mockResolvedValue(administrador);
 
-    await iniciarPanel(document, acciones(), autenticacion, apiReportes);
+    await iniciarPanel(document, acciones(), autenticacion, apiReportes, apiSolicitudes);
 
     expect(document.getElementById('panel-contenido').hidden).toBe(false);
     expect(apiReportes.listarPendientes).toHaveBeenCalledTimes(1);
@@ -58,7 +62,7 @@ describe('Solicitudes administrativas', () => {
   it('redirige cuando backend rechaza el acceso', async () => {
     autenticacion.obtenerSesionAdministrador.mockRejectedValue(new Error('No tienes permisos.'));
 
-    await iniciarPanel(document, acciones(), autenticacion, apiReportes);
+    await iniciarPanel(document, acciones(), autenticacion, apiReportes, apiSolicitudes);
 
     expect(avisar).toHaveBeenCalledWith('No tienes permisos.');
     expect(navegar).toHaveBeenCalledTimes(1);
@@ -73,7 +77,7 @@ describe('Solicitudes administrativas', () => {
       .mockResolvedValueOnce([]);
     apiReportes.actualizarEstado.mockResolvedValue({ id: 7, estado: 'APROBADO' });
 
-    await iniciarPanel(document, acciones(), autenticacion, apiReportes);
+    await iniciarPanel(document, acciones(), autenticacion, apiReportes, apiSolicitudes);
 
     expect(document.querySelector('.administracion__reporte-contenido h2').textContent)
       .toBe('Mochila negra');
@@ -92,5 +96,41 @@ describe('Solicitudes administrativas', () => {
 
     expect(autenticacion.cerrarSesion).toHaveBeenCalledTimes(1);
     expect(navegar).toHaveBeenCalledTimes(1);
+  });
+
+  it('cambia entre filtros y carga los reportes o solicitudes correspondientes', async () => {
+    autenticacion.obtenerSesionAdministrador.mockResolvedValue(administrador);
+    apiReportes.listarPendientes.mockResolvedValue([reportePendiente]);
+    apiSolicitudes.listarPendientes.mockResolvedValue([{
+      id: 12,
+      reporteId: 5,
+      titulo: 'Botella térmica',
+      categoria: 'Accesorios',
+      solicitante: 'Camila Rojas',
+      lugarEstimado: 'Auditorio',
+      fechaEstimada: '2026-10-11',
+      caracteristicaPrivada: 'Tiene una marca en la tapa.'
+    }]);
+
+    await iniciarPanel(document, acciones(), autenticacion, apiReportes, apiSolicitudes);
+
+    expect(apiReportes.listarPendientes).toHaveBeenCalledTimes(1);
+    expect(apiSolicitudes.listarPendientes).toHaveBeenCalledTimes(1);
+    expect(document.getElementById('filtro-reportes').getAttribute('aria-pressed')).toBe('true');
+    expect(document.querySelector('#reportes-pendientes h2').textContent).toBe('Mochila negra');
+    expect(document.getElementById('filtro-reportes').textContent).toContain('(1)');
+    expect(document.getElementById('filtro-recuperaciones').textContent).toContain('(1)');
+
+    document.getElementById('filtro-recuperaciones').click();
+
+    expect(document.getElementById('filtro-recuperaciones').getAttribute('aria-pressed')).toBe('true');
+    expect(document.querySelector('#reportes-pendientes h2').textContent).toBe('Botella térmica');
+    expect(document.getElementById('reportes-pendientes').textContent)
+      .toContain('Tiene una marca en la tapa.');
+
+    document.getElementById('filtro-reportes').click();
+
+    expect(document.getElementById('filtro-reportes').getAttribute('aria-pressed')).toBe('true');
+    expect(document.querySelector('#reportes-pendientes h2').textContent).toBe('Mochila negra');
   });
 });

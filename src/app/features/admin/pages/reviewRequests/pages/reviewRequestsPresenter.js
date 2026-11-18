@@ -1,12 +1,14 @@
 import { AutenticacionApi } from '../../../../../api/autenticacion.js';
 import { crearApiReportes } from '../../../../../api/reportes.js';
+import { SolicitudesApi } from '../../../../../api/solicitudes.js';
 import { iniciarRevisionReportes } from './revisionReportesPresenter.js';
 
 export async function iniciarPanel(
   documento,
   acciones,
   autenticacion = new AutenticacionApi(),
-  apiReportes = crearApiReportes()
+  apiReportes = crearApiReportes(),
+  apiSolicitudes = new SolicitudesApi()
 ) {
   let usuario;
 
@@ -22,7 +24,7 @@ export async function iniciarPanel(
     documento.createTextNode(usuario.nombre)
   );
   documento.getElementById('panel-contenido').hidden = false;
-  await iniciarRevisionReportes(documento, apiReportes);
+  await iniciarRevisionReportes(documento, apiReportes, apiSolicitudes);
 
   documento.getElementById('cerrar-sesion').addEventListener('click', async () => {
     await autenticacion.cerrarSesion();

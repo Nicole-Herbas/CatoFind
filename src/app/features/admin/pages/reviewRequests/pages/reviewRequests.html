@@ -34,8 +34,29 @@
         <p id="resumen-reportes">Reportes pendientes de revisión</p>
       </div>
 
+      <div class="administracion__filtros" aria-label="Filtrar solicitudes">
+        <button
+          id="filtro-reportes"
+          class="administracion__filtro administracion__filtro--activo"
+          type="button"
+          data-filtro="reportes"
+          aria-pressed="true"
+        >
+          Reportes nuevos <span id="contador-reportes">(0)</span>
+        </button>
+        <button
+          id="filtro-recuperaciones"
+          class="administracion__filtro"
+          type="button"
+          data-filtro="recuperaciones"
+          aria-pressed="false"
+        >
+          Recuperaciones <span id="contador-recuperaciones">(0)</span>
+        </button>
+      </div>
+
       <p id="mensaje-revision" class="administracion__mensaje" role="status" aria-live="polite"></p>
-      <div id="reportes-pendientes" class="administracion__lista"></div>
+      <div id="reportes-pendientes" class="administracion__lista" aria-live="polite"></div>
     </section>
   </main>
   <script type="module" src="./reviewRequestsPresenter.js"></script>

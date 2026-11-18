@@ -3,6 +3,19 @@ export class SolicitudesApi {
     this.solicitar = solicitar;
   }
 
+  async listarPendientes() {
+    const respuesta = await this.solicitar('/api/admin/solicitudes-recuperacion?estado=PENDIENTE', {
+      credentials: 'same-origin'
+    });
+    const resultado = await respuesta.json();
+
+    if (!respuesta.ok) {
+      throw new Error(resultado.mensaje || 'No se pudieron cargar las solicitudes de recuperación.');
+    }
+
+    return resultado.solicitudes;
+  }
+
   async crear(datos) {
     try {
       const respuesta = await this.solicitar('/api/solicitudes-recuperacion', {
