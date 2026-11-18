@@ -84,4 +84,15 @@ describe('cliente HTTP común', () => {
     await expect(cliente.post('/auth/logout')).resolves.toBeNull();
     expect(json).not.toHaveBeenCalled();
   });
+
+  it('normaliza fallos de conexión sin ocultarlos como respuestas correctas', async () => {
+    const solicitar = jest.fn().mockRejectedValue(new TypeError('Failed to fetch'));
+    const cliente = crearClienteApi({ solicitar });
+
+    await expect(cliente.get('/objetos')).rejects.toMatchObject({
+      name: 'ApiError',
+      status: 0,
+      message: 'No se pudo conectar con el servidor.'
+    });
+  });
 });
