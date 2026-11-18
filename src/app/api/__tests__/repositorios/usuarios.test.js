@@ -28,6 +28,27 @@ describe('repositorio de usuarios del frontend', () => {
     expect(cliente.post).toHaveBeenCalledWith('/auth/logout', {});
   });
 
+  it('registra estudiantes con los datos normalizados', async () => {
+    const cliente = { post: jest.fn().mockResolvedValue({}) };
+    const repositorio = crearRepositorioUsuarios(cliente);
+
+    await expect(repositorio.registrarEstudiante({
+      nombre: ' Ana ',
+      apellido: 'Torres ',
+      correo: ' ANA@UCB.EDU.BO ',
+      contrasena: 'clave',
+      confirmarContrasena: 'clave'
+    })).resolves.toEqual({
+      ok: true,
+      mensaje: 'Cuenta creada correctamente.'
+    });
+    expect(cliente.post).toHaveBeenCalledWith('/auth/registro', {
+      nombre: 'Ana Torres',
+      correo: 'ana@ucb.edu.bo',
+      contrasena: 'clave'
+    });
+  });
+
   it('inicia sesión usando el endpoint de autenticación y devuelve el usuario', async () => {
     const usuario = { nombre: 'Ana Torres', rol: 'ESTUDIANTE' };
     const cliente = { post: jest.fn().mockResolvedValue({ usuario }) };
