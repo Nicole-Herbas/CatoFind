@@ -14,12 +14,19 @@ export function crearClienteApi({
   async function solicitarJson(ruta, opciones = {}) {
     const urlBase = baseUrl.replace(/\/+$/, '');
     const rutaApi = ruta.replace(/^\/+/, '');
-    const respuesta = await solicitar(`${urlBase}/${rutaApi}`, {
-      method: 'GET',
-      credentials: 'same-origin',
-      headers: {},
-      ...opciones
-    });
+    let respuesta;
+    try {
+      respuesta = await solicitar(`${urlBase}/${rutaApi}`, {
+        method: 'GET',
+        credentials: 'same-origin',
+        headers: {},
+        ...opciones
+      });
+    } catch (error) {
+      const errorApi = new ApiError('No se pudo conectar con el servidor.', 0);
+      errorApi.cause = error;
+      throw errorApi;
+    }
     const resultado = respuesta.status === 204 ? null : await respuesta.json();
 
     if (!respuesta.ok) {
