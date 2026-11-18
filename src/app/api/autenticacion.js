@@ -31,6 +31,19 @@ export class AutenticacionApi {
     return resultado.usuario;
   }
 
+  async obtenerPerfil() {
+    const resultado = await this.solicitar('/auth/perfil');
+    return resultado.perfil;
+  }
+
+  async actualizarPerfil(datos) {
+    const resultado = await this.solicitar('/auth/perfil', {
+      method: 'PATCH',
+      body: { nombre: datos.nombre, carrera: datos.carrera }
+    });
+    return resultado.perfil;
+  }
+
   async cerrarSesion() {
     await this.solicitar('/auth/logout', { method: 'POST' });
   }

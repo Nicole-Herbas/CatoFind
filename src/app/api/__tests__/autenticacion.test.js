@@ -75,6 +75,54 @@ describe('API de autenticación del frontend', () => {
       .resolves.toEqual({ ok: false, mensaje: 'Correo o contraseña incorrectos.' });
   });
 
+  it('obtiene el perfil con la cookie de sesión', async () => {
+    const perfil = {
+      nombre: 'Ana Torres',
+      correo: 'ana@ucb.edu.bo',
+      carrera: 'Ingeniería de Software'
+    };
+    const solicitar = jest.fn(async () => ({
+      ok: true,
+      status: 200,
+      json: async () => ({ perfil })
+    }));
+
+    await expect(new AutenticacionApi(solicitar).obtenerPerfil()).resolves.toEqual(perfil);
+    expect(solicitar).toHaveBeenCalledWith('/api/auth/perfil', {
+      method: 'GET',
+      credentials: 'same-origin',
+      headers: {}
+    });
+  });
+
+  it('actualiza solo nombre y carrera y conserva errores HTTP', async () => {
+    const perfil = { nombre: 'Ana Torres', carrera: 'Informática' };
+    const solicitar = jest.fn(async () => ({
+      ok: true,
+      status: 200,
+      json: async () => ({ perfil })
+    }));
+
+    await expect(new AutenticacionApi(solicitar).actualizarPerfil({
+      ...perfil,
+      correo: 'intruso@ucb.edu.bo'
+    })).resolves.toEqual(perfil);
+    expect(solicitar).toHaveBeenCalledWith('/api/auth/perfil', {
+      method: 'PATCH',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(perfil)
+    });
+
+    const apiConError = new AutenticacionApi(jest.fn(async () => ({
+      ok: false,
+      status: 401,
+      json: async () => ({ mensaje: 'Debes iniciar sesión.' })
+    })));
+    await expect(apiConError.obtenerPerfil())
+      .rejects.toMatchObject({ status: 401, message: 'Debes iniciar sesión.' });
+  });
+
   it('cierra sesión cuando el servidor responde 204 sin cuerpo', async () => {
     const solicitar = jest.fn(async () => ({ ok: true, status: 204 }));
 
