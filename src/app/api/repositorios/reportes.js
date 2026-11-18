@@ -10,6 +10,19 @@ export function crearRepositorioReportes(cliente = crearClienteApi()) {
     async crear(datos) {
       const resultado = await cliente.post('/reportes', datos);
       return resultado.reporte;
+    },
+
+    async listarPendientes() {
+      const resultado = await cliente.get('/admin/reportes?estado=PENDIENTE');
+      return resultado.reportes;
+    },
+
+    async actualizarEstado(id, estado) {
+      const resultado = await cliente.patch(
+        `/admin/reportes/${encodeURIComponent(id)}`,
+        { estado }
+      );
+      return resultado.reporte;
     }
   };
 }
