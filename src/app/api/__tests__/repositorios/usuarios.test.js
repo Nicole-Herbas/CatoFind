@@ -11,6 +11,14 @@ describe('repositorio de usuarios del frontend', () => {
     expect(cliente.get).toHaveBeenCalledWith('/auth/sesion');
   });
 
+  it('devuelve null si no hay una sesión estudiantil activa', async () => {
+    const errorSesion = Object.assign(new Error('Debes iniciar sesión.'), { status: 401 });
+    const cliente = { get: jest.fn().mockRejectedValue(errorSesion) };
+    const repositorio = crearRepositorioUsuarios(cliente);
+
+    await expect(repositorio.obtenerSesion()).resolves.toBeNull();
+  });
+
   it('obtiene la sesión administrativa usando el cliente común', async () => {
     const usuario = { nombre: 'Admin', rol: 'ADMIN' };
     const cliente = { get: jest.fn().mockResolvedValue({ usuario }) };
