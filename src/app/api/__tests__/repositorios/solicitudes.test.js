@@ -18,4 +18,16 @@ describe('repositorio de solicitudes del frontend', () => {
     });
     expect(cliente.post).toHaveBeenCalledWith('/solicitudes-recuperacion', datos);
   });
+
+  it('devuelve el mensaje del servidor cuando rechaza la solicitud', async () => {
+    const cliente = {
+      post: jest.fn().mockRejectedValue(new Error('Inicia sesión para enviar una solicitud.'))
+    };
+    const repositorio = crearRepositorioSolicitudes(cliente);
+
+    await expect(repositorio.crear({ reporteId: '14' })).resolves.toEqual({
+      ok: false,
+      mensaje: 'Inicia sesión para enviar una solicitud.'
+    });
+  });
 });
