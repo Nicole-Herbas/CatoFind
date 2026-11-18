@@ -20,6 +20,14 @@ describe('repositorio de usuarios del frontend', () => {
     expect(cliente.get).toHaveBeenCalledWith('/admin/sesion');
   });
 
+  it('cierra la sesión usando el endpoint de autenticación', async () => {
+    const cliente = { post: jest.fn().mockResolvedValue(null) };
+    const repositorio = crearRepositorioUsuarios(cliente);
+
+    await expect(repositorio.cerrarSesion()).resolves.toBeUndefined();
+    expect(cliente.post).toHaveBeenCalledWith('/auth/logout', {});
+  });
+
   it('inicia sesión usando el endpoint de autenticación y devuelve el usuario', async () => {
     const usuario = { nombre: 'Ana Torres', rol: 'ESTUDIANTE' };
     const cliente = { post: jest.fn().mockResolvedValue({ usuario }) };
