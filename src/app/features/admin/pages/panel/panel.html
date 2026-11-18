@@ -4,14 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CatoFind | Panel de Bienestar</title>
+  <link rel="stylesheet" href="../../../../shared/components/navbar/navbar.css">
   <link rel="stylesheet" href="./panel.css">
 </head>
 <body>
+  <div id="shared-navbar" data-pagina="panel" data-rol="ADMIN"></div>
   <main id="panel-contenido" class="panel" hidden>
-    <header class="panel__barra">
-      <strong>CATO<span>FIND</span></strong>
-      <button id="cerrar-sesion" type="button">Cerrar sesión</button>
-    </header>
     <section class="panel__contenido">
       <p class="panel__etiqueta">Administración</p>
       <h1>Panel de Bienestar Estudiantil</h1>
@@ -29,6 +27,7 @@
       </div>
     </section>
   </main>
+  <script type="module" src="../../../../shared/components/navbar/navbar.js"></script>
   <script type="module" src="./panelPresenter.js"></script>
 </body>
 </html>

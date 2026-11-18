@@ -21,11 +21,6 @@ export async function iniciarPanel(
   documento.getElementById('nombre-admin').textContent = usuario.nombre;
   documento.getElementById('panel-contenido').hidden = false;
   await iniciarRevisionReportes(documento, apiReportes);
-
-  documento.getElementById('cerrar-sesion').addEventListener('click', async () => {
-    await autenticacion.cerrarSesion();
-    acciones.irAlLogin();
-  });
 }
 
 if (typeof document !== 'undefined' && document.getElementById('panel-contenido')) {

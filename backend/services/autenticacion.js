@@ -72,16 +72,82 @@ export function crearServicioAutenticacion(supabase, usuarios, crearClienteSesio
     },
 
     async obtenerSesion(token) {
-      if (!token) throw crearError('Debes iniciar sesión.', 'NO_AUTORIZADO');
+      if (!token) {
+        throw crearError('Debes iniciar sesión.', 'NO_AUTORIZADO');
+      }
       const { data, error } = await supabase.auth.getUser(token);
-      if (error || !data?.user) throw crearError('Debes iniciar sesión.', 'NO_AUTORIZADO');
+      if (error || !data?.user) {
+        throw crearError('Debes iniciar sesión.', 'NO_AUTORIZADO');
+      }
       const perfil = await usuarios.obtenerPorAuthUid(data.user.id);
-      if (!perfil) throw crearError('La cuenta no tiene un perfil registrado.', 'PERFIL');
+      if (!perfil) {
+        throw crearError('La cuenta no tiene un perfil registrado.', 'PERFIL');
+      }
       return { usuario: {
         nombre: perfil.nombre,
         correo: perfil.correo_institucional,
         rol: perfil.rol === 'ADMINISTRATIVO' ? 'ADMIN' : 'ESTUDIANTE'
       } };
+    },
+
+    async obtenerPerfilEstudiante(token) {
+      if (!token) {
+        throw crearError('Debes iniciar sesión.', 'NO_AUTORIZADO');
+      }
+      const { data, error } = await supabase.auth.getUser(token);
+      if (error || !data?.user) {
+        throw crearError('Debes iniciar sesión.', 'NO_AUTORIZADO');
+      }
+
+      const perfil = await usuarios.obtenerPorAuthUid(data.user.id);
+      if (!perfil) {
+        throw crearError('La cuenta no tiene un perfil registrado.', 'PERFIL');
+      }
+      if (perfil.rol !== 'ESTUDIANTE') {
+        throw crearError('El perfil solicitado es solo para estudiantes.', 'SIN_PERMISOS');
+      }
+
+      return {
+        nombre: perfil.nombre,
+        correo: perfil.correo_institucional,
+        carrera: perfil.carrera || ''
+      };
+    },
+
+    async actualizarPerfilEstudiante(token, datos = {}) {
+      if (!token) {
+        throw crearError('Debes iniciar sesión.', 'NO_AUTORIZADO');
+      }
+      const nombre = String(datos.nombre ?? '').trim();
+      const carrera = String(datos.carrera ?? '').trim();
+
+      if (!nombre || !carrera) {
+        throw crearError('El nombre y la carrera son obligatorios.', 'VALIDACION');
+      }
+
+      const { data, error } = await supabase.auth.getUser(token);
+      if (error || !data?.user) {
+        throw crearError('Debes iniciar sesión.', 'NO_AUTORIZADO');
+      }
+
+      const perfil = await usuarios.obtenerPorAuthUid(data.user.id);
+      if (!perfil) {
+        throw crearError('La cuenta no tiene un perfil registrado.', 'PERFIL');
+      }
+      if (perfil.rol !== 'ESTUDIANTE') {
+        throw crearError('El perfil solicitado es solo para estudiantes.', 'SIN_PERMISOS');
+      }
+
+      const actualizado = await usuarios.actualizarPerfilEstudiante(data.user.id, {
+        nombre,
+        carrera
+      });
+
+      return {
+        nombre: actualizado.nombre,
+        correo: actualizado.correo_institucional,
+        carrera: actualizado.carrera || ''
+      };
     },
 
     async obtenerSesionAdministrador(token) {

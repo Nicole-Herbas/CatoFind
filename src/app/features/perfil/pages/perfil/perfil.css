@@ -1,0 +1,172 @@
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: #f5f7fa;
+  color: #17263e;
+  font-family: Inter, Arial, sans-serif;
+}
+
+.perfil {
+  width: min(646px, calc(100% - 32px));
+  margin: 28px auto 56px;
+}
+
+.perfil__tarjeta,
+.perfil__formulario {
+  padding: 28px;
+  border: 1px solid #edf0f4;
+  border-radius: 30px;
+  background: #fff;
+  box-shadow: 0 8px 26px rgba(20, 42, 75, .08);
+}
+
+.perfil__tarjeta {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.perfil__avatar {
+  display: grid;
+  width: 90px;
+  height: 90px;
+  margin-bottom: 18px;
+  border-radius: 50%;
+  background: #0b3979;
+  color: #fff;
+  font-size: 28px;
+  font-weight: 700;
+  place-items: center;
+}
+
+.perfil__tarjeta h1 {
+  margin: 0;
+  font-size: 27px;
+}
+
+.perfil__correo {
+  margin: 6px 0 18px;
+  color: #758196;
+}
+
+.perfil__carrera {
+  width: 100%;
+  margin: 0;
+  padding: 14px 18px;
+  border-radius: 18px;
+  background: #eef1f5;
+  color: #173c70;
+}
+
+.perfil__carrera span {
+  display: block;
+  margin-bottom: 4px;
+  color: #758196;
+  font-size: 13px;
+}
+
+.perfil__editar,
+.perfil__cancelar,
+.perfil__guardar {
+  width: 100%;
+  min-height: 52px;
+  border: 1px solid #e0e5ec;
+  border-radius: 28px;
+  background: #fff;
+  color: #17263e;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+}
+
+.perfil__editar {
+  margin-top: 16px;
+}
+
+.perfil__editar:hover,
+.perfil__cancelar:hover {
+  background: #f1f4f8;
+}
+
+.perfil__formulario {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.perfil__formulario h2 {
+  margin: 0 0 8px;
+}
+
+.perfil__formulario label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.perfil__formulario input {
+  width: 100%;
+  min-height: 46px;
+  margin-bottom: 8px;
+  padding: 10px 14px;
+  border: 1px solid #d6deea;
+  border-radius: 12px;
+  color: #17263e;
+  font: inherit;
+}
+
+.perfil__formulario input:disabled {
+  background: #f1f3f6;
+  color: #758196;
+}
+
+.perfil__acciones {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.perfil__guardar {
+  border-color: #0b3979;
+  background: #0b3979;
+  color: #fff;
+}
+
+.perfil__guardar:hover {
+  background: #082d62;
+}
+
+.perfil__mensaje {
+  min-height: 24px;
+  margin: 12px 4px 0;
+  color: #b42318;
+  text-align: center;
+}
+
+.perfil__mensaje--exito {
+  color: #16803d;
+}
+
+@media (max-width: 560px) {
+  .perfil {
+    margin-top: 20px;
+  }
+
+  .perfil__tarjeta,
+  .perfil__formulario {
+    padding: 22px;
+  }
+
+  .perfil__acciones {
+    grid-template-columns: 1fr;
+  }
+}

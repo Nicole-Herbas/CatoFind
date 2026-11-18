@@ -1,15 +1,12 @@
-import { AutenticacionApi } from '../../../../api/autenticacion.js';
 import { crearServicioInicio } from '../../services/inicioService.js';
 import { mostrarError, renderFiltros, renderTarjetas } from './inicio.js';
 
 const RUTA_BUSCAR = '../../../buscar/pages/buscar/buscar.html';
-const RUTA_LOGIN = '../../../auth/pages/login/login.html';
 const RUTA_REPORTAR = '../../../reportar/pages/reportar/reportar.html';
 
 export async function iniciarInicio(documento = globalThis.document, opciones = {}) {
   const {
     servicio = crearServicioInicio(),
-    autenticacion = new AutenticacionApi(),
     navegar = ruta => { globalThis.location.href = ruta; }
   } = opciones;
 
@@ -57,9 +54,6 @@ export async function iniciarInicio(documento = globalThis.document, opciones = 
     navegar(`${RUTA_BUSCAR}${texto ? `?q=${encodeURIComponent(texto)}` : ''}`);
   });
 
-  documento.getElementById('btn-logout')?.addEventListener('click', () => {
-    autenticacion.cerrarSesion().finally(() => navegar(RUTA_LOGIN));
-  });
   documento.getElementById('btn-reportar-fab')?.addEventListener('click', () => {
     navegar(RUTA_REPORTAR);
   });
