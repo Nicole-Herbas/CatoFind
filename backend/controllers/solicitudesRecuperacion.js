@@ -34,6 +34,28 @@ export function crearControladorSolicitudesRecuperacion(servicio) {
       }
     },
 
+    async resolverPendiente(solicitud, respuesta) {
+      try {
+        const resultado = await servicio.resolverPendiente({
+          id: solicitud.params.id,
+          accion: solicitud.body?.accion,
+          token: solicitud.cookies?.catofind_sesion
+        });
+        return respuesta.json({ resultado });
+      } catch (error) {
+        const estado = error.codigo === 'VALIDACION' ? 400
+          : error.codigo === 'NO_AUTORIZADO' ? 401
+            : error.codigo === 'SIN_PERMISOS' ? 403
+              : error.codigo === 'SOLICITUD_NO_ENCONTRADA' ? 404
+                : error.codigo === 'REPORTE_NO_DISPONIBLE' ? 409
+                  : error.codigo === 'MIGRACION_PENDIENTE' ? 503 : 500;
+        const mensaje = error.codigo === 'MIGRACION_PENDIENTE'
+          ? error.message
+          : estado < 500 ? error.message : 'No se pudo resolver la solicitud de recuperación.';
+        return respuesta.status(estado).json({ mensaje });
+      }
+    },
+
     async crear(solicitud, respuesta) {
       const token = solicitud.cookies?.catofind_sesion || '';
 

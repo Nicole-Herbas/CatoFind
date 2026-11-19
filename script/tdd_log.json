@@ -288,9 +288,15 @@
     "testId": 19
   },
   {
-    "commitId": "HEAD",
+    "commitId": "ba4285fcaa2e54901ef0711ad230794e08534309",
     "commitName": "feat: Visualizar el detalle del reporte al seleccionar el objeto",
     "commitTimestamp": 1795028818744,
     "testId": 20
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: al seleccionar una solicitud de recuperacion se puede ver su detalle",
+    "commitTimestamp": 1795057211296,
+    "testId": 21
   }
 ]

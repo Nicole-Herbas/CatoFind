@@ -12,6 +12,41 @@ function formatearFecha(fecha) {
   }).format(new Date(anio, mes - 1, dia));
 }
 
+function configurarAcciones(documento, apiSolicitudes, id) {
+  const acciones = documento.getElementById('acciones-solicitud');
+  const mensaje = documento.getElementById('resolucion-mensaje');
+  const botones = Array.from(acciones.querySelectorAll('button[data-accion]'));
+
+  acciones.addEventListener('click', async evento => {
+    const boton = evento.target.closest('button[data-accion]');
+    if (!boton || !acciones.contains(boton) || boton.disabled) {
+      return;
+    }
+
+    botones.forEach(accion => {
+      accion.disabled = true;
+    });
+    mensaje.hidden = true;
+    mensaje.classList.remove('solicitud-detalle__mensaje--error');
+
+    try {
+      await apiSolicitudes.resolverPendiente(id, boton.dataset.accion);
+      mensaje.textContent = boton.dataset.accion === 'VALIDAR_PROPIETARIO'
+        ? 'Propietario validado. El objeto quedó como Recuperado'
+        : 'Solicitud rechazada';
+      acciones.hidden = true;
+      mensaje.hidden = false;
+    } catch (error) {
+      mensaje.textContent = error.message || 'No se pudo resolver la solicitud.';
+      mensaje.classList.add('solicitud-detalle__mensaje--error');
+      mensaje.hidden = false;
+      botones.forEach(accion => {
+        accion.disabled = false;
+      });
+    }
+  });
+}
+
 export async function iniciarViewRequestDetails(
   documento,
   apiSolicitudes = new SolicitudesApi(),
@@ -59,6 +94,7 @@ export async function iniciarViewRequestDetails(
       imagenVacia.hidden = false;
     }
 
+    configurarAcciones(documento, apiSolicitudes, id);
     contenido.hidden = false;
   } catch (errorCarga) {
     error.textContent = errorCarga.message || 'No se pudo cargar el detalle de la solicitud.';

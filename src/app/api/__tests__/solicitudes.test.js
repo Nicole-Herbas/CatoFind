@@ -42,4 +42,24 @@ describe('API de solicitudes de recuperación', () => {
       credentials: 'same-origin'
     });
   });
+
+  it('envía la acción administrativa para resolver una solicitud', async () => {
+    const resultado = { id: 12, accion: 'VALIDAR_PROPIETARIO' };
+    const solicitar = jest.fn(async () => ({
+      ok: true,
+      json: async () => ({ resultado })
+    }));
+    const api = new SolicitudesApi(solicitar);
+
+    await expect(api.resolverPendiente('12', 'VALIDAR_PROPIETARIO')).resolves.toEqual(resultado);
+    expect(solicitar).toHaveBeenCalledWith(
+      '/api/admin/solicitudes-recuperacion/12/resolver',
+      {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ accion: 'VALIDAR_PROPIETARIO' })
+      }
+    );
+  });
 });

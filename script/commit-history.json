@@ -361,18 +361,37 @@
     "conclusion": "neutral"
   },
   {
-    "sha": "HEAD",
+    "sha": "ba4285fcaa2e54901ef0711ad230794e08534309",
     "author": "Chris",
     "commit": {
       "date": "2026-11-18T19:06:57.000Z",
       "message": "feat: Visualizar el detalle del reporte al seleccionar el objeto",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/ba4285fcaa2e54901ef0711ad230794e08534309"
     },
     "stats": {
       "total": 1210,
       "additions": 1041,
       "deletions": 169,
       "date": "2026-11-18"
+    },
+    "coverage": 0,
+    "test_count": 0,
+    "failed_tests": 0,
+    "conclusion": "neutral"
+  },
+  {
+    "sha": "HEAD",
+    "author": "Chris",
+    "commit": {
+      "date": "2026-11-19T03:00:08.000Z",
+      "message": "feat: al seleccionar una solicitud de recuperacion se puede ver su detalle",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 723,
+      "additions": 721,
+      "deletions": 2,
+      "date": "2026-11-19"
     },
     "coverage": 0,
     "test_count": 0,

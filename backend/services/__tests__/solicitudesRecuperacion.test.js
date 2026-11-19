@@ -1,6 +1,116 @@
 import { crearSolicitudesRecuperacion } from '../solicitudesRecuperacion.js';
 
 describe('solicitudes de recuperación', () => {
+  it.each([
+    ['VALIDAR_PROPIETARIO', 'CERRADO'],
+    ['RECHAZAR', 'sin cambio']
+  ])('resuelve la solicitud con la acción %s', async (accion) => {
+    const supabase = {
+      auth: {
+        getUser: jest.fn(async () => ({
+          data: { user: { id: 'auth-admin' } },
+          error: null
+        }))
+      }
+    };
+    const repositorio = {
+      obtenerIdAdministrador: jest.fn(async () => 3),
+      resolverPendiente: jest.fn(async ({ solicitudId, accion: accionResolucion }) => ({
+        id: solicitudId,
+        accion: accionResolucion
+      }))
+    };
+    const autenticacion = {
+      obtenerSesionAdministrador: jest.fn(async () => ({ usuario: { rol: 'ADMIN' } }))
+    };
+    const servicio = crearSolicitudesRecuperacion(supabase, repositorio, autenticacion);
+
+    await expect(servicio.resolverPendiente({
+      id: '12',
+      accion,
+      token: 'token-admin'
+    })).resolves.toEqual({ id: 12, accion });
+
+    expect(repositorio.obtenerIdAdministrador).toHaveBeenCalledWith('auth-admin');
+    expect(repositorio.resolverPendiente).toHaveBeenCalledWith({
+      solicitudId: 12,
+      accion,
+      administrativoId: 3
+    });
+  });
+
+  it('rechaza acciones inválidas antes de llamar la función transaccional', async () => {
+    const autenticacion = {
+      obtenerSesionAdministrador: jest.fn(async () => ({ usuario: { rol: 'ADMIN' } }))
+    };
+    const repositorio = { resolverPendiente: jest.fn() };
+    const servicio = crearSolicitudesRecuperacion({}, repositorio, autenticacion);
+
+    await expect(servicio.resolverPendiente({
+      id: '12',
+      accion: 'SOLICITAR_MAS_INFORMACION',
+      token: 'token-admin'
+    })).rejects.toMatchObject({ codigo: 'VALIDACION' });
+    expect(repositorio.resolverPendiente).not.toHaveBeenCalled();
+  });
+
+  it('propaga conflicto cuando el reporte ya no puede marcarse como recuperado', async () => {
+    const supabase = {
+      auth: {
+        getUser: jest.fn(async () => ({
+          data: { user: { id: 'auth-admin' } },
+          error: null
+        }))
+      }
+    };
+    const repositorio = {
+      obtenerIdAdministrador: jest.fn(async () => 3),
+      resolverPendiente: jest.fn(async () => {
+        throw Object.assign(new Error('Reporte no disponible.'), { code: 'P0001' });
+      })
+    };
+    const autenticacion = {
+      obtenerSesionAdministrador: jest.fn(async () => ({ usuario: { rol: 'ADMIN' } }))
+    };
+    const servicio = crearSolicitudesRecuperacion(supabase, repositorio, autenticacion);
+
+    await expect(servicio.resolverPendiente({
+      id: '12',
+      accion: 'VALIDAR_PROPIETARIO',
+      token: 'token-admin'
+    })).rejects.toMatchObject({ codigo: 'REPORTE_NO_DISPONIBLE' });
+  });
+
+  it('identifica cuando Supabase aún no tiene publicada la función RPC', async () => {
+    const supabase = {
+      auth: {
+        getUser: jest.fn(async () => ({
+          data: { user: { id: 'auth-admin' } },
+          error: null
+        }))
+      }
+    };
+    const repositorio = {
+      obtenerIdAdministrador: jest.fn(async () => 3),
+      resolverPendiente: jest.fn(async () => {
+        throw Object.assign(new Error('RPC missing'), { code: 'PGRST202' });
+      })
+    };
+    const autenticacion = {
+      obtenerSesionAdministrador: jest.fn(async () => ({ usuario: { rol: 'ADMIN' } }))
+    };
+    const servicio = crearSolicitudesRecuperacion(supabase, repositorio, autenticacion);
+
+    await expect(servicio.resolverPendiente({
+      id: '12',
+      accion: 'RECHAZAR',
+      token: 'token-admin'
+    })).rejects.toMatchObject({
+      codigo: 'MIGRACION_PENDIENTE',
+      message: 'Falta aplicar la migración de resolución de solicitudes en Supabase.'
+    });
+  });
+
   it('permite a un administrador obtener el detalle pendiente y firma la foto', async () => {
     const detalle = {
       id: 12,

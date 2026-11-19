@@ -71,6 +71,35 @@ export function crearSolicitudesRecuperacion(supabase) {
       };
     },
 
+    async obtenerIdAdministrador(authUid) {
+      const { data, error } = await supabase
+        .from('usuario')
+        .select('id')
+        .eq('auth_uid', authUid)
+        .eq('rol', 'ADMINISTRATIVO')
+        .single();
+
+      if (error) {
+        throw error;
+      }
+
+      return data.id;
+    },
+
+    async resolverPendiente({ solicitudId, accion, administrativoId }) {
+      const { error } = await supabase.rpc('resolver_solicitud_recuperacion', {
+        p_solicitud_id: solicitudId,
+        p_accion: accion,
+        p_administrativo_id: administrativoId
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      return { id: solicitudId, accion };
+    },
+
     async obtenerEstudiante(authUid) {
       const { data, error } = await supabase
         .from('usuario')
@@ -78,7 +107,9 @@ export function crearSolicitudesRecuperacion(supabase) {
         .eq('auth_uid', authUid)
         .single();
 
-      if (error) throw error;
+      if (error) {
+        throw error;
+      }
       return data;
     },
 
@@ -91,7 +122,9 @@ export function crearSolicitudesRecuperacion(supabase) {
         .eq('estado', 'APROBADO')
         .maybeSingle();
 
-      if (error) throw error;
+      if (error) {
+        throw error;
+      }
       return Boolean(data);
     },
 
@@ -108,7 +141,9 @@ export function crearSolicitudesRecuperacion(supabase) {
         .select('id')
         .single();
 
-      if (error) throw error;
+      if (error) {
+        throw error;
+      }
       return data;
     }
   };

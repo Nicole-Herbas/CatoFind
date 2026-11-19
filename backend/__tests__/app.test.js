@@ -177,6 +177,10 @@ describe('API de solicitudes de recuperación', () => {
       obtenerDetallePendiente: jest.fn(async ({ id }) => ({
         id: Number(id),
         titulo: 'Audífonos blancos'
+      })),
+      resolverPendiente: jest.fn(async ({ id, accion }) => ({
+        id: Number(id),
+        accion
       }))
     };
     const app = crearApp(
@@ -220,6 +224,63 @@ describe('API de solicitudes de recuperación', () => {
         id: '12',
         token: 'token-admin'
       });
+
+      const resolucion = await fetch(
+        `http://127.0.0.1:${servidor.address().port}/api/admin/solicitudes-recuperacion/12/resolver`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Cookie: 'catofind_sesion=token-admin'
+          },
+          body: JSON.stringify({ accion: 'VALIDAR_PROPIETARIO' })
+        }
+      );
+      expect(resolucion.status).toBe(200);
+      expect(await resolucion.json()).toEqual({
+        resultado: { id: 12, accion: 'VALIDAR_PROPIETARIO' }
+      });
+      expect(servicioSolicitudes.resolverPendiente).toHaveBeenCalledWith({
+        id: '12',
+        accion: 'VALIDAR_PROPIETARIO',
+        token: 'token-admin'
+      });
+    } finally {
+      await new Promise(resolve => servidor.close(resolve));
+    }
+  });
+
+  it('explica cuando falta aplicar la migración de resolución en Supabase', async () => {
+    const errorMigracion = new Error('Falta aplicar la migración de resolución de solicitudes en Supabase.');
+    errorMigracion.codigo = 'MIGRACION_PENDIENTE';
+    const servicioSolicitudes = {
+      resolverPendiente: jest.fn(async () => {
+        throw errorMigracion;
+      })
+    };
+    const app = crearApp(
+      { listarPublicados: async () => [] },
+      {},
+      servicioSolicitudes
+    );
+    const servidor = createServer(app);
+    await new Promise(resolve => servidor.listen(0, resolve));
+
+    try {
+      const respuesta = await fetch(
+        `http://127.0.0.1:${servidor.address().port}/api/admin/solicitudes-recuperacion/12/resolver`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Cookie: 'catofind_sesion=token-admin'
+          },
+          body: JSON.stringify({ accion: 'RECHAZAR' })
+        }
+      );
+
+      expect(respuesta.status).toBe(503);
+      expect(await respuesta.json()).toEqual({ mensaje: errorMigracion.message });
     } finally {
       await new Promise(resolve => servidor.close(resolve));
     }

@@ -1,6 +1,40 @@
 import { crearSolicitudesRecuperacion } from '../solicitudesRecuperacion.js';
 
 describe('persistencia de solicitudes de recuperación', () => {
+  it('resuelve una solicitud usando la función transaccional del repositorio', async () => {
+    const rpc = jest.fn(async () => ({ error: null }));
+    const supabase = { rpc };
+    const repositorio = crearSolicitudesRecuperacion(supabase);
+
+    await expect(repositorio.resolverPendiente({
+      solicitudId: 12,
+      accion: 'VALIDAR_PROPIETARIO',
+      administrativoId: 3
+    })).resolves.toEqual({ id: 12, accion: 'VALIDAR_PROPIETARIO' });
+
+    expect(rpc).toHaveBeenCalledWith('resolver_solicitud_recuperacion', {
+      p_solicitud_id: 12,
+      p_accion: 'VALIDAR_PROPIETARIO',
+      p_administrativo_id: 3
+    });
+  });
+
+  it('obtiene el ID del administrador autenticado para registrar la resolución', async () => {
+    const consulta = {
+      select: jest.fn().mockReturnThis(),
+      eq: jest.fn().mockReturnThis(),
+      single: jest.fn(async () => ({ data: { id: 3 }, error: null }))
+    };
+    const supabase = { from: jest.fn(() => consulta) };
+
+    await expect(crearSolicitudesRecuperacion(supabase).obtenerIdAdministrador('auth-admin'))
+      .resolves.toBe(3);
+
+    expect(supabase.from).toHaveBeenCalledWith('usuario');
+    expect(consulta.eq).toHaveBeenNthCalledWith(1, 'auth_uid', 'auth-admin');
+    expect(consulta.eq).toHaveBeenNthCalledWith(2, 'rol', 'ADMINISTRATIVO');
+  });
+
   it('obtiene el detalle de una solicitud pendiente con datos privados y del reporte', async () => {
     const consulta = {
       select: jest.fn().mockReturnThis(),

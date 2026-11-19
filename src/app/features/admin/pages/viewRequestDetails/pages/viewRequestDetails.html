@@ -83,6 +83,15 @@
           </dl>
         </div>
       </section>
+
+      <section id="acciones-solicitud" class="solicitud-detalle__acciones"
+        aria-label="Resolver solicitud de recuperación">
+        <button id="validar-propietario" class="solicitud-detalle__boton solicitud-detalle__boton--validar"
+          type="button" data-accion="VALIDAR_PROPIETARIO">Validar propietario</button>
+        <button id="rechazar-solicitud" class="solicitud-detalle__boton solicitud-detalle__boton--rechazar"
+          type="button" data-accion="RECHAZAR">Rechazar solicitud</button>
+      </section>
+      <p id="resolucion-mensaje" class="solicitud-detalle__mensaje" role="status" hidden></p>
     </article>
   </main>
   <script type="module" src="./viewRequestDetailsPresenter.js"></script>

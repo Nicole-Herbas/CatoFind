@@ -28,6 +28,7 @@ export function crearApp(servicioObjetos, servicioAutenticacion, servicioSolicit
   app.post('/api/solicitudes-recuperacion', controladorSolicitudes.crear);
   app.get('/api/admin/solicitudes-recuperacion', controladorSolicitudes.listarPendientes);
   app.get('/api/admin/solicitudes-recuperacion/:id', controladorSolicitudes.obtenerDetallePendiente);
+  app.post('/api/admin/solicitudes-recuperacion/:id/resolver', controladorSolicitudes.resolverPendiente);
   app.get('/api/reportes/opciones', controladorReportes.obtenerOpciones);
   app.post('/api/reportes', controladorReportes.crear);
   app.get('/api/admin/reportes', controladorReportes.listarPendientes);

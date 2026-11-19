@@ -30,6 +30,25 @@ export class SolicitudesApi {
     return resultado.solicitud;
   }
 
+  async resolverPendiente(id, accion) {
+    const respuesta = await this.solicitar(
+      `/api/admin/solicitudes-recuperacion/${encodeURIComponent(id)}/resolver`,
+      {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ accion })
+      }
+    );
+    const resultado = await respuesta.json();
+
+    if (!respuesta.ok) {
+      throw new Error(resultado.mensaje || 'No se pudo resolver la solicitud.');
+    }
+
+    return resultado.resultado;
+  }
+
   async crear(datos) {
     try {
       const respuesta = await this.solicitar('/api/solicitudes-recuperacion', {

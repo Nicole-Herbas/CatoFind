@@ -30,7 +30,8 @@ beforeEach(() => {
 describe('Detalle administrativo de solicitud de recuperación', () => {
   it('muestra la cuenta, el objeto y la comparación de datos privados sin verificadores', async () => {
     const apiSolicitudes = {
-      obtenerDetallePendiente: jest.fn().mockResolvedValue(solicitud)
+      obtenerDetallePendiente: jest.fn().mockResolvedValue(solicitud),
+      resolverPendiente: jest.fn()
     };
 
     await iniciarViewRequestDetails(document, apiSolicitudes, '?id=12');
@@ -54,6 +55,44 @@ describe('Detalle administrativo de solicitud de recuperación', () => {
       .not.toMatch(/verificado|asistente de verificación|solicitar más información/i);
     expect(document.querySelectorAll('.solicitud-detalle__columna svg, .solicitud-detalle__alerta'))
       .toHaveLength(0);
+    expect(document.getElementById('validar-propietario').textContent).toBe('Validar propietario');
+    expect(document.getElementById('rechazar-solicitud').textContent).toBe('Rechazar solicitud');
+  });
+
+  it.each([
+    ['validar-propietario', 'VALIDAR_PROPIETARIO',
+      'Propietario validado. El objeto quedó como Recuperado'],
+    ['rechazar-solicitud', 'RECHAZAR', 'Solicitud rechazada']
+  ])('envía la acción %s al backend y confirma el resultado', async (botonId, accion, texto) => {
+    const apiSolicitudes = {
+      obtenerDetallePendiente: jest.fn().mockResolvedValue(solicitud),
+      resolverPendiente: jest.fn().mockResolvedValue({ id: 12, accion })
+    };
+
+    await iniciarViewRequestDetails(document, apiSolicitudes, '?id=12');
+    document.getElementById(botonId).click();
+    await new Promise(resolve => globalThis.setTimeout(resolve, 0));
+
+    expect(apiSolicitudes.resolverPendiente).toHaveBeenCalledWith('12', accion);
+    expect(document.getElementById('acciones-solicitud').hidden).toBe(true);
+    expect(document.getElementById('resolucion-mensaje').textContent).toBe(texto);
+  });
+
+  it('muestra errores de revisión y permite volver a intentar', async () => {
+    const apiSolicitudes = {
+      obtenerDetallePendiente: jest.fn().mockResolvedValue(solicitud),
+      resolverPendiente: jest.fn().mockRejectedValue(new Error('La solicitud ya fue atendida.'))
+    };
+
+    await iniciarViewRequestDetails(document, apiSolicitudes, '?id=12');
+    document.getElementById('rechazar-solicitud').click();
+    await new Promise(resolve => globalThis.setTimeout(resolve, 0));
+
+    expect(document.getElementById('acciones-solicitud').hidden).toBe(false);
+    expect(document.getElementById('validar-propietario').disabled).toBe(false);
+    expect(document.getElementById('rechazar-solicitud').disabled).toBe(false);
+    expect(document.getElementById('resolucion-mensaje').textContent)
+      .toBe('La solicitud ya fue atendida.');
   });
 
   it('muestra un error cuando no recibe ID sin consultar la API', async () => {

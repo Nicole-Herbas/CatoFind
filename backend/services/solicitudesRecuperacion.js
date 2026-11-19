@@ -4,6 +4,8 @@ function crearError(mensaje, codigo) {
   return error;
 }
 
+const ACCIONES_REVISION = ['VALIDAR_PROPIETARIO', 'RECHAZAR'];
+
 export function crearSolicitudesRecuperacion(supabase, repositorio, autenticacion) {
   return {
     async listarPendientes(token) {
@@ -37,6 +39,48 @@ export function crearSolicitudesRecuperacion(supabase, repositorio, autenticacio
       return { ...solicitud, imagen };
     },
 
+    async resolverPendiente({ id, accion, token }) {
+      await autenticacion.obtenerSesionAdministrador(token);
+      const solicitudId = Number(id);
+      if (!Number.isInteger(solicitudId) || solicitudId < 1) {
+        throw crearError('La solicitud pendiente no existe.', 'SOLICITUD_NO_ENCONTRADA');
+      }
+      if (!ACCIONES_REVISION.includes(accion)) {
+        throw crearError('Selecciona una acción válida.', 'VALIDACION');
+      }
+
+      const { data, error } = await supabase.auth.getUser(token);
+      if (error || !data?.user) {
+        throw crearError('Debes iniciar sesión.', 'NO_AUTORIZADO');
+      }
+
+      const administrativoId = await repositorio.obtenerIdAdministrador(data.user.id);
+      try {
+        return await repositorio.resolverPendiente({
+          solicitudId,
+          accion,
+          administrativoId
+        });
+      } catch (errorPersistencia) {
+        if (errorPersistencia.code === 'PGRST202') {
+          throw crearError(
+            'Falta aplicar la migración de resolución de solicitudes en Supabase.',
+            'MIGRACION_PENDIENTE'
+          );
+        }
+        if (errorPersistencia.code === 'P0002') {
+          throw crearError('La solicitud pendiente no existe o ya fue revisada.', 'SOLICITUD_NO_ENCONTRADA');
+        }
+        if (errorPersistencia.code === 'P0001') {
+          throw crearError('El reporte ya no está disponible para recuperación.', 'REPORTE_NO_DISPONIBLE');
+        }
+        if (errorPersistencia.code === '22023') {
+          throw crearError('Selecciona una acción válida.', 'VALIDACION');
+        }
+        throw errorPersistencia;
+      }
+    },
+
     async crear({ token, reporteId, lugarEstimado, fechaEstimada, caracteristicaPrivada }) {
       const id = Number(reporteId);
       const lugar = String(lugarEstimado ?? '').trim();
@@ -51,7 +95,9 @@ export function crearSolicitudesRecuperacion(supabase, repositorio, autenticacio
         throw crearError('Completa los datos de la solicitud.', 'VALIDACION');
       }
 
-      if (!token) throw crearError('Inicia sesión para enviar una solicitud.', 'NO_AUTORIZADO');
+      if (!token) {
+        throw crearError('Inicia sesión para enviar una solicitud.', 'NO_AUTORIZADO');
+      }
 
       const { data, error } = await supabase.auth.getUser(token);
       if (error || !data?.user) {
