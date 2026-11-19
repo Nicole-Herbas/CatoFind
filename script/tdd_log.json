@@ -264,9 +264,27 @@
     "testId": 15
   },
   {
-    "commitId": "HEAD",
+    "commitId": "711de71410d7b61839bc3e9c7285a47babf3e7e8",
     "commitName": "test(inicio): qualify browser parser global",
     "commitTimestamp": 1794771265196,
     "testId": 16
+  },
+  {
+    "commitId": "82d1195dee4412430d924fd3904cdbaba0177321",
+    "commitName": "test: esperar descripcion en el objeto publicado (HU-15)",
+    "commitTimestamp": 1795055402159,
+    "testId": 17
+  },
+  {
+    "commitId": "82d1195dee4412430d924fd3904cdbaba0177321",
+    "commitName": "feat: incluir descripcion en el objeto publicado (HU-15)",
+    "commitTimestamp": 1795055488615,
+    "testId": 18
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: datos del detalle con descripcion y foto (HU-15)",
+    "commitTimestamp": 1795055747681,
+    "testId": 19
   }
 ]
