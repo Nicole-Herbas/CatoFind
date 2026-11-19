@@ -342,12 +342,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "364d5827415a68e98b1fbea17decbc3c01840099",
     "author": "Nico Meneses",
     "commit": {
       "date": "2026-11-19T02:35:46.000Z",
       "message": "feat: datos del detalle con descripcion y foto (HU-15)",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/364d5827415a68e98b1fbea17decbc3c01840099"
     },
     "stats": {
       "total": 36,
@@ -357,6 +357,25 @@
     },
     "coverage": 79.59,
     "test_count": 185,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "HEAD",
+    "author": "Nico Meneses",
+    "commit": {
+      "date": "2026-11-19T02:40:01.000Z",
+      "message": "feat: mostrar foto y descripcion en el detalle de Buscar (HU-15)",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 34,
+      "additions": 29,
+      "deletions": 5,
+      "date": "2026-11-19"
+    },
+    "coverage": 80,
+    "test_count": 187,
     "failed_tests": 0,
     "conclusion": "success"
   }
