@@ -276,9 +276,15 @@
     "testId": 17
   },
   {
-    "commitId": "HEAD",
+    "commitId": "82d1195dee4412430d924fd3904cdbaba0177321",
     "commitName": "feat: incluir descripcion en el objeto publicado (HU-15)",
     "commitTimestamp": 1795055488615,
     "testId": 18
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: datos del detalle con descripcion y foto (HU-15)",
+    "commitTimestamp": 1795055747681,
+    "testId": 19
   }
 ]

@@ -1,7 +1,8 @@
 ﻿
 import {
   obtenerBusquedaInicial,
-  datosTarjeta
+  datosTarjeta,
+  datosDetalle
 } from './buscar.js';
 import { crearRepositorioObjetos } from '../../../../api/repositorios/objetos.js';
 
@@ -72,8 +73,17 @@ function mostrarDetalle(datos) {
     detalle.hidden = true;
   });
 
+  const contenido = [crearElemento('h2', 'detalle__titulo', datos.titulo)];
+  if (datos.imagen) {
+    const imagen = crearElemento('img', 'detalle__imagen');
+    imagen.src = datos.imagen;
+    imagen.alt = datos.titulo;
+    contenido.push(imagen);
+  }
+  contenido.push(crearElemento('p', 'detalle__descripcion', datos.descripcion));
+
   detalle.replaceChildren(
-    crearElemento('h2', 'detalle__titulo', datos.titulo),
+    ...contenido,
     ...datos.lineas.map((linea) => crearElemento('p', 'detalle__dato', linea)),
     solicitar,
     cerrar
@@ -91,8 +101,7 @@ resultados.addEventListener('click', async (evento) => {
   const objeto = objetosPublicados.find(item => String(item.id) === id);
   if (!objeto) return;
   mostrarDetalle({
-    titulo: objeto.titulo,
-    lineas: [`Categoría: ${objeto.categoria}`, `Lugar: ${objeto.lugar}`, `Fecha: ${objeto.fecha}`],
+    ...datosDetalle(objeto),
     rutaSolicitud: objeto.reporteId
       ? `../../../recoveryRequest/pages/recoveryRequest.html?reporteId=${encodeURIComponent(objeto.reporteId)}`
       : '../../../recoveryRequest/pages/recoveryRequest.html'
