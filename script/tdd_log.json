@@ -282,9 +282,15 @@
     "testId": 18
   },
   {
-    "commitId": "HEAD",
+    "commitId": "364d5827415a68e98b1fbea17decbc3c01840099",
     "commitName": "feat: datos del detalle con descripcion y foto (HU-15)",
     "commitTimestamp": 1795055747681,
     "testId": 19
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: mostrar foto y descripcion en el detalle de Buscar (HU-15)",
+    "commitTimestamp": 1795056002420,
+    "testId": 20
   }
 ]

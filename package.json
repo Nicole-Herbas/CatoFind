@@ -33,6 +33,7 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.119.0",
     "express": "^5.3.0",
-    "parcel-jest-base": "file:"
+    "parcel-jest-base": "file:",
+    "serverless-http": "^4.0.0"
   }
 }
