@@ -7,7 +7,8 @@ const RUTAS = {
   reportes: '#',
   perfil: '/src/app/features/perfil/pages/perfil/perfil.html',
   panel: '/src/app/features/admin/pages/panel/panel.html',
-  solicitudes: '/src/app/features/reviewRecoveryRequest/pages/reviewRecoveryRequest.html',
+  solicitudes: '/src/app/features/recoveryRequest/pages/misSolicitudes/misSolicitudes.html',
+  revisarSolicitudes: '/src/app/features/reviewRecoveryRequest/pages/reviewRecoveryRequest.html',
   login: '/src/app/features/auth/pages/login/login.html'
 };
 
@@ -92,13 +93,14 @@ function crearNavbar(documento, mount, usuario, paginaActual, autenticacion, nav
   const paginas = usuario.rol === 'ADMIN'
     ? [
       ['Panel', RUTAS.panel, 'panel'],
-      ['Solicitudes', RUTAS.solicitudes, 'solicitudes']
+      ['Solicitudes', RUTAS.revisarSolicitudes, 'solicitudes']
     ]
     : [
       ['Inicio', RUTAS.inicio, 'inicio'],
       ['Buscar', RUTAS.buscar, 'buscar'],
       ['Reportar', RUTAS.reportar, 'reportar'],
-      ['Mis reportes', RUTAS.reportes, 'reportes']
+      ['Mis reportes', RUTAS.reportes, 'reportes'],
+      ['Mis solicitudes', RUTAS.solicitudes, 'solicitudes']
     ];
 
   paginas.forEach(([texto, ruta, pagina]) => {

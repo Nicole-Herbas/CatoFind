@@ -23,4 +23,30 @@ describe('persistencia de solicitudes de recuperación', () => {
       caracteristica_privada: 'Costura en la manga'
     });
   });
+
+  it('consulta solo las solicitudes del estudiante y devuelve los datos visibles', async () => {
+    const solicitudes = [{
+      id: 12,
+      fecha_solicitud: '2026-11-18T00:00:00.000Z',
+      estado: 'RECHAZADA',
+      motivo_rechazo: 'El nombre no coincide.',
+      reporte: { objeto: { nombre: 'Mochila' } }
+    }];
+    const consulta = {
+      select: jest.fn().mockReturnThis(),
+      eq: jest.fn().mockReturnThis(),
+      order: jest.fn(async () => ({ data: solicitudes, error: null }))
+    };
+    const supabase = { from: jest.fn(() => consulta) };
+
+    await expect(crearSolicitudesRecuperacion(supabase).listarPorSolicitante(7))
+      .resolves.toEqual(solicitudes);
+
+    expect(supabase.from).toHaveBeenCalledWith('solicitud_recuperacion');
+    expect(consulta.select).toHaveBeenCalledWith(
+      'id,fecha_solicitud,estado,motivo_rechazo,reporte(objeto(nombre))'
+    );
+    expect(consulta.eq).toHaveBeenCalledWith('solicitante_id', 7);
+    expect(consulta.order).toHaveBeenCalledWith('fecha_solicitud', { ascending: false });
+  });
 });

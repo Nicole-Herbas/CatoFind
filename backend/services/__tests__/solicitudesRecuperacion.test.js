@@ -79,4 +79,68 @@ describe('solicitudes de recuperación', () => {
     })).rejects.toMatchObject({ codigo: 'VALIDACION' });
     expect(supabase.auth.getUser).not.toHaveBeenCalled();
   });
+
+  it('lista por el identificador persistido de cada estudiante autenticado', async () => {
+    const estudiantes = new Map([
+      ['auth-ana', { id: 7, rol: 'ESTUDIANTE' }],
+      ['auth-luis', { id: 8, rol: 'ESTUDIANTE' }]
+    ]);
+    const supabase = {
+      auth: {
+        getUser: jest.fn(async token => ({
+          data: { user: { id: token === 'token-ana' ? 'auth-ana' : 'auth-luis' } },
+          error: null
+        }))
+      }
+    };
+    const solicitudesPorEstudiante = new Map([
+      [7, [{
+        id: 31, fecha_solicitud: '2026-11-18T00:00:00.000Z', estado: 'PENDIENTE',
+        motivo_rechazo: null, reporte: { objeto: { nombre: 'Mochila' } }
+      }]],
+      [8, [{
+        id: 42, fecha_solicitud: '2026-11-17T00:00:00.000Z', estado: 'APROBADA',
+        motivo_rechazo: null, reporte: { objeto: { nombre: 'Cuaderno' } }
+      }]]
+    ]);
+    const repositorio = {
+      obtenerEstudiante: jest.fn(async authUid => estudiantes.get(authUid)),
+      listarPorSolicitante: jest.fn(async solicitanteId =>
+        solicitudesPorEstudiante.get(solicitanteId))
+    };
+    const servicio = crearSolicitudesRecuperacion(supabase, repositorio);
+
+    const solicitudesAna = await servicio.listarMisSolicitudes({ token: 'token-ana' });
+    const solicitudesLuis = await servicio.listarMisSolicitudes({ token: 'token-luis' });
+
+    expect(solicitudesAna).toEqual([{
+      id: 31, nombreObjeto: 'Mochila', fechaSolicitud: '2026-11-18T00:00:00.000Z',
+      estado: 'PENDIENTE', motivoRechazo: null
+    }]);
+    expect(solicitudesLuis).toEqual([{
+      id: 42, nombreObjeto: 'Cuaderno', fechaSolicitud: '2026-11-17T00:00:00.000Z',
+      estado: 'APROBADA', motivoRechazo: null
+    }]);
+    expect(repositorio.listarPorSolicitante).toHaveBeenNthCalledWith(1, 7);
+    expect(repositorio.listarPorSolicitante).toHaveBeenNthCalledWith(2, 8);
+  });
+
+  it('no consulta solicitudes con una sesión ausente o inválida', async () => {
+    const supabase = {
+      auth: {
+        getUser: jest.fn(async () => ({ data: { user: null }, error: new Error('Invalid JWT') }))
+      }
+    };
+    const repositorio = {
+      obtenerEstudiante: jest.fn(),
+      listarPorSolicitante: jest.fn()
+    };
+    const servicio = crearSolicitudesRecuperacion(supabase, repositorio);
+
+    await expect(servicio.listarMisSolicitudes({ token: '' }))
+      .rejects.toMatchObject({ codigo: 'NO_AUTORIZADO' });
+    await expect(servicio.listarMisSolicitudes({ token: 'token-invalido' }))
+      .rejects.toMatchObject({ codigo: 'NO_AUTORIZADO' });
+    expect(repositorio.listarPorSolicitante).not.toHaveBeenCalled();
+  });
 });

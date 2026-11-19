@@ -1,5 +1,21 @@
 export function crearControladorSolicitudesRecuperacion(servicio) {
   return {
+    async listarMisSolicitudes(solicitud, respuesta) {
+      const token = solicitud.cookies?.catofind_sesion || '';
+
+      try {
+        const solicitudes = await servicio.listarMisSolicitudes({ token });
+        return respuesta.json({ solicitudes });
+      } catch (error) {
+        const noAutorizado = error.codigo === 'NO_AUTORIZADO';
+        return respuesta.status(noAutorizado ? 401 : 500).json({
+          mensaje: noAutorizado
+            ? error.message
+            : 'No se pudieron cargar las solicitudes.'
+        });
+      }
+    },
+
     async crear(solicitud, respuesta) {
       const token = solicitud.cookies?.catofind_sesion || '';
 
