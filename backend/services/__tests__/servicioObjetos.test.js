@@ -50,6 +50,7 @@ describe('servicio de objetos', () => {
       id: 2,
       reporteId: 4,
       titulo: 'Mochila negra',
+      descripcion: 'Costura roja',
       categoria: 'Accesorios',
       imagen: 'mochila.jpg',
       lugar: 'Biblioteca',
