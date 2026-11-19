@@ -128,6 +128,8 @@ describe('Solicitudes administrativas', () => {
     expect(document.querySelector('#reportes-pendientes h2').textContent).toBe('Botella térmica');
     expect(document.getElementById('reportes-pendientes').textContent)
       .not.toContain('Tiene una marca en la tapa.');
+    expect(document.querySelector('#reportes-pendientes a').getAttribute('href'))
+      .toBe('../../viewRequestDetails/pages/viewRequestDetails.html?id=12');
 
     document.getElementById('filtro-reportes').click();
 

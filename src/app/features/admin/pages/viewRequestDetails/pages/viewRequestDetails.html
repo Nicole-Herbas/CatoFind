@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f1f4f8">
+  <meta name="description" content="Detalle administrativo de una solicitud de recuperación.">
+  <title>CatoFind | Detalle de solicitud</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./viewRequestDetails.css">
+</head>
+<body>
+  <main class="solicitud-detalle">
+    <a class="solicitud-detalle__volver" href="../../reviewRequests/pages/reviewRequests.html">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="m15 18-6-6 6-6"></path>
+        <path d="M20 12H9"></path>
+      </svg>
+      Solicitudes
+    </a>
+
+    <h1 class="solicitud-detalle__titulo">Detalle de solicitud de recuperación</h1>
+    <p id="solicitud-error" class="solicitud-detalle__error" role="alert" hidden></p>
+
+    <article id="solicitud-contenido" class="solicitud-detalle__contenido" hidden>
+      <section class="solicitud-detalle__cuenta" aria-labelledby="cuenta-titulo">
+        <p id="cuenta-titulo" class="solicitud-detalle__etiqueta">Datos de cuenta</p>
+        <h2 id="solicitante-nombre"></h2>
+        <p id="solicitante-correo" class="solicitud-detalle__correo"></p>
+
+        <div class="solicitud-detalle__objeto">
+          <img id="objeto-imagen" alt="" hidden>
+          <div id="objeto-imagen-vacia" class="solicitud-detalle__imagen-vacia" hidden aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <rect x="3" y="3" width="18" height="18" rx="3"></rect>
+              <circle cx="8.5" cy="8.5" r="1.5"></circle>
+              <path d="m21 15-5-5L5 21"></path>
+            </svg>
+          </div>
+          <div class="solicitud-detalle__objeto-texto">
+            <h3 id="objeto-titulo"></h3>
+            <p id="objeto-categoria"></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="solicitud-detalle__comparacion" aria-label="Información de la solicitud y del reporte">
+        <div class="solicitud-detalle__columna">
+          <h2>Respuesta del estudiante</h2>
+          <dl>
+            <div>
+              <dt>Lugar</dt>
+              <dd id="respuesta-lugar"></dd>
+            </div>
+            <div>
+              <dt>Fecha</dt>
+              <dd id="respuesta-fecha"></dd>
+            </div>
+            <div>
+              <dt>Característica</dt>
+              <dd id="respuesta-caracteristica"></dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="solicitud-detalle__columna">
+          <h2>Info privada del reporte</h2>
+          <dl>
+            <div>
+              <dt>Lugar encontrado</dt>
+              <dd id="reporte-lugar"></dd>
+            </div>
+            <div>
+              <dt>Fecha</dt>
+              <dd id="reporte-fecha"></dd>
+            </div>
+            <div>
+              <dt>Característica privada</dt>
+              <dd id="reporte-detalle-privado"></dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+    </article>
+  </main>
+  <script type="module" src="./viewRequestDetailsPresenter.js"></script>
+</body>
+</html>

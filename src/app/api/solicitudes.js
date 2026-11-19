@@ -16,6 +16,20 @@ export class SolicitudesApi {
     return resultado.solicitudes;
   }
 
+  async obtenerDetallePendiente(id) {
+    const respuesta = await this.solicitar(
+      `/api/admin/solicitudes-recuperacion/${encodeURIComponent(id)}`,
+      { credentials: 'same-origin' }
+    );
+    const resultado = await respuesta.json();
+
+    if (!respuesta.ok) {
+      throw new Error(resultado.mensaje || 'No se pudo cargar el detalle de la solicitud.');
+    }
+
+    return resultado.solicitud;
+  }
+
   async crear(datos) {
     try {
       const respuesta = await this.solicitar('/api/solicitudes-recuperacion', {

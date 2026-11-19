@@ -1,0 +1,233 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background: #f1f4f8;
+  color: #17263e;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+.solicitud-detalle {
+  width: min(100% - 48px, 1440px);
+  margin: 0 auto;
+  padding: 22px 0 48px;
+}
+
+.solicitud-detalle__volver {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  color: #758197;
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.solicitud-detalle__volver:hover {
+  color: #0b3979;
+}
+
+.solicitud-detalle__volver svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.solicitud-detalle__titulo {
+  margin: 0 0 26px;
+  color: #111d34;
+  font-size: clamp(30px, 4vw, 42px);
+  letter-spacing: -1.2px;
+  line-height: 1.15;
+}
+
+.solicitud-detalle__contenido {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.8fr) minmax(0, 1.7fr);
+  align-items: stretch;
+  gap: 20px;
+}
+
+.solicitud-detalle__cuenta,
+.solicitud-detalle__comparacion {
+  border: 1px solid #e8edf3;
+  border-radius: 30px;
+  background: #fff;
+  box-shadow: 0 7px 22px rgba(23, 38, 62, 0.055);
+}
+
+.solicitud-detalle__cuenta {
+  padding: 26px 24px;
+}
+
+.solicitud-detalle__etiqueta,
+.solicitud-detalle__columna h2 {
+  margin: 0 0 14px;
+  color: #68758a;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.solicitud-detalle__cuenta h2 {
+  margin: 0;
+  color: #17263e;
+  font-size: 23px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.solicitud-detalle__correo {
+  margin: 6px 0 22px;
+  color: #68758a;
+  font-size: 16px;
+  overflow-wrap: anywhere;
+}
+
+.solicitud-detalle__objeto {
+  display: flex;
+  min-height: 80px;
+  align-items: center;
+  gap: 14px;
+  padding: 10px;
+  border-radius: 24px;
+  background: #eef2f6;
+}
+
+.solicitud-detalle__objeto > img,
+.solicitud-detalle__imagen-vacia {
+  width: 60px;
+  height: 60px;
+  flex: 0 0 60px;
+  border-radius: 18px;
+  object-fit: cover;
+}
+
+.solicitud-detalle__imagen-vacia {
+  display: grid;
+  place-items: center;
+  background: #e2e8f0;
+  color: #758197;
+}
+
+.solicitud-detalle__imagen-vacia svg {
+  width: 30px;
+  height: 30px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.solicitud-detalle__objeto-texto {
+  min-width: 0;
+}
+
+.solicitud-detalle__objeto-texto h3 {
+  margin: 0;
+  color: #17263e;
+  font-size: 16px;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.solicitud-detalle__objeto-texto p {
+  margin: 4px 0 0;
+  color: #68758a;
+  font-size: 14px;
+}
+
+.solicitud-detalle__comparacion {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  padding: 26px 24px;
+}
+
+.solicitud-detalle__columna {
+  min-width: 0;
+}
+
+.solicitud-detalle__columna dl {
+  display: grid;
+  gap: 18px;
+  margin: 0;
+}
+
+.solicitud-detalle__columna dl > div {
+  display: grid;
+  grid-template-columns: minmax(90px, 0.42fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 12px;
+}
+
+.solicitud-detalle__columna dt {
+  color: #17263e;
+  font-size: 15px;
+}
+
+.solicitud-detalle__columna dd {
+  margin: 0;
+  color: #68758a;
+  font-size: 15px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.solicitud-detalle__error {
+  max-width: 720px;
+  margin: 40px auto;
+  padding: 22px;
+  border-radius: 20px;
+  background: #fff;
+  color: #9c2525;
+  line-height: 1.5;
+  box-shadow: 0 5px 22px rgba(23, 38, 62, 0.07);
+}
+
+.solicitud-detalle__contenido[hidden],
+.solicitud-detalle__error[hidden],
+.solicitud-detalle__objeto > img[hidden],
+.solicitud-detalle__imagen-vacia[hidden] {
+  display: none;
+}
+
+.solicitud-detalle__volver:focus-visible {
+  outline: 3px solid rgba(11, 57, 121, 0.35);
+  outline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  .solicitud-detalle {
+    width: min(100% - 32px, 720px);
+  }
+
+  .solicitud-detalle__contenido {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .solicitud-detalle__comparacion {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 22px 18px;
+  }
+
+  .solicitud-detalle__cuenta {
+    padding: 22px 18px;
+  }
+
+  .solicitud-detalle__columna dl > div {
+    grid-template-columns: minmax(100px, 0.45fr) minmax(0, 1fr);
+  }
+}

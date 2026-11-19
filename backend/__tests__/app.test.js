@@ -173,7 +173,11 @@ describe('API de autenticación', () => {
 describe('API de solicitudes de recuperación', () => {
   it('asocia al usuario autenticado y devuelve la solicitud creada', async () => {
     const servicioSolicitudes = {
-      crear: jest.fn(async () => ({ id: 12 }))
+      crear: jest.fn(async () => ({ id: 12 })),
+      obtenerDetallePendiente: jest.fn(async ({ id }) => ({
+        id: Number(id),
+        titulo: 'Audífonos blancos'
+      }))
     };
     const app = crearApp(
       { listarPublicados: async () => [] },
@@ -202,6 +206,19 @@ describe('API de solicitudes de recuperación', () => {
         reporteId: '14', lugarEstimado: 'biblioteca',
         fechaEstimada: '2026-10-20', caracteristicaPrivada: 'Costura en la manga',
         token: 'token-estudiante'
+      });
+
+      const detalle = await fetch(
+        `http://127.0.0.1:${servidor.address().port}/api/admin/solicitudes-recuperacion/12`,
+        { headers: { Cookie: 'catofind_sesion=token-admin' } }
+      );
+      expect(detalle.status).toBe(200);
+      expect(await detalle.json()).toEqual({
+        solicitud: { id: 12, titulo: 'Audífonos blancos' }
+      });
+      expect(servicioSolicitudes.obtenerDetallePendiente).toHaveBeenCalledWith({
+        id: '12',
+        token: 'token-admin'
       });
     } finally {
       await new Promise(resolve => servidor.close(resolve));

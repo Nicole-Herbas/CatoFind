@@ -28,4 +28,18 @@ describe('API de solicitudes de recuperación', () => {
       ok: false, mensaje: 'Inicia sesión para enviar una solicitud.'
     });
   });
+
+  it('obtiene el detalle de solicitud con las credenciales de administrador', async () => {
+    const solicitud = { id: 12, titulo: 'Audífonos blancos' };
+    const solicitar = jest.fn(async () => ({
+      ok: true,
+      json: async () => ({ solicitud })
+    }));
+    const api = new SolicitudesApi(solicitar);
+
+    await expect(api.obtenerDetallePendiente('12')).resolves.toEqual(solicitud);
+    expect(solicitar).toHaveBeenCalledWith('/api/admin/solicitudes-recuperacion/12', {
+      credentials: 'same-origin'
+    });
+  });
 });

@@ -282,9 +282,15 @@
     "testId": 18
   },
   {
-    "commitId": "HEAD",
+    "commitId": "73214836907cc22f6dde4996170ea4dbf95374ed",
     "commitName": "feat: visualizar solicitudes de recuperacion en el panel administrativo",
     "commitTimestamp": 1794966873270,
     "testId": 19
+  },
+  {
+    "commitId": "HEAD",
+    "commitName": "feat: Visualizar el detalle del reporte al seleccionar el objeto",
+    "commitTimestamp": 1795028818744,
+    "testId": 20
   }
 ]

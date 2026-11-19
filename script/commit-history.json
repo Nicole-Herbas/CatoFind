@@ -342,17 +342,36 @@
     "conclusion": "neutral"
   },
   {
-    "sha": "HEAD",
+    "sha": "73214836907cc22f6dde4996170ea4dbf95374ed",
     "author": "Chris",
     "commit": {
       "date": "2026-11-18T01:54:31.000Z",
       "message": "feat: visualizar solicitudes de recuperacion en el panel administrativo",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/73214836907cc22f6dde4996170ea4dbf95374ed"
     },
     "stats": {
       "total": 463,
       "additions": 383,
       "deletions": 80,
+      "date": "2026-11-18"
+    },
+    "coverage": 0,
+    "test_count": 0,
+    "failed_tests": 0,
+    "conclusion": "neutral"
+  },
+  {
+    "sha": "HEAD",
+    "author": "Chris",
+    "commit": {
+      "date": "2026-11-18T19:06:57.000Z",
+      "message": "feat: Visualizar el detalle del reporte al seleccionar el objeto",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 1210,
+      "additions": 1041,
+      "deletions": 169,
       "date": "2026-11-18"
     },
     "coverage": 0,

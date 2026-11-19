@@ -1,6 +1,55 @@
 import { crearSolicitudesRecuperacion } from '../solicitudesRecuperacion.js';
 
 describe('solicitudes de recuperación', () => {
+  it('permite a un administrador obtener el detalle pendiente y firma la foto', async () => {
+    const detalle = {
+      id: 12,
+      titulo: 'Audífonos blancos',
+      imagen: 'audifonos.jpg',
+      detallePrivadoReporte: 'Marca en el estuche'
+    };
+    const supabase = {
+      storage: {
+        from: jest.fn(() => ({
+          createSignedUrl: jest.fn(async () => ({
+            data: { signedUrl: 'https://storage.test/audifonos?token=firmado' },
+            error: null
+          }))
+        }))
+      }
+    };
+    const repositorio = {
+      obtenerDetallePendiente: jest.fn(async () => detalle)
+    };
+    const autenticacion = {
+      obtenerSesionAdministrador: jest.fn(async token => {
+        expect(token).toBe('token-admin');
+      })
+    };
+    const servicio = crearSolicitudesRecuperacion(supabase, repositorio, autenticacion);
+
+    await expect(servicio.obtenerDetallePendiente({ id: '12', token: 'token-admin' }))
+      .resolves.toEqual({
+        ...detalle,
+        imagen: 'https://storage.test/audifonos?token=firmado'
+      });
+    expect(repositorio.obtenerDetallePendiente).toHaveBeenCalledWith(12);
+  });
+
+  it('no consulta el detalle si la sesión no es administrativa', async () => {
+    const repositorio = { obtenerDetallePendiente: jest.fn() };
+    const autenticacion = {
+      obtenerSesionAdministrador: jest.fn(async () => {
+        throw Object.assign(new Error('No tienes permisos.'), { codigo: 'SIN_PERMISOS' });
+      })
+    };
+    const servicio = crearSolicitudesRecuperacion({}, repositorio, autenticacion);
+
+    await expect(servicio.obtenerDetallePendiente({ id: '12', token: 'token-estudiante' }))
+      .rejects.toMatchObject({ codigo: 'SIN_PERMISOS' });
+    expect(repositorio.obtenerDetallePendiente).not.toHaveBeenCalled();
+  });
+
   it('guarda los datos con el estudiante autenticado y el reporte encontrado', async () => {
     const supabase = {
       auth: { getUser: jest.fn(async () => ({

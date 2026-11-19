@@ -29,6 +29,48 @@ export function crearSolicitudesRecuperacion(supabase) {
       }));
     },
 
+    async obtenerDetallePendiente(id) {
+      const { data, error } = await supabase
+        .from('solicitud_recuperacion')
+        .select([
+          'id,reporte_id,lugar_estimado,fecha_estimada,caracteristica_privada,estado,',
+          'solicitante:usuario!solicitud_recuperacion_solicitante_id_fkey(nombre,correo_institucional),',
+          'reporte:reporte!solicitud_recuperacion_reporte_id_fkey(',
+          'fecha,hora,lugar,detalle_privado,estado,',
+          'objeto:objeto!reporte_objeto_id_fkey(nombre,categoria,descripcion,foto)',
+          ')'
+        ].join(''))
+        .eq('id', id)
+        .eq('estado', 'PENDIENTE')
+        .maybeSingle();
+
+      if (error) {
+        throw error;
+      }
+      if (!data) {
+        return null;
+      }
+
+      return {
+        id: data.id,
+        reporteId: data.reporte_id,
+        estado: data.estado,
+        solicitante: data.solicitante?.nombre || '',
+        correoSolicitante: data.solicitante?.correo_institucional || '',
+        lugarEstimado: data.lugar_estimado,
+        fechaEstimada: data.fecha_estimada,
+        caracteristicaPrivada: data.caracteristica_privada,
+        titulo: data.reporte?.objeto?.nombre || '',
+        categoria: data.reporte?.objeto?.categoria || '',
+        descripcion: data.reporte?.objeto?.descripcion || '',
+        imagen: data.reporte?.objeto?.foto || '',
+        lugarReporte: data.reporte?.lugar || '',
+        fechaReporte: data.reporte?.fecha || '',
+        horaReporte: String(data.reporte?.hora ?? '').slice(0, 5),
+        detallePrivadoReporte: data.reporte?.detalle_privado || ''
+      };
+    },
+
     async obtenerEstudiante(authUid) {
       const { data, error } = await supabase
         .from('usuario')

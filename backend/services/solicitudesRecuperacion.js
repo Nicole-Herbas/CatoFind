@@ -11,6 +11,32 @@ export function crearSolicitudesRecuperacion(supabase, repositorio, autenticacio
       return repositorio.listarPendientes();
     },
 
+    async obtenerDetallePendiente({ id, token }) {
+      await autenticacion.obtenerSesionAdministrador(token);
+      const idNumerico = Number(id);
+      if (!Number.isInteger(idNumerico) || idNumerico < 1) {
+        throw crearError('La solicitud pendiente no existe.', 'SOLICITUD_NO_ENCONTRADA');
+      }
+
+      const solicitud = await repositorio.obtenerDetallePendiente(idNumerico);
+      if (!solicitud) {
+        throw crearError('La solicitud pendiente no existe.', 'SOLICITUD_NO_ENCONTRADA');
+      }
+
+      let imagen = solicitud.imagen;
+      if (imagen && !/^https?:\/\//i.test(imagen)) {
+        const { data, error } = await supabase.storage
+          .from('reportes')
+          .createSignedUrl(imagen, 60 * 60);
+        if (error || !data?.signedUrl) {
+          throw crearError('No se pudo cargar la fotografía del objeto.', 'PERSISTENCIA');
+        }
+        imagen = data.signedUrl;
+      }
+
+      return { ...solicitud, imagen };
+    },
+
     async crear({ token, reporteId, lugarEstimado, fechaEstimada, caracteristicaPrivada }) {
       const id = Number(reporteId);
       const lugar = String(lugarEstimado ?? '').trim();

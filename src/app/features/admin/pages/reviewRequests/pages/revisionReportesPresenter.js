@@ -117,8 +117,18 @@ export async function iniciarRevisionReportes(documento, apiReportes, apiSolicit
             'p',
             `Lugar estimado: ${solicitud.lugarEstimado} · Fecha estimada: ${solicitud.fechaEstimada}`
           );
-        }
+        },
+        `../../viewRequestDetails/pages/viewRequestDetails.html?id=${encodeURIComponent(solicitud.id)}`
       );
+
+      if (solicitud.imagen) {
+        const foto = documento.createElement('img');
+        foto.className = 'administracion__imagen';
+        foto.src = solicitud.imagen;
+        foto.alt = `Fotografía de ${solicitud.titulo || 'objeto'}`;
+        tarjeta.replaceChild(foto, tarjeta.firstChild);
+      }
+
       lista.appendChild(tarjeta);
     });
   }
