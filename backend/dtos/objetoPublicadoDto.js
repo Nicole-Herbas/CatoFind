@@ -3,6 +3,7 @@ export class ObjetoPublicadoDto {
     this.id = reporte.objeto.id;
     this.reporteId = reporte.id;
     this.titulo = reporte.objeto.nombre;
+    this.descripcion = reporte.objeto.descripcion;
     this.categoria = reporte.objeto.categoria;
     this.lugar = reporte.lugar;
     this.fecha = reporte.fecha;

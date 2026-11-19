@@ -6,6 +6,7 @@ import {
   RUTA_SOLICITUD,
   obtenerBusquedaInicial,
   datosTarjeta,
+  datosDetalle,
 } from './buscar.js';
 
 const html = readFileSync('src/app/features/buscar/pages/buscar/buscar.html', 'utf8');
@@ -54,6 +55,31 @@ describe('Página Buscar - estructura', () => {
     });
     expect(pagina.querySelector('script[src="../../../../shared/components/navbar/navbar.js"]'))
       .not.toBeNull();
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Lógica: datos del detalle (HU-15)
+// ---------------------------------------------------------------------------
+describe('datosDetalle (HU-15)', () => {
+  it('incluye la descripción y la foto del objeto', () => {
+    const datos = datosDetalle({
+      titulo: 'Mochila negra',
+      descripcion: 'Costura roja',
+      imagen: 'mochila.jpg',
+      categoria: 'Accesorios',
+      lugar: 'Biblioteca',
+      fecha: '2026-10-08'
+    });
+
+    expect(datos.descripcion).toBe('Costura roja');
+    expect(datos.imagen).toBe('mochila.jpg');
+  });
+
+  it('muestra "Sin descripción" si el objeto no tiene descripción', () => {
+    expect(datosDetalle({ titulo: 'Chompa azul', descripcion: '   ' }).descripcion)
+      .toBe('Sin descripción');
+    expect(datosDetalle({ titulo: 'Chompa azul' }).descripcion).toBe('Sin descripción');
   });
 });
 

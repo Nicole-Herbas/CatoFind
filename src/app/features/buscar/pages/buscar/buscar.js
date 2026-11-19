@@ -14,3 +14,12 @@ export function datosTarjeta(objeto) {
     datos: [objeto.categoria, objeto.lugar, objeto.fecha],
   };
 }
+
+export function datosDetalle(objeto) {
+  return {
+    titulo: objeto.titulo,
+    imagen: objeto.imagen || '',
+    descripcion: objeto.descripcion?.trim() || 'Sin descripción',
+    lineas: [`Categoría: ${objeto.categoria}`, `Lugar: ${objeto.lugar}`, `Fecha: ${objeto.fecha}`],
+  };
+}

@@ -285,12 +285,12 @@
     "conclusion": "success"
   },
   {
-    "sha": "HEAD",
+    "sha": "711de71410d7b61839bc3e9c7285a47babf3e7e8",
     "author": "Nicole",
     "commit": {
       "date": "2026-11-15T19:34:23.000Z",
       "message": "test(inicio): qualify browser parser global",
-      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/711de71410d7b61839bc3e9c7285a47babf3e7e8"
     },
     "stats": {
       "total": 2,
@@ -300,6 +300,44 @@
     },
     "coverage": 76.99,
     "test_count": 137,
+    "failed_tests": 0,
+    "conclusion": "success"
+  },
+  {
+    "sha": "82d1195dee4412430d924fd3904cdbaba0177321",
+    "author": "Nico Meneses",
+    "commit": {
+      "date": "2026-11-19T02:30:01.000Z",
+      "message": "test: esperar descripcion en el objeto publicado (HU-15)",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/82d1195dee4412430d924fd3904cdbaba0177321"
+    },
+    "stats": {
+      "total": 1,
+      "additions": 1,
+      "deletions": 0,
+      "date": "2026-11-19"
+    },
+    "coverage": 79.56,
+    "test_count": 183,
+    "failed_tests": 1,
+    "conclusion": "failure"
+  },
+  {
+    "sha": "HEAD",
+    "author": "Nico Meneses",
+    "commit": {
+      "date": "2026-11-19T02:31:27.000Z",
+      "message": "feat: incluir descripcion en el objeto publicado (HU-15)",
+      "url": "https://github.com/Nicole-Herbas/CatoFind/commit/HEAD"
+    },
+    "stats": {
+      "total": 1,
+      "additions": 1,
+      "deletions": 0,
+      "date": "2026-11-19"
+    },
+    "coverage": 79.57,
+    "test_count": 183,
     "failed_tests": 0,
     "conclusion": "success"
   }
