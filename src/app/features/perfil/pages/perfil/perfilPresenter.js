@@ -1,4 +1,4 @@
-import { AutenticacionApi } from '../../../../api/autenticacion.js';
+import { crearRepositorioUsuarios } from '../../../../api/repositorios/usuarios.js';
 
 const RUTA_LOGIN = '/src/app/features/auth/pages/login/login.html';
 
@@ -30,7 +30,7 @@ function mostrarPerfil(documento, perfil) {
 
 export async function iniciarPerfil(
   documento = globalThis.document,
-  autenticacion = new AutenticacionApi(),
+  autenticacion = crearRepositorioUsuarios(),
   navegar = ruta => globalThis.location.assign(ruta)
 ) {
   const mensaje = documento.getElementById('mensaje-perfil');

@@ -1,4 +1,4 @@
-import { crearApiReportes } from '../../../../api/reportes.js';
+import { crearRepositorioReportes } from '../../../../api/repositorios/reportes.js';
 import { validarInformacion } from './reportar.js';
 import { validarArchivoImagen, convertirImagen } from './imagen.js';
 const CAMPOS = [
@@ -19,7 +19,7 @@ const PASOS = [
 
 export async function iniciarFormularioReporte(
   documento,
-  apiReportes = crearApiReportes(),
+  apiReportes = crearRepositorioReportes(),
   opciones = {}
 ) {
 

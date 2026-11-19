@@ -1,9 +1,9 @@
 
-import { AutenticacionApi } from '../../../../api/autenticacion.js';
+import { crearRepositorioUsuarios } from '../../../../api/repositorios/usuarios.js';
 
 const formulario = document.getElementById('registro-form');
 const mensaje = document.getElementById('registro-mensaje');
-const autenticacion = new AutenticacionApi();
+const autenticacion = crearRepositorioUsuarios();
 
 formulario.addEventListener('submit', async (evento) => {
   evento.preventDefault();

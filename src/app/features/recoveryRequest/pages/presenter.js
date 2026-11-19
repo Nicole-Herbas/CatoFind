@@ -1,10 +1,10 @@
 import Validador from './recoveryRequest.js';
-import { SolicitudesApi } from '../../../api/solicitudes.js';
+import { crearRepositorioSolicitudes } from '../../../api/repositorios/solicitudes.js';
 
 const formulario = document.querySelector('.recoveryForm');
 const campoDescripcion = document.getElementById('extraDescriptionObject');
 const mensajeError = document.getElementById('extraDescriptionError');
-const solicitudes = new SolicitudesApi();
+const solicitudes = crearRepositorioSolicitudes();
 const reporteId = new URLSearchParams(window.location.search).get('reporteId');
 const avisoElegirObjeto = document.getElementById('elegir-objeto');
 const botonEnviar = document.getElementById('sendRequest');

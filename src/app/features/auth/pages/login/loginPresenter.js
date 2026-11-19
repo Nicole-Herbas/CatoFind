@@ -1,9 +1,9 @@
 
 import { mensajeRecuperacion, obtenerRutaPostLogin } from './login.js';
-import { AutenticacionApi } from '../../../../api/autenticacion.js';
+import { crearRepositorioUsuarios } from '../../../../api/repositorios/usuarios.js';
 
 
-const autenticacion = new AutenticacionApi();
+const autenticacion = crearRepositorioUsuarios();
 const formulario = document.getElementById('login-form');
 const correo = document.getElementById('correo');
 const contrasena = document.getElementById('contrasena');

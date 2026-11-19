@@ -1,4 +1,4 @@
-import { AutenticacionApi } from '../../../api/autenticacion.js';
+import { crearRepositorioUsuarios } from '../../../api/repositorios/usuarios.js';
 
 const RUTAS = {
   inicio: '/src/app/features/inicio/pages/inicio/inicio.html',
@@ -151,7 +151,7 @@ function crearNavbar(documento, mount, usuario, paginaActual, autenticacion, nav
 
 export async function iniciarNavbar(
   documento = globalThis.document,
-  autenticacion = new AutenticacionApi(),
+  autenticacion = crearRepositorioUsuarios(),
   navegar = ruta => globalThis.location.assign(ruta)
 ) {
   const mount = documento.getElementById('shared-navbar');

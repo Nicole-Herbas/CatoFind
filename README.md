@@ -58,6 +58,50 @@ npm test
 - Las solicitudes de recuperación requieren una sesión y se asocian al reporte encontrado y al estudiante autenticado.
 - Inicio y búsqueda muestran objetos de `GET /api/objetos`; si la API falla, muestran un error en vez de datos locales.
 
+## Cliente API del frontend
+
+Las pantallas deben consumir datos mediante los repositorios de `src/app/api/repositorios/`, no llamar `fetch` directamente. Los repositorios usan el cliente común, que envía las peticiones a `/api`, incluye las credenciales de la sesión y convierte errores HTTP o de conexión en `ApiError`.
+
+Ejemplo desde `src/app/features/buscar/pages/buscar/buscarPresenter.js`:
+
+```js
+import { crearRepositorioObjetos } from '../../../../api/repositorios/objetos.js';
+
+const objetos = crearRepositorioObjetos();
+const publicados = await objetos.listar({ categoria: 'Accesorios' });
+```
+
+Repositorios disponibles:
+
+- `crearRepositorioObjetos()`: `listar(filtros)`.
+- `crearRepositorioUsuarios()`: sesión, autenticación, registro y perfil.
+- `crearRepositorioReportes()`: opciones, creación y revisión de reportes.
+- `crearRepositorioSolicitudes()`: creación de solicitudes de recuperación.
+
+Los errores de las operaciones que no los convierten en resultados `{ ok, mensaje }` se pueden manejar capturando `ApiError`:
+
+```js
+try {
+  const perfil = await usuarios.obtenerPerfil();
+} catch (error) {
+  if (error.status === 401) {
+    // La sesión expiró o no está iniciada.
+  }
+  mostrarError(error.message);
+}
+```
+
+Las pruebas pueden usar un `fetch` falso creando un cliente y pasándolo al repositorio, sin iniciar el servidor:
+
+```js
+const fetchFalso = jest.fn().mockResolvedValue({
+  ok: true,
+  json: async () => [{ id: 1, titulo: 'Mochila' }]
+});
+const cliente = crearClienteApi({ solicitar: fetchFalso });
+const objetos = crearRepositorioObjetos(cliente);
+```
+
 ## Estado de la conexión local
 
 El backend requiere `.env` para conectarse. Si `npm run start:backend` indica que falta `SUPABASE_URL` o `SUPABASE_SECRET_KEY`, configura esas variables localmente. No guardes la clave secreta en el repositorio.
